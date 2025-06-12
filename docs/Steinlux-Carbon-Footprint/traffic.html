@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>日常通勤 - 控制顯示模板</title>
+  <style>
+    /* ---------------------------------------
+       1. 定義可調整的 CSS 變數
+    --------------------------------------- */
+    :root {
+      /* 控制三欄 Grid 中各欄距離容器左側的間距 */
+      --inner-gap: 80px;
+    }
+
+    /* ---------------------------------------
+       2. 全螢幕置中、背景
+    --------------------------------------- */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: url('images/圖片 1.png') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'SweiXDPearlCJKtc-DemiLight', sans-serif;
+      overflow: hidden;
+    }
+
+    /* ---------------------------------------
+       3. 場景容器：隱藏/顯示 + 毛玻璃效果
+    --------------------------------------- */
+    .scene {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+
+      width: 900px;
+      max-width: 70%;
+      padding: 20px;
+      height: 500px;
+      max-height: 80%;
+
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 24px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+
+      position: relative;
+      text-align: center;
+    }
+    .scene.active {
+      display: flex;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 14px;
+      color: #5a5a5a;
+    }
+
+    /* ---------------------------------------
+       4. 交通工具選單
+    --------------------------------------- */
+    .transport-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(120px, 1fr));
+      grid-template-rows: repeat(2, auto);
+      gap: 20px;
+      width: 90%;
+      max-width: 700px;
+      margin: 0 auto 0;
+    }
+    
+    .transport-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(255, 255, 255, 0);
+      border-radius: 16px;
+      padding: 16px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .transport-card img {
+      width: 130px;
+      height: 130px;
+      object-fit: contain;
+      margin-bottom: -10px;
+    }
+    .transport-card .label {
+      font-size: 24px;
+      color: #333;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .transport-card:hover {
+      transform: translateY(-2px);
+    }
+    .transport-card.selected {
+      background:  rgba(255, 255, 255, 0.4);
+      color:  rgba(255, 255, 255,)
+    }
+    .food-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(120px, 1fr));
+      grid-template-rows: repeat(2, auto);
+      gap: 10px 40px;   /*上下，左右*/
+      width: 90%;
+      max-width: 900px;
+      margin: 0 auto 0;
+    }
+    .food-grid .transport-card img {
+      margin-bottom: 0px;
+    }
+
+    /* ---------------------------------------
+       5. 切換開關區塊（Scene 2）
+    --------------------------------------- */
+    .toggle-row {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin:30px auto 30px;
+    }
+    .toggle-card {
+      flex:1;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 12px;
+      padding: 13px 16px;
+      display: flex;
+      align-items: center;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+    .toggle-card span.label {
+      font-size: 18px;
+      color: #8a8a8a;
+      white-space: nowrap;
+      margin-right: 30px;
+    }
+    .toggle-switch {
+      position: relative;
+      width: 40px;
+      height: 20px;
+      margin: 2px;
+    }
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .toggle-switch .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #d0d2d6;
+      border-radius: 10px;
+      transition: 0.75s;
+    }
+    .toggle-switch .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px; width: 16px;
+      left: 2px; bottom: 2px;
+      background: #fff;
+      border-radius: 50%;
+      transition: 0.3s;
+    }
+    .toggle-switch input:checked + .slider {
+      background: #4a90e2;
+    }
+    .toggle-switch input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+    .nowrap-text {
+      white-space: nowrap;
+      margin: 0 8px;
+    }
+
+    /* ---------------------------------------
+       6. 動態模板區域（Scene 2）
+    --------------------------------------- */
+    .template-wrapper {
+      height: 200px;
+      width: 540px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .template {
+      display: none;
+    }
+    .template.active {
+      display: block;
+    }
+    .template .input-group {
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+    }
+    .template .input-group label {
+      margin: 5px 20px;
+      font-size: 15px;
+      color: #5a5a5a;
+    }
+    .template .input-group input,
+    .template .input-group select {
+      width: 100px;
+      padding: 8px 12px;
+      border: 1px solid rgba(208,210,214,0.6);
+      border-radius: 6px;
+      background: #fff;
+      font-size: 14px;
+      color: #4a4a4a;
+    }
+    .special-label {
+      font-size: 16px;
+      width: 120px;
+      text-align: left;
+    }
+
+    /* 四欄 Grid */
+    #template-oil-volume .merged-container,
+    #template-oil-distance .merged-container {
+      display: inline-grid;
+      grid-template-columns: auto auto auto auto;
+      align-items: center;
+      gap: 8px;
+    }
+    #template-oil-volume .grid-col-1,
+    #template-oil-distance .grid-col-1 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-right: var(--inner-gap);
+    }
+    #template-oil-volume .grid-col-1 label,
+    #template-oil-distance .grid-col-1 label {
+      font-size: 18px; line-height: 1.2;
+      color: #5a5a5a; text-align: center;
+    }
+    #template-oil-volume .grid-col-1 select,
+    #template-oil-distance .grid-col-1 select {
+      width: 100px; 
+      padding: 8px 12px;
+      border: 1px solid rgba(208,210,214,0.6);
+      border-radius: 6px; 
+      background: #fff;
+    }
+    #template-oil-volume .grid-col-2,
+    #template-oil-distance .grid-col-2 {
+      font-size: 18px; 
+      color: #5a5a5a;
+      white-space: nowrap; 
+      text-align: center;
+    }
+    #template-oil-volume .grid-col-3,
+    #template-oil-distance .grid-col-3 {
+      display: flex; 
+      flex-direction: column; 
+      gap: 12px;
+    }
+    #template-oil-volume .grid-col-3 input,
+    #template-oil-distance .grid-col-3 input {
+      width: 100px; 
+      padding: 8px 0;
+      border: 1px solid rgba(208,210,214,0.6);
+      border-radius: 6px; 
+      background: #fff;
+      font-size: 14px; 
+      color: #4a4a4a; 
+      text-align: left;
+    }
+    #template-oil-volume .grid-col-4,
+    #template-oil-distance .grid-col-4 {
+      display: flex; 
+      flex-direction: column; 
+      font-size: 18px; 
+      color: #5a5a5a; 
+      white-space: nowrap;
+      gap: 25px;
+    }
+  /*7. 導覽按鈕*/
+    .nav-btn {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      /* 固定寬高，確保圓形 */
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      color: white;
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid white;
+      border-radius: 50%;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      transition: 0.3s;
+      z-index: 1000;
+      text-decoration: none;
+    }
+    .nav-btn:hover {
+      background: white;
+      color: black;
+    }
+    .prev-btn {
+      left: -100px;
+    }
+    .next-btn {
+      right: -100px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Scene 1: 選車種 -->
+  <section id="scene1" class="scene active">
+    <h1>日常通勤使用的交通工具</h1>
+    <div class="transport-grid">
+      <div class="transport-card" onclick="toggleSelection(this,'汽車')">
+      <img src="images/汽車.png" alt="汽車">
+      <span class="label">汽車</span>
+    </div>
+    <div class="transport-card" onclick="toggleSelection(this,'機車')">
+      <img src="images/機車.png" alt="機車">
+      <span class="label">機車</span>
+    </div>
+    <div class="transport-card" onclick="toggleSelection(this,'公車')">
+      <img src="images/公車.png" alt="公車">
+      <span class="label">公車</span>
+    </div>
+    <div class="transport-card" onclick="toggleSelection(this,'捷運')">
+      <img src="images/捷運.png" alt="捷運">
+      <span class="label">捷運</span>
+    </div>
+    <div class="transport-card" onclick="toggleSelection(this,'火車')">
+      <img src="images/火車.png" alt="火車">
+      <span class="label">火車</span>
+    </div>
+    <div class="transport-card" onclick="toggleSelection(this,'高鐵')">
+      <img src="images/高鐵.png" alt="高鐵">
+      <span class="label">高鐵</span>
+    </div>
+    </div>
+    <button class="nav-btn prev-btn" onclick="prevTransportScene()">‹</button>
+    <button class="nav-btn next-btn" onclick="goToScene(2)">›</button>  
+  </section>
+  
+
+  <!-- Scene 2: 燃料 & 計算方法 -->
+  <section id="scene2" class="scene">
+    <h1>日常通勤中會使用哪些交通工具？</h1>
+    <div class="toggle-row">
+      <div class="toggle-card">
+        <span class="label">選擇<br>車種燃料</span>
+        <span class="nowrap-text">油車</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="fuelToggle" />
+          <span class="slider"></span>
+        </label>
+        <span class="nowrap-text">電車</span>
+      </div>
+      <div class="toggle-card">
+        <span class="label">選擇<br>計算方法</span>
+        <span class="nowrap-text">距離</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="methodToggle" />
+          <span class="slider"></span>
+        </label>
+        <span class="nowrap-text">油量</span>
+      </div>
+    </div>
+    <div class="template-wrapper">
+      <div id="templateContainer">
+        <!-- 油里程 -->
+        <div class="template" id="template-oil-distance">
+          <div class="merged-container">
+            <div class="grid-col-1">
+              <label>選擇<br>汽車類型</label>
+              <select>
+                <option>小型房車</option>
+                <option>中型房車</option>
+                <option>大型房車</option>
+                <option>小型休旅車</option>
+                <option>中型休旅車</option>
+                <option>大型休旅車</option>
+              </select>
+            </div>
+            <div class="grid-col-2">每週行駛</div>
+            <div class="grid-col-3">
+              <input type="number" />
+            </div>
+            <div class="grid-col-4"><label>公里(km)</label></div>
+          </div>
+        </div>
+        <!-- 油量 -->
+        <div class="template" id="template-oil-volume">
+          <div class="merged-container">
+            <div class="grid-col-1">
+              <label>選擇<br>汽油類型</label>
+              <select>
+                <option>92 無鉛</option>
+                <option>95 無鉛</option>
+                <option>98 無鉛</option>
+                <option>柴油</option>
+              </select>
+            </div>
+            <div class="grid-col-2">每週加油</div>
+            <div class="grid-col-3">
+              <input type="number" />
+              <input type="number" />
+            </div>
+            <div class="grid-col-4">
+              <label>公里(km)/週</label>
+              <label>元/週</label>
+            </div>
+          </div>
+        </div>
+        <!-- 電里程 -->
+        <div class="template" id="template-electric-distance">
+          <div class="input-group">
+            <label>外出充電</label>
+            <input type="number" />
+            <label class="special-label">kWh / 週</label>
+          </div>
+        </div>
+        <!-- 電量 -->
+        <div class="template" id="template-electric-volume">
+          <div class="input-group">
+            <label>行駛里程</label>
+            <input type="number" />
+            <label class="special-label">公里 (Km) / 周</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="nav-btn prev-btn" onclick="goToScene(1)">‹</button>
+    <button class="nav-btn next-btn" onclick="goToScene(3)">›</button>
+  </section>
+  <!-- Scene 3: 餐點選擇 -->
+  <section id="scene3" class="scene">
+    <h1>請問您日常會選擇吃哪些食物？</h1>
+    <div class="food-grid">
+      <div class="transport-card" onclick="toggleSelection(this,'水餃/鍋貼')">
+        <img src="images/水餃.png" alt="水餃/鍋貼">
+        <span class="label">水餃/鍋貼</span>
+      </div>
+      <div class="transport-card" onclick="toggleSelection(this,'牛肉麵')">
+        <img src="images/牛肉麵.png" alt="牛肉麵">
+        <span class="label">牛肉麵</span>
+      </div>
+      <div class="transport-card" onclick="toggleSelection(this,'排骨便當')">
+        <img src="images/排骨便當.png" alt="排骨便當">
+        <span class="label">排骨便當</span>
+      </div>
+      <div class="transport-card" onclick="toggleSelection(this,'雞腿便當')">
+        <img src="images/雞腿便當.png" alt="雞腿便當">
+        <span class="label">雞腿便當</span>
+      </div>
+      <div class="transport-card" onclick="toggleSelection(this,'牛丼')">
+        <img src="images/牛丼.png" alt="牛丼">
+        <span class="label">牛丼</span>
+      </div>
+      <div class="transport-card" onclick="toggleSelection(this,'咖哩豬排飯')">
+        <img src="images/咖哩豬排飯.png" alt="咖哩豬排飯">
+        <span class="label">咖哩豬排飯</span>
+      </div>
+      <div class="transport-card" onclick="toggleSelection(this,'漢堡')">
+        <img src="images/漢堡.png" alt="漢堡">
+        <span class="label">漢堡</span>
+      </div>
+      <div class="transport-card" onclick="toggleSelection(this,'火鍋')">
+        <img src="images/火鍋.png" alt="火鍋">
+        <span class="label">火鍋</span>
+      </div>
+    </div>
+  <button class="nav-btn prev-btn" onclick="goToScene(2)">‹</button>
+  <button class="nav-btn next-btn" onclick="goToScene(4)">›</button>  
+</section>
+
+  <script>
+    // 記錄交通工具選擇
+    const selectedTransport = [];
+    function toggleSelection(card, type) {
+      card.classList.toggle('selected');
+      if (selectedTransport.includes(type)) {
+        selectedTransport.splice(selectedTransport.indexOf(type), 1);
+      } else {
+        selectedTransport.push(type);
+      }
+      console.log('目前選擇：', selectedTransport);
+    }
+
+    // 場景切換
+    let currentScene = 1;
+    function goToScene(n) {
+      document.getElementById(`scene${currentScene}`).classList.remove('active');
+      document.getElementById(`scene${n}`).classList.add('active');
+      currentScene = n;
+    }
+
+    // 燃料／方法模板邏輯
+    document.addEventListener('DOMContentLoaded', () => {
+      const fuelToggle   = document.getElementById('fuelToggle');
+      const methodToggle = document.getElementById('methodToggle');
+      const templates = {
+        oilDistance:      document.getElementById('template-oil-distance'),
+        oilVolume:        document.getElementById('template-oil-volume'),
+        electricDistance: document.getElementById('template-electric-distance'),
+        electricVolume:   document.getElementById('template-electric-volume'),
+      };
+
+      function updateTemplates() {
+        Object.values(templates).forEach(t => t.classList.remove('active'));
+        const isElec  = fuelToggle.checked;
+        const isVol   = methodToggle.checked;
+        if (!isElec && !isVol)      templates.oilDistance.classList.add('active');
+        else if (!isElec && isVol)  templates.oilVolume.classList.add('active');
+        else if (isElec && !isVol)  templates.electricDistance.classList.add('active');
+        else                         templates.electricVolume.classList.add('active');
+      }
+
+      updateTemplates();
+      fuelToggle.addEventListener('change', updateTemplates);
+      methodToggle.addEventListener('change', updateTemplates);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>日常娛樂</title>
+  <style>
+    :root {
+      --inner-gap: 80px;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: url('images/圖片 1.png') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'SweiXDPearlCJKtc-DemiLight', sans-serif;
+      overflow: hidden;
+    }
+    .scene {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 900px;
+      max-width: 70%;
+      padding: 20px;
+      height: 500px;
+      max-height: 80%;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 24px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      position: relative;
+      text-align: center;
+    }
+
+    .scene.active { 
+      display: flex; 
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 14px;
+      color: #5a5a5a;
+    }
+
+    /* 第一頁 */
+
+    #scene-entertain-1 .entertain-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(120px, 1fr));
+      grid-template-rows: repeat(2, auto);
+      gap: 20px;
+      width: 90%;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    #scene-entertain-1 .entertain-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: rgba(255, 255, 255, 0);
+      border-radius: 16px;
+      padding: 16px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .entertain-card input {
+      padding: 8px 0;
+      border: 1px solid rgba(208,210,214,0.6);
+      border-radius: 6px; 
+      background: #fff;
+      font-size: 14px; 
+      color: #4a4a4a; 
+      text-align: left;
+    }
+
+    .entertain-card img {
+      width: 130px;
+      height: 130px;
+      object-fit: contain;
+      margin-bottom: -10px;
+    }
+    .entertain-card .label {
+      font-size: 20px;
+      color: #333;
+      text-align: center;
+      white-space: nowrap;
+    }
+    #scene-entertain-1 .entertain-card:hover { transform: translateY(-2px); }
+    .entertain-card.selected {
+      background: rgba(255, 255, 255, 0.4);
+      border-color: #4a90e2;
+    }
+
+    /* 切換單位按鈕 */
+
+    .toggle-row {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin:30px auto 30px;
+    }
+    .toggle-card {
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 12px;
+      gap: 8px;
+      margin: 8px 0;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+    .toggle-card span.label {
+      font-size: 18px;
+      color: #8a8a8a;
+      white-space: nowrap;
+      margin-right: 30px;
+    }
+    .toggle-switch {
+      position: relative;
+      width: 40px;
+      height: 20px;
+      margin: 2px;
+    }
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .toggle-switch .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #d0d2d6;
+      border-radius: 10px;
+      transition: 0.75s;
+    }
+    .toggle-switch .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px; width: 16px;
+      left: 2px; bottom: 2px;
+      background: #fff;
+      border-radius: 50%;
+      transition: 0.3s;
+    }
+    .toggle-switch input:checked + .slider {
+      background: #4a90e2;
+    }
+    .toggle-switch input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+/* 換頁按鈕 */
+    .nav-btn {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 64px; height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      color: white;
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid white;
+      border-radius: 50%;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      transition: 0.3s;
+      z-index: 1000;
+      user-select: none;
+    }
+    .nav-btn:hover {
+      background: white;
+      color: black;
+    }
+    .prev-btn { left: -100px; }
+    .next-btn { right: -100px; }
+  </style>
+</head>
+<body>
+  <!-- Scene 1: 選娛樂活動 -->
+  <section id="scene-entertain-1" class="scene active">
+    <h1>日常生活中有哪些娛樂活動？</h1>
+    <div class="entertain-grid">
+      <div class="entertain-card" onclick="toggleActivity(this,'KTV')">
+        <img src="images/KTV.png" alt="KTV"><span class="label">KTV</span>
+      </div>
+      <div class="entertain-card" onclick="toggleActivity(this,'電影')">
+        <img src="images/電影.png" alt="電影"><span class="label">電影</span>
+      </div>
+      <div class="entertain-card" onclick="toggleActivity(this,'健身房')">
+        <img src="images/健身房.png" alt="健身房"><span class="label">健身房</span>
+      </div>
+            <div class="entertain-card" onclick="toggleActivity(this,'KTV')">
+        <img src="images/KTV.png" alt="KTV"><span class="label">KTV</span>
+      </div>
+      <div class="entertain-card" onclick="toggleActivity(this,'電影')">
+        <img src="images/電影.png" alt="電影"><span class="label">電影</span>
+      </div>
+      <div class="entertain-card" onclick="toggleActivity(this,'健身房')">
+        <img src="images/健身房.png" alt="健身房"><span class="label">健身房</span>
+      </div>
+    </div>
+    <button class="nav-btn next-btn" onclick="goToScene('scene-entertain-2')">›</button>
+  </section>
+
+  <section id="scene-entertain-2" class="scene">
+    <h1>日常生活中娛樂活動頻率？</h1>
+    <div class="entertain-grid">
+        <div class="entertain-card" style="flex-direction: column;">
+          <div class="toggle-card">
+            <span class="label">一月/年去幾次KTV？​</span>
+            <input type="number">
+            <span class="nowrap-text">一個月​</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="fuelToggle" />
+              <span class="slider"></span>
+            </label>
+            <span class="nowrap-text">一年​</span>
+          </div>
+          <div class="toggle-card">
+            <span class="label">一月/年去幾次電影院？​</span>
+            <input type="number">
+            <span class="nowrap-text">一個月​</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="fuelToggle" />
+              <span class="slider"></span>
+            </label>
+            <span class="nowrap-text">一年​</span>
+          </div>
+          <div class="toggle-card">
+            <span class="label">一週去幾次健身房？​</span>
+            <span class="nowrap-text">一周去​</span>
+            <input type="number">
+            <span class="nowrap-text">次​</span>
+          </div>
+                    <div class="toggle-card">
+            <span class="label">一年去住幾天飯店？​</span>
+            <span class="nowrap-text">一年去​</span>
+            <input type="number">
+            <span class="nowrap-text">天​</span>
+          </div>
+                    <div class="toggle-card">
+            <span class="label">每周有幾天會看影音平台追劇／電影​</span>
+            <span class="nowrap-text">一周去​</span>
+            <input type="number">
+            <span class="nowrap-text">天​</span>
+          </div>
+                    <div class="toggle-card">
+            <span class="label">每個月使用多少網路流量？​</span>
+            <span class="nowrap-text">一個月​</span>
+            <input type="number">
+            <span class="nowrap-text">GB</span>
+          </div>
+        </div>
+    </div>
+
+    <button class="nav-btn prev-btn" onclick="goToScene('scene-entertain-1')">‹</button>
+    <button class="nav-btn next-btn" onclick="goToScene('scene-entertain-2')">›</button>
+  </section>
+
+  <script>
+      let currentScene = 'scene-entertain-1';
+
+    function goToScene(targetId) {
+      document.getElementById(currentScene).classList.remove('active');
+      document.getElementById(targetId).classList.add('active');
+      currentScene = targetId;
+    }
+
+    function goToCalcScene() {
+      document.getElementById(currentScene).classList.remove('active');
+      document.getElementById('scene-calc').classList.add('active');
+      currentScene = 'scene-calc';
+    }
+
+    function prevScene() {
+      document.getElementById(currentScene).classList.remove('active');
+      document.getElementById('scene-entertain').classList.add('active');
+      currentScene = 'scene-entertain';
+    }
+  </script>
+</body>
+</html>

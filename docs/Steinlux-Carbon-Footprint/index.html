@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>星際碳險</title>
+  <style>
+    /*—— 自訂字體 ——*/
+    @font-face {
+      font-family: 'SweiXDPearlCJKtc-Medium';
+      src: url('font/SweiXDPearlCJKtc-Medium.ttf') format('truetype');
+      font-weight: normal; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'SweiXDPearlCJKtc-DemiLight';
+      src: url('font/SweiXDPearlCJKtc-DemiLight.ttf') format('truetype');
+      font-weight: normal; font-style: normal; font-display: swap;
+    }
+
+    /*—— 全域設定 ——*/
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: url('images/background.png') no-repeat fixed center center;
+      background-size: cover;
+    }
+
+    /*—— 場景容器 ——*/
+    .scene {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    /*—— 星星層 ——*/
+    .scene::before {
+      content: "";
+      position: absolute;
+      top: -100px;
+      left: 0;
+      width: 100%;
+      height:100%;
+      background: url('images/星星.png') no-repeat 0 0;
+      background-size: contain;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /*—— 動畫定義 ——*/
+    @keyframes slideIn {                               /*—— 進場動畫 ——*/
+      from { transform: translate(-100%, 100%); } 
+      to   { transform: translate(0, 0); }
+    }
+	
+    @keyframes float {                                 /*—— 浮動動畫 ——*/
+      0%,100% { bottom: 0; }
+      50%     { bottom: 20px; }
+    }
+	
+    @keyframes growWidth {                             /*—— 文字框展開動畫 ——*/
+      from { height: 0; 
+      opacity: 0;
+      }
+      to   { height: 140px; 
+      opacity: 1;
+      }
+    }
+	
+    @keyframes fadeIn {                                /*—— 淡入動畫 ——*/
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+	
+    @keyframes spin {                                  /*—— 星星旋轉動畫 ——*/
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+	
+    @keyframes twinkle {                               /*—— 星星閃爍動畫 ——*/
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0.6; }
+    }
+	
+	@keyframes floatCloud {                            /*—— 雲朵動畫 ——*/
+      0%, 100% { bottom: 0; }
+      50%      { bottom: 30px; }
+    }
+	
+	@keyframes slideInearth {                         /*—— 地球進場動畫 ——*/
+      from {
+        transform: translate(100%, -100%);
+        opacity: 0;
+      }
+      to {
+        transform: translate(0, 0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes planetSlideIn {                         /*—— 行星動畫 ——*/
+      0% {                                             /* 起點 */
+        left: 80%;                             
+        top: 40%;                              
+        transform: translate(-50%, -50%);              /* 中心點對齊 */
+        opacity: 0.7;
+      }
+      100% {                                           /* 終點 */
+        left: 65%;                              
+        top: calc(100% - 100px);                       /* 終點距底 100px，改用 top */
+        transform: translate(-50%, -50%);              /* 保持置中 */
+        opacity: 0.7;
+      }
+    }
+	
+	/*—— 新增：色塊進場動畫 ——*/
+    @keyframes blockSlideIn {                          /*—— 新增：色塊進場動畫 ——*/
+      /* 起點：在畫面外、完全透明 */
+      0% {                                             /* 起點 */
+        right: -50%;               
+        top: 90%;                   
+        transform: translate(-50%, -50%);  
+        opacity: 1;                        
+      }
+      100% {                                           /* 終點 */
+        right: -45%;                          
+        top: calc(120%);                      
+        transform: translate(-50%, -50%);     
+        opacity: 1;                           
+      }
+    }
+
+	/*—— 太空貓容器 ——*/
+    .cat-container {
+      position: absolute;
+      left: 50px;
+      bottom: 30px;
+      transform: translate(-100%, 100%);
+      z-index: 3;
+      animation:
+       slideIn 1.5s cubic-bezier(0.2, 0.8, 0.7, 1) forwards;
+    }
+    .flying-cat {
+      display: block;
+      width: 26vw;
+      height: auto;
+      position: relative;
+      z-index: 3;
+      animation:
+       floatCloud 2s ease-in-out 1.5s infinite ;
+    }
+	/*—— 語音框容器 ——*/
+    .tex-container {
+      position: absolute;
+      left: 50px;
+      bottom: -10px;
+      transform: translate(-100%, 100%);
+      z-index: 3;
+      animation:
+        slideIn 1s ease-out 0.5s forwards,
+    }
+	/*——雲朵容器 ——*/
+    .cloud-container {
+      position: absolute;
+      left: -30px;               /* 跟貓差不多的初始位置 */
+      bottom: 15px;              /* 跟貓一樣先藏在畫面外 */
+      transform: translate(-100%, 100%);
+      z-index: 4;               
+      animation:
+        slideIn 1s ease-out 0.5s forwards,
+        floatCloud 2s ease-in-out 1.5s infinite ;
+    }
+    .cloud-container img {
+      display: block;
+      width: 450px;             /* 可自行調整尺寸 */
+      height: auto;
+	    opacity: 0.5;
+	  
+    }
+	/* —— 地球容器 —— */
+    .earth-container {
+      position: absolute;
+      top: 55px;        /* 最後想要定位的 y 座標 */
+      right: 70px;      /* 最後想要定位的 x 座標 */
+      transform: translate(100%, -100%);
+      opacity: 0;
+      animation: slideInearth 1s ease-out 1s forwards;
+      z-index: 2;       /* 根據要不要蓋在星星或文字上自行調整 */
+    }
+    .earth-container img {
+      display: block;
+      width: 200px;     /* 可自行調整大小 */
+      height: auto;
+    }
+	
+	/* —— 行星容器 —— */
+    .planet-container {
+      position: absolute;
+      left: 80%;
+      top: 40%;
+      transform: translate(-50%, -50%);
+      animation: planetSlideIn 1.5s ease-out 0.5s forwards;
+      z-index: 2;
+    }
+    .planet-container img {
+      display: block;
+      width: 100px;     
+      height: auto;
+      opacity: 0.7;
+    }
+
+    /*—— 色塊容器 ——*/
+    .color-block {
+      position: absolute;
+      right: -50%;               /* 起點狀態要跟 0% 一致 */
+      top: 90%;
+      transform: translate(-50%, -50%);
+      opacity: 1;
+      animation: blockSlideIn 1.5s ease-out 0.5s forwards;
+      z-index: 2;
+
+      /* 色塊外觀 */
+      width: 700px;
+      height: 700px;
+      background: rgba(91,155,159,1);
+      border-radius: 50%;
+    }
+
+	    /*—— 星星動畫容器 ——*/
+    .floating-stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 3;
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out 1.5s forwards;
+    }
+    .star {
+      position: absolute;
+      opacity: 1;
+      animation: spin 8s linear infinite,
+                 twinkle 2.5s ease-in-out infinite;
+    }
+    .star1 { top: 80px;  left: 430px; width: 60px; }
+    .star2 { top: 395px; left: 40px;  width: 50px; animation-delay: 0s, 0.8s; }
+    .star3 { top: 180px; left: 475px; width: 70px; animation-delay: 0s, 1.4s; }
+
+    /*—— 標題 ——*/
+    .floating-title {
+      position: absolute;
+      bottom:90%;
+      left: 100%;
+      display: inline-flex;
+      gap: 10px;
+      font-size: 140px;
+      line-height: 1;
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out 1.5s forwards;
+      z-index: 2;
+    }
+    .floating-title span {
+      font-family: 'SweiXDPearlCJKtc-Medium', serif;
+      color: #ffffff;
+    }
+    .floating-title span:nth-child(3) {
+      color: #f5d5a1;
+    }
+
+    /*—— 毛玻璃語音框 ——*/
+    .speech-box {
+      position: absolute;
+      left: 110%;
+      top: 20%;
+      width: 840px;
+      height: 300px;         /* ✅ 最小高度 */ 
+      border-radius: 40px;
+      background: rgba(7, 68, 70, 0.3);
+      border: 4px solid #ffffff;
+      box-shadow:
+        0 0 20px #428284,
+        inset 0 0 35px #a8ece9;
+      overflow: hidden;
+      display: flex;
+      align-items: center;         /* 垂直置中 */
+      justify-content: center;     /* 水平置中 ✅ 新增 */
+      Padding:20px 40px ;          
+      opacity: 0;
+      animation: growWidth 0.8s ease-out 1.5s forwards;
+      z-index: 2;
+    }
+    .speech-box p {
+      margin: 0;
+      font-family: 'SweiXDPearlCJKtc-DemiLight', sans-serif;
+      font-size: 25px;
+      color: #ffffff;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      word-break: break-all;
+      text-align: left;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <section class="scene">
+    <div class="earth-container">
+      <img src="images/地球.png" alt="地球">
+    </div>
+
+	<div class="planet-container">
+      <img src="images/星球.png" alt="行星">
+    </div>
+	
+	<div class="color-block"></div>
+
+    <div class="cat-container">
+ 
+      <div class="cloud-container">
+        <img src="images/雲.png" alt="雲朵">
+      </div>
+      <img src="images/貓.png" alt="太空貓" class="flying-cat" />
+
+      <div class="floating-title">
+         <span>星</span><span>際</span><span>碳</span><span>險</span>
+      </div>
+
+      <div class="speech-box">
+        <p data-text="跟隨調查員的腳步，探索人類文明繁榮發展的歷程，\n同時逐步揭開其背後隱藏的環境危機與人類走向滅亡的原因。\n在深入了解過去的同時，也尋找可能的轉機與希望，探索挽救未來的方法。"></p>
+      </div>
+    </div>
+
+    <div class="floating-stars">
+      <img src="images/星星_1.png" class="star star1" alt="star1">
+      <img src="images/星星_2.png" class="star star2" alt="star2">
+      <img src="images/星星_3.png" class="star star3" alt="star3">
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const p = document.querySelector('.speech-box p');
+      const fullText = p.getAttribute('data-text').replace(/\\n/g, '\n');
+      p.textContent = '';
+      document.querySelector('.speech-box')
+        .addEventListener('animationend', e => {
+          if (e.animationName === 'growWidth') {
+            let i = 0, speed = 50;
+            (function type() {
+              if (i < fullText.length) {
+                p.textContent += fullText[i++];
+                setTimeout(type, speed);
+              }
+            })();
+          }
+        });
+    });
+  </script>
+</body>
+</html>
