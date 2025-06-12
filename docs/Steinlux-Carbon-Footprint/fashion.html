@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>時尚</title>
-    <style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>住家</title>
+  <style>
     /* 全螢幕置中背景 */
     html, body {
       margin: 0;
@@ -19,19 +19,28 @@
       font-family: 'SweiXDPearlCJKtc-DemiLight', sans-serif;
       overflow: hidden;
     }
+
     /* 毛玻璃場景容器 */
     .scene {
-      width: 800px;
-      max-width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 900px;
+      max-width: 70%;
       padding: 20px;
-      background: rgba(255,255,255,0.2);
-      border: 1px solid rgba(255,255,255,0.3);
+      height: 500px;
+      max-height: 80%;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 24px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       position: relative;
+      text-align: center;
     }
+
     h1 {
       font-size: 24px;
       font-weight: bold;
@@ -39,26 +48,24 @@
       margin-bottom: 24px;
       color: #5a5a5a;
     }
-    /* 先在 :root 或最上方定義一個變數： */
-    :root {
-      --offset: 100px; /* 這個值可以自行改成想要的「往右推」寬度 */
-      --inner-gap: 20px; 
-    }
 
-    .toggle-row {
-      flex: 1;
+    .fashion-row {
       display: flex;
+      flex-direction: column;
       justify-content: center;
-      align-items: center;
+      width: 80%;
       gap: 20px;
-      margin-bottom: 30px;
       background: rgba(255,255,255,0.5);
       border-radius: 12px;
       padding: 16px 24px;
     }
 
-    .row2 {
-        flex-direction: column;
+    /* 一年共花費整列排版 */
+    .fashion-card {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
     }
 
     input {
@@ -73,180 +80,106 @@
       text-align: right;
     }
 
-    .toggle-card {
+    .fashion-input-card {
       display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 8px 24px;
+      align-items: flex-start;
+      justify-content: space-evenly;
+      gap: 48px; /* 標籤與選項之間距離 */
     }
 
-    .toggle-switch {
+    .fashion-input-card-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* 自訂方塊 radio */
+    .custom-radio {
       position: relative;
-      width: 40px;
-      height: 20px;
-      margin: 0 16px; /* 讓開關與左右文字之間保留少量間距 */
-    }
-    
-    .toggle-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-    .toggle-switch .slider {
-      position: absolute;
+      padding-left: 30px;
       cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: #d0d2d6;
-      border-radius: 10px;
-      transition: 0.3s;
-      box-shadow: -8px -4px 8px 0px #ffffff,
-        4px 4px 12px 0px #d1d9e6,
-        4px 8px 12px 0px #d1d9e6 inset,
-        -4px 0px 8px 0px #ffffff inset;
+      display: inline-block;
+      user-select: none;
     }
-    
-    .toggle-switch .slider:before {
+
+    /* 隱藏原生 radio */
+    .custom-radio input[type="radio"] {
+      display: none;
+    }
+
+    /* 自訂方塊 */
+    .custom-box {
       position: absolute;
-      content: "";
-      height: 16px;
-      width: 16px;
-      left: 2px;
-      bottom: 2px;
-      background: #fff;
-      border-radius: 50%;
-      transition: 0.3s;
+      left: 0;
+      top: 0;
+      height: 20px;
+      width: 20px;
+      background-color: #eee;
+      border: 2px solid #999;
     }
 
-    .toggle-switch input:checked + .slider {
-      background: #4a90e2;
+    /* 當選中時加色 */
+    .custom-radio input[type="radio"]:checked ~ .custom-box {
+      background-color: #3b649e;
     }
 
-    .toggle-switch input:checked + .slider:before {
-      transform: translateX(20px);
-    }
-
-    /* 導覽按鈕 */
+    /* 換頁按鈕 */
     .nav-btn {
       position: fixed;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 48px;
+      width: 64px; height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
       color: white;
-      background: rgba(255,255,255,0.15);
+      background: rgba(255, 255, 255, 0.15);
       border: 2px solid white;
       border-radius: 50%;
-      padding: 10px 16px;
       cursor: pointer;
       backdrop-filter: blur(4px);
-      transition: all 0.3s ease;
-      z-index: 10;
-      text-decoration: none;
+      transition: 0.3s;
+      z-index: 1000;
+      user-select: none;
     }
-
     .nav-btn:hover {
       background: white;
       color: black;
     }
-
-    .prev-btn {
-      left: 30px;
-      transform: translateY(-50%) scaleX(-1);
-    }
-
-    .next-btn {
-      right: 30px;
-      transform: translateY(-50%);
-    }
-
-    .range-wrapper {
-    flex: 1;
-    position: relative;
-    width: 200px;
-    }
-
-    input[type="range"] {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    }
-
-    .range-labels {
-    position: absolute;
-    top: 25px; /* 根據需要調整文字與滑桿間距 */
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    pointer-events: none;
-    }
-
-    .range-labels span {
-    position: absolute;
-    transform: translateX(-50%);
-    }
-
+    .prev-btn { left: -100px; }
+    .next-btn { right: -100px; }
   </style>
 </head>
 <body>
   <section class="scene">
     <h1>一年度購買的衣物金額？​</h1>
-    <div class="toggle-row row2">
-        <div class="toggle-card">
-            <label for="peopleInput">服飾類型​</label>
-            <label class="radio-wrapper">
-            <span>快時尚</span>
-            <input type="radio" name="fashionType" value="fast">
-            </label>
-            <label class="radio-wrapper">
-            <span>奢華時尚</span>
-            <input type="radio" name="fashionType" value="luxury">
-            </label>
-            </label>
+    <div class="fashion-row">
+      <div class="fashion-input-card">
+        <label for="peopleInput">服飾類型​</label>
+        <div class="fashion-input-card-wrapper">
+          <label class="custom-radio">
+            <input type="radio" name="fashionType" value="fast" />
+            <span class="custom-box"></span>
+            快時尚
+          </label>
+          <label class="custom-radio">
+            <input type="radio" name="fashionType" value="luxury" />
+            <span class="custom-box"></span>
+            奢華時尚
+          </label>
         </div>
-      
-        <div class="toggle-card">
-            <label for="peopleInput">一年共花費</label>
-            <input type="number" class="peopleInput" id="peopleInput">
-            <label for="peopleInput">元
-            </label>
-        </div>
+      </div>
+
+      <div class="fashion-card">
+        <label for="peopleInput">一年共花費</label>
+        <input type="number" class="peopleInput" id="peopleInput" />
+        <label for="peopleInput">元</label>
+      </div>
     </div>
+
+    <button class="nav-btn prev-btn" onclick="goToScene('scene-home-1')">‹</button>
+    <button class="nav-btn next-btn" onclick="goToScene('scene-home-2')">›</button>
   </section>
-
-    <button class="nav-btn prev-btn" onclick="prevTransportScene()">➤</button>
-    <button class="nav-btn next-btn" onclick="nextTransportScene()">➤</button>
-
-    <script>
-  // 取得所有的 .scene 區塊
-  const scenes = document.querySelectorAll('.scene');
-  let currentScene = 0;
-
-  // 初始化，只顯示第一個 section
-  function showScene(index) {
-    scenes.forEach((scene, i) => {
-      scene.style.display = i === index ? 'block' : 'none';
-    });
-  }
-
-  showScene(currentScene); // 預設顯示第一頁
-
-  function prevTransportScene() {
-    if (currentScene > 0) {
-      currentScene--;
-      showScene(currentScene);
-    }
-  }
-
-  function nextTransportScene() {
-    if (currentScene < scenes.length - 1) {
-      currentScene++;
-      showScene(currentScene);
-    }
-  }
-</script>
-
 </body>
 </html>
