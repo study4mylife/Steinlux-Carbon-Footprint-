@@ -51,14 +51,43 @@
 
     .fashion-row {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 80%;
-      gap: 20px;
+      flex-direction: row; /* 改成橫向排列 */
+      justify-content: space-around;
+      width: 90%;
+      gap: 32px;
       background: rgba(255,255,255,0.5);
       border-radius: 12px;
-      padding: 16px 24px;
+      padding: 24px;
     }
+
+    .fashion-box {
+      flex: 1;
+      background: rgba(255,255,255,0.4);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .fashion-box h2 {
+      margin-top: 0;
+      color: #333;
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+
+    .fashion-box input {
+      width: 80%;
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 8px;
+      text-align: right;
+      margin-top: 8px;
+    }
+
 
     /* 一年共花費整列排版 */
     .fashion-card {
@@ -155,26 +184,18 @@
   <section class="scene">
     <h1>一年度購買的衣物金額？​</h1>
     <div class="fashion-row">
-      <div class="fashion-input-card">
-        <label for="peopleInput">服飾類型​</label>
-        <div class="fashion-input-card-wrapper">
-          <label class="custom-radio">
-            <input type="radio" name="fashionType" value="fast" />
-            <span class="custom-box"></span>
-            快時尚
-          </label>
-          <label class="custom-radio">
-            <input type="radio" name="fashionType" value="luxury" />
-            <span class="custom-box"></span>
-            奢華時尚
-          </label>
-        </div>
+      <div class="fashion-box">
+        <h2>快時尚</h2>
+        <label for="fastFashionInput">一年共花費</label>
+        <input type="number" id="fastFashionInput" />
+        <span>元</span>
       </div>
 
-      <div class="fashion-card">
-        <label for="peopleInput">一年共花費</label>
-        <input type="number" class="peopleInput" id="peopleInput" />
-        <label for="peopleInput">元</label>
+      <div class="fashion-box">
+        <h2>奢華時尚</h2>
+        <label for="luxuryFashionInput">一年共花費</label>
+        <input type="number" id="luxuryFashionInput" />
+        <span>元</span>
       </div>
     </div>
 
