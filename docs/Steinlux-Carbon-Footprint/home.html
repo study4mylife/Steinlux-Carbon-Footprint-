@@ -34,10 +34,10 @@
       background: rgba(255, 255, 255, 0.2);
       border-radius: 24px;
       box-shadow: 
-      -8px -8px 24px 0px #ffffff,
-      8px 8px 24px 0px #a5a6a85c,
-      2px 2px 24px 0px #bbbbbb30 inset,
-      -4px -4px 24px 0px #f6f6f662 inset;
+      -2px -2px 4px 0px #ffffff,
+      2px 2px 4px 0px #a5a6a85c,
+      4px 4px 4px 0px #bbbbbb30 inset,
+      -4px -4px 12px 0px #f6f6f662 inset;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       text-align: center;
@@ -62,7 +62,6 @@
       justify-content: center;
       align-items: center;
       border: 2px solid rgba(255, 255, 255, 0.3);
-      box-shadow: -4px 4px 12px rgba(0, 0, 0, 0.1);
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
     }
@@ -107,12 +106,11 @@
       align-items: center;
     }
     
-    .toggle-card span.label {
+    span.label {
       font-size: 18px;
       color: #8a8a8a;
       white-space: nowrap;
-      width: 16px;
-      margin-right: 30px;
+      width: 100%;
     }
 
     .toggle-switch {
@@ -151,10 +149,6 @@
       border-radius: 50%;
       transition: 0.3s;
     }
-
-    .toggle-switch input:checked + .slider {
-      background: #4a90e2;
-    }
     
     .toggle-switch input:checked + .slider:before {
       transform: translateX(20px);
@@ -168,18 +162,17 @@
       width: 100%;
     }
 
-    .range-labels {
-      display: flex;
+    #scene-home-2 .home-grid {
       flex-direction: column;
-      justify-content: space-between;
-      width: 100%;
-      font-size: 14px;
-      color: #8a8a8a;
+      align-items: center;
     }
 
-    .range-labels-span{
-      display: flex;
-      justify-content: space-between;
+    #circular-range {
+      user-select: none;
+    }
+
+    .circle-container {
+      margin: 0 32px;
     }
 
 /* 換頁按鈕 */
@@ -214,17 +207,14 @@
 <body>
   <!-- 第一頁：問人數 -->
   <section id="scene-home-1" class="scene active">
-    <h1>請問你家中居住幾個人？</h1>
+    <h1>請問您家中共有幾位成員？每個月大約使用多少能源資源 ？</h1>
     <div class="home-grid">
       <div class="home-card">
-        <label for="peopleInput"><input type="number" id="peopleInput" />人</label>
-      </div>
-    </div>
-        <h1>請問您一個月使用多少電/水/瓦斯？</h1>
-    <div class="home-grid">
-      <div class="home-card" style="flex-direction: column;">
-        <label><input type="checkbox" id="useAvg" /> 套用平均值</label>
           <div class="toggle-row">
+            <label for="peopleInput"><input type="number" id="peopleInput" />人</label>
+          </div>
+          <div class="toggle-row">
+            <label><input type="checkbox" id="useAvg" /> 套用平均值</label>
             <div class="toggle-card">
               <span class="label">電</span>
               <input type="number">
@@ -262,42 +252,17 @@
 
   <!-- 第二頁：問用電水瓦斯與垃圾袋大小和倒垃圾頻率 -->
   <section id="scene-home-2" class="scene">
-      <h1>請問您家中使用的垃圾袋多大？</h1>
+      <h1>請問您家中倒垃圾情況如何 ?</h1>
       <div class="home-card">
-        <div class="home-grid">
-          <div class="range-labels">
-            <input type="range" id="trashSize" min="3" max="120" step="1" />
-            <div class="range-labels-span">
-              <span>3L</span>
-              <span>5L</span>
-              <span>14L</span>
-              <span>25L</span>
-              <span>33L</span>
-              <span>76L</span>
-              <span>120L</span>
-            </div>
-          </div>
+        <div class="circle-container">
+          <span class="label">垃圾袋容量​</span>
+          <div class="circular-range" data-unit="L" data-initial="3" data-min="3" data-max="25" data-step="1"></div>
+        </div>
+        <div class="circle-container">
+          <span class="label">倒垃圾頻率</span>
+          <div class="circular-range" data-unit="次" data-initial="1" data-min="1" data-max="7" data-step="1"></div>
         </div>
       </div>
-
-      <h1>請問您一週倒幾次垃圾？</h1>
-      <div class="home-card">
-        <div class="home-grid">
-          <div class="range-labels">
-          <input type="range" id="trashDays" min="1" max="7" step="1" />
-            <div class="range-labels-span">
-              <span>1次</span>
-              <span>2次</span>
-              <span>3次</span>
-              <span>4次</span>
-              <span>5次</span>
-              <span>6次</span>
-              <span">7次</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <button class="nav-btn prev-btn" onclick="goToScene('scene-home-1')">‹</button>
     <button class="nav-btn next-btn" onclick="goToScene('scene-home-2')">›</button>
@@ -323,6 +288,110 @@
       document.getElementById('scene-entertain').classList.add('active');
       currentScene = 'scene-entertain';
     }
+
+    function createCircularSlider(container) {
+      const centerX = 100, centerY = 100, radius = 80;
+      const min = parseInt(container.dataset.min || 3);
+      const max = parseInt(container.dataset.max || 25);
+      const step = parseInt(container.dataset.step || 1);
+
+      let lastAngle = 0, dragging = false;
+
+      container.innerHTML = `
+        <svg viewBox="0 0 200 200" width="200" height="200">
+          <circle cx="100" cy="100" r="80" stroke="#ccc" stroke-width="10" fill="none"/>
+          <path class="range-arc" stroke="#ff7043" stroke-width="10" fill="none"/>
+          <circle class="range-thumb" r="8" fill="#ff7043" cx="100" cy="20" />
+        </svg>
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px;">
+          <span class="circular-value"></span>
+        </div>
+      `;
+      container.style.position = 'relative';
+      container.style.width = '200px';
+      container.style.height = '200px';
+
+      const thumb = container.querySelector('.range-thumb');
+      const arc = container.querySelector('.range-arc');
+      const valueText = container.querySelector('.circular-value');
+      const unit = container.dataset.unit || 'L';
+      const initial = parseInt(container.dataset.initial || min);
+
+      function angleToValue(angle) {
+        const ratio = angle / 360;
+        const rawValue = min + (max - min) * ratio;
+        return Math.round(rawValue / step) * step;
+      }
+
+      function valueToAngle(value) {
+        return ((value - min) / (max - min)) * 360;
+      }
+
+      function polarToCartesian(cx, cy, r, angleDeg) {
+        const angleRad = (angleDeg - 90) * Math.PI / 180;
+        return {
+          x: cx + r * Math.cos(angleRad),
+          y: cy + r * Math.sin(angleRad)
+        };
+      }
+
+      function describeArc(cx, cy, r, endAngle) {
+        if (endAngle >= 359.99) {
+          return `
+            M ${cx} ${cy - r}
+            A ${r} ${r} 0 1 1 ${cx} ${cy + r}
+            A ${r} ${r} 0 1 1 ${cx} ${cy - r}
+          `;
+        }
+        const start = polarToCartesian(cx, cy, r, 0);
+        const end = polarToCartesian(cx, cy, r, endAngle);
+        const largeArc = endAngle > 180 ? 1 : 0;
+        return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArc} 1 ${end.x} ${end.y}`;
+      }
+
+      function updateUI(value) {
+        const angle = valueToAngle(value);
+        const thumbPos = polarToCartesian(centerX, centerY, radius, angle);
+        thumb.setAttribute("cx", thumbPos.x);
+        thumb.setAttribute("cy", thumbPos.y);
+        arc.setAttribute("d", describeArc(centerX, centerY, radius, angle));
+        valueText.textContent = `${value}${unit}`;
+      }
+
+      function handleMove(e) {
+        if (!dragging) return;
+        const rect = container.querySelector("svg").getBoundingClientRect();
+        const x = (e.clientX || e.touches[0].clientX) - rect.left;
+        const y = (e.clientY || e.touches[0].clientY) - rect.top;
+        const dx = x - centerX;
+        const dy = y - centerY;
+        let angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+        if (angle < 0) angle += 360;
+
+        const angleDiff = angle - lastAngle;
+        if (angleDiff < -300 || angleDiff > 300) return;
+        lastAngle = angle;
+
+        const value = angleToValue(angle);
+        updateUI(value);
+      }
+
+      thumb.addEventListener("mousedown", () => dragging = true);
+      window.addEventListener("mouseup", () => dragging = false);
+      window.addEventListener("mousemove", handleMove);
+      thumb.addEventListener("touchstart", () => dragging = true);
+      window.addEventListener("touchend", () => dragging = false);
+      window.addEventListener("touchmove", handleMove);
+
+      updateUI(initial);
+    }
+
+    // 初始化所有 circular-range
+    document.querySelectorAll(".circular-range").forEach(el => {
+      createCircularSlider(el);
+    });
+
+
   </script>
 </body>
 </html>
