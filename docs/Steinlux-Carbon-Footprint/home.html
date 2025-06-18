@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>住家</title>
+  <title>居住</title>
   <style>
     :root {
       --inner-gap: 80px;
@@ -34,10 +34,10 @@
       background: rgba(255, 255, 255, 0.2);
       border-radius: 24px;
       box-shadow: 
-      -2px -2px 4px 0px #ffffff,
-      2px 2px 4px 0px #a5a6a85c,
-      4px 4px 4px 0px #bbbbbb30 inset,
-      -4px -4px 12px 0px #f6f6f662 inset;
+      -2px -2px 1.5px 0px #ffffff,
+      2px 2px 1.5px 0px #a5a6a85c,
+      -12px -12px 12px 0px #bbbbbb30 inset,
+      12px 12px 12px 0px #ffffff62 inset;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       text-align: center;
@@ -54,68 +54,137 @@
       color: #5a5a5a;
     }
 
-    .home-card {
-      background: rgba(255, 255, 255, 0.4);
-      border-radius: 12px;
-      padding: 16px 48px;
+    /* 跳轉橫槓 */
+
+    .page-indicator {
       display: flex;
       justify-content: center;
-      align-items: center;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
+      width: 60%;
+      min-width: 250px;
+      gap: 12px;
+      margin-top: 10px;
+      margin-bottom: 20px;
     }
 
-    .home-card input {
-      margin: 0 4px;
-      padding: 8px 0;
-      border-radius: 6px;
-      background: #fff;
-      font-size: 14px; 
-      color: #4a4a4a; 
-      text-align: left;
+    .bar {
+      width: 40%;
+      height: 2px;
+      background-color: #ccc;
+      transition: background-color 0.3s;
+      cursor: pointer;
     }
 
-    .home-card input[type="number"] {
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.1);
+    .bar.active {
+      background-color: #ddd;
+      box-shadow: 0 1px 4px #222;
     }
 
-    #scene-home-1 .home-card input {
-      width: 100px; 
+    /* 第一頁 */
+
+    .home-card {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      width: 100%;
+      gap: 16px;
     }
 
-    #scene-home-2 .home-card input {
-      width: 400px;
-      margin: 0 12px;
+    @media (max-width: 1024px) {
+      .home-card {
+        width: 60%;
+        flex-direction: column;
+        align-items: center;
+      }
     }
+
+/* input 框樣式 */
+
+  .input-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    width: 100%;
+  }
+
+  input[type="number"] {
+    width: 80%;
+    min-width: 40px;
+    padding: 4px 8px;
+    background: #fff;
+    color: #4a4a4a; 
+    text-align: left;
+    height: 24px;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    outline: none;
+  }
+
+  .custom-number-input {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .custom-number-input input[type="number"]::-webkit-inner-spin-button, 
+  .custom-number-input input[type="number"]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+  }
+
+  .custom-number-input button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    padding: 15px;
+    font-size: 24px;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s;
+  }
+
+  .custom-number-input button:hover {
+    background-color: #ddd;
+  }
 
 /* 切換單位按鈕 */
 
-    .toggle-row {
-      display: flex;
-      flex-direction: column;
-    }
-
     .toggle-card {
-      border-radius: 12px;
-      gap: 4px;
-      margin: 8px 0;
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-radius: 16px;
+    padding: 24px 48px; 
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); 
     }
     
     span.label {
       font-size: 18px;
       color: #8a8a8a;
       white-space: nowrap;
-      width: 100%;
+      text-align: left;
+      width: 80px;
+    }
+
+    .nowrap-text{
+      font-size: 12px;
+      white-space: nowrap;
     }
 
     .toggle-switch {
       position: relative;
-      width: 40px;
+      min-width: 40px;
       height: 20px;
       margin: 4px;
     }
@@ -154,17 +223,13 @@
       transform: translateX(20px);
     }
 
-    .home-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      justify-content: center;
-      width: 100%;
-    }
+    /* 第二頁 */
 
-    #scene-home-2 .home-grid {
-      flex-direction: column;
+    .scene-2 .toggle-card {
+      flex-direction: row;
+      justify-content: space-around;
       align-items: center;
+      width: 100%;
     }
 
     #circular-range {
@@ -206,61 +271,86 @@
 </head>
 <body>
   <!-- 第一頁：問人數 -->
-  <section id="scene-home-1" class="scene active">
+  <section id="scene-home-1" class="scene scene-1 active">
     <h1>請問您家中共有幾位成員？每個月大約使用多少能源資源 ？</h1>
-    <div class="home-grid">
-      <div class="home-card">
-          <div class="toggle-row">
-            <label for="peopleInput"><input type="number" id="peopleInput" />人</label>
-          </div>
-          <div class="toggle-row">
-            <label><input type="checkbox" id="useAvg" /> 套用平均值</label>
-            <div class="toggle-card">
-              <span class="label">電</span>
-              <input type="number">
-              <span class="nowrap-text">度 Kwh​</span>
-              <label class="toggle-switch">
-                <input type="checkbox" id="fuelToggle" />
-                <span class="slider"></span>
-              </label>
-              <span class="nowrap-text">元(NTD)​</span>
-            </div>
-            <div class="toggle-card">
-              <span class="label">水</span>
-              <input type="number">
-              <span class="nowrap-text">度 Kwh​</span>
-              <label class="toggle-switch">
-                <input type="checkbox" id="fuelToggle" />
-                <span class="slider"></span>
-              </label>
-              <span class="nowrap-text">元(NTD)​</span>
-            </div>
-            <div class="toggle-card">
-              <span class="label">瓦斯</span>
-              <input type="number">
-              <span class="nowrap-text">度 Kwh​</span>
-              <label class="toggle-switch">
-                <input type="checkbox" id="fuelToggle" />
-                <span class="slider"></span>
-              </label>
-              <span class="nowrap-text">元(NTD)​</span>
-            </div>
-          </div>
+    <div class="page-indicator">
+      <span class="bar active" onclick="goToScene('scene-home-1')"></span>
+      <span class="bar" onclick="goToScene('scene-home-2')"></span>
+    </div>
+    <div class="home-card">
+      <div class="toggle-card">
+        <div class="custom-number-input">
+          <button type="button" class="btn-decrement">-</button>
+          <input type="number" value="0" min="0" />
+          <button type="button" class="btn-increment">+</button>
+        </div>
       </div>
+      <div class="toggle-card">
+        <label><input type="checkbox" id="useAvg" /> 套用平均值</label>
+        <div class="input-container">
+          <span class="label">電</span>
+          <div class="custom-number-input">
+            <button type="button" class="btn-decrement">-</button>
+            <input type="number" value="0" min="0" />
+            <button type="button" class="btn-increment">+</button>
+          </div>
+          <span class="nowrap-text">度 Kwh​</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="fuelToggle" />
+            <span class="slider"></span>
+          </label>
+          <span class="nowrap-text">元(NTD)​</span>
+        </div>
+        <div class="input-container">
+          <span class="label">水</span>
+          <div class="custom-number-input">
+            <button type="button" class="btn-decrement">-</button>
+            <input type="number" value="0" min="0" />
+            <button type="button" class="btn-increment">+</button>
+          </div>
+          <span class="nowrap-text">度 Kwh​</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="fuelToggle" />
+            <span class="slider"></span>
+          </label>
+          <span class="nowrap-text">元(NTD)​</span>
+        </div>
+        <div class="input-container">
+          <span class="label">瓦斯</span>
+          <div class="custom-number-input">
+            <button type="button" class="btn-decrement">-</button>
+            <input type="number" value="0" min="0" />
+            <button type="button" class="btn-increment">+</button>
+          </div>
+          <span class="nowrap-text">度 Kwh​</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="fuelToggle" />
+            <span class="slider"></span>
+          </label>
+          <span class="nowrap-text">元(NTD)​</span>
+        </div>
+      </div>
+    </div>
     <button class="nav-btn next-btn" onclick="goToScene('scene-home-2')">›</button>
   </section>
 
   <!-- 第二頁：問用電水瓦斯與垃圾袋大小和倒垃圾頻率 -->
-  <section id="scene-home-2" class="scene">
+  <section id="scene-home-2" class="scene scene-2">
       <h1>請問您家中倒垃圾情況如何 ?</h1>
+      <div class="page-indicator">
+        <span class="bar" onclick="goToScene('scene-home-1')"></span>
+        <span class="bar active" onclick="goToScene('scene-home-2')"></span>
+      </div>
       <div class="home-card">
-        <div class="circle-container">
-          <span class="label">垃圾袋容量​</span>
-          <div class="circular-range" data-unit="L" data-initial="3" data-min="3" data-max="25" data-step="1"></div>
-        </div>
-        <div class="circle-container">
-          <span class="label">倒垃圾頻率</span>
-          <div class="circular-range" data-unit="次" data-initial="1" data-min="1" data-max="7" data-step="1"></div>
+        <div class="toggle-card">
+          <div class="circle-container">
+            <span class="label">垃圾袋容量​</span>
+            <div class="circular-range" data-unit="L" data-initial="3" data-min="3" data-max="25" data-step="1"></div>
+          </div>
+          <div class="circle-container">
+            <span class="label">倒垃圾頻率</span>
+            <div class="circular-range" data-unit="次" data-initial="1" data-min="1" data-max="7" data-step="1"></div>
+          </div>
         </div>
       </div>
 
@@ -269,6 +359,32 @@
   </section>
 
   <script>
+        const containers = document.querySelectorAll('.custom-number-input');
+
+    containers.forEach(container => {
+      const input = container.querySelector('input[type="number"]');
+      const btnDec = container.querySelector('.btn-decrement');
+      const btnInc = container.querySelector('.btn-increment');
+
+      btnDec.addEventListener('click', () => {
+        let current = parseInt(input.value) || 0;
+        let min = input.min !== '' ? parseInt(input.min) : -Infinity;
+        if(current > min) {
+          input.value = current - 1;
+          input.dispatchEvent(new Event('change'));
+        }
+      });
+
+      btnInc.addEventListener('click', () => {
+        let current = parseInt(input.value) || 0;
+        let max = input.max !== '' ? parseInt(input.max) : Infinity;
+        if(current < max) {
+          input.value = current + 1;
+          input.dispatchEvent(new Event('change'));
+        }
+      });
+    });
+    
     let currentScene = 'scene-home-1';
 
     function goToScene(targetId) {
