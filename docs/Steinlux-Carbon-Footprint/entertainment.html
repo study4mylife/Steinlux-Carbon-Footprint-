@@ -34,7 +34,11 @@
       background: rgba(255, 255, 255, 0.2);
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 24px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      box-shadow: 
+      -2px -2px 1.5px 0px #ffffff,
+      2px 2px 1.5px 0px #a5a6a85c,
+      -12px -12px 12px 0px #bbbbbb30 inset,
+      12px 12px 12px 0px #ffffff62 inset;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       position: relative;
@@ -100,12 +104,44 @@
 
 /* 第二頁 */
 
+/* 跳轉橫槓 */
+
+.page-indicator {
+  display: flex;
+  justify-content: center;
+  width: 60%;
+  min-width: 250px;
+  gap: 12px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.bar {
+  width: 15%;
+  height: 2px;
+  background-color: #ccc;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.bar.active {
+  background-color: #ddd;
+  box-shadow: 0 1px 4px #222;
+}
+
 .scene-2 .entertain-card {
   display: flex;
   justify-content: center;
-  align-items: stretch;
+  flex-wrap: wrap;
   gap: 16px;
 }
+
+@media (max-width: 900px){
+  .scene-2 .entertain-card {
+    flex-direction: column;
+  }
+}
+
 
 .scene-2 .entertain-card .toggle-card {
   flex: 1;
@@ -129,30 +165,21 @@
 
 /* input 框樣式 */
 .scene-2 .toggle-card input[type="number"] {
-  border-radius: 6px;
+  padding: 4px 8px;
   background: #fff;
-  font-size: 14px; 
   color: #4a4a4a; 
   text-align: left;
   width: 100%;
+  height: 24px;
+  border: 1px solid #ccc;
+  border-radius: 16px;
+  outline: none;
 }
 
 .custom-number-input {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-}
-
-.custom-number-input input[type="number"] {
-  width: 60px;
-  padding: 4px 8px;
-  font-size: 16px;
-  text-align: center;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  outline: none;
-  appearance: initial;
-  -moz-appearance: textfield;
 }
 
 .custom-number-input input[type="number"]::-webkit-inner-spin-button, 
@@ -172,6 +199,7 @@
   height: 30px;
   padding: 15px;
   font-size: 24px;
+  font-weight: 600;
   cursor: pointer;
   user-select: none;
   transition: background-color 0.2s;
@@ -365,9 +393,17 @@
 <!-- Scene 1：KTV -->
 <section id="scene-entertain-2-1" class="scene scene-2">
   <h1>日常生活中娛樂活動頻率？</h1>
+  <div class="page-indicator">
+    <span class="bar active" onclick="goToScene('scene-entertain-2-1')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-2')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-3')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-4')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-5')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
+  </div>
   <div class="entertain-card">
     <div class="toggle-card">
-      <span class="question-title">時間</span>
+      <span class="question-title">時間單位</span>
       <div class="toggle-row">
         <span class="nowrap-text">一月</span>
         <label class="toggle-switch">
@@ -393,9 +429,17 @@
 <!-- Scene 2：電影院 -->
 <section id="scene-entertain-2-2" class="scene scene-2">
   <h1>日常生活中娛樂活動頻率？</h1>
+  <div class="page-indicator">
+    <span class="bar" onclick="goToScene('scene-entertain-2-1')"></span>
+    <span class="bar active" onclick="goToScene('scene-entertain-2-2')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-3')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-4')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-5')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
+  </div>
   <div class="entertain-card">
     <div class="toggle-card">
-      <span class="question-title">時間</span>
+      <span class="question-title">時間單位</span>
       <div class="toggle-row">
         <span class="nowrap-text">一月</span>
         <label class="toggle-switch">
@@ -421,9 +465,17 @@
 <!-- Scene 3：健身房 -->
 <section id="scene-entertain-2-3" class="scene scene-2">
   <h1>日常生活中娛樂活動頻率？</h1>
+  <div class="page-indicator">
+    <span class="bar" onclick="goToScene('scene-entertain-2-1')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-2')"></span>
+    <span class="bar active" onclick="goToScene('scene-entertain-2-3')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-4')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-5')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
+  </div>
   <div class="entertain-card">
     <div class="toggle-card">
-      <span class="question-title">時間</span>
+      <span class="question-title">時間單位</span>
       <div class="toggle-row">
         <span class="nowrap-text">一週</span>
         <label class="toggle-switch">
@@ -449,9 +501,17 @@
 <!-- Scene 4：飯店 -->
 <section id="scene-entertain-2-4" class="scene scene-2">
   <h1>日常生活中娛樂活動頻率？</h1>
+  <div class="page-indicator">
+    <span class="bar" onclick="goToScene('scene-entertain-2-1')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-2')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-3')"></span>
+    <span class="bar active" onclick="goToScene('scene-entertain-2-4')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-5')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
+  </div>
   <div class="entertain-card">
     <div class="toggle-card">
-      <span class="question-title">時間</span>
+      <span class="question-title">時間單位</span>
       <div class="toggle-row">
         <span class="nowrap-text">一月</span>
         <label class="toggle-switch">
@@ -474,23 +534,31 @@
   <button class="nav-btn next-btn" onclick="goToScene('scene-entertain-2-5')">›</button>
 </section>
 
-<!-- Scene 5：影音平台 -->
+<!-- Scene 5：網路流量 -->
 <section id="scene-entertain-2-5" class="scene scene-2">
   <h1>日常生活中娛樂活動頻率？</h1>
+  <div class="page-indicator">
+    <span class="bar" onclick="goToScene('scene-entertain-2-1')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-2')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-3')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-4')"></span>
+    <span class="bar active" onclick="goToScene('scene-entertain-2-5')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
+  </div>
   <div class="entertain-card">
     <div class="toggle-card">
-      <span class="question-title">時間</span>
+      <span class="question-title">時間單位</span>
       <div class="toggle-row">
-        <span class="nowrap-text">每次</span>
+        <span class="nowrap-text">一天</span>
         <label class="toggle-switch">
           <input type="checkbox" />
           <span class="slider"></span>
         </label>
-        <span class="nowrap-text">一天</span>
+        <span class="nowrap-text">一周</span>
       </div>
     </div>
     <div class="toggle-card">
-      <span class="question-title">每天/周有幾天會看影音平台追劇／電影？</span>
+      <span class="question-title">每次使用網路幾小時？</span>
       <div class="custom-number-input">
         <button type="button" class="btn-decrement">-</button>
         <input type="number" value="0" min="0" />
@@ -502,40 +570,20 @@
   <button class="nav-btn next-btn" onclick="goToScene('scene-entertain-2-6')">›</button>
 </section>
 
-<!-- Scene 6：網路流量 -->
+<!-- Scene 6：宗教活動 -->
 <section id="scene-entertain-2-6" class="scene scene-2">
   <h1>日常生活中娛樂活動頻率？</h1>
-  <div class="entertain-card">
-    <div class="toggle-card">
-      <span class="question-title">時間</span>
-      <div class="toggle-row">
-        <span class="nowrap-text">一月</span>
-        <label class="toggle-switch">
-          <input type="checkbox" />
-          <span class="slider"></span>
-        </label>
-        <span class="nowrap-text">一年</span>
-      </div>
-    </div>
-    <div class="toggle-card">
-      <span class="question-title">每月/年使用多少網路流量？</span>
-      <div class="custom-number-input">
-        <button type="button" class="btn-decrement">-</button>
-        <input type="number" value="0" min="0" />
-        <button type="button" class="btn-increment">+</button>
-      </div>
-    </div>
+  <div class="page-indicator">
+    <span class="bar" onclick="goToScene('scene-entertain-2-1')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-2')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-3')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-4')"></span>
+    <span class="bar" onclick="goToScene('scene-entertain-2-5')"></span>
+    <span class="bar active" onclick="goToScene('scene-entertain-2-6')"></span>
   </div>
-  <button class="nav-btn prev-btn" onclick="goToScene('scene-entertain-2-5')">‹</button>
-  <button class="nav-btn next-btn" onclick="goToScene('scene-entertain-2-7')">›</button>
-</section>
-
-<!-- Scene 7：宗教活動 -->
-<section id="scene-entertain-2-7" class="scene scene-2">
-  <h1>日常生活中娛樂活動頻率？</h1>
   <div class="entertain-card">
     <div class="toggle-card">
-      <span class="question-title">時間</span>
+      <span class="question-title">時間單位</span>
       <div class="toggle-row">
         <span class="nowrap-text">一週</span>
         <label class="toggle-switch">
@@ -546,7 +594,7 @@
       </div>
     </div>
     <div class="toggle-card">
-      <span class="question-title">每周/月使用多少宗教活動？</span>
+      <span class="question-title">每周/月使用多少份金紙？</span>
       <div class="custom-number-input">
         <button type="button" class="btn-decrement">-</button>
         <input type="number" value="0" min="0" />
@@ -554,7 +602,7 @@
       </div>
     </div>
   </div>
-  <button class="nav-btn prev-btn" onclick="goToScene('scene-entertain-2-6')">‹</button>
+  <button class="nav-btn prev-btn" onclick="goToScene('scene-entertain-2-5')">‹</button>
 
   <!-- Info 按鈕 -->
   <button id="info-btn" class="info-btn">

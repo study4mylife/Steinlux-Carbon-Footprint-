@@ -23,10 +23,16 @@ EX: git push -u origin HOW<br>
 # 網頁預覽
 [主頁](https://study4mylife.github.io/Steinlux-Carbon-Footprint-/Steinlux-Carbon-Footprint/index.html)
 
-[交通](https://study4mylife.github.io/Steinlux-Carbon-Footprint-/Steinlux-Carbon-Footprint/traffic.html)
+[日常交通](https://study4mylife.github.io/Steinlux-Carbon-Footprint-/Steinlux-Carbon-Footprint/traffic-daily.html)
+
+[居住](https://study4mylife.github.io/Steinlux-Carbon-Footprint-/Steinlux-Carbon-Footprint/home.html)
+
+[旅遊交通](https://study4mylife.github.io/Steinlux-Carbon-Footprint-/Steinlux-Carbon-Footprint/traffic.html)
+
+[飲食](https://study4mylife.github.io/Steinlux-Carbon-Footprint-/Steinlux-Carbon-Footprint/food.html)
 
 [娛樂](https://study4mylife.github.io/Steinlux-Carbon-Footprint-/Steinlux-Carbon-Footprint/entertainment.html)
 
 [時尚](https://study4mylife.github.io/Steinlux-Carbon-Footprint-/Steinlux-Carbon-Footprint/fashion.html)
 
-[住家](https://study4mylife.github.io/Steinlux-Carbon-Footprint-/Steinlux-Carbon-Footprint/home.html)
+
