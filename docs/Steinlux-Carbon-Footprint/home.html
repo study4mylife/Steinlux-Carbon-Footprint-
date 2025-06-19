@@ -5,9 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>居住</title>
   <style>
+     /*—— 自訂字體 ——*/
+    @font-face {
+      font-family: 'GenSenRounded2TW-R';
+      src: url('font/GenSenRounded2TW-R.otf') format('opentype');
+      font-weight: normal; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'GenSenRounded2TW-L';
+      src: url('font/GenSenRounded2TW-L.otf') format('opentype');
+      font-weight: normal; font-style: normal; font-display: swap;
+    }
+
     :root {
       --inner-gap: 80px;
+      letter-spacing: 6px;
     }
+
     html, body {
       margin: 0;
       padding: 0;
@@ -34,22 +48,27 @@
       background: rgba(255, 255, 255, 0.2);
       border-radius: 24px;
       box-shadow: 
-      -2px -2px 1.5px 0px #ffffff,
-      2px 2px 1.5px 0px #a5a6a85c,
-      -12px -12px 12px 0px #bbbbbb30 inset,
-      12px 12px 12px 0px #ffffff62 inset;
+      -2.5px -2.5px 1.5px 0px #ffffff,
+      2.5px 2.5px 1.5px 0px #a5a6a85c,
+      12px 12px 12px 0px #bbbbbb50;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       text-align: center;
     }
+
+    /*-2.5px -2.5px 1.5px 0px #ffffff,
+      2.5px 2.5px 1.5px 0px #a5a6a85c,
+      -12px -12px 12px 0px #bbbbbb30 inset,
+      12px 12px 12px 0px #ffffff62 inset;*/
 
     .scene.active {
       display: flex;
     }
 
     h1 {
+      font-family: "GenSenRounded2TW-R", sans-serif;
       font-size: 24px;
-      font-weight: bold;
+      letter-spacing: 10px;
       margin-bottom: 14px;
       color: #5a5a5a;
     }
@@ -63,7 +82,7 @@
       min-width: 250px;
       gap: 12px;
       margin-top: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 40px;
     }
 
     .bar {
@@ -85,8 +104,8 @@
       display: flex;
       justify-content: center;
       align-items: stretch;
-      width: 100%;
-      gap: 16px;
+      width: 90%;
+      gap: 32px;
     }
 
     @media (max-width: 1024px) {
@@ -136,8 +155,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
+    background: none;
+    border: none;
     border-radius: 100%;
     width: 30px;
     height: 30px;
@@ -153,8 +172,11 @@
     background-color: #ddd;
   }
 
-/* 切換單位按鈕 */
+  .custom-number-input .btn-decrement{
+    font-size: 32px;
+  }
 
+/* 切換單位按鈕 */
     .toggle-card {
     flex: 1;
     display: flex;
@@ -165,11 +187,15 @@
     border-radius: 16px;
     padding: 24px 48px; 
     background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px); 
+    box-shadow: 
+    -2px -2px 0.5px 0px #ffffff,
+    2px 2px 0.5px 0px #a5a6a85c,
+    -4px -4px 4px 0px #bbbbbb30 inset,
+    4px 4px 4px 0px #ffffff62 inset;
     }
     
     span.label {
+      font-family: "GenSenRounded2TW-R", sans-serif;
       font-size: 18px;
       color: #8a8a8a;
       white-space: nowrap;
@@ -178,7 +204,9 @@
     }
 
     .nowrap-text{
+      font-family: "GenSenRounded2TW-L", sans-serif;
       font-size: 12px;
+      letter-spacing: 2px;
       white-space: nowrap;
     }
 
@@ -204,7 +232,7 @@
       box-shadow: -2px -2px 4px 0px #ffffff,
         2px 2px 4px 0px #cdd4df,
         0px 0px 4px 0px #d1d9e6 inset,
-        -2px -2px 2px 0px #ffffff inset;
+        -1px -1px 2px 0px #ffffff inset;
       border-radius: 10px;
       transition: 0.75s;
     }
@@ -227,6 +255,7 @@
 
     .scene-2 .toggle-card {
       flex-direction: row;
+      flex-wrap: wrap;
       justify-content: space-around;
       align-items: center;
       width: 100%;
@@ -263,7 +292,7 @@
     .nav-btn:hover {
       background: white;
       color: black;
-      border: 2px solid gray;
+      border: 2px solid white;
     }
     .prev-btn { left: -100px; }
     .next-btn { right: -100px; }
@@ -272,7 +301,7 @@
 <body>
   <!-- 第一頁：問人數 -->
   <section id="scene-home-1" class="scene scene-1 active">
-    <h1>請問您家中共有幾位成員？每個月大約使用多少能源資源 ？</h1>
+    <h1>請問您家中共有幾位成員？每個月大約使用多少能源資源？</h1>
     <div class="page-indicator">
       <span class="bar active" onclick="goToScene('scene-home-1')"></span>
       <span class="bar" onclick="goToScene('scene-home-2')"></span>

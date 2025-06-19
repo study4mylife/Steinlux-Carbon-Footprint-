@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>日常通勤 - 控制顯示模板</title>
   <style>
+    /*—— 自訂字體 ——*/
+    @font-face {
+      font-family: 'GenSenRounded2TW-R';
+      src: url('font/GenSenRounded2TW-R.otf') format('opentype');
+      font-weight: normal; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'GenSenRounded2TW-L';
+      src: url('font/GenSenRounded2TW-L.otf') format('opentype');
+      font-weight: normal; font-style: normal; font-display: swap;
+    }
     /* ---------------------------------------
        2. 全螢幕置中、背景
     --------------------------------------- */
@@ -18,7 +29,6 @@
       justify-content: center;
       background: url('images/圖片 1.png') no-repeat center center fixed;
       background-size: cover;
-      font-family: 'SweiXDPearlCJKtc-DemiLight', sans-serif;
       overflow: hidden;
     }
 
@@ -37,12 +47,14 @@
       max-height: 80%;
       /* 雙層背景：底層半透明 + 上層漸層光暈 */
       background:
-        linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 100%),
-        rgba(255, 255, 255, 0.15);
+        linear-gradient(135deg,
+        rgba(255,255,255,0.05) 0%, 
+        rgba(255,255,255,0.15) 100%),
+        rgba(255, 255, 255, 0.001);
       /* 半透明白邊框 */
       border: 1px solid rgba(255, 255, 255, 0.3);
       /* 玻璃模糊 */
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(20px);
       /* 輕盈陰影 & 大圓角 */
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
@@ -55,10 +67,11 @@
       display: flex;
     }
     h1 {
-      font-size: 24px;
-      font-weight: bold;
+      font-size: 36px;
       margin-bottom: 14px;
       color: #5a5a5a;
+      font-family: 'GenSenRounded2TW-R', sans-serif;
+      letter-spacing: 10px
     }
     .hidden { display: none; }
     .inactive { opacity: 0.4; }
@@ -97,6 +110,8 @@
       color: #333;
       text-align: center;
       white-space: nowrap;
+      font-family: 'GenSenRounded2TW-R', sans-serif;
+      letter-spacing: 6px
     }
     .transport-card:hover { transform: translateY(-4px); }
     .transport-card.selected {
@@ -110,15 +125,15 @@
     .toggle-row {
       display: flex;
       justify-content: center;
-      gap: 30px;
-      margin: 30px auto;
+      gap: 32px;
+      margin: 40px auto;
     }
     .toggle-card {
       height: 50px;
       width: 350px;
       background: rgba(255, 255, 255, 0.4);
       border-radius: 12px;
-      padding: 13px 20px;
+      padding: 12px 20px;
       display: flex;
       align-items: center;
       box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -129,8 +144,10 @@
       font-size: 18px;
       color: #8a8a8a;
       white-space: nowrap;
-      margin-right: 80px;
+      margin-right: 50px;
       margin-left: 20px;
+      font-family: 'GenSenRounded2TW-R', sans-serif;
+      letter-spacing: 6px
     }
     .toggle-switch {
       position: relative;
@@ -161,7 +178,7 @@
       transition: 0.3s;
     }
     .toggle-switch input:checked + .slider {
-      background: #4a90e2;
+      background:  #d0d2d6;
     }
     .toggle-switch input:checked + .slider:before {
       transform: translateX(20px);
@@ -169,7 +186,9 @@
     .nowrap-text {
       font-size: 20px;
       white-space: nowrap;
-      margin: 0 8px;
+      margin: 0 10px;
+      font-family: 'GenSenRounded2TW-L', sans-serif;
+      letter-spacing: 6px
     }
 
     /* ---------------------------------------
@@ -192,7 +211,7 @@
     }
     .template-row {
       display: flex;
-      gap: 30px;
+      gap: 32px;
       justify-content: center;
       margin-bottom: 20px;
     }
@@ -205,21 +224,25 @@
       margin: 5px 12px;
       font-size: 15px;
       color: #5a5a5a;
+      font-family: 'GenSenRounded2TW-R', sans-serif;
+      letter-spacing: 4px;
+      white-space: nowrap;
     }
     .fuel-group .input-group input {
-      width: 77px;
-      padding: 8px 12px;
+      width: 100px;
+      padding: 8px 10px;
       border: 1px solid rgba(208,210,214,0.6);
       border-radius: 6px;
       background: #fff;
       font-size: 14px;
       color: #4a4a4a;
+
     }
     .fuel-group .input-group select {
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
-      width: 100px;
+      width: 120px;
       padding: 8px 30px 8px 12px;
       border: 1px solid rgba(208,210,214,0.6);
       border-radius: 6px;
@@ -227,6 +250,8 @@
       background-size: 30px;
       font-size: 14px;
       color: #4a4a4a;
+      font-family: 'GenSenRounded2TW-L', sans-serif;
+      letter-spacing: 3px
     }
     .special-label {
       font-size: 16px;
@@ -262,6 +287,8 @@
       font-size: 15px;
       color: #5a5a5a;
       white-space: nowrap;
+      font-family: 'GenSenRounded2TW-R', sans-serif;
+      letter-spacing: 6px
     }
     .input-group-MRT select{
       -webkit-appearance: none;
@@ -277,13 +304,15 @@
       color: #4a4a4a;
     }
     .input-group-MRT input {
-      width: 77px;
+      width: 120px;
       padding: 8px 12px;
       border: 1px solid rgba(208,210,214,0.6);
       border-radius: 6px;
       background: #fff;
       font-size: 14px;
       color: #4a4a4a;
+      font-family: 'GenSenRounded2TW-L', sans-serif;
+      letter-spacing: 2px
     }
     #mrtTripDisplay {
       display: flex;
@@ -343,6 +372,7 @@
       padding: 6px 12px;
       cursor: pointer;
       transition: background 0.2s, box-shadow 0.2s;
+      font-family: 'GenSenRounded2TW-R', sans-serif;
     }
 
     /* 2. 滑鼠懸停效果（選填） */
@@ -394,6 +424,31 @@
     }
     .prev-btn { left: -100px; }
     .next-btn { right: -100px; }
+
+    /* 跳轉橫槓 */
+ 
+    .page-indicator {
+      display: flex;
+      justify-content: center;
+      width: 60%;
+      min-width: 250px;
+      gap: 12px;
+      margin-top: 10px;
+    }
+ 
+    .bar {
+      width: 40%;
+      height: 2px;
+      background-color: #ccc;
+      transition: background-color 0.3s;
+      cursor: pointer;
+    }
+ 
+    .bar.active {
+      background-color: #ddd;
+      box-shadow: 0 1px 4px #222;
+    }
+ 
   </style>
 </head>
 
@@ -401,6 +456,15 @@
   <!-- Scene 1: 選車種 -->
   <section id="scene1" class="scene active">
     <h1>日常通勤使用的交通工具</h1>
+    <div class="page-indicator">
+      <span class="bar active" onclick="goToScene(1)"></span>
+      <span class="bar" onclick="goToScene(2)"></span>
+      <span class="bar" onclick="goToScene(3)"></span>
+      <span class="bar" onclick="goToScene(4)"></span>
+      <span class="bar" onclick="goToScene(5)"></span>
+      <span class="bar" onclick="goToScene(6)"></span>
+      <span class="bar" onclick="goToScene(7)"></span>
+    </div>
     <div class="transport-grid">
       <div class="transport-card" onclick="toggleSelection(this,'汽車')">
         <img src="images/汽車.png" alt="汽車">
@@ -434,6 +498,15 @@
   <!-- Scene 2: 燃料 & 計算方法 -->
   <section id="scene2" class="scene">
     <h1>汽車使用狀況</h1>
+    <div class="page-indicator">
+      <span class="bar" onclick="goToScene(1)"></span>
+      <span class="bar active" onclick="goToScene(2)"></span>
+      <span class="bar" onclick="goToScene(3)"></span>
+      <span class="bar" onclick="goToScene(4)"></span>
+      <span class="bar" onclick="goToScene(5)"></span>
+      <span class="bar" onclick="goToScene(6)"></span>
+      <span class="bar" onclick="goToScene(7)"></span>
+    </div>
     <div class="toggle-row">
       <!-- 燃料開關 -->
       <div class="toggle-card">
@@ -463,9 +536,9 @@
           <div class="input-group">
             <label>選擇<br>汽油類型</label>
             <select>
-              <option>92 無鉛</option>
-              <option>95 無鉛</option>
-              <option>98 無鉛</option>
+              <option>92無鉛</option>
+              <option>95無鉛</option>
+              <option>98無鉛</option>
               <option>柴油</option>
             </select>
           </div>
@@ -519,6 +592,15 @@
   <!-- Scene 3: 燃料 & 計算方法（機車） -->
   <section id="scene3" class="scene">
     <h1>機車使用情況</h1>
+    <div class="page-indicator">
+      <span class="bar" onclick="goToScene(1)"></span>
+      <span class="bar" onclick="goToScene(2)"></span>
+      <span class="bar active" onclick="goToScene(3)"></span>
+      <span class="bar" onclick="goToScene(4)"></span>
+      <span class="bar" onclick="goToScene(5)"></span>
+      <span class="bar" onclick="goToScene(6)"></span>
+      <span class="bar" onclick="goToScene(7)"></span>
+    </div>
     <div class="toggle-row">
       <!-- 燃料開關 -->
       <div class="toggle-card">
@@ -551,7 +633,6 @@
               <option>92 無鉛</option>
               <option>95 無鉛</option>
               <option>98 無鉛</option>
-              <option>柴油</option>
             </select>
           </div>
           <div class="input-group">
@@ -594,37 +675,58 @@
 
     
   <!-- Scene 4: 捷運使用情況 -->
-  <section id="scene4" class="scene">
-    <h1>捷運使用情況</h1>
-    <div class="template-row">
-      <div class="template-wrapper add-trip-wrapper">
-        <div class="input-group-MRT">
-          <label for="mrtStart">選擇起點</label>
-          <select id="mrtStart"></select>
-        </div>
-        <div class="input-group-MRT">
-          <label for="mrtEnd">選擇訖點</label>
-          <select id="mrtEnd"></select>
-        </div>
-        <div class="input-group-MRT">
-          <label for="mrtCount">每月搭乘 </label>
-          <input id="mrtCount" type="number" min="1" />
-          <label class="special-label">趟</label>
-        </div>
-        <button class="mrt-btn" onclick="addMRTTrip()">新增行程</button>
-      </div>
-      <div class="template-wrapper mrt-trip-list-wrapper" id="mrtTripDisplay">
-        <div class="trip-list"><!-- 這才是要滾動的區塊 --></div>
-        <button class="mrt-btn" onclick="removeMRTTrip()">刪除行程</button>
-      </div>
-
+<section id="scene4" class="scene">
+  <h1>捷運使用情況</h1>
+  <div class="page-indicator">
+      <span class="bar" onclick="goToScene(1)"></span>
+      <span class="bar" onclick="goToScene(2)"></span>
+      <span class="bar" onclick="goToScene(3)"></span>
+      <span class="bar active" onclick="goToScene(4)"></span>
+      <span class="bar" onclick="goToScene(5)"></span>
+      <span class="bar" onclick="goToScene(6)"></span>
+      <span class="bar" onclick="goToScene(7)"></span>
     </div>
-    <button class="nav-btn prev-btn" onclick="goToScene(3)">‹</button>
-    <button class="nav-btn next-btn" onclick="goToScene(5)">›</button>
-  </section>
+  <div class="template-row">
+    <div class="template-wrapper add-trip-wrapper">
+      <div class="input-group-MRT">
+        <label for="mrtStart">選擇起點</label>
+        <input list="mrtStationList" id="mrtStart" />
+      </div>
+      <div class="input-group-MRT">
+        <label for="mrtEnd">選擇訖點</label>
+        <input list="mrtStationList" id="mrtEnd"  />
+        <datalist id="mrtStationList"></datalist>
+      </div>
+      <div class="input-group-MRT">
+        <label for="mrtCount">每月搭乘</label>
+        <input id="mrtCount" type="number" min="1" />
+        <label class="special-label">趟</label>
+      </div>
+      <button class="mrt-btn" onclick="addMRTTrip()">新增行程</button>
+    </div>
+
+    <!-- 這裡一定要加上 id="mrtTripDisplay" -->
+    <div class="template-wrapper mrt-trip-list-wrapper" id="mrtTripDisplay">
+      <div class="trip-list"><!-- 這裡會塞 trip-item --></div>
+      <button class="mrt-btn" onclick="removeMRTTrip()">刪除行程</button>
+    </div>
+  </div>
+  <button class="nav-btn prev-btn" onclick="goToScene(3)">‹</button>
+  <button class="nav-btn next-btn" onclick="goToScene(5)">›</button>
+</section>
+
   <!-- Scene 5: 火車使用情況 -->
   <section id="scene5" class="scene">
     <h1>火車使用情況</h1>
+    <div class="page-indicator">
+      <span class="bar" onclick="goToScene(1)"></span>
+      <span class="bar" onclick="goToScene(2)"></span>
+      <span class="bar" onclick="goToScene(3)"></span>
+      <span class="bar" onclick="goToScene(4)"></span>
+      <span class="bar active" onclick="goToScene(5)"></span>
+      <span class="bar" onclick="goToScene(6)"></span>
+      <span class="bar" onclick="goToScene(7)"></span>
+    </div>
     <div class="template-row">
       <div class="template-wrapper add-trip-wrapper">
         <div class="input-group-MRT">
@@ -654,6 +756,15 @@
   <!-- Scene 6: 高鐵使用情況 -->
   <section id="scene6" class="scene">
     <h1>高鐵使用情況</h1>
+    <div class="page-indicator">
+      <span class="bar" onclick="goToScene(1)"></span>
+      <span class="bar" onclick="goToScene(2)"></span>
+      <span class="bar" onclick="goToScene(3)"></span>
+      <span class="bar" onclick="goToScene(4)"></span>
+      <span class="bar" onclick="goToScene(5)"></span>
+      <span class="bar active" onclick="goToScene(6)"></span>
+      <span class="bar" onclick="goToScene(7)"></span>
+    </div>
     <div class="template-row">
       <div class="template-wrapper add-trip-wrapper">
         <div class="input-group-MRT">
@@ -683,6 +794,15 @@
   <!-- Scene 7: 公車使用情況（簡化版） -->
   <section id="scene7" class="scene">
     <h1>公車使用情況</h1>
+    <div class="page-indicator">
+      <span class="bar" onclick="goToScene(1)"></span>
+      <span class="bar" onclick="goToScene(2)"></span>
+      <span class="bar" onclick="goToScene(3)"></span>
+      <span class="bar" onclick="goToScene(4)"></span>
+      <span class="bar" onclick="goToScene(5)"></span>
+      <span class="bar" onclick="goToScene(6)"></span>
+      <span class="bar active" onclick="goToScene(7)"></span>
+    </div>
     <div class="template-wrapper">
       <div class="input-group-MRT">
         <label for="busCount">每周搭乘</label>
@@ -695,176 +815,183 @@
   </section>
 
   <script>
-    // 記錄交通工具選擇
-    const selectedTransport = [];
-    function toggleSelection(card, type) {
-      card.classList.toggle('selected');
-      if (selectedTransport.includes(type)) {
-        selectedTransport.splice(selectedTransport.indexOf(type), 1);
-      } else {
-        selectedTransport.push(type);
-      }
-      console.log('目前選擇：', selectedTransport);
+  // 記錄交通工具選擇
+  const selectedTransport = [];
+  function toggleSelection(card, type) {
+    card.classList.toggle('selected');
+    if (selectedTransport.includes(type)) {
+      selectedTransport.splice(selectedTransport.indexOf(type), 1);
+    } else {
+      selectedTransport.push(type);
     }
+    console.log('目前選擇：', selectedTransport);
+  }
 
-    // 場景切換
-    let currentScene = 1;
-    function goToScene(n) {
-      document.getElementById(`scene${currentScene}`).classList.remove('active');
-      document.getElementById(`scene${n}`).classList.add('active');
-      currentScene = n;
+  // 場景切換
+  let currentScene = 1;
+  function goToScene(n) {
+    document.getElementById(`scene${currentScene}`).classList.remove('active');
+    document.getElementById(`scene${n}`).classList.add('active');
+    currentScene = n;
+  }
+
+  // 儲存各場景的距離資料
+  let mrtMap = {};
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // —— Scene 2 汽車燃料 & 計算方法 —— //
+    const fuelToggle   = document.getElementById('fuelToggle');
+    const methodToggle = document.getElementById('methodToggle');
+    const oilLeft      = document.getElementById('oil-left');
+    const oilRight     = document.getElementById('oil-right');
+    const elecLeft     = document.getElementById('electric-left');
+    const elecRight    = document.getElementById('electric-right');
+    const paneLeft     = document.getElementById('pane-left');
+    const paneRight    = document.getElementById('pane-right');
+
+    function updateFuel() {
+      const isElec = fuelToggle.checked;
+      oilLeft.classList.toggle('hidden', isElec);
+      oilRight.classList.toggle('hidden', isElec);
+      elecLeft.classList.toggle('hidden', !isElec);
+      elecRight.classList.toggle('hidden', !isElec);
     }
+    function updateMethod() {
+      const isVol = methodToggle.checked;
+      paneLeft.classList.toggle('inactive', isVol);
+      paneRight.classList.toggle('inactive', !isVol);
+    }
+    fuelToggle.addEventListener('change', () => { updateFuel(); updateMethod(); });
+    methodToggle.addEventListener('change', updateMethod);
+    updateFuel(); updateMethod();
 
-    // 燃料／方法模板邏輯 for Scene 2 & 4
-    document.addEventListener('DOMContentLoaded', () => {
-      // Scene 2
-      const fuelToggle   = document.getElementById('fuelToggle');
-      const methodToggle = document.getElementById('methodToggle');
-      const oilLeft      = document.getElementById('oil-left');
-      const oilRight     = document.getElementById('oil-right');
-      const elecLeft     = document.getElementById('electric-left');
-      const elecRight    = document.getElementById('electric-right');
-      const paneLeft     = document.getElementById('pane-left');
-      const paneRight    = document.getElementById('pane-right');
+    // —— Scene 3 機車燃料 & 計算方法 —— //
+    const fuelToggle4   = document.getElementById('fuelToggle4');
+    const methodToggle4 = document.getElementById('methodToggle4');
+    const oilLeft4      = document.getElementById('oil-left4');
+    const oilRight4     = document.getElementById('oil-right4');
+    const elecLeft4     = document.getElementById('electric-left4');
+    const elecRight4    = document.getElementById('electric-right4');
+    const paneLeft4     = document.getElementById('pane-left4');
+    const paneRight4    = document.getElementById('pane-right4');
 
-      function updateFuel() {
-        const isElec = fuelToggle.checked;
-        oilLeft.classList.toggle('hidden', isElec);
-        oilRight.classList.toggle('hidden', isElec);
-        elecLeft.classList.toggle('hidden', !isElec);
-        elecRight.classList.toggle('hidden', !isElec);
-      }
-      function updateMethod() {
-        const isVol = methodToggle.checked;
-        paneLeft.classList.toggle('inactive', isVol);
-        paneRight.classList.toggle('inactive', !isVol);
-      }
-      fuelToggle.addEventListener('change', () => { updateFuel(); updateMethod(); });
-      methodToggle.addEventListener('change', updateMethod);
-      updateFuel(); updateMethod();
+    function updateFuel4() {
+      const isElec = fuelToggle4.checked;
+      oilLeft4.classList.toggle('hidden', isElec);
+      oilRight4.classList.toggle('hidden', isElec);
+      elecLeft4.classList.toggle('hidden', !isElec);
+      elecRight4.classList.toggle('hidden', !isElec);
+    }
+    function updateMethod4() {
+      const isVol = methodToggle4.checked;
+      paneLeft4.classList.toggle('inactive', isVol);
+      paneRight4.classList.toggle('inactive', !isVol);
+    }
+    fuelToggle4.addEventListener('change', () => { updateFuel4(); updateMethod4(); });
+    methodToggle4.addEventListener('change', updateMethod4);
+    updateFuel4(); updateMethod4();
 
-      // Scene 4
-      const fuelToggle4   = document.getElementById('fuelToggle4');
-      const methodToggle4 = document.getElementById('methodToggle4');
-      const oilLeft4      = document.getElementById('oil-left4');
-      const oilRight4     = document.getElementById('oil-right4');
-      const elecLeft4     = document.getElementById('electric-left4');
-      const elecRight4    = document.getElementById('electric-right4');
-      const paneLeft4     = document.getElementById('pane-left4');
-      const paneRight4    = document.getElementById('pane-right4');
+    // —— Scene 5 (MRT) & Scene 6 (火車、高鐵) 站點資料載入 —— //
+    const stationList = document.getElementById('mrtStationList');
+    const trainStart   = document.getElementById('trainStart');
+    const trainEnd     = document.getElementById('trainEnd');
+    const hsrStart     = document.getElementById('hsrStart');
+    const hsrEnd       = document.getElementById('hsrEnd');
 
-      function updateFuel4() {
-        const isElec = fuelToggle4.checked;
-        oilLeft4.classList.toggle('hidden', isElec);
-        oilRight4.classList.toggle('hidden', isElec);
-        elecLeft4.classList.toggle('hidden', !isElec);
-        elecRight4.classList.toggle('hidden', !isElec);
-      }
-      function updateMethod4() {
-        const isVol = methodToggle4.checked;
-        paneLeft4.classList.toggle('inactive', isVol);
-        paneRight4.classList.toggle('inactive', !isVol);
-      }
-      fuelToggle4.addEventListener('change', () => { updateFuel4(); updateMethod4(); });
-      methodToggle4.addEventListener('change', updateMethod4);
-      updateFuel4(); updateMethod4();
-    });
-    // ===== Scene 5 (MRT) 的資料與功能 =====
-    let mrtMap = {};
-    document.addEventListener('DOMContentLoaded', () => {
-      // 載入 MRT 距離與選單
-      const startSel = document.getElementById('mrtStart');
-      const endSel   = document.getElementById('mrtEnd');
-      fetch('/data/mrtDistanceMap.json')
-        .then(r => r.json())
-        .then(data => {
-          mrtMap = data;
-          const stations = Array.from(
-            new Set(Object.keys(data).flatMap(k => k.split('_')))
-          ).sort((a,b) => a.localeCompare(b, 'zh'));
-          stations.forEach(s => {
-            [startSel, endSel].forEach(sel => {
-              const o = document.createElement('option');
-              o.value = o.textContent = s;
-              sel.appendChild(o);
-            });
+    fetch('/data/mrtDistanceMap.json')
+      .then(r => r.json())
+      .then(data => {
+        mrtMap = data;
+        // 取出所有站點名稱
+        const stations = Array.from(
+          new Set(Object.keys(data).flatMap(k => k.split('_')))
+        ).sort((a, b) => a.localeCompare(b, 'zh'));
+        stations.forEach(s => {
+          // datalist for MRT
+          const opt = document.createElement('option');
+          opt.value = s;
+          stationList.appendChild(opt);
+          // select options for 火車 & 高鐵
+          [trainStart, trainEnd, hsrStart, hsrEnd].forEach(sel => {
+            const o = document.createElement('option');
+            o.value = s;
+            sel.appendChild(o);
           });
-        })
-        .catch(console.error);
+        });
+      })
+      .catch(console.error);
 
-    });
+  });
 
-    function addMRTTrip() {
-      const s = document.getElementById('mrtStart').value;
-      const e = document.getElementById('mrtEnd').value;
-      const c = parseInt(document.getElementById('mrtCount').value,10) || 0;
-      if (!s || !e || c <= 0) {
-        return alert('請選擇完整的起訖站並輸入有效次數');
-      }
-      const dist  = mrtMap[`${s}_${e}`] || 0;
-      const total = (dist * c).toFixed(2);
-      const item  = document.createElement('div');
-      item.className = 'trip-item';
-      item.innerHTML = `<span>${s} → ${e}</span><span>${dist.toFixed(2)} km × ${c} = ${total} km</span>`;
-      document.getElementById('mrtTripDisplay').appendChild(item);
-      const container = document.getElementById('mrtTripDisplay');
-      const removeBtn = container.querySelector('.mrt-btn');
-      container.insertBefore(item, removeBtn);
-      const list = document.querySelector('#mrtTripDisplay .trip-list');
-      list.appendChild(item);
+  // —— 新增 & 刪除行程 —— //
+  function addMRTTrip() {
+    const s = document.getElementById('mrtStart').value;
+    const e = document.getElementById('mrtEnd').value;
+    const c = parseInt(document.getElementById('mrtCount').value, 10) || 0;
+    if (!s || !e || c <= 0) {
+      return alert('請選擇完整的起訖站並輸入有效次數');
     }
+    const dist  = mrtMap[`${s}_${e}`] || 0;
+    const total = (dist * c).toFixed(2);
+    const item  = document.createElement('div');
+    item.className = 'trip-item';
+    item.innerHTML = `<span>${s} → ${e}</span><span>${dist.toFixed(2)} km × ${c} = ${total} km</span>`;
+    // 放到 .trip-list 裡面
+    document.querySelector('#mrtTripDisplay .trip-list').appendChild(item);
+  }
+  function removeMRTTrip() {
+    const list = document.querySelector('#mrtTripDisplay .trip-list');
+    const items = list.querySelectorAll('.trip-item');
+    if (items.length === 0) return alert('目前沒有行程可刪除');
+    list.removeChild(items[items.length - 1]);
+  }
 
-    function removeMRTTrip() {
-      // 1. 拿到列表容器，而不是外层 wrapper
-      const list = document.querySelector('#mrtTripDisplay .trip-list');
-      // 2. 找到所有行程项
-      const items = list.querySelectorAll('.trip-item');
-      if (items.length === 0) {
-        return alert('目前沒有行程可刪除');
-      }
-      // 3. 从 list 里删掉最后一个
-      list.removeChild(items[items.length - 1]);
-    }
-    // 火車行程
-    function addTrainTrip() {
-      const s = document.getElementById('trainStart').value;
-      const e = document.getElementById('trainEnd').value;
-      const c = parseInt(document.getElementById('trainCount').value,10) || 0;
-      if (!s || !e || c <= 0) return alert('請選擇完整的起訖站並輸入有效次數');
-      const dist  = mrtMap[`${s}_${e}`] || 0;
-      const total = (dist * c).toFixed(2);
-      const item  = document.createElement('div');
-      item.className = 'trip-item';
-      item.innerHTML = `<span>${s} → ${e}</span><span>${dist.toFixed(2)} km × ${c} = ${total} km</span>`;
-      document.getElementById('trainTripList').appendChild(item);
-    }
-    function removeTrainTrip() {
-      const list = document.getElementById('trainTripList');
-      const items = list.querySelectorAll('.trip-item');
-      if (!items.length) return alert('目前沒有行程可刪除');
-      list.removeChild(items[items.length-1]);
-    }
+  function addTrainTrip() {
+    const s = document.getElementById('trainStart').value;
+    const e = document.getElementById('trainEnd').value;
+    const c = parseInt(document.getElementById('trainCount').value, 10) || 0;
+    if (!s || !e || c <= 0) return alert('請選擇完整的起訖站並輸入有效次數');
+    const dist  = mrtMap[`${s}_${e}`] || 0;
+    const total = (dist * c).toFixed(2);
+    const item  = document.createElement('div');
+    item.className = 'trip-item';
+    item.innerHTML = `<span>${s} → ${e}</span><span>${dist.toFixed(2)} km × ${c} = ${total} km</span>`;
+    document.getElementById('trainTripList').appendChild(item);
+  }
+  function removeTrainTrip() {
+    const list = document.getElementById('trainTripList');
+    const items = list.querySelectorAll('.trip-item');
+    if (!items.length) return alert('目前沒有行程可刪除');
+    list.removeChild(items[items.length - 1]);
+  }
 
-    // 高鐵行程
-    function addHsrTrip() {
-      const s = document.getElementById('hsrStart').value;
-      const e = document.getElementById('hsrEnd').value;
-      const c = parseInt(document.getElementById('hsrCount').value,10) || 0;
-      if (!s || !e || c <= 0) return alert('請選擇完整的起訖站並輸入有效次數');
-      const dist  = mrtMap[`${s}_${e}`] || 0;
-      const total = (dist * c).toFixed(2);
-      const item  = document.createElement('div');
-      item.className = 'trip-item';
-      item.innerHTML = `<span>${s} → ${e}</span><span>${dist.toFixed(2)} km × ${c} = ${total} km</span>`;
-      document.getElementById('hsrTripList').appendChild(item);
-    }
-    function removeHsrTrip() {
-      const list = document.getElementById('hsrTripList');
-      const items = list.querySelectorAll('.trip-item');
-      if (!items.length) return alert('目前沒有行程可刪除');
-      list.removeChild(items[items.length-1]);
-    }
+  function addHsrTrip() {
+    const s = document.getElementById('hsrStart').value;
+    const e = document.getElementById('hsrEnd').value;
+    const c = parseInt(document.getElementById('hsrCount').value, 10) || 0;
+    if (!s || !e || c <= 0) return alert('請選擇完整的起訖站並輸入有效次數');
+    const dist  = mrtMap[`${s}_${e}`] || 0;
+    const total = (dist * c).toFixed(2);
+    const item  = document.createElement('div');
+    item.className = 'trip-item';
+    item.innerHTML = `<span>${s} → ${e}</span><span>${dist.toFixed(2)} km × ${c} = ${total} km</span>`;
+    document.getElementById('hsrTripList').appendChild(item);
+  }
+  function removeHsrTrip() {
+    const list = document.getElementById('hsrTripList');
+    const items = list.querySelectorAll('.trip-item');
+    if (!items.length) return alert('目前沒有行程可刪除');
+    list.removeChild(items[items.length - 1]);
+  }
+</script>
 
-  </script>
 </body>
 </html>
+
+
+<!--捷運站點可以選取要刪除哪個行程 開關要不變色 字體 寬度 可以輸入字體選站點
+    郵輪:跟捷運一樣 顯示:總搭乘天數 停留天數 航行天數
+    -->
+
+    <!-- 完成 開關要不變色 開關要不變色 字體 寬度
+    -->

@@ -5,9 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>日常娛樂</title>
   <style>
+     /*—— 自訂字體 ——*/
+    @font-face {
+      font-family: 'GenSenRounded2TW-R';
+      src: url('font/GenSenRounded2TW-R.otf') format('opentype');
+      font-weight: normal; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'GenSenRounded2TW-L';
+      src: url('font/GenSenRounded2TW-L.otf') format('opentype');
+      font-weight: normal; font-style: normal; font-display: swap;
+    }
+
     :root {
       --inner-gap: 80px;
+      letter-spacing: 6px;
     }
+
     html, body {
       margin: 0;
       padding: 0;
@@ -21,6 +35,7 @@
       font-family: 'SweiXDPearlCJKtc-DemiLight', sans-serif;
       overflow: hidden;
     }
+
     .scene {
       display: none;
       flex-direction: column;
@@ -35,10 +50,9 @@
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 24px;
       box-shadow: 
-      -2px -2px 1.5px 0px #ffffff,
-      2px 2px 1.5px 0px #a5a6a85c,
-      -12px -12px 12px 0px #bbbbbb30 inset,
-      12px 12px 12px 0px #ffffff62 inset;
+      -2.5px -2.5px 1.5px 0px #ffffff,
+      2.5px 2.5px 1.5px 0px #a5a6a85c,
+      12px 12px 12px 0px #bbbbbb50;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       position: relative;
@@ -50,8 +64,9 @@
     }
 
     h1 {
+      font-family: "GenSenRounded2TW-R", sans-serif;
       font-size: 24px;
-      font-weight: bold;
+      letter-spacing: 10px;
       margin-bottom: 14px;
       color: #5a5a5a;
     }
@@ -113,7 +128,7 @@
   min-width: 250px;
   gap: 12px;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .bar {
@@ -133,7 +148,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 32px;
 }
 
 @media (max-width: 900px){
@@ -150,12 +165,13 @@
   align-items: center;
   background: rgba(255, 255, 255, 0.4);
   border-radius: 16px;
-  padding: 24px 48px;  
+  padding: 24px 48px;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
 }
 
 .scene-2 .toggle-card .question-title {
+  font-family: "GenSenRounded2TW-R", sans-serif;
   font-weight: 600;
   color: #333;
   margin-bottom: 16px;
@@ -192,8 +208,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
+  background: none;
+  border: none;
   border-radius: 100%;
   width: 30px;
   height: 30px;
@@ -209,6 +225,10 @@
   background-color: #ddd;
 }
 
+.custom-number-input .btn-decrement{
+  font-size: 32px;
+}
+
 
 .scene-2 .toggle-card .label {
   font-size: 16px;
@@ -222,11 +242,12 @@
   margin-top: auto; /* 推到底部 */
   display: flex;
   justify-content: center;
-  gap: 30px;
+  gap: 6px;
 }
 
 /* 單位文字避免斷行 */
 .nowrap-text {
+  font-family: "GenSenRounded2TW-L", sans-serif;
   white-space: nowrap;
 }
 
@@ -319,7 +340,7 @@
     position: absolute; 
     top: 8px; 
     right: 12px;
-    font-size: 24px; 
+    font-size: 20px; 
     color: #aaa;
     cursor: pointer; 
     user-select: none;
@@ -414,7 +435,7 @@
       </div>
     </div>
     <div class="toggle-card">
-      <span class="question-title">一月/年去幾次 KTV？ </span>
+      <span class="question-title">一月/年去幾次KTV？ </span>
       <div class="custom-number-input">
         <button type="button" class="btn-decrement">-</button>
         <input type="number" value="0" min="0" />
