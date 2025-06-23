@@ -116,6 +116,16 @@
       }
     }
 
+
+.toggle-card .question-title {
+  font-family: "GenSenRounded2TW-R", sans-serif;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
 /* input 框樣式 */
 
   .input-container {
@@ -155,9 +165,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: none;
+    background: #fff;
     border: none;
     border-radius: 100%;
+    background: rgba(255, 255, 255);
+    box-shadow: 
+    -2.5px -2.5px 1.5px 0px #ffffff,
+    2.5px 2.5px 1.5px 0px #a5a6a85c,
+    2px 2px 4px 0px #bbbbbb50;
     width: 30px;
     height: 30px;
     padding: 15px;
@@ -181,7 +196,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     width: 100%;
     border-radius: 16px;
@@ -269,6 +284,10 @@
       margin: 0 32px;
     }
 
+    .circle-container .range-thumb{
+      cursor: pointer;
+    }
+
 /* 換頁按鈕 */
     .nav-btn {
       position: fixed;
@@ -283,6 +302,10 @@
       background: rgba(255, 255, 255, 0.15);
       border: 2px solid white;
       border-radius: 50%;
+      box-shadow: 
+      -0.5px -0.5px 1.5px 0px #ffffff,
+      2.5px 2.5px 1.5px 0px #a5a6a85c,
+      4px 4px 2px 0px #bbbbbb50;
       cursor: pointer;
       backdrop-filter: blur(4px);
       transition: 0.3s linear;
@@ -301,13 +324,14 @@
 <body>
   <!-- 第一頁：問人數 -->
   <section id="scene-home-1" class="scene scene-1 active">
-    <h1>請問您家中共有幾位成員？每個月大約使用多少能源資源？</h1>
+    <h1>每個月大約使用多少能源資源？</h1>
     <div class="page-indicator">
       <span class="bar active" onclick="goToScene('scene-home-1')"></span>
       <span class="bar" onclick="goToScene('scene-home-2')"></span>
     </div>
     <div class="home-card">
       <div class="toggle-card">
+        <span class="question-title">請問您家中有幾位成員?</span>
         <div class="custom-number-input">
           <button type="button" class="btn-decrement">-</button>
           <input type="number" value="0" min="0" />
@@ -388,7 +412,7 @@
   </section>
 
   <script>
-        const containers = document.querySelectorAll('.custom-number-input');
+    const containers = document.querySelectorAll('.custom-number-input');
 
     containers.forEach(container => {
       const input = container.querySelector('input[type="number"]');
@@ -445,8 +469,8 @@
       container.innerHTML = `
         <svg viewBox="0 0 200 200" width="200" height="200">
           <circle cx="100" cy="100" r="80" stroke="#ccc" stroke-width="10" fill="none"/>
-          <path class="range-arc" stroke="#ff7043" stroke-width="10" fill="none"/>
-          <circle class="range-thumb" r="8" fill="#ff7043" cx="100" cy="20" />
+          <path class="range-arc" stroke="	#02C874	" stroke-width="10" fill="none"/>
+          <circle class="range-thumb" r="10" fill="	#02C874	" cx="100" cy="20" />
         </svg>
         <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px;">
           <span class="circular-value"></span>
@@ -494,14 +518,18 @@
         return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArc} 1 ${end.x} ${end.y}`;
       }
 
-      function updateUI(value) {
-        const angle = valueToAngle(value);
-        const thumbPos = polarToCartesian(centerX, centerY, radius, angle);
-        thumb.setAttribute("cx", thumbPos.x);
-        thumb.setAttribute("cy", thumbPos.y);
-        arc.setAttribute("d", describeArc(centerX, centerY, radius, angle));
-        valueText.textContent = `${value}${unit}`;
-      }
+    function updateUI(value, round = true) {
+      const shownValue = round ? Math.round(value / step) * step : value;
+      const angle = valueToAngle(shownValue);
+      const thumbPos = polarToCartesian(centerX, centerY, radius, angle);
+      thumb.setAttribute("cx", thumbPos.x);
+      thumb.setAttribute("cy", thumbPos.y);
+      arc.setAttribute("d", describeArc(centerX, centerY, radius, angle));
+      valueText.textContent = `${Math.round(shownValue)}${unit}`;
+    }
+
+
+      let currentRawValue = initial; // 新增變數儲存當前滑動值
 
       function handleMove(e) {
         if (!dragging) return;
@@ -517,9 +545,27 @@
         if (angleDiff < -300 || angleDiff > 300) return;
         lastAngle = angle;
 
-        const value = angleToValue(angle);
-        updateUI(value);
+        currentRawValue = min + (max - min) * (angle / 360); // 不四捨五入
+        updateUI(currentRawValue, false); // 更新時不做 rounding
       }
+
+      window.addEventListener("mouseup", () => {
+      if (dragging) {
+        dragging = false;
+        const snappedValue = Math.round(currentRawValue / step) * step;
+              console.log("snappedValue:", snappedValue);
+        updateUI(snappedValue, true); // 對齊最近的 step
+        }
+      });
+      
+      window.addEventListener("touchend", () => {
+      if (dragging) {
+        dragging = false;
+        const snappedValue = Math.round(currentRawValue / step) * step;
+              console.log("snappedValue:", snappedValue);
+        updateUI(snappedValue, true);
+        }
+      });
 
       thumb.addEventListener("mousedown", () => dragging = true);
       window.addEventListener("mouseup", () => dragging = false);
@@ -535,7 +581,6 @@
     document.querySelectorAll(".circular-range").forEach(el => {
       createCircularSlider(el);
     });
-
 
   </script>
 </body>

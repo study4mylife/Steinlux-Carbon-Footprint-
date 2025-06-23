@@ -165,7 +165,7 @@
   align-items: center;
   background: rgba(255, 255, 255, 0.4);
   border-radius: 16px;
-  padding: 24px 48px;
+  padding: 16px 48px;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
 }
@@ -174,7 +174,7 @@
   font-family: "GenSenRounded2TW-R", sans-serif;
   font-weight: 600;
   color: #333;
-  margin-bottom: 16px;
+  margin: 12px;
   line-height: 1.2;
   white-space: nowrap;
 }
@@ -211,6 +211,11 @@
   background: none;
   border: none;
   border-radius: 100%;
+  background: rgba(255, 255, 255);
+  box-shadow: 
+  -2.5px -2.5px 1.5px 0px #ffffff,
+  2.5px 2.5px 1.5px 0px #a5a6a85c,
+  2px 2px 4px 0px #bbbbbb50;
   width: 30px;
   height: 30px;
   padding: 15px;
@@ -292,8 +297,8 @@
     position: absolute; 
     bottom: 16px; 
     right: 16px;
-    width: 64px; 
-    height: 64px;
+    width: 48px; 
+    height: 48px;
     border-radius: 50%;
     background:
     radial-gradient(circle at 30% 30%,
@@ -319,7 +324,7 @@
     justify-content: center;
     align-items: center;
     position: fixed;
-    bottom: -24px; 
+    bottom: -16px; 
     right: 16px;
     transform: translate(-50%, -50%);
     width: fit-content; 
@@ -332,15 +337,14 @@
     -webkit-backdrop-filter: blur(20px);
     box-shadow: 0 8px 32px rgba(0,0,0,0.1);
     border-radius: 24px;
-    padding: 24px;
+    padding: 16px;
     z-index: 1000;
     
   }
   .modal-close {
     position: absolute; 
-    top: 8px; 
-    right: 12px;
-    font-size: 20px; 
+    top: 4px; 
+    right: 8px;
     color: #aaa;
     cursor: pointer; 
     user-select: none;
@@ -351,6 +355,7 @@
 
 /* Modal 內容排版 */
   .modal-body {
+    font-size: 14px;
     flex: 1; 
     overflow-y: auto;
     white-space: nowrap;
@@ -370,6 +375,10 @@
     background: rgba(255, 255, 255, 0.15);
     border: 2px solid white;
     border-radius: 50%;
+    box-shadow: 
+    -0.5px -0.5px 1.5px 0px #ffffff,
+    2.5px 2.5px 1.5px 0px #a5a6a85c,
+    4px 4px 2px 0px #bbbbbb50;
     cursor: pointer;
     backdrop-filter: blur(4px);
     transition: 0.3s;
@@ -435,7 +444,7 @@
       </div>
     </div>
     <div class="toggle-card">
-      <span class="question-title">一月/年去幾次KTV？ </span>
+      <span class="question-title" data-template="{unit}去幾次KTV？">一月去幾次KTV？</span>
       <div class="custom-number-input">
         <button type="button" class="btn-decrement">-</button>
         <input type="number" value="0" min="0" />
@@ -471,7 +480,7 @@
       </div>
     </div>
     <div class="toggle-card">
-      <span class="question-title">一月/年去幾次電影院？</span>
+      <span class="question-title" data-template="{unit}去幾次電影院？">一月去幾次電影院？</span>
       <div class="custom-number-input">
         <button type="button" class="btn-decrement">-</button>
         <input type="number" value="0" min="0" />
@@ -507,7 +516,7 @@
       </div>
     </div>
     <div class="toggle-card">
-      <span class="question-title">一週/月去幾次健身房？</span>
+      <span class="question-title" data-template="{unit}去幾次健身房？">一週去幾次健身房？</span>
       <div class="custom-number-input">
         <button type="button" class="btn-decrement">-</button>
         <input type="number" value="0" min="0" />
@@ -543,7 +552,7 @@
       </div>
     </div>
     <div class="toggle-card">
-      <span class="question-title">一月/年去住幾天飯店？</span>
+      <span class="question-title" data-template="{unit}去住幾天飯店？">一月去住幾天飯店？</span>
       <div class="custom-number-input">
         <button type="button" class="btn-decrement">-</button>
         <input type="number" value="0" min="0" />
@@ -568,6 +577,14 @@
   </div>
   <div class="entertain-card">
     <div class="toggle-card">
+      <span class="question-title">每月使用網路流量(GB)</span>
+      <div class="custom-number-input">
+        <button type="button" class="btn-decrement">-</button>
+        <input type="number" value="0" min="0" />
+        <button type="button" class="btn-increment">+</button>
+      </div>
+    </div>
+    <div class="toggle-card">
       <span class="question-title">時間單位</span>
       <div class="toggle-row">
         <span class="nowrap-text">一天</span>
@@ -577,9 +594,7 @@
         </label>
         <span class="nowrap-text">一周</span>
       </div>
-    </div>
-    <div class="toggle-card">
-      <span class="question-title">每次使用網路幾小時？</span>
+      <span class="question-title" data-template="每{unit}使用網路幾小時？">每使用網路幾小時？</span>
       <div class="custom-number-input">
         <button type="button" class="btn-decrement">-</button>
         <input type="number" value="0" min="0" />
@@ -615,7 +630,7 @@
       </div>
     </div>
     <div class="toggle-card">
-      <span class="question-title">每周/月使用多少份金紙？</span>
+      <span class="question-title" data-template="每{unit}使用多少份金紙？">每周/月使用多少份金紙？</span>
       <div class="custom-number-input">
         <button type="button" class="btn-decrement">-</button>
         <input type="number" value="0" min="0" />
@@ -676,6 +691,26 @@
     closeX.addEventListener('click', () => {
       modal.style.display = 'none';
     });
+
+    document.querySelectorAll('.entertain-card').forEach(card => {
+      const toggle = card.querySelector('.toggle-switch input[type="checkbox"]');
+      const questionTitle = card.querySelector('.question-title[data-template]');
+      const template = questionTitle?.dataset.template;
+
+      if (!toggle || !questionTitle || !template) return;
+
+      const leftLabel = card.querySelector('.toggle-row span:nth-child(1)')?.textContent.trim();
+      const rightLabel = card.querySelector('.toggle-row span:nth-child(3)')?.textContent.trim();
+
+      function updateTitle() {
+        const selectedUnit = toggle.checked ? rightLabel : leftLabel;
+        questionTitle.textContent = template.replace('{unit}', selectedUnit);
+      }
+
+      updateTitle();
+      toggle.addEventListener('change', updateTitle);
+    });
+
 
     let currentScene = 'scene-entertain-1';
 
