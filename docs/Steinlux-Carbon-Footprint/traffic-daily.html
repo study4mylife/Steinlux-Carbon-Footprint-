@@ -4,75 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>日常通勤 - 控制顯示模板</title>
+  <link rel="stylesheet" href="css/all.css">
   <style>
-    /*—— 自訂字體 ——*/
-    @font-face {
-      font-family: 'GenSenRounded2TW-R';
-      src: url('font/GenSenRounded2TW-R.otf') format('opentype');
-      font-weight: normal; font-style: normal; font-display: swap;
-    }
-    @font-face {
-      font-family: 'GenSenRounded2TW-L';
-      src: url('font/GenSenRounded2TW-L.otf') format('opentype');
-      font-weight: normal; font-style: normal; font-display: swap;
-    }
-    /* ---------------------------------------
-       2. 全螢幕置中、背景
-    --------------------------------------- */
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: url('images/圖片 1.png') no-repeat center center fixed;
-      background-size: cover;
-      overflow: hidden;
-    }
-
     /* ---------------------------------------
        3. 場景容器：隱藏/顯示 + 毛玻璃效果
     --------------------------------------- */
-    .scene {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      width: 900px;
-      max-width: 70%;
-      padding: 20px;
-      height: 500px;
-      max-height: 80%;
-      /* 雙層背景：底層半透明 + 上層漸層光暈 */
-      background:
-        linear-gradient(135deg,
-        rgba(255,255,255,0.05) 0%, 
-        rgba(255,255,255,0.15) 100%),
-        rgba(255, 255, 255, 0.001);
-      /* 半透明白邊框 */
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      /* 玻璃模糊 */
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(20px);
-      /* 輕盈陰影 & 大圓角 */
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      border-radius: 24px;
-      position: relative;
-      text-align: center;
-    }
-
     .scene.active {
       display: flex;
     }
-    h1 {
-      font-size: 36px;
-      margin-bottom: 14px;
-      color: #5a5a5a;
-      font-family: 'GenSenRounded2TW-R', sans-serif;
-      letter-spacing: 10px
-    }
+
     .hidden { display: none; }
     .inactive { opacity: 0.4; }
 
@@ -86,7 +26,7 @@
       gap: 20px;
       width: 90%;
       max-width: 700px;
-      margin: 0 auto 0;
+      margin: 16px auto auto;
     }
     .transport-card {
       display: flex;
@@ -106,11 +46,12 @@
       margin-bottom: -10px;
     }
     .transport-card .label {
+      font-family: 'GenSenRounded2TW-R', sans-serif;
       font-size: 24px;
-      color: #333;
+      color: #6D808F;
       text-align: center;
       white-space: nowrap;
-      font-family: 'GenSenRounded2TW-R', sans-serif;
+
       letter-spacing: 6px
     }
     .transport-card:hover { transform: translateY(-4px); }
@@ -128,6 +69,7 @@
       gap: 32px;
       margin: 40px auto;
     }
+
     .toggle-card {
       height: 50px;
       width: 350px;
@@ -136,38 +78,46 @@
       padding: 12px 20px;
       display: flex;
       align-items: center;
-      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+      box-shadow: 
+      -4pt -4pt 5pt #ffffff46,
+      5pt 5pt 10pt #C3CADB76;
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
     }
     .toggle-card span.label {
       font-size: 18px;
-      color: #8a8a8a;
+      color: #9C7A5C;
       white-space: nowrap;
       margin-right: 50px;
       margin-left: 20px;
       font-family: 'GenSenRounded2TW-R', sans-serif;
       letter-spacing: 6px
     }
+    
     .toggle-switch {
       position: relative;
       width: 40px;
       height: 20px;
       margin: 2px;
     }
+
     .toggle-switch input {
       opacity: 0;
       width: 0;
       height: 0;
     }
+
     .toggle-switch .slider {
       position: absolute;
       cursor: pointer;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: #d0d2d6;
+      background: #EFF3F9;
+      border: none;
+      box-shadow: inset 1pt 1pt 4pt #6D808F70;
       border-radius: 10px;
       transition: 0.75s;
     }
+
     .toggle-switch .slider:before {
       position: absolute;
       content: "";
@@ -176,7 +126,11 @@
       background: #fff;
       border-radius: 50%;
       transition: 0.3s;
+      box-shadow: 
+      -4pt -4pt 5pt #ffffff46,
+      5pt 5pt 10pt #C3CADB76;
     }
+
     .toggle-switch input:checked + .slider {
       background:  #d0d2d6;
     }
@@ -184,7 +138,7 @@
       transform: translateX(20px);
     }
     .nowrap-text {
-      font-size: 20px;
+      color: #6C808F;
       white-space: nowrap;
       margin: 0 10px;
       font-family: 'GenSenRounded2TW-L', sans-serif;
@@ -201,7 +155,9 @@
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 24px;
       padding: 20px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      box-shadow: 
+      -4pt -4pt 5pt #ffffff46,
+      5pt 5pt 10pt #C3CADB76;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       margin-bottom: 20px;
@@ -223,7 +179,7 @@
     .fuel-group .input-group label {
       margin: 5px 12px;
       font-size: 15px;
-      color: #5a5a5a;
+      color: #9C7A5C;
       font-family: 'GenSenRounded2TW-R', sans-serif;
       letter-spacing: 4px;
       white-space: nowrap;
@@ -231,8 +187,9 @@
     .fuel-group .input-group input {
       width: 100px;
       padding: 8px 10px;
-      border: 1px solid rgba(208,210,214,0.6);
-      border-radius: 6px;
+      border: 0.25pt solid #B5C1C623;
+      border-radius: 8px;
+      box-shadow: inset 2pt 2pt 7pt #6D808F70;
       background: #fff;
       font-size: 14px;
       color: #4a4a4a;
@@ -244,8 +201,9 @@
       appearance: none;
       width: 120px;
       padding: 8px 30px 8px 12px;
-      border: 1px solid rgba(208,210,214,0.6);
-      border-radius: 6px;
+      border: 0.25pt solid #B5C1C623;
+      border-radius: 8px;
+      box-shadow: inset 2pt 2pt 7pt #6D808F70;
       background: #fff url('images/下拉式箭頭.png') no-repeat right center;
       background-size: 30px;
       font-size: 14px;
@@ -253,10 +211,9 @@
       font-family: 'GenSenRounded2TW-L', sans-serif;
       letter-spacing: 3px
     }
-    .special-label {
-      font-size: 16px;
-      width: 120px;
-      text-align: left;
+    .fuel-group .input-group .special-label {
+      font-family: 'GenSenRounded2TW-L', sans-serif;
+      color: #6C808F;
     }
     /* ---------------------------------------
        7. MRT區域 (Scene 2 & 4)
@@ -285,11 +242,15 @@
     .input-group-MRT label {
       margin: 5px 12px;
       font-size: 15px;
-      color: #5a5a5a;
+      color: #9C7A5C;
       white-space: nowrap;
       font-family: 'GenSenRounded2TW-R', sans-serif;
       letter-spacing: 6px
     }
+    .input-group-MRT .special-label {
+      color:#6C808F;
+    }
+
     .input-group-MRT select{
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -300,17 +261,20 @@
       border-radius: 6px;
       background: #fff url('images/下拉式箭頭.png') no-repeat right center;
       background-size: 30px;
+      box-shadow: inset 2pt 2pt 7pt #6D808F70;
       font-size: 14px;
       color: #4a4a4a;
     }
+
     .input-group-MRT input {
       width: 120px;
       padding: 8px 12px;
-      border: 1px solid rgba(208,210,214,0.6);
+      border: 0.25pt solid #B5C1C623;
       border-radius: 6px;
       background: #fff;
       font-size: 14px;
       color: #4a4a4a;
+      box-shadow: inset 2pt 2pt 7pt #6D808F70;
       font-family: 'GenSenRounded2TW-L', sans-serif;
       letter-spacing: 2px
     }
@@ -392,39 +356,7 @@
     #scene7 .add-trip-wrapper { 
       gap: 12px; 
     }
-
-
-
-    /* ---------------------------------------
-       7. 導覽按鈕
-    --------------------------------------- */
-    .nav-btn {
-      position: fixed;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 64px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 36px;
-      color: white;
-      background: rgba(255, 255, 255, 0.15);
-      border: 2px solid white;
-      border-radius: 50%;
-      cursor: pointer;
-      backdrop-filter: blur(4px);
-      transition: 0.3s;
-      z-index: 1000;
-      text-decoration: none;
-    }
-    .nav-btn:hover {
-      background: white;
-      color: black;
-    }
-    .prev-btn { left: -100px; }
-    .next-btn { right: -100px; }
-
+    
     /* 跳轉橫槓 */
  
     .page-indicator {
@@ -438,15 +370,17 @@
  
     .bar {
       width: 40%;
-      height: 2px;
-      background-color: #ccc;
+      height: 3px;
+      background-color: #E4ECF1;
       transition: background-color 0.3s;
       cursor: pointer;
     }
  
     .bar.active {
-      background-color: #ddd;
-      box-shadow: 0 1px 4px #222;
+      background-color: #B5C1C6;
+      box-shadow:
+      1pt 1pt 4pt #7F7F7F60,
+      -2pt -2pt 3pt #ffffff55;
     }
  
   </style>
@@ -630,9 +564,9 @@
           <div class="input-group">
             <label>選擇<br>汽油類型</label>
             <select>
-              <option>92 無鉛</option>
-              <option>95 無鉛</option>
-              <option>98 無鉛</option>
+              <option>92無鉛</option>
+              <option>95無鉛</option>
+              <option>98無鉛</option>
             </select>
           </div>
           <div class="input-group">
@@ -807,7 +741,7 @@
       <div class="input-group-MRT">
         <label for="busCount">每周搭乘</label>
         <input id="busCount" type="number" min="0" />
-        <label>公里</label>
+        <label style="color:#6C808F;">公里</label>
       </div>
     </div>
     <button class="nav-btn prev-btn" onclick="goToScene(6)">‹</button>

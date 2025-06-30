@@ -1,0 +1,109 @@
+/*—— 自訂字體 ——*/
+@font-face {
+    font-family: 'GenSenRounded2TW-R';
+    src: url('../font/GenSenRounded2TW-R.otf') format('opentype');
+    font-weight: normal; font-style: normal; font-display: swap;
+}
+@font-face {
+    font-family: 'GenSenRounded2TW-L';
+    src: url('../font/GenSenRounded2TW-L.otf') format('opentype');
+    font-weight: normal; font-style: normal; font-display: swap;
+}
+
+html {
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('../images/圖片 1.png') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'SweiXDPearlCJKtc-DemiLight', sans-serif;
+}
+
+@media (max-width: 480px) {
+html {
+    font-size: 14px;
+}
+}
+
+@media (min-width: 1200px) {
+html {
+    font-size: 18px;
+}
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-size: 1rem;
+    letter-spacing: 6px;
+}
+
+.scene {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 900px;
+    max-width: 70%;
+    padding: 20px;
+    min-height: 500px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 24px;
+    box-shadow: 
+    -2.5px -2.5px 1.5px 0px #ffffff,
+    2.5px 2.5px 1.5px 0px #a5a6a85c,
+    12px 12px 12px 0px #bbbbbb50;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    text-align: center;
+}
+
+.scene.active { 
+    display: flex; 
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin-bottom: 14px;
+    color: #6C808F;
+    font-family: 'GenSenRounded2TW-R', sans-serif;
+    font-weight: 400;
+    letter-spacing: 10px;
+    text-shadow: #7F7F7F40 2pt 2pt 3pt;
+}
+
+/* 換頁按鈕 */
+.nav-btn {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 64px; height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: #B5C1C6;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    border: none;
+    box-shadow: 
+    -4pt -4pt 5pt #ffffff46,
+    5pt 5pt 10pt #C3CADB76;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: 0.3s linear;
+    z-index: 1000;
+    user-select: none;
+}
+.nav-btn:hover {
+    background: #EFF3F9;
+}
+.prev-btn { left: -100px; }
+.next-btn { right: -100px; }

@@ -4,73 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>居住</title>
+    <link rel="stylesheet" href="css/all.css">
   <style>
-     /*—— 自訂字體 ——*/
-    @font-face {
-      font-family: 'GenSenRounded2TW-R';
-      src: url('font/GenSenRounded2TW-R.otf') format('opentype');
-      font-weight: normal; font-style: normal; font-display: swap;
-    }
-    @font-face {
-      font-family: 'GenSenRounded2TW-L';
-      src: url('font/GenSenRounded2TW-L.otf') format('opentype');
-      font-weight: normal; font-style: normal; font-display: swap;
-    }
-
-    :root {
-      --inner-gap: 80px;
-      letter-spacing: 6px;
-    }
-
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: url('images/圖片 1.png') no-repeat center center fixed;
-      background-size: cover;
-      font-family: 'SweiXDPearlCJKtc-DemiLight', sans-serif;
-      overflow: hidden;
-    }
-    .scene {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      width: 900px;
-      max-width: 70%;
-      padding: 20px;
-      height: 500px;
-      max-height: 80%;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 24px;
-      box-shadow: 
-      -2.5px -2.5px 1.5px 0px #ffffff,
-      2.5px 2.5px 1.5px 0px #a5a6a85c,
-      12px 12px 12px 0px #bbbbbb50;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      text-align: center;
-    }
-
-    /*-2.5px -2.5px 1.5px 0px #ffffff,
-      2.5px 2.5px 1.5px 0px #a5a6a85c,
-      -12px -12px 12px 0px #bbbbbb30 inset,
-      12px 12px 12px 0px #ffffff62 inset;*/
-
     .scene.active {
       display: flex;
-    }
-
-    h1 {
-      font-family: "GenSenRounded2TW-R", sans-serif;
-      font-size: 24px;
-      letter-spacing: 10px;
-      margin-bottom: 14px;
-      color: #5a5a5a;
     }
 
     /* 跳轉橫槓 */
@@ -85,67 +22,83 @@
       margin-bottom: 40px;
     }
 
-    .bar {
-      width: 40%;
-      height: 2px;
-      background-color: #ccc;
-      transition: background-color 0.3s;
-      cursor: pointer;
-    }
+  .bar {
+    width: 40%;
+    height: 3px;
+    background-color: #E4ECF1;
+    transition: background-color 0.3s;
+    cursor: pointer;
+  }
 
-    .bar.active {
-      background-color: #ddd;
-      box-shadow: 0 1px 4px #222;
-    }
+  .bar.active {
+    background-color: #B5C1C6;
+    box-shadow:
+    1pt 1pt 4pt #7F7F7F60,
+    -2pt -2pt 3pt #ffffff55;
+  }
 
     /* 第一頁 */
 
     .home-card {
       display: flex;
+      flex-direction: column;
       justify-content: center;
-      align-items: stretch;
-      width: 90%;
-      gap: 32px;
+      align-items: center;
+      width: 100%;
+      gap: 40px;
     }
 
-    @media (max-width: 1024px) {
+    @media (max-width: 600px) {
       .home-card {
-        width: 60%;
+        width: 100%;
         flex-direction: column;
         align-items: center;
       }
     }
+  
+  .toggle-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
 
-
-.toggle-card .question-title {
-  font-family: "GenSenRounded2TW-R", sans-serif;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 16px;
-  line-height: 1.2;
-  white-space: nowrap;
-}
+  .toggle-card .question-title {
+    font-family: "GenSenRounded2TW-R", sans-serif;
+    color: #9C7A5C;
+    margin-bottom: 16px;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
 
 /* input 框樣式 */
 
   .input-container {
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 8px;
     margin-bottom: 16px;
-    width: 100%;
+  }
+
+  @media (max-width: 1024px) {
+    .input-container {
+      flex-direction: column;
+    }
   }
 
   input[type="number"] {
     width: 80%;
     min-width: 40px;
+    max-width: 120px;
     padding: 4px 8px;
     background: #fff;
     color: #4a4a4a; 
     text-align: left;
     height: 24px;
-    border: 1px solid #ccc;
+    border: 0.25pt solid #B5C1C623;
     border-radius: 16px;
+    box-shadow: inset 2pt 2pt 7pt #6D808F70;
     outline: none;
   }
 
@@ -170,13 +123,13 @@
     border-radius: 100%;
     background: rgba(255, 255, 255);
     box-shadow: 
-    -2.5px -2.5px 1.5px 0px #ffffff,
-    2.5px 2.5px 1.5px 0px #a5a6a85c,
-    2px 2px 4px 0px #bbbbbb50;
+    -4pt -4pt 5pt #ffffff46,
+    5pt 5pt 10pt #C3CADB76;
     width: 30px;
     height: 30px;
     padding: 15px;
     font-size: 24px;
+    color: #B5C1C6;
     font-weight: 600;
     cursor: pointer;
     user-select: none;
@@ -198,27 +151,31 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    width: 100%;
+    width: 80%;
     border-radius: 16px;
-    padding: 24px 48px; 
+    padding: 24px 32px; 
     background: rgba(255, 255, 255, 0.4);
     box-shadow: 
-    -2px -2px 0.5px 0px #ffffff,
-    2px 2px 0.5px 0px #a5a6a85c,
-    -4px -4px 4px 0px #bbbbbb30 inset,
-    4px 4px 4px 0px #ffffff62 inset;
+    -4pt -4pt 5pt #ffffff46,
+    5pt 5pt 10pt #C3CADB76;
     }
     
     span.label {
       font-family: "GenSenRounded2TW-R", sans-serif;
-      font-size: 18px;
-      color: #8a8a8a;
+      color: #9C7A5C;
       white-space: nowrap;
       text-align: left;
       width: 80px;
     }
 
+    @media (max-width: 1024px) {
+    span.label {
+      text-align: center;
+    }
+    }
+
     .nowrap-text{
+      color: #6C808F;
       font-family: "GenSenRounded2TW-L", sans-serif;
       font-size: 12px;
       letter-spacing: 2px;
@@ -242,12 +199,9 @@
       position: absolute;
       cursor: pointer;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: #d0d2d6;
-      border: #ccc solid 1px;
-      box-shadow: -2px -2px 4px 0px #ffffff,
-        2px 2px 4px 0px #cdd4df,
-        0px 0px 4px 0px #d1d9e6 inset,
-        -1px -1px 2px 0px #ffffff inset;
+      background: #EFF3F9;
+      border: none;
+      box-shadow: 2pt 2.5pt 3pt #6D808F50 inset;
       border-radius: 10px;
       transition: 0.75s;
     }
@@ -260,6 +214,9 @@
       background: #fff;
       border-radius: 50%;
       transition: 0.3s;
+      box-shadow: 
+      -4pt -4pt 5pt #ffffff46,
+      5pt 5pt 10pt #C3CADB76;
     }
     
     .toggle-switch input:checked + .slider:before {
@@ -273,7 +230,10 @@
       flex-wrap: wrap;
       justify-content: space-around;
       align-items: center;
-      width: 100%;
+      width: 80%;
+      box-shadow: 
+      -4pt -4pt 5pt #ffffff46,
+      5pt 5pt 10pt #C3CADB76;
     }
 
     #circular-range {
@@ -288,37 +248,12 @@
       cursor: pointer;
     }
 
-/* 換頁按鈕 */
-    .nav-btn {
-      position: fixed;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 64px; height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 36px;
-      color: white;
-      background: rgba(255, 255, 255, 0.15);
-      border: 2px solid white;
-      border-radius: 50%;
-      box-shadow: 
-      -0.5px -0.5px 1.5px 0px #ffffff,
-      2.5px 2.5px 1.5px 0px #a5a6a85c,
-      4px 4px 2px 0px #bbbbbb50;
-      cursor: pointer;
-      backdrop-filter: blur(4px);
-      transition: 0.3s linear;
-      z-index: 1000;
-      user-select: none;
-    }
-    .nav-btn:hover {
-      background: white;
-      color: black;
-      border: 2px solid white;
-    }
-    .prev-btn { left: -100px; }
-    .next-btn { right: -100px; }
+  @media (max-width: 600px){
+  .toggle-card {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+}
   </style>
 </head>
 <body>
@@ -347,12 +282,14 @@
             <input type="number" value="0" min="0" />
             <button type="button" class="btn-increment">+</button>
           </div>
-          <span class="nowrap-text">度 Kwh​</span>
-          <label class="toggle-switch">
-            <input type="checkbox" id="fuelToggle" />
-            <span class="slider"></span>
-          </label>
-          <span class="nowrap-text">元(NTD)​</span>
+          <div class="toggle-row">
+            <span class="nowrap-text">度 Kwh​</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="fuelToggle" />
+              <span class="slider"></span>
+            </label>
+            <span class="nowrap-text">元(NTD)​</span>
+          </div>
         </div>
         <div class="input-container">
           <span class="label">水</span>
@@ -361,12 +298,14 @@
             <input type="number" value="0" min="0" />
             <button type="button" class="btn-increment">+</button>
           </div>
-          <span class="nowrap-text">度 Kwh​</span>
-          <label class="toggle-switch">
-            <input type="checkbox" id="fuelToggle" />
-            <span class="slider"></span>
-          </label>
-          <span class="nowrap-text">元(NTD)​</span>
+          <div class="toggle-row">
+            <span class="nowrap-text">度 Kwh​</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="fuelToggle" />
+              <span class="slider"></span>
+            </label>
+            <span class="nowrap-text">元(NTD)​</span>
+          </div>
         </div>
         <div class="input-container">
           <span class="label">瓦斯</span>
@@ -375,12 +314,14 @@
             <input type="number" value="0" min="0" />
             <button type="button" class="btn-increment">+</button>
           </div>
-          <span class="nowrap-text">度 Kwh​</span>
-          <label class="toggle-switch">
-            <input type="checkbox" id="fuelToggle" />
-            <span class="slider"></span>
-          </label>
-          <span class="nowrap-text">元(NTD)​</span>
+          <div class="toggle-row">
+            <span class="nowrap-text">度 Kwh​</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="fuelToggle" />
+              <span class="slider"></span>
+            </label>
+            <span class="nowrap-text">元(NTD)​</span>
+          </div>
         </div>
       </div>
     </div>
@@ -446,12 +387,6 @@
       currentScene = targetId;
     }
 
-    function goToCalcScene() {
-      document.getElementById(currentScene).classList.remove('active');
-      document.getElementById('scene-calc').classList.add('active');
-      currentScene = 'scene-calc';
-    }
-
     function prevScene() {
       document.getElementById(currentScene).classList.remove('active');
       document.getElementById('scene-entertain').classList.add('active');
@@ -468,9 +403,9 @@
 
       container.innerHTML = `
         <svg viewBox="0 0 200 200" width="200" height="200">
-          <circle cx="100" cy="100" r="80" stroke="#ccc" stroke-width="10" fill="none"/>
-          <path class="range-arc" stroke="	#02C874	" stroke-width="10" fill="none"/>
-          <circle class="range-thumb" r="10" fill="	#02C874	" cx="100" cy="20" />
+          <circle cx="100" cy="100" r="80" stroke="#E4ECF1" stroke-width="10" fill="none"/>
+          <path class="range-arc" stroke="#ccc" stroke-width="10" fill="none"/>
+          <circle class="range-thumb" r="10" fill="#B5C1C6" style="filter: drop-shadow(1pt 1pt 4pt #7F7F7F60);" cx="100" cy="20" />
         </svg>
         <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px;">
           <span class="circular-value"></span>

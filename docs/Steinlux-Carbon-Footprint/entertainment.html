@@ -4,73 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>日常娛樂</title>
+  <link rel="stylesheet" href="css/all.css">
   <style>
-     /*—— 自訂字體 ——*/
-    @font-face {
-      font-family: 'GenSenRounded2TW-R';
-      src: url('font/GenSenRounded2TW-R.otf') format('opentype');
-      font-weight: normal; font-style: normal; font-display: swap;
-    }
-    @font-face {
-      font-family: 'GenSenRounded2TW-L';
-      src: url('font/GenSenRounded2TW-L.otf') format('opentype');
-      font-weight: normal; font-style: normal; font-display: swap;
-    }
-
-    :root {
-      --inner-gap: 80px;
-      letter-spacing: 6px;
-    }
-
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: url('images/圖片 1.png') no-repeat center center fixed;
-      background-size: cover;
-      font-family: 'SweiXDPearlCJKtc-DemiLight', sans-serif;
-      overflow: hidden;
-    }
-
-    .scene {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      width: 900px;
-      max-width: 70%;
-      padding: 20px;
-      height: 500px;
-      max-height: 80%;
-      background: rgba(255, 255, 255, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 24px;
-      box-shadow: 
-      -2.5px -2.5px 1.5px 0px #ffffff,
-      2.5px 2.5px 1.5px 0px #a5a6a85c,
-      12px 12px 12px 0px #bbbbbb50;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      position: relative;
-      text-align: center;
-    }
-
-    .scene.active { 
-      display: flex; 
-    }
-
-    h1 {
-      font-family: "GenSenRounded2TW-R", sans-serif;
-      font-size: 24px;
-      letter-spacing: 10px;
-      margin-bottom: 14px;
-      color: #5a5a5a;
-    }
-
 /* 第一頁 */
 
 .scene-1 .entertain-grid {
@@ -104,10 +39,12 @@
 }
 
 .scene-1 .entertain-card .label {
-  font-size: 20px;
-  color: #333;
+  font-family: 'GenSenRounded2TW-R', sans-serif;
+  font-size: 1.5rem;
+  color: #6D808F;
   text-align: center;
   white-space: nowrap;
+  letter-spacing: 6px;
 }
 
 .scene-1 .entertain-card:hover { transform: translateY(-2px); }
@@ -133,50 +70,70 @@
 
 .bar {
   width: 15%;
-  height: 2px;
-  background-color: #ccc;
+  height: 3px;
+  background-color: #E4ECF1;
   transition: background-color 0.3s;
   cursor: pointer;
 }
 
 .bar.active {
-  background-color: #ddd;
-  box-shadow: 0 1px 4px #222;
+  background-color: #B5C1C6;
+  box-shadow:
+  1pt 1pt 4pt #7F7F7F60,
+  -2pt -2pt 3pt #ffffff55;
 }
 
 .scene-2 .entertain-card {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: stretch;
   flex-wrap: wrap;
   gap: 32px;
 }
 
-@media (max-width: 900px){
-  .scene-2 .entertain-card {
-    flex-direction: column;
-  }
-}
 
 
 .scene-2 .entertain-card .toggle-card {
-  flex: 1;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
   background: rgba(255, 255, 255, 0.4);
   border-radius: 16px;
-  padding: 16px 48px;
+  padding: 12px 20px;
+  box-shadow: 
+  -4pt -4pt 5pt #ffffff46,
+  5pt 5pt 10pt #C3CADB76;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
 }
 
+.scene-2 .entertain-card .toggle-card-1 {
+  padding: 32px 16px;
+}
+
+.scene-2 .entertain-card .toggle-card-2 {
+  height: 200px;
+}
+
+.scene-2 .entertain-card .toggle-card-3 {
+  justify-content: center;
+}
+
 .scene-2 .toggle-card .question-title {
   font-family: "GenSenRounded2TW-R", sans-serif;
-  font-weight: 600;
-  color: #333;
-  margin: 12px;
+  color: #9C7A5C;
+  margin: 0 20px 0 50px;
   line-height: 1.2;
   white-space: nowrap;
+}
+
+.scene-2 .toggle-card .question-unit {
+  font-family: "GenSenRounded2TW-L", sans-serif;
+  font-weight: normal;
+  color: #6C808F;
+  margin: 5px 12px;
 }
 
 /* input 框樣式 */
@@ -185,10 +142,12 @@
   background: #fff;
   color: #4a4a4a; 
   text-align: left;
-  width: 100%;
+  min-width: 40px;
+  max-width: 120px;
   height: 24px;
-  border: 1px solid #ccc;
+  border: 0.25pt solid #B5C1C623;
   border-radius: 16px;
+  box-shadow: inset 1pt 1pt 4pt #6D808F70;
   outline: none;
 }
 
@@ -213,13 +172,13 @@
   border-radius: 100%;
   background: rgba(255, 255, 255);
   box-shadow: 
-  -2.5px -2.5px 1.5px 0px #ffffff,
-  2.5px 2.5px 1.5px 0px #a5a6a85c,
-  2px 2px 4px 0px #bbbbbb50;
+  -4pt -4pt 5pt #ffffff46,
+  5pt 5pt 10pt #C3CADB76;
   width: 30px;
   height: 30px;
   padding: 15px;
-  font-size: 24px;
+  font-size: 1.5rem;
+  color: #B5C1C6;
   font-weight: 600;
   cursor: pointer;
   user-select: none;
@@ -231,12 +190,11 @@
 }
 
 .custom-number-input .btn-decrement{
-  font-size: 32px;
+  font-size: 2rem;
 }
 
 
 .scene-2 .toggle-card .label {
-  font-size: 16px;
   color: #444;
   user-select: none;
   margin-top: 8px;
@@ -244,16 +202,18 @@
 
 /* 單位切換排列 */
 .scene-2 .toggle-card .toggle-row {
-  margin-top: auto; /* 推到底部 */
   display: flex;
   justify-content: center;
-  gap: 6px;
+  align-items: center;
+  gap: 10px;
 }
 
 /* 單位文字避免斷行 */
 .nowrap-text {
-  font-family: "GenSenRounded2TW-L", sans-serif;
+  color: #6C808F;
   white-space: nowrap;
+  font-family: 'GenSenRounded2TW-L', sans-serif;
+  letter-spacing: 6px
 }
 
 /* 切換開關保持原本樣式 */
@@ -274,7 +234,9 @@
   position: absolute;
   cursor: pointer;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: #d0d2d6;
+  background: #EFF3F9;
+  border: none;
+  box-shadow: 2pt 2.5pt 3pt #6D808F50 inset;
   border-radius: 10px;
   transition: 0.75s;
 }
@@ -287,6 +249,9 @@
   background: #fff;
   border-radius: 50%;
   transition: 0.3s;
+  box-shadow: 
+  -4pt -4pt 5pt #ffffff46,
+  5pt 5pt 10pt #C3CADB76;
 }
 
 .toggle-switch input:checked + .slider:before {
@@ -297,13 +262,15 @@
     position: absolute; 
     bottom: 16px; 
     right: 16px;
-    width: 48px; 
-    height: 48px;
+    width: 32px; 
+    height: 32px;
     border-radius: 50%;
     background:
     radial-gradient(circle at 30% 30%,
         rgba(255,255,255,0.9) 0%, rgba(236,240,245,1) 100%);
-    box-shadow: 4px 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 
+    -4pt -4pt 5pt #ffffff46,
+    5pt 5pt 10pt #C3CADB76;
     display: flex; 
     align-items: center; 
     justify-content: center;
@@ -313,38 +280,35 @@
   }
 
   .info-btn img {
-    width: 28px; 
-    height: 28px; 
+    width: 20px; 
+    height: 20px; 
     object-fit: contain;
   }
 
  /* Modal */
-  .modal {
+.modal {
     display: none;
     justify-content: center;
     align-items: center;
     position: fixed;
-    bottom: -16px; 
-    right: 16px;
+    bottom: -8px;
+    right: -32px;
     transform: translate(-50%, -50%);
-    width: fit-content; 
-    height: 24px; 
-    background:
-    linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 100%),
-    rgba(255,255,255,1);
-    border: 1px solid rgba(255,255,255,0.3);
-    backdrop-filter: blur(20px); 
+    width: fit-content;
+    height: 16px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%), rgba(255, 255, 255, 1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-    border-radius: 24px;
-    padding: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    padding: 12px;
     z-index: 1000;
-    
-  }
+}
   .modal-close {
     position: absolute; 
-    top: 4px; 
-    right: 8px;
+    top: 0; 
+    right: 4px;
     color: #aaa;
     cursor: pointer; 
     user-select: none;
@@ -355,42 +319,49 @@
 
 /* Modal 內容排版 */
   .modal-body {
-    font-size: 14px;
+    font-size: 0.75rem;
     flex: 1; 
     overflow-y: auto;
     white-space: nowrap;
   }
 
-/* 換頁按鈕 */
-  .nav-btn {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 64px; height: 64px;
-    display: flex;
-    align-items: center;
+@media (max-width: 600px){
+
+  .scene-2 .entertain-card .toggle-card-1 {
+    flex-direction: column;
     justify-content: center;
-    font-size: 36px;
-    color: white;
-    background: rgba(255, 255, 255, 0.15);
-    border: 2px solid white;
-    border-radius: 50%;
-    box-shadow: 
-    -0.5px -0.5px 1.5px 0px #ffffff,
-    2.5px 2.5px 1.5px 0px #a5a6a85c,
-    4px 4px 2px 0px #bbbbbb50;
-    cursor: pointer;
-    backdrop-filter: blur(4px);
-    transition: 0.3s;
-    z-index: 1000;
-    user-select: none;
   }
-  .nav-btn:hover {
-    background: white;
-    color: black;
+
+  .scene-2 .entertain-card .toggle-card-2 {
+    padding: 32px 16px;
   }
-  .prev-btn { left: -100px; }
-  .next-btn { right: -100px; }
+}
+
+@media (max-width: 900px){
+  .scene-2 .entertain-card {
+    flex-direction: column;
+  }
+
+  .scene-2 .entertain-card .toggle-card {
+    justify-content: space-around;
+  }
+
+  .scene-2 .entertain-card .toggle-card-2 {
+    justify-content: center;
+    flex-direction: column;
+    height: auto;
+    padding: 64px 96px;
+  }
+
+  .scene-2 .entertain-card .toggle-card .question-title {
+    margin: 0;
+  }
+
+  .custom-number-input, .scene-2 .toggle-card .toggle-row {
+    margin: 8px 0;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -432,24 +403,25 @@
     <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
   </div>
   <div class="entertain-card">
-    <div class="toggle-card">
+    <div class="toggle-card toggle-card-1">
       <span class="question-title">時間單位</span>
       <div class="toggle-row">
-        <span class="nowrap-text">一月</span>
+        <span class="nowrap-text">月</span>
         <label class="toggle-switch">
           <input type="checkbox" />
           <span class="slider"></span>
         </label>
-        <span class="nowrap-text">一年</span>
+        <span class="nowrap-text">年</span>
       </div>
     </div>
-    <div class="toggle-card">
-      <span class="question-title" data-template="{unit}去幾次KTV？">一月去幾次KTV？</span>
+    <div class="toggle-card toggle-card-2">
+      <span class="question-title" data-template="每{unit}去KTV">每月去KTV</span>
       <div class="custom-number-input">
         <button type="button" class="btn-decrement">-</button>
         <input type="number" value="0" min="0" />
         <button type="button" class="btn-increment">+</button>
       </div>
+      <span class="question-unit question-title" data-template="次/{unit}">次/月</span>
     </div>
   </div>
   <button class="nav-btn prev-btn" onclick="goToScene('scene-entertain-1')">‹</button>
@@ -468,24 +440,25 @@
     <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
   </div>
   <div class="entertain-card">
-    <div class="toggle-card">
+    <div class="toggle-card toggle-card-1">
       <span class="question-title">時間單位</span>
       <div class="toggle-row">
-        <span class="nowrap-text">一月</span>
+        <span class="nowrap-text">月</span>
         <label class="toggle-switch">
           <input type="checkbox" />
           <span class="slider"></span>
         </label>
-        <span class="nowrap-text">一年</span>
+        <span class="nowrap-text">年</span>
       </div>
     </div>
-    <div class="toggle-card">
-      <span class="question-title" data-template="{unit}去幾次電影院？">一月去幾次電影院？</span>
+    <div class="toggle-card toggle-card-2">
+      <span class="question-title" data-template="每{unit}去電影院">每月去電影院</span>
       <div class="custom-number-input">
         <button type="button" class="btn-decrement">-</button>
         <input type="number" value="0" min="0" />
         <button type="button" class="btn-increment">+</button>
       </div>
+      <span class="question-unit question-title" data-template="次/{unit}">次/月</span>
     </div>
   </div>
   <button class="nav-btn prev-btn" onclick="goToScene('scene-entertain-2-1')">‹</button>
@@ -504,24 +477,25 @@
     <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
   </div>
   <div class="entertain-card">
-    <div class="toggle-card">
+    <div class="toggle-card toggle-card-1">
       <span class="question-title">時間單位</span>
       <div class="toggle-row">
-        <span class="nowrap-text">一週</span>
+        <span class="nowrap-text">週</span>
         <label class="toggle-switch">
           <input type="checkbox" />
           <span class="slider"></span>
         </label>
-        <span class="nowrap-text">一月</span>
+        <span class="nowrap-text">月</span>
       </div>
     </div>
-    <div class="toggle-card">
-      <span class="question-title" data-template="{unit}去幾次健身房？">一週去幾次健身房？</span>
+    <div class="toggle-card toggle-card-2">
+      <span class="question-title" data-template="每{unit}去健身房">每週去健身房</span>
       <div class="custom-number-input">
         <button type="button" class="btn-decrement">-</button>
         <input type="number" value="0" min="0" />
         <button type="button" class="btn-increment">+</button>
       </div>
+      <span class="question-unit question-title" data-template="次/{unit}">次/週</span>
     </div>
   </div>
   <button class="nav-btn prev-btn" onclick="goToScene('scene-entertain-2-2')">‹</button>
@@ -540,24 +514,25 @@
     <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
   </div>
   <div class="entertain-card">
-    <div class="toggle-card">
+    <div class="toggle-card toggle-card-1">
       <span class="question-title">時間單位</span>
       <div class="toggle-row">
-        <span class="nowrap-text">一月</span>
+        <span class="nowrap-text">月</span>
         <label class="toggle-switch">
           <input type="checkbox" />
           <span class="slider"></span>
         </label>
-        <span class="nowrap-text">一年</span>
+        <span class="nowrap-text">年</span>
       </div>
     </div>
-    <div class="toggle-card">
-      <span class="question-title" data-template="{unit}去住幾天飯店？">一月去住幾天飯店？</span>
+    <div class="toggle-card toggle-card-2">
+      <span class="question-title" data-template="每{unit}去住飯店">每月去住飯店</span>
       <div class="custom-number-input">
         <button type="button" class="btn-decrement">-</button>
         <input type="number" value="0" min="0" />
         <button type="button" class="btn-increment">+</button>
       </div>
+      <span class="question-unit question-title" data-template="次/{unit}">次/月</span>
     </div>
   </div>
   <button class="nav-btn prev-btn" onclick="goToScene('scene-entertain-2-3')">‹</button>
@@ -576,30 +551,35 @@
     <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
   </div>
   <div class="entertain-card">
-    <div class="toggle-card">
-      <span class="question-title">每月使用網路流量(GB)</span>
-      <div class="custom-number-input">
-        <button type="button" class="btn-decrement">-</button>
-        <input type="number" value="0" min="0" />
-        <button type="button" class="btn-increment">+</button>
+    <div class="toggle-container" style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+      <div class="toggle-card toggle-card-3"style="width: 45%;">
+        <span class="question-title">每月使用網路流量(GB)</span>
+        <div class="custom-number-input">
+          <button type="button" class="btn-decrement">-</button>
+          <input type="number" value="0" min="0" />
+          <button type="button" class="btn-increment">+</button>
+        </div>
+      </div>
+      <div class="toggle-card toggle-card-1" style="width: 45%;">
+        <span class="question-title">時間單位</span>
+        <div class="toggle-row">
+          <span class="nowrap-text">天</span>
+          <label class="toggle-switch">
+            <input type="checkbox" />
+            <span class="slider"></span>
+          </label>
+          <span class="nowrap-text">周</span>
+        </div>
       </div>
     </div>
-    <div class="toggle-card">
-      <span class="question-title">時間單位</span>
-      <div class="toggle-row">
-        <span class="nowrap-text">一天</span>
-        <label class="toggle-switch">
-          <input type="checkbox" />
-          <span class="slider"></span>
-        </label>
-        <span class="nowrap-text">一周</span>
-      </div>
-      <span class="question-title" data-template="每{unit}使用網路幾小時？">每使用網路幾小時？</span>
+    <div class="toggle-card toggle-card-2">
+      <span class="question-title" data-template="每{unit}使用串流影音">每天使用串流影音</span>
       <div class="custom-number-input">
         <button type="button" class="btn-decrement">-</button>
         <input type="number" value="0" min="0" />
         <button type="button" class="btn-increment">+</button>
       </div>
+      <span class="question-unit question-title" data-template="小時/{unit}">小時/天</span>
     </div>
   </div>
   <button class="nav-btn prev-btn" onclick="goToScene('scene-entertain-2-4')">‹</button>
@@ -618,24 +598,25 @@
     <span class="bar active" onclick="goToScene('scene-entertain-2-6')"></span>
   </div>
   <div class="entertain-card">
-    <div class="toggle-card">
+    <div class="toggle-card toggle-card-1">
       <span class="question-title">時間單位</span>
       <div class="toggle-row">
-        <span class="nowrap-text">一週</span>
+        <span class="nowrap-text">週</span>
         <label class="toggle-switch">
           <input type="checkbox" />
           <span class="slider"></span>
         </label>
-        <span class="nowrap-text">一月</span>
+        <span class="nowrap-text">月</span>
       </div>
     </div>
-    <div class="toggle-card">
-      <span class="question-title" data-template="每{unit}使用多少份金紙？">每周/月使用多少份金紙？</span>
+    <div class="toggle-card toggle-card-2">
+      <span class="question-title" data-template="每{unit}使用金紙">每周使用金紙？</span>
       <div class="custom-number-input">
         <button type="button" class="btn-decrement">-</button>
         <input type="number" value="0" min="0" />
         <button type="button" class="btn-increment">+</button>
       </div>
+      <span class="question-unit question-title" data-template="份/{unit}">次/週</span>
     </div>
   </div>
   <button class="nav-btn prev-btn" onclick="goToScene('scene-entertain-2-5')">‹</button>
@@ -655,6 +636,27 @@
 </section>
 
   <script>
+
+    let currentScene = 'scene-entertain-1';
+
+    function goToScene(targetId) {
+      document.getElementById(currentScene).classList.remove('active');
+      document.getElementById(targetId).classList.add('active');
+      currentScene = targetId;
+    }
+
+    function goToCalcScene() {
+      document.getElementById(currentScene).classList.remove('active');
+      document.getElementById('scene-calc').classList.add('active');
+      currentScene = 'scene-calc';
+    }
+
+    function prevScene() {
+      document.getElementById(currentScene).classList.remove('active');
+      document.getElementById('scene-entertain').classList.add('active');
+      currentScene = 'scene-entertain';
+    }
+
     const containers = document.querySelectorAll('.custom-number-input');
 
     containers.forEach(container => {
@@ -694,17 +696,19 @@
 
     document.querySelectorAll('.entertain-card').forEach(card => {
       const toggle = card.querySelector('.toggle-switch input[type="checkbox"]');
-      const questionTitle = card.querySelector('.question-title[data-template]');
-      const template = questionTitle?.dataset.template;
+      const titles = card.querySelectorAll('.question-title[data-template]');
 
-      if (!toggle || !questionTitle || !template) return;
+      if (!toggle || titles.length === 0) return;
 
       const leftLabel = card.querySelector('.toggle-row span:nth-child(1)')?.textContent.trim();
       const rightLabel = card.querySelector('.toggle-row span:nth-child(3)')?.textContent.trim();
 
       function updateTitle() {
         const selectedUnit = toggle.checked ? rightLabel : leftLabel;
-        questionTitle.textContent = template.replace('{unit}', selectedUnit);
+        titles.forEach(title => {
+          const template = title.dataset.template;
+          title.textContent = template.replace('{unit}', selectedUnit);
+        });
       }
 
       updateTitle();
@@ -712,25 +716,6 @@
     });
 
 
-    let currentScene = 'scene-entertain-1';
-
-    function goToScene(targetId) {
-      document.getElementById(currentScene).classList.remove('active');
-      document.getElementById(targetId).classList.add('active');
-      currentScene = targetId;
-    }
-
-    function goToCalcScene() {
-      document.getElementById(currentScene).classList.remove('active');
-      document.getElementById('scene-calc').classList.add('active');
-      currentScene = 'scene-calc';
-    }
-
-    function prevScene() {
-      document.getElementById(currentScene).classList.remove('active');
-      document.getElementById('scene-entertain').classList.add('active');
-      currentScene = 'scene-entertain';
-    }
   </script>
 </body>
 </html>
