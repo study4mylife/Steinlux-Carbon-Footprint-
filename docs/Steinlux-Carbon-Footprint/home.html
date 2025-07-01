@@ -1,335 +1,288 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>居住</title>
-    <link rel="stylesheet" href="css/all.css">
-  <style>
-    .scene.active {
-      display: flex;
-    }
-
-    /* 跳轉橫槓 */
-
-    .page-indicator {
-      display: flex;
-      justify-content: center;
-      width: 60%;
-      min-width: 250px;
-      gap: 12px;
-      margin-top: 10px;
-      margin-bottom: 40px;
-    }
-
-  .bar {
-    width: 40%;
-    height: 3px;
-    background-color: #E4ECF1;
-    transition: background-color 0.3s;
-    cursor: pointer;
-  }
-
-  .bar.active {
-    background-color: #B5C1C6;
-    box-shadow:
-    1pt 1pt 4pt #7F7F7F60,
-    -2pt -2pt 3pt #ffffff55;
-  }
-
-    /* 第一頁 */
-
-    .home-card {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      gap: 40px;
-    }
-
-    @media (max-width: 600px) {
-      .home-card {
-        width: 100%;
-        flex-direction: column;
-        align-items: center;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>居住</title>
+    <link rel="stylesheet" href="css/all.css" />
+    <style>
+      .scene.active {
+        display: flex;
       }
-    }
-  
-  .toggle-row{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-  }
 
-  .toggle-card .question-title {
-    font-family: "GenSenRounded2TW-R", sans-serif;
-    color: #9C7A5C;
-    margin-bottom: 16px;
-    line-height: 1.2;
-    white-space: nowrap;
-  }
+      /* 跳轉橫槓 */
 
-/* input 框樣式 */
+      .page-indicator {
+        display: flex;
+        justify-content: center;
+        width: 60%;
+        min-width: 250px;
+        gap: 12px;
+        margin-top: 10px;
+        margin-bottom: 40px;
+      }
 
-  .input-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 16px;
-  }
+      .bar {
+        width: 40%;
+        height: 3px;
+        min-width: 80px;
+        background-color: #e4ecf1;
+        transition: background-color 0.3s;
+        cursor: pointer;
+      }
 
-  @media (max-width: 1024px) {
-    .input-container {
-      flex-direction: column;
-    }
-  }
+      .bar.active {
+        background-color: #b5c1c6;
+        box-shadow: 1pt 1pt 4pt #7f7f7f60, -2pt -2pt 3pt #ffffff55;
+      }
 
-  input[type="number"] {
-    width: 80%;
-    min-width: 40px;
-    max-width: 120px;
-    padding: 4px 8px;
-    background: #fff;
-    color: #4a4a4a; 
-    text-align: left;
-    height: 24px;
-    border: 0.25pt solid #B5C1C623;
-    border-radius: 16px;
-    box-shadow: inset 2pt 2pt 7pt #6D808F70;
-    outline: none;
-  }
+      /* 第一頁 */
 
-  .custom-number-input {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
+      .home-card {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 32px;
+      }
 
-  .custom-number-input input[type="number"]::-webkit-inner-spin-button, 
-  .custom-number-input input[type="number"]::-webkit-outer-spin-button { 
-    -webkit-appearance: none; 
-    margin: 0; 
-  }
+      .toggle-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
 
-  .custom-number-input button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #fff;
-    border: none;
-    border-radius: 100%;
-    background: rgba(255, 255, 255);
-    box-shadow: 
-    -4pt -4pt 5pt #ffffff46,
-    5pt 5pt 10pt #C3CADB76;
-    width: 30px;
-    height: 30px;
-    padding: 15px;
-    font-size: 24px;
-    color: #B5C1C6;
-    font-weight: 600;
-    cursor: pointer;
-    user-select: none;
-    transition: background-color 0.2s;
-  }
+      .toggle-card .question-title {
+        font-family: "GenSenRounded2TW-R", sans-serif;
+        color: #9c7a5c;
+        margin-bottom: 16px;
+        line-height: 1.2;
+        white-space: nowrap;
+      }
 
-  .custom-number-input button:hover {
-    background-color: #ddd;
-  }
+      /* input 框樣式 */
 
-  .custom-number-input .btn-decrement{
-    font-size: 32px;
-  }
+      .input-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
 
-/* 切換單位按鈕 */
-    .toggle-card {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 80%;
-    border-radius: 16px;
-    padding: 24px 32px; 
-    background: rgba(255, 255, 255, 0.4);
-    box-shadow: 
-    -4pt -4pt 5pt #ffffff46,
-    5pt 5pt 10pt #C3CADB76;
-    }
-    
-    span.label {
-      font-family: "GenSenRounded2TW-R", sans-serif;
-      color: #9C7A5C;
-      white-space: nowrap;
-      text-align: left;
-      width: 80px;
-    }
+      /* 切換單位按鈕 */
+      .toggle-card {
+        flex: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 16px;
+        padding: 24px 32px;
+        gap: 16px;
+        background: rgba(255, 255, 255, 0.4);
+        box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+      }
 
-    @media (max-width: 1024px) {
-    span.label {
-      text-align: center;
-    }
-    }
+      .home-card .toggle-card-1 {
+        width: 25%;
+      }
 
-    .nowrap-text{
-      color: #6C808F;
-      font-family: "GenSenRounded2TW-L", sans-serif;
-      font-size: 12px;
-      letter-spacing: 2px;
-      white-space: nowrap;
-    }
+      .home-card .toggle-card-2 {
+        width: 50%;
+      }
 
-    .toggle-switch {
-      position: relative;
-      min-width: 40px;
-      height: 20px;
-      margin: 4px;
-    }
+      span.label {
+        font-family: "GenSenRounded2TW-R", sans-serif;
+        color: #9c7a5c;
+        white-space: nowrap;
+        text-align: left;
+        width: 50px;
+      }
 
-    .toggle-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
+      .nowrap-text {
+        color: #6c808f;
+        font-family: "GenSenRounded2TW-L", sans-serif;
+        font-size: 12px;
+        letter-spacing: 2px;
+        white-space: nowrap;
+      }
 
-    .toggle-switch .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: #EFF3F9;
-      border: none;
-      box-shadow: 2pt 2.5pt 3pt #6D808F50 inset;
-      border-radius: 10px;
-      transition: 0.75s;
-    }
+      .toggle-switch {
+        position: relative;
+        min-width: 40px;
+        height: 20px;
+        margin: 4px;
+      }
 
-    .toggle-switch .slider:before {
-      position: absolute;
-      content: "";
-      height: 16px; width: 16px;
-      left: 2px; bottom: 2px;
-      background: #fff;
-      border-radius: 50%;
-      transition: 0.3s;
-      box-shadow: 
-      -4pt -4pt 5pt #ffffff46,
-      5pt 5pt 10pt #C3CADB76;
-    }
-    
-    .toggle-switch input:checked + .slider:before {
-      transform: translateX(20px);
-    }
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
 
-    /* 第二頁 */
+      .toggle-switch .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #eff3f9;
+        border: none;
+        box-shadow: 2pt 2.5pt 3pt #6d808f50 inset;
+        border-radius: 10px;
+        transition: 0.75s;
+      }
 
-    .scene-2 .toggle-card {
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      align-items: center;
-      width: 80%;
-      box-shadow: 
-      -4pt -4pt 5pt #ffffff46,
-      5pt 5pt 10pt #C3CADB76;
-    }
+      .toggle-switch .slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 2px;
+        bottom: 2px;
+        background: #fff;
+        border-radius: 50%;
+        transition: 0.3s;
+        box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
+      }
 
-    #circular-range {
-      user-select: none;
-    }
+      .toggle-switch input:checked + .slider:before {
+        transform: translateX(20px);
+      }
 
-    .circle-container {
-      margin: 0 32px;
-    }
+      /* 第二頁 */
 
-    .circle-container .range-thumb{
-      cursor: pointer;
-    }
+      #circular-range {
+        user-select: none;
+      }
 
-  @media (max-width: 600px){
-  .toggle-card {
-    padding: 16px;
-    margin-bottom: 16px;
-  }
-}
-  </style>
-</head>
-<body>
-  <!-- 第一頁：問人數 -->
-  <section id="scene-home-1" class="scene scene-1 active">
-    <h1>每個月大約使用多少能源資源？</h1>
-    <div class="page-indicator">
-      <span class="bar active" onclick="goToScene('scene-home-1')"></span>
-      <span class="bar" onclick="goToScene('scene-home-2')"></span>
-    </div>
-    <div class="home-card">
-      <div class="toggle-card">
-        <span class="question-title">請問您家中有幾位成員?</span>
-        <div class="custom-number-input">
-          <button type="button" class="btn-decrement">-</button>
-          <input type="number" value="0" min="0" />
-          <button type="button" class="btn-increment">+</button>
-        </div>
+      .circle-container {
+        margin: 0 32px;
+      }
+
+      .circle-container .range-thumb {
+        cursor: pointer;
+      }
+
+      @media (max-width: 768px) {
+        .home-card,
+        .input-container {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .home-card .toggle-card {
+          width: 70%;
+          gap: 0;
+        }
+
+        .input-container {
+          gap: 8px;
+        }
+
+        span.label {
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 第一頁：問人數 -->
+    <section id="scene-home-1" class="scene scene-1 active">
+      <h1>每個月大約使用多少能源資源？</h1>
+      <div class="page-indicator">
+        <span class="bar active" onclick="goToScene('scene-home-1')"></span>
+        <span class="bar" onclick="goToScene('scene-home-2')"></span>
       </div>
-      <div class="toggle-card">
-        <label><input type="checkbox" id="useAvg" /> 套用平均值</label>
-        <div class="input-container">
-          <span class="label">電</span>
+      <div class="home-card">
+        <div class="toggle-card toggle-card-1">
+          <span class="question-title">家中有幾位成員?</span>
           <div class="custom-number-input">
-            <button type="button" class="btn-decrement">-</button>
+            <button type="button" class="btn-decrement">
+              <span class="decrement">-</span>
+            </button>
             <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">+</button>
-          </div>
-          <div class="toggle-row">
-            <span class="nowrap-text">度 Kwh​</span>
-            <label class="toggle-switch">
-              <input type="checkbox" id="fuelToggle" />
-              <span class="slider"></span>
-            </label>
-            <span class="nowrap-text">元(NTD)​</span>
+            <button type="button" class="btn-increment">
+              <span class="increment">+</span>
+            </button>
           </div>
         </div>
-        <div class="input-container">
-          <span class="label">水</span>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">-</button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">+</button>
+        <div class="toggle-card toggle-card-2">
+          <label><input type="checkbox" id="useAvg" /> 套用平均值</label>
+          <div class="input-container">
+            <span class="label">電</span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <div class="toggle-row">
+              <span class="nowrap-text">度 Kwh​</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="fuelToggle" />
+                <span class="slider"></span>
+              </label>
+              <span class="nowrap-text">元(NTD)​</span>
+            </div>
           </div>
-          <div class="toggle-row">
-            <span class="nowrap-text">度 Kwh​</span>
-            <label class="toggle-switch">
-              <input type="checkbox" id="fuelToggle" />
-              <span class="slider"></span>
-            </label>
-            <span class="nowrap-text">元(NTD)​</span>
+          <div class="input-container">
+            <span class="label">水</span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <div class="toggle-row">
+              <span class="nowrap-text">度 Kwh​</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="fuelToggle" />
+                <span class="slider"></span>
+              </label>
+              <span class="nowrap-text">元(NTD)​</span>
+            </div>
           </div>
-        </div>
-        <div class="input-container">
-          <span class="label">瓦斯</span>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">-</button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">+</button>
-          </div>
-          <div class="toggle-row">
-            <span class="nowrap-text">度 Kwh​</span>
-            <label class="toggle-switch">
-              <input type="checkbox" id="fuelToggle" />
-              <span class="slider"></span>
-            </label>
-            <span class="nowrap-text">元(NTD)​</span>
+          <div class="input-container">
+            <span class="label">瓦斯</span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <div class="toggle-row">
+              <span class="nowrap-text">度 Kwh​</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="fuelToggle" />
+                <span class="slider"></span>
+              </label>
+              <span class="nowrap-text">元(NTD)​</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <button class="nav-btn next-btn" onclick="goToScene('scene-home-2')">›</button>
-  </section>
+      <button class="nav-btn next-btn" onclick="goToScene('scene-home-2')">
+        ›
+      </button>
+    </section>
 
-  <!-- 第二頁：問用電水瓦斯與垃圾袋大小和倒垃圾頻率 -->
-  <section id="scene-home-2" class="scene scene-2">
+    <!-- 第二頁：問用電水瓦斯與垃圾袋大小和倒垃圾頻率 -->
+    <section id="scene-home-2" class="scene scene-2">
       <h1>請問您家中倒垃圾情況如何 ?</h1>
       <div class="page-indicator">
         <span class="bar" onclick="goToScene('scene-home-1')"></span>
@@ -339,69 +292,90 @@
         <div class="toggle-card">
           <div class="circle-container">
             <span class="label">垃圾袋容量​</span>
-            <div class="circular-range" data-unit="L" data-initial="3" data-min="3" data-max="25" data-step="1"></div>
+            <div
+              class="circular-range"
+              data-unit="L"
+              data-initial="3"
+              data-min="3"
+              data-max="25"
+              data-step="1"
+            ></div>
           </div>
           <div class="circle-container">
             <span class="label">倒垃圾頻率</span>
-            <div class="circular-range" data-unit="次" data-initial="1" data-min="1" data-max="7" data-step="1"></div>
+            <div
+              class="circular-range"
+              data-unit="次"
+              data-initial="1"
+              data-min="1"
+              data-max="7"
+              data-step="1"
+            ></div>
           </div>
         </div>
       </div>
 
-    <button class="nav-btn prev-btn" onclick="goToScene('scene-home-1')">‹</button>
-    <button class="nav-btn next-btn" onclick="goToScene('scene-home-2')">›</button>
-  </section>
+      <button class="nav-btn prev-btn" onclick="goToScene('scene-home-1')">
+        ‹
+      </button>
+      <button class="nav-btn next-btn" onclick="goToScene('scene-home-2')">
+        ›
+      </button>
+    </section>
 
-  <script>
-    const containers = document.querySelectorAll('.custom-number-input');
+    <script>
+      const containers = document.querySelectorAll(".custom-number-input");
 
-    containers.forEach(container => {
-      const input = container.querySelector('input[type="number"]');
-      const btnDec = container.querySelector('.btn-decrement');
-      const btnInc = container.querySelector('.btn-increment');
+      containers.forEach((container) => {
+        const input = container.querySelector('input[type="number"]');
+        const btnDec = container.querySelector(".btn-decrement");
+        const btnInc = container.querySelector(".btn-increment");
 
-      btnDec.addEventListener('click', () => {
-        let current = parseInt(input.value) || 0;
-        let min = input.min !== '' ? parseInt(input.min) : -Infinity;
-        if(current > min) {
-          input.value = current - 1;
-          input.dispatchEvent(new Event('change'));
-        }
+        btnDec.addEventListener("click", () => {
+          let current = parseInt(input.value) || 0;
+          let min = input.min !== "" ? parseInt(input.min) : -Infinity;
+          if (current > min) {
+            input.value = current - 1;
+            input.dispatchEvent(new Event("change"));
+          }
+        });
+
+        btnInc.addEventListener("click", () => {
+          let current = parseInt(input.value) || 0;
+          let max = input.max !== "" ? parseInt(input.max) : Infinity;
+          if (current < max) {
+            input.value = current + 1;
+            input.dispatchEvent(new Event("change"));
+          }
+        });
       });
 
-      btnInc.addEventListener('click', () => {
-        let current = parseInt(input.value) || 0;
-        let max = input.max !== '' ? parseInt(input.max) : Infinity;
-        if(current < max) {
-          input.value = current + 1;
-          input.dispatchEvent(new Event('change'));
-        }
-      });
-    });
-    
-    let currentScene = 'scene-home-1';
+      let currentScene = "scene-home-1";
 
-    function goToScene(targetId) {
-      document.getElementById(currentScene).classList.remove('active');
-      document.getElementById(targetId).classList.add('active');
-      currentScene = targetId;
-    }
+      function goToScene(targetId) {
+        document.getElementById(currentScene).classList.remove("active");
+        document.getElementById(targetId).classList.add("active");
+        currentScene = targetId;
+      }
 
-    function prevScene() {
-      document.getElementById(currentScene).classList.remove('active');
-      document.getElementById('scene-entertain').classList.add('active');
-      currentScene = 'scene-entertain';
-    }
+      function prevScene() {
+        document.getElementById(currentScene).classList.remove("active");
+        document.getElementById("scene-entertain").classList.add("active");
+        currentScene = "scene-entertain";
+      }
 
-    function createCircularSlider(container) {
-      const centerX = 100, centerY = 100, radius = 80;
-      const min = parseInt(container.dataset.min || 3);
-      const max = parseInt(container.dataset.max || 25);
-      const step = parseInt(container.dataset.step || 1);
+      function createCircularSlider(container) {
+        const centerX = 100,
+          centerY = 100,
+          radius = 80;
+        const min = parseInt(container.dataset.min || 3);
+        const max = parseInt(container.dataset.max || 25);
+        const step = parseInt(container.dataset.step || 1);
 
-      let lastAngle = 0, dragging = false;
+        let lastAngle = 0,
+          dragging = false;
 
-      container.innerHTML = `
+        container.innerHTML = `
         <svg viewBox="0 0 200 200" width="200" height="200">
           <circle cx="100" cy="100" r="80" stroke="#E4ECF1" stroke-width="10" fill="none"/>
           <path class="range-arc" stroke="#ccc" stroke-width="10" fill="none"/>
@@ -411,112 +385,110 @@
           <span class="circular-value"></span>
         </div>
       `;
-      container.style.position = 'relative';
-      container.style.width = '200px';
-      container.style.height = '200px';
+        container.style.position = "relative";
+        container.style.width = "200px";
+        container.style.height = "200px";
 
-      const thumb = container.querySelector('.range-thumb');
-      const arc = container.querySelector('.range-arc');
-      const valueText = container.querySelector('.circular-value');
-      const unit = container.dataset.unit || 'L';
-      const initial = parseInt(container.dataset.initial || min);
+        const thumb = container.querySelector(".range-thumb");
+        const arc = container.querySelector(".range-arc");
+        const valueText = container.querySelector(".circular-value");
+        const unit = container.dataset.unit || "L";
+        const initial = parseInt(container.dataset.initial || min);
 
-      function angleToValue(angle) {
-        const ratio = angle / 360;
-        const rawValue = min + (max - min) * ratio;
-        return Math.round(rawValue / step) * step;
-      }
+        function angleToValue(angle) {
+          const ratio = angle / 360;
+          const rawValue = min + (max - min) * ratio;
+          return Math.round(rawValue / step) * step;
+        }
 
-      function valueToAngle(value) {
-        return ((value - min) / (max - min)) * 360;
-      }
+        function valueToAngle(value) {
+          return ((value - min) / (max - min)) * 360;
+        }
 
-      function polarToCartesian(cx, cy, r, angleDeg) {
-        const angleRad = (angleDeg - 90) * Math.PI / 180;
-        return {
-          x: cx + r * Math.cos(angleRad),
-          y: cy + r * Math.sin(angleRad)
-        };
-      }
+        function polarToCartesian(cx, cy, r, angleDeg) {
+          const angleRad = ((angleDeg - 90) * Math.PI) / 180;
+          return {
+            x: cx + r * Math.cos(angleRad),
+            y: cy + r * Math.sin(angleRad),
+          };
+        }
 
-      function describeArc(cx, cy, r, endAngle) {
-        if (endAngle >= 359.99) {
-          return `
+        function describeArc(cx, cy, r, endAngle) {
+          if (endAngle >= 359.99) {
+            return `
             M ${cx} ${cy - r}
             A ${r} ${r} 0 1 1 ${cx} ${cy + r}
             A ${r} ${r} 0 1 1 ${cx} ${cy - r}
           `;
+          }
+          const start = polarToCartesian(cx, cy, r, 0);
+          const end = polarToCartesian(cx, cy, r, endAngle);
+          const largeArc = endAngle > 180 ? 1 : 0;
+          return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArc} 1 ${end.x} ${end.y}`;
         }
-        const start = polarToCartesian(cx, cy, r, 0);
-        const end = polarToCartesian(cx, cy, r, endAngle);
-        const largeArc = endAngle > 180 ? 1 : 0;
-        return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArc} 1 ${end.x} ${end.y}`;
+
+        function updateUI(value, round = true) {
+          const shownValue = round ? Math.round(value / step) * step : value;
+          const angle = valueToAngle(shownValue);
+          const thumbPos = polarToCartesian(centerX, centerY, radius, angle);
+          thumb.setAttribute("cx", thumbPos.x);
+          thumb.setAttribute("cy", thumbPos.y);
+          arc.setAttribute("d", describeArc(centerX, centerY, radius, angle));
+          valueText.textContent = `${Math.round(shownValue)}${unit}`;
+        }
+
+        let currentRawValue = initial; // 新增變數儲存當前滑動值
+
+        function handleMove(e) {
+          if (!dragging) return;
+          const rect = container.querySelector("svg").getBoundingClientRect();
+          const x = (e.clientX || e.touches[0].clientX) - rect.left;
+          const y = (e.clientY || e.touches[0].clientY) - rect.top;
+          const dx = x - centerX;
+          const dy = y - centerY;
+          let angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+          if (angle < 0) angle += 360;
+
+          const angleDiff = angle - lastAngle;
+          if (angleDiff < -300 || angleDiff > 300) return;
+          lastAngle = angle;
+
+          currentRawValue = min + (max - min) * (angle / 360); // 不四捨五入
+          updateUI(currentRawValue, false); // 更新時不做 rounding
+        }
+
+        window.addEventListener("mouseup", () => {
+          if (dragging) {
+            dragging = false;
+            const snappedValue = Math.round(currentRawValue / step) * step;
+            console.log("snappedValue:", snappedValue);
+            updateUI(snappedValue, true); // 對齊最近的 step
+          }
+        });
+
+        window.addEventListener("touchend", () => {
+          if (dragging) {
+            dragging = false;
+            const snappedValue = Math.round(currentRawValue / step) * step;
+            console.log("snappedValue:", snappedValue);
+            updateUI(snappedValue, true);
+          }
+        });
+
+        thumb.addEventListener("mousedown", () => (dragging = true));
+        window.addEventListener("mouseup", () => (dragging = false));
+        window.addEventListener("mousemove", handleMove);
+        thumb.addEventListener("touchstart", () => (dragging = true));
+        window.addEventListener("touchend", () => (dragging = false));
+        window.addEventListener("touchmove", handleMove);
+
+        updateUI(initial);
       }
 
-    function updateUI(value, round = true) {
-      const shownValue = round ? Math.round(value / step) * step : value;
-      const angle = valueToAngle(shownValue);
-      const thumbPos = polarToCartesian(centerX, centerY, radius, angle);
-      thumb.setAttribute("cx", thumbPos.x);
-      thumb.setAttribute("cy", thumbPos.y);
-      arc.setAttribute("d", describeArc(centerX, centerY, radius, angle));
-      valueText.textContent = `${Math.round(shownValue)}${unit}`;
-    }
-
-
-      let currentRawValue = initial; // 新增變數儲存當前滑動值
-
-      function handleMove(e) {
-        if (!dragging) return;
-        const rect = container.querySelector("svg").getBoundingClientRect();
-        const x = (e.clientX || e.touches[0].clientX) - rect.left;
-        const y = (e.clientY || e.touches[0].clientY) - rect.top;
-        const dx = x - centerX;
-        const dy = y - centerY;
-        let angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
-        if (angle < 0) angle += 360;
-
-        const angleDiff = angle - lastAngle;
-        if (angleDiff < -300 || angleDiff > 300) return;
-        lastAngle = angle;
-
-        currentRawValue = min + (max - min) * (angle / 360); // 不四捨五入
-        updateUI(currentRawValue, false); // 更新時不做 rounding
-      }
-
-      window.addEventListener("mouseup", () => {
-      if (dragging) {
-        dragging = false;
-        const snappedValue = Math.round(currentRawValue / step) * step;
-              console.log("snappedValue:", snappedValue);
-        updateUI(snappedValue, true); // 對齊最近的 step
-        }
+      // 初始化所有 circular-range
+      document.querySelectorAll(".circular-range").forEach((el) => {
+        createCircularSlider(el);
       });
-      
-      window.addEventListener("touchend", () => {
-      if (dragging) {
-        dragging = false;
-        const snappedValue = Math.round(currentRawValue / step) * step;
-              console.log("snappedValue:", snappedValue);
-        updateUI(snappedValue, true);
-        }
-      });
-
-      thumb.addEventListener("mousedown", () => dragging = true);
-      window.addEventListener("mouseup", () => dragging = false);
-      window.addEventListener("mousemove", handleMove);
-      thumb.addEventListener("touchstart", () => dragging = true);
-      window.addEventListener("touchend", () => dragging = false);
-      window.addEventListener("touchmove", handleMove);
-
-      updateUI(initial);
-    }
-
-    // 初始化所有 circular-range
-    document.querySelectorAll(".circular-range").forEach(el => {
-      createCircularSlider(el);
-    });
-
-  </script>
-</body>
+    </script>
+  </body>
 </html>

@@ -1,931 +1,946 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>日常通勤 - 控制顯示模板</title>
-  <link rel="stylesheet" href="css/all.css">
-  <style>
-    /* ---------------------------------------
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>日常通勤 - 控制顯示模板</title>
+    <link rel="stylesheet" href="css/all.css" />
+    <style>
+      /* ---------------------------------------
        3. 場景容器：隱藏/顯示 + 毛玻璃效果
     --------------------------------------- */
-    .scene.active {
-      display: flex;
-    }
+      .scene.active {
+        display: flex;
+      }
 
-    .hidden { display: none; }
-    .inactive { opacity: 0.4; }
+      .hidden {
+        display: none;
+      }
+      .inactive {
+        opacity: 0.4;
+      }
 
-    /* ---------------------------------------
+      /* ---------------------------------------
        4. 交通工具選單
     --------------------------------------- */
-    .transport-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(120px, 1fr));
-      grid-template-rows: repeat(2, auto);
-      gap: 20px;
-      width: 90%;
-      max-width: 700px;
-      margin: 16px auto auto;
-    }
-    .transport-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: rgba(255, 255, 255, 0);
-      border-radius: 16px;
-      padding: 16px;
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-    .transport-card img {
-      width: 130px;
-      height: 130px;
-      object-fit: contain;
-      margin-bottom: -10px;
-    }
-    .transport-card .label {
-      font-family: 'GenSenRounded2TW-R', sans-serif;
-      font-size: 24px;
-      color: #6D808F;
-      text-align: center;
-      white-space: nowrap;
+      .transport-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(120px, 1fr));
+        grid-template-rows: repeat(2, auto);
+        gap: 20px;
+        width: 90%;
+        max-width: 700px;
+        margin: 16px auto auto;
+      }
+      .transport-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(255, 255, 255, 0);
+        border-radius: 16px;
+        padding: 16px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: transform 0.2s, border-color 0.2s;
+      }
+      .transport-card img {
+        width: 130px;
+        height: 130px;
+        object-fit: contain;
+        margin-bottom: -10px;
+      }
+      .transport-card .label {
+        font-family: "GenSenRounded2TW-R", sans-serif;
+        font-size: 24px;
+        color: #6d808f;
+        text-align: center;
+        white-space: nowrap;
 
-      letter-spacing: 6px
-    }
-    .transport-card:hover { transform: translateY(-4px); }
-    .transport-card.selected {
-      background: rgba(255, 255, 255, 0.4);
-    }
+        letter-spacing: 6px;
+      }
+      .transport-card:hover {
+        transform: translateY(-4px);
+      }
+      .transport-card.selected {
+        background: rgba(255, 255, 255, 0.4);
+      }
 
-
-    /* ---------------------------------------
+      /* ---------------------------------------
        5. 切換開關區塊 (Scene 2 & 4)
     --------------------------------------- */
-    .toggle-row {
-      display: flex;
-      justify-content: center;
-      gap: 32px;
-      margin: 40px auto;
-    }
+      .toggle-row {
+        display: flex;
+        justify-content: center;
+        gap: 32px;
+        margin: 40px auto;
+      }
 
-    .toggle-card {
-      height: 50px;
-      width: 350px;
-      background: rgba(255, 255, 255, 0.4);
-      border-radius: 12px;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      box-shadow: 
-      -4pt -4pt 5pt #ffffff46,
-      5pt 5pt 10pt #C3CADB76;
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-    }
-    .toggle-card span.label {
-      font-size: 18px;
-      color: #9C7A5C;
-      white-space: nowrap;
-      margin-right: 50px;
-      margin-left: 20px;
-      font-family: 'GenSenRounded2TW-R', sans-serif;
-      letter-spacing: 6px
-    }
-    
-    .toggle-switch {
-      position: relative;
-      width: 40px;
-      height: 20px;
-      margin: 2px;
-    }
+      .toggle-card {
+        height: 50px;
+        width: 350px;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 12px;
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+      }
+      .toggle-card span.label {
+        font-size: 18px;
+        color: #9c7a5c;
+        white-space: nowrap;
+        margin-right: 50px;
+        margin-left: 20px;
+        font-family: "GenSenRounded2TW-R", sans-serif;
+        letter-spacing: 6px;
+      }
 
-    .toggle-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
+      .toggle-switch {
+        position: relative;
+        width: 40px;
+        height: 20px;
+        margin: 2px;
+      }
 
-    .toggle-switch .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: #EFF3F9;
-      border: none;
-      box-shadow: inset 1pt 1pt 4pt #6D808F70;
-      border-radius: 10px;
-      transition: 0.75s;
-    }
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
 
-    .toggle-switch .slider:before {
-      position: absolute;
-      content: "";
-      height: 16px; width: 16px;
-      left: 2px; bottom: 2px;
-      background: #fff;
-      border-radius: 50%;
-      transition: 0.3s;
-      box-shadow: 
-      -4pt -4pt 5pt #ffffff46,
-      5pt 5pt 10pt #C3CADB76;
-    }
+      .toggle-switch .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #eff3f9;
+        border: none;
+        box-shadow: inset 1pt 1pt 4pt #6d808f70;
+        border-radius: 10px;
+        transition: 0.75s;
+      }
 
-    .toggle-switch input:checked + .slider {
-      background:  #d0d2d6;
-    }
-    .toggle-switch input:checked + .slider:before {
-      transform: translateX(20px);
-    }
-    .nowrap-text {
-      color: #6C808F;
-      white-space: nowrap;
-      margin: 0 10px;
-      font-family: 'GenSenRounded2TW-L', sans-serif;
-      letter-spacing: 6px
-    }
+      .toggle-switch .slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 2px;
+        bottom: 2px;
+        background: #fff;
+        border-radius: 50%;
+        transition: 0.3s;
+        box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
+      }
 
-    /* ---------------------------------------
+      .toggle-switch input:checked + .slider {
+        background: #d0d2d6;
+      }
+      .toggle-switch input:checked + .slider:before {
+        transform: translateX(20px);
+      }
+      .nowrap-text {
+        color: #6c808f;
+        white-space: nowrap;
+        margin: 0 10px;
+        font-family: "GenSenRounded2TW-L", sans-serif;
+        letter-spacing: 6px;
+      }
+
+      /* ---------------------------------------
        6. 動態模板區域 (Scene 2 & 4)
     --------------------------------------- */
-    .template-wrapper {
-      height: 200px;
-      width: 350px;
-      background: rgba(255, 255, 255, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 24px;
-      padding: 20px;
-      box-shadow: 
-      -4pt -4pt 5pt #ffffff46,
-      5pt 5pt 10pt #C3CADB76;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      margin-bottom: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .template-row {
-      display: flex;
-      gap: 32px;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-    .fuel-group .input-group {
-      display: flex;
-      align-items: center;
-      padding: 10px 0;
-    }
-    .fuel-group .input-group label {
-      margin: 5px 12px;
-      font-size: 15px;
-      color: #9C7A5C;
-      font-family: 'GenSenRounded2TW-R', sans-serif;
-      letter-spacing: 4px;
-      white-space: nowrap;
-    }
-    .fuel-group .input-group input {
-      width: 100px;
-      padding: 8px 10px;
-      border: 0.25pt solid #B5C1C623;
-      border-radius: 8px;
-      box-shadow: inset 2pt 2pt 7pt #6D808F70;
-      background: #fff;
-      font-size: 14px;
-      color: #4a4a4a;
-
-    }
-    .fuel-group .input-group select {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      width: 120px;
-      padding: 8px 30px 8px 12px;
-      border: 0.25pt solid #B5C1C623;
-      border-radius: 8px;
-      box-shadow: inset 2pt 2pt 7pt #6D808F70;
-      background: #fff url('images/下拉式箭頭.png') no-repeat right center;
-      background-size: 30px;
-      font-size: 14px;
-      color: #4a4a4a;
-      font-family: 'GenSenRounded2TW-L', sans-serif;
-      letter-spacing: 3px
-    }
-    .fuel-group .input-group .special-label {
-      font-family: 'GenSenRounded2TW-L', sans-serif;
-      color: #6C808F;
-    }
-    /* ---------------------------------------
+      .template-wrapper {
+        height: 200px;
+        width: 350px;
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 24px;
+        padding: 20px;
+        box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .template-row {
+        display: flex;
+        gap: 32px;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+      .fuel-group .input-group {
+        display: flex;
+        align-items: center;
+        padding: 10px 0;
+      }
+      .fuel-group .input-group label {
+        margin: 5px 12px;
+        font-size: 15px;
+        color: #9c7a5c;
+        font-family: "GenSenRounded2TW-R", sans-serif;
+        letter-spacing: 4px;
+        white-space: nowrap;
+      }
+      .fuel-group .input-group input {
+        width: 100px;
+        padding: 8px 10px;
+        border: 0.25pt solid #b5c1c623;
+        border-radius: 8px;
+        box-shadow: inset 2pt 2pt 7pt #6d808f70;
+        background: #fff;
+        font-size: 14px;
+        color: #4a4a4a;
+      }
+      .fuel-group .input-group select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 120px;
+        padding: 8px 30px 8px 12px;
+        border: 0.25pt solid #b5c1c623;
+        border-radius: 8px;
+        box-shadow: inset 2pt 2pt 7pt #6d808f70;
+        background: #fff url("images/下拉式箭頭.png") no-repeat right center;
+        background-size: 30px;
+        font-size: 14px;
+        color: #4a4a4a;
+        font-family: "GenSenRounded2TW-L", sans-serif;
+        letter-spacing: 3px;
+      }
+      .fuel-group .input-group .special-label {
+        font-family: "GenSenRounded2TW-L", sans-serif;
+        color: #6c808f;
+      }
+      /* ---------------------------------------
        7. MRT區域 (Scene 2 & 4)
     --------------------------------------- */
-    .mrt-trip-list-wrapper {
-      display: flex;
-      flex-direction: column;
-      height:200px;           /* 或你要的固定高度 */
-    }
-    .mrt-trip-list-wrapper .trip-list {
-      flex: 1;                /* 滾動區撐滿剩下空間 */
-      overflow-y: auto;
-    }
-    .mrt-trip-list-wrapper .mrt-btn {
-      flex: 0 0 auto;         /* 按鈕不跟著滾動區縮放 */
-      margin-top: 20px;
-      align-self: center;
-    }
-    .input-group-MRT {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      margin-bottom: 16px;
-      gap: 10px;
-    }
-    .input-group-MRT label {
-      margin: 5px 12px;
-      font-size: 15px;
-      color: #9C7A5C;
-      white-space: nowrap;
-      font-family: 'GenSenRounded2TW-R', sans-serif;
-      letter-spacing: 6px
-    }
-    .input-group-MRT .special-label {
-      color:#6C808F;
-    }
+      .mrt-trip-list-wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 200px; /* 或你要的固定高度 */
+      }
+      .mrt-trip-list-wrapper .trip-list {
+        flex: 1; /* 滾動區撐滿剩下空間 */
+        overflow-y: auto;
+      }
+      .mrt-trip-list-wrapper .mrt-btn {
+        flex: 0 0 auto; /* 按鈕不跟著滾動區縮放 */
+        margin-top: 20px;
+        align-self: center;
+      }
+      .input-group-MRT {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        margin-bottom: 16px;
+        gap: 10px;
+      }
+      .input-group-MRT label {
+        margin: 5px 12px;
+        font-size: 15px;
+        color: #9c7a5c;
+        white-space: nowrap;
+        font-family: "GenSenRounded2TW-R", sans-serif;
+        letter-spacing: 6px;
+      }
+      .input-group-MRT .special-label {
+        color: #6c808f;
+      }
 
-    .input-group-MRT select{
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      width: 100px;
-      padding: 8px 30px 8px 12px;
-      border: 1px solid rgba(208,210,214,0.6);
-      border-radius: 6px;
-      background: #fff url('images/下拉式箭頭.png') no-repeat right center;
-      background-size: 30px;
-      box-shadow: inset 2pt 2pt 7pt #6D808F70;
-      font-size: 14px;
-      color: #4a4a4a;
-    }
+      .input-group-MRT select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 100px;
+        padding: 8px 30px 8px 12px;
+        border: 1px solid rgba(208, 210, 214, 0.6);
+        border-radius: 6px;
+        background: #fff url("images/下拉式箭頭.png") no-repeat right center;
+        background-size: 30px;
+        box-shadow: inset 2pt 2pt 7pt #6d808f70;
+        font-size: 14px;
+        color: #4a4a4a;
+      }
 
-    .input-group-MRT input {
-      width: 120px;
-      padding: 8px 12px;
-      border: 0.25pt solid #B5C1C623;
-      border-radius: 6px;
-      background: #fff;
-      font-size: 14px;
-      color: #4a4a4a;
-      box-shadow: inset 2pt 2pt 7pt #6D808F70;
-      font-family: 'GenSenRounded2TW-L', sans-serif;
-      letter-spacing: 2px
-    }
-    #mrtTripDisplay {
-      display: flex;
-      flex-direction: column;
-      /* 保留原本的滾動 */
-      overflow-y: auto;
-    }
-    #mrtTripDisplay .mrt-btn {
-      margin-top:18px;
-      align-self: center;
-    }
-    /* 讓template-wrapper 靠上對齊 */
-    #scene4 .template-wrapper,
-    #scene5 .template-wrapper,
-    #scene6 .template-wrapper {
-      justify-content: flex-start;
-    }
-    #scene4 .template-row,
-    #scene5 .template-row,
-    #scene6 .template-row {
-      margin: auto 0;
-    }
-    /* trip-list */
-    .trip-item {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      font-size: 0.9rem;
-      color: #222;
-    }
-    .add-trip-wrapper {
-      display: flex;
-      flex-direction: column;
-    }
-    /* 2) 推按鈕到底部，並置中 */
-    .add-trip-wrapper .mrt-btn {
-      margin-top: auto;
-      align-self: center;
-    }
-    .mrt-btn {
-      width: 200px;
-      margin: 0 auto;
-      /* 背景色與半透明毛玻璃感 */
-      background: rgba(240, 244, 252, 0.8);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      /* 邊框、陰影、圓角 */
-      border: 1px solid rgba(255,255,255,0.6);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      border-radius: 32px;
-      /* 文字大小、顏色、陰影 */
-      font-size: 15px;
-      font-weight: bold;
-      color: rgba(0,0,0,0.2);
-      text-shadow: 0 1px 2px rgba(255,255,255,0.8);
-      /* 內邊距 & 游標 */
-      padding: 6px 12px;
-      cursor: pointer;
-      transition: background 0.2s, box-shadow 0.2s;
-      font-family: 'GenSenRounded2TW-R', sans-serif;
-    }
+      .input-group-MRT input {
+        width: 120px;
+        padding: 8px 12px;
+        border: 0.25pt solid #b5c1c623;
+        border-radius: 6px;
+        background: #fff;
+        font-size: 14px;
+        color: #4a4a4a;
+        box-shadow: inset 2pt 2pt 7pt #6d808f70;
+        font-family: "GenSenRounded2TW-L", sans-serif;
+        letter-spacing: 2px;
+      }
+      #mrtTripDisplay {
+        display: flex;
+        flex-direction: column;
+        /* 保留原本的滾動 */
+        overflow-y: auto;
+      }
+      #mrtTripDisplay .mrt-btn {
+        margin-top: 18px;
+        align-self: center;
+      }
+      /* 讓template-wrapper 靠上對齊 */
+      #scene4 .template-wrapper,
+      #scene5 .template-wrapper,
+      #scene6 .template-wrapper {
+        justify-content: flex-start;
+      }
+      #scene4 .template-row,
+      #scene5 .template-row,
+      #scene6 .template-row {
+        margin: auto 0;
+      }
+      /* trip-list */
+      .trip-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+        color: #222;
+      }
+      .add-trip-wrapper {
+        display: flex;
+        flex-direction: column;
+      }
+      /* 2) 推按鈕到底部，並置中 */
+      .add-trip-wrapper .mrt-btn {
+        margin-top: auto;
+        align-self: center;
+      }
+      .mrt-btn {
+        width: 200px;
+        margin: 0 auto;
+        /* 背景色與半透明毛玻璃感 */
+        background: rgba(240, 244, 252, 0.8);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        /* 邊框、陰影、圓角 */
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        border-radius: 32px;
+        /* 文字大小、顏色、陰影 */
+        font-size: 15px;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.2);
+        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        /* 內邊距 & 游標 */
+        padding: 6px 12px;
+        cursor: pointer;
+        transition: background 0.2s, box-shadow 0.2s;
+        font-family: "GenSenRounded2TW-R", sans-serif;
+      }
 
-    /* 2. 滑鼠懸停效果（選填） */
-    .mrt-btn:hover {
-      background: rgba(240, 244, 252, 1);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-    }
-    #scene7 .template-wrapper {
-      width: 750px;
-      max-width: 100%;
-      height: 200px;
-      justify-content: center;
-      overflow-y: auto;
-      margin: auto 0;
-      align-items: center;
-    }
-    #scene7 .add-trip-wrapper { 
-      gap: 12px; 
-    }
-    
-    /* 跳轉橫槓 */
- 
-    .page-indicator {
-      display: flex;
-      justify-content: center;
-      width: 60%;
-      min-width: 250px;
-      gap: 12px;
-      margin-top: 10px;
-    }
- 
-    .bar {
-      width: 40%;
-      height: 3px;
-      background-color: #E4ECF1;
-      transition: background-color 0.3s;
-      cursor: pointer;
-    }
- 
-    .bar.active {
-      background-color: #B5C1C6;
-      box-shadow:
-      1pt 1pt 4pt #7F7F7F60,
-      -2pt -2pt 3pt #ffffff55;
-    }
- 
-  </style>
-</head>
+      /* 2. 滑鼠懸停效果（選填） */
+      .mrt-btn:hover {
+        background: rgba(240, 244, 252, 1);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      }
+      #scene7 .template-wrapper {
+        width: 750px;
+        max-width: 100%;
+        height: 200px;
+        justify-content: center;
+        overflow-y: auto;
+        margin: auto 0;
+        align-items: center;
+      }
+      #scene7 .add-trip-wrapper {
+        gap: 12px;
+      }
 
-<body>
-  <!-- Scene 1: 選車種 -->
-  <section id="scene1" class="scene active">
-    <h1>日常通勤使用的交通工具</h1>
-    <div class="page-indicator">
-      <span class="bar active" onclick="goToScene(1)"></span>
-      <span class="bar" onclick="goToScene(2)"></span>
-      <span class="bar" onclick="goToScene(3)"></span>
-      <span class="bar" onclick="goToScene(4)"></span>
-      <span class="bar" onclick="goToScene(5)"></span>
-      <span class="bar" onclick="goToScene(6)"></span>
-      <span class="bar" onclick="goToScene(7)"></span>
-    </div>
-    <div class="transport-grid">
-      <div class="transport-card" onclick="toggleSelection(this,'汽車')">
-        <img src="images/汽車.png" alt="汽車">
-        <span class="label">汽車</span>
-      </div>
-      <div class="transport-card" onclick="toggleSelection(this,'機車')">
-        <img src="images/機車.png" alt="機車">
-        <span class="label">機車</span>
-      </div>
-      <div class="transport-card" onclick="toggleSelection(this,'公車')">
-        <img src="images/公車.png" alt="公車">
-        <span class="label">公車</span>
-      </div>
-      <div class="transport-card" onclick="toggleSelection(this,'捷運')">
-        <img src="images/捷運.png" alt="捷運">
-        <span class="label">捷運</span>
-      </div>
-      <div class="transport-card" onclick="toggleSelection(this,'火車')">
-        <img src="images/火車.png" alt="火車">
-        <span class="label">火車</span>
-      </div>
-      <div class="transport-card" onclick="toggleSelection(this,'高鐵')">
-        <img src="images/高鐵.png" alt="高鐵">
-        <span class="label">高鐵</span>
-      </div>
-    </div>
-    <button class="nav-btn prev-btn" onclick="prevTransportScene()">‹</button>
-    <button class="nav-btn next-btn" onclick="goToScene(2)">›</button>
-  </section>
+      /* 跳轉橫槓 */
 
-  <!-- Scene 2: 燃料 & 計算方法 -->
-  <section id="scene2" class="scene">
-    <h1>汽車使用狀況</h1>
-    <div class="page-indicator">
-      <span class="bar" onclick="goToScene(1)"></span>
-      <span class="bar active" onclick="goToScene(2)"></span>
-      <span class="bar" onclick="goToScene(3)"></span>
-      <span class="bar" onclick="goToScene(4)"></span>
-      <span class="bar" onclick="goToScene(5)"></span>
-      <span class="bar" onclick="goToScene(6)"></span>
-      <span class="bar" onclick="goToScene(7)"></span>
-    </div>
-    <div class="toggle-row">
-      <!-- 燃料開關 -->
-      <div class="toggle-card">
-        <span class="label">選擇<br>車種燃料</span>
-        <span class="nowrap-text">油車</span>
-        <label class="toggle-switch">
-          <input type="checkbox" id="fuelToggle" />
-          <span class="slider"></span>
-        </label>
-        <span class="nowrap-text">電車</span>
-      </div>
-      <!-- 方法開關 -->
-      <div class="toggle-card">
-        <span class="label">選擇<br>計算方法</span>
-        <span class="nowrap-text">距離</span>
-        <label class="toggle-switch">
-          <input type="checkbox" id="methodToggle" />
-          <span class="slider"></span>
-        </label>
-        <span class="nowrap-text">油量</span>
-      </div>
-    </div>
+      .page-indicator {
+        display: flex;
+        justify-content: center;
+        width: 60%;
+        min-width: 250px;
+        gap: 12px;
+        margin-top: 10px;
+      }
 
-    <div class="template-row">
-      <div id="pane-left" class="template-wrapper">
-        <div id="oil-left" class="fuel-group">
-          <div class="input-group">
-            <label>選擇<br>汽油類型</label>
-            <select>
-              <option>92無鉛</option>
-              <option>95無鉛</option>
-              <option>98無鉛</option>
-              <option>柴油</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>每週加油</label>
-            <input type="number" />
-            <label class="special-label">元 / 週</label>
-          </div>
+      .bar {
+        width: 40%;
+        height: 3px;
+        background-color: #e4ecf1;
+        transition: background-color 0.3s;
+        cursor: pointer;
+      }
+
+      .bar.active {
+        background-color: #b5c1c6;
+        box-shadow: 1pt 1pt 4pt #7f7f7f60, -2pt -2pt 3pt #ffffff55;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Scene 1: 選車種 -->
+    <section id="scene1" class="scene active">
+      <h1>日常通勤使用的交通工具</h1>
+      <div class="page-indicator">
+        <span class="bar active" onclick="goToScene(1)"></span>
+        <span class="bar" onclick="goToScene(2)"></span>
+        <span class="bar" onclick="goToScene(3)"></span>
+        <span class="bar" onclick="goToScene(4)"></span>
+        <span class="bar" onclick="goToScene(5)"></span>
+        <span class="bar" onclick="goToScene(6)"></span>
+        <span class="bar" onclick="goToScene(7)"></span>
+      </div>
+      <div class="transport-grid">
+        <div class="transport-card" onclick="toggleSelection(this,'汽車')">
+          <img src="images/汽車.png" alt="汽車" />
+          <span class="label">汽車</span>
         </div>
-        <div id="electric-left" class="fuel-group hidden">
-          <div class="input-group">
-            <label>行駛里程</label>
-            <input type="number" />
-            <label class="special-label">公里 / 週</label>
-          </div>
+        <div class="transport-card" onclick="toggleSelection(this,'機車')">
+          <img src="images/機車.png" alt="機車" />
+          <span class="label">機車</span>
+        </div>
+        <div class="transport-card" onclick="toggleSelection(this,'公車')">
+          <img src="images/公車.png" alt="公車" />
+          <span class="label">公車</span>
+        </div>
+        <div class="transport-card" onclick="toggleSelection(this,'捷運')">
+          <img src="images/捷運.png" alt="捷運" />
+          <span class="label">捷運</span>
+        </div>
+        <div class="transport-card" onclick="toggleSelection(this,'火車')">
+          <img src="images/火車.png" alt="火車" />
+          <span class="label">火車</span>
+        </div>
+        <div class="transport-card" onclick="toggleSelection(this,'高鐵')">
+          <img src="images/高鐵.png" alt="高鐵" />
+          <span class="label">高鐵</span>
+        </div>
+      </div>
+      <button class="nav-btn prev-btn" onclick="prevTransportScene()">‹</button>
+      <button class="nav-btn next-btn" onclick="goToScene(2)">›</button>
+    </section>
+
+    <!-- Scene 2: 燃料 & 計算方法 -->
+    <section id="scene2" class="scene">
+      <h1>汽車使用狀況</h1>
+      <div class="page-indicator">
+        <span class="bar" onclick="goToScene(1)"></span>
+        <span class="bar active" onclick="goToScene(2)"></span>
+        <span class="bar" onclick="goToScene(3)"></span>
+        <span class="bar" onclick="goToScene(4)"></span>
+        <span class="bar" onclick="goToScene(5)"></span>
+        <span class="bar" onclick="goToScene(6)"></span>
+        <span class="bar" onclick="goToScene(7)"></span>
+      </div>
+      <div class="toggle-row">
+        <!-- 燃料開關 -->
+        <div class="toggle-card">
+          <span class="label">選擇<br />車種燃料</span>
+          <span class="nowrap-text">油車</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="fuelToggle" />
+            <span class="slider"></span>
+          </label>
+          <span class="nowrap-text">電車</span>
+        </div>
+        <!-- 方法開關 -->
+        <div class="toggle-card">
+          <span class="label">選擇<br />計算方法</span>
+          <span class="nowrap-text">距離</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="methodToggle" />
+            <span class="slider"></span>
+          </label>
+          <span class="nowrap-text">油量</span>
         </div>
       </div>
 
-      <div id="pane-right" class="template-wrapper">
-        <div id="oil-right" class="fuel-group">
-          <div class="input-group">
-            <label>選擇<br>汽車類型</label>
-            <select>
-              <option>小型房車</option>
-              <option>中型房車</option>
-              <option>大型房車</option>
-              <option>小型休旅車</option>
-              <option>中型休旅車</option>
-              <option>大型休旅車</option>
-            </select>
+      <div class="template-row">
+        <div id="pane-left" class="template-wrapper">
+          <div id="oil-left" class="fuel-group">
+            <div class="input-group">
+              <label>選擇<br />汽油類型</label>
+              <select>
+                <option>92無鉛</option>
+                <option>95無鉛</option>
+                <option>98無鉛</option>
+                <option>柴油</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label>每週加油</label>
+              <input type="number" />
+              <label class="special-label">元 / 週</label>
+            </div>
           </div>
-          <div class="input-group">
-            <label>每週行駛</label>
-            <input type="number" />
-            <label class="special-label">公里 / 週</label>
+          <div id="electric-left" class="fuel-group hidden">
+            <div class="input-group">
+              <label>行駛里程</label>
+              <input type="number" />
+              <label class="special-label">公里 / 週</label>
+            </div>
           </div>
         </div>
-        <div id="electric-right" class="fuel-group hidden">
-          <div class="input-group">
-            <label>外出充電</label>
-            <input type="number" />
-            <label class="special-label">kWh / 週</label>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <button class="nav-btn prev-btn" onclick="goToScene(1)">‹</button>
-    <button class="nav-btn next-btn" onclick="goToScene(3)">›</button>
-  </section>
-  <!-- Scene 3: 燃料 & 計算方法（機車） -->
-  <section id="scene3" class="scene">
-    <h1>機車使用情況</h1>
-    <div class="page-indicator">
-      <span class="bar" onclick="goToScene(1)"></span>
-      <span class="bar" onclick="goToScene(2)"></span>
-      <span class="bar active" onclick="goToScene(3)"></span>
-      <span class="bar" onclick="goToScene(4)"></span>
-      <span class="bar" onclick="goToScene(5)"></span>
-      <span class="bar" onclick="goToScene(6)"></span>
-      <span class="bar" onclick="goToScene(7)"></span>
-    </div>
-    <div class="toggle-row">
-      <!-- 燃料開關 -->
-      <div class="toggle-card">
-        <span class="label">選擇<br>車種燃料</span>
-        <span class="nowrap-text">油車</span>
-        <label class="toggle-switch">
-          <input type="checkbox" id="fuelToggle4" />
-          <span class="slider"></span>
-        </label>
-        <span class="nowrap-text">電車</span>
-      </div>
-      <!-- 方法開關 -->
-      <div class="toggle-card">
-        <span class="label">選擇<br>計算方法</span>
-        <span class="nowrap-text">距離</span>
-        <label class="toggle-switch">
-          <input type="checkbox" id="methodToggle4" />
-          <span class="slider"></span>
-        </label>
-        <span class="nowrap-text">油量</span>
-      </div>
-    </div>
-
-    <div class="template-row">
-      <div id="pane-left4" class="template-wrapper">
-        <div id="oil-left4" class="fuel-group">
-          <div class="input-group">
-            <label>選擇<br>汽油類型</label>
-            <select>
-              <option>92無鉛</option>
-              <option>95無鉛</option>
-              <option>98無鉛</option>
-            </select>
+        <div id="pane-right" class="template-wrapper">
+          <div id="oil-right" class="fuel-group">
+            <div class="input-group">
+              <label>選擇<br />汽車類型</label>
+              <select>
+                <option>小型房車</option>
+                <option>中型房車</option>
+                <option>大型房車</option>
+                <option>小型休旅車</option>
+                <option>中型休旅車</option>
+                <option>大型休旅車</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label>每週行駛</label>
+              <input type="number" />
+              <label class="special-label">公里 / 週</label>
+            </div>
           </div>
-          <div class="input-group">
-            <label>每週加油</label>
-            <input type="number" />
-            <label class="special-label">元 / 週</label>
-          </div>
-        </div>
-        <div id="electric-left4" class="fuel-group hidden">
-          <div class="input-group">
-            <label>行駛里程</label>
-            <input type="number" />
-            <label class="special-label">公里 / 週</label>
+          <div id="electric-right" class="fuel-group hidden">
+            <div class="input-group">
+              <label>外出充電</label>
+              <input type="number" />
+              <label class="special-label">kWh / 週</label>
+            </div>
           </div>
         </div>
       </div>
 
-      <div id="pane-right4" class="template-wrapper">
-        <div id="oil-right4" class="fuel-group">
-          <div class="input-group">
-            <label>每週行駛</label>
-            <input type="number" />
-            <label class="special-label">公里 / 週</label>
+      <button class="nav-btn prev-btn" onclick="goToScene(1)">‹</button>
+      <button class="nav-btn next-btn" onclick="goToScene(3)">›</button>
+    </section>
+    <!-- Scene 3: 燃料 & 計算方法（機車） -->
+    <section id="scene3" class="scene">
+      <h1>機車使用情況</h1>
+      <div class="page-indicator">
+        <span class="bar" onclick="goToScene(1)"></span>
+        <span class="bar" onclick="goToScene(2)"></span>
+        <span class="bar active" onclick="goToScene(3)"></span>
+        <span class="bar" onclick="goToScene(4)"></span>
+        <span class="bar" onclick="goToScene(5)"></span>
+        <span class="bar" onclick="goToScene(6)"></span>
+        <span class="bar" onclick="goToScene(7)"></span>
+      </div>
+      <div class="toggle-row">
+        <!-- 燃料開關 -->
+        <div class="toggle-card">
+          <span class="label">選擇<br />車種燃料</span>
+          <span class="nowrap-text">油車</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="fuelToggle4" />
+            <span class="slider"></span>
+          </label>
+          <span class="nowrap-text">電車</span>
+        </div>
+        <!-- 方法開關 -->
+        <div class="toggle-card">
+          <span class="label">選擇<br />計算方法</span>
+          <span class="nowrap-text">距離</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="methodToggle4" />
+            <span class="slider"></span>
+          </label>
+          <span class="nowrap-text">油量</span>
+        </div>
+      </div>
+
+      <div class="template-row">
+        <div id="pane-left4" class="template-wrapper">
+          <div id="oil-left4" class="fuel-group">
+            <div class="input-group">
+              <label>選擇<br />汽油類型</label>
+              <select>
+                <option>92無鉛</option>
+                <option>95無鉛</option>
+                <option>98無鉛</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label>每週加油</label>
+              <input type="number" />
+              <label class="special-label">元 / 週</label>
+            </div>
+          </div>
+          <div id="electric-left4" class="fuel-group hidden">
+            <div class="input-group">
+              <label>行駛里程</label>
+              <input type="number" />
+              <label class="special-label">公里 / 週</label>
+            </div>
           </div>
         </div>
-        <div id="electric-right4" class="fuel-group hidden">
-          <div class="input-group">
-            <label>外出充電</label>
-            <input type="number" />
-            <label class="special-label">kWh / 週</label>
+
+        <div id="pane-right4" class="template-wrapper">
+          <div id="oil-right4" class="fuel-group">
+            <div class="input-group">
+              <label>每週行駛</label>
+              <input type="number" />
+              <label class="special-label">公里 / 週</label>
+            </div>
+          </div>
+          <div id="electric-right4" class="fuel-group hidden">
+            <div class="input-group">
+              <label>外出充電</label>
+              <input type="number" />
+              <label class="special-label">kWh / 週</label>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <button class="nav-btn prev-btn" onclick="goToScene(2)">‹</button>
-    <button class="nav-btn next-btn" onclick="goToScene(4)">›</button>
-  </section>
-  <!-- 玻璃卡片 -->
+      <button class="nav-btn prev-btn" onclick="goToScene(2)">‹</button>
+      <button class="nav-btn next-btn" onclick="goToScene(4)">›</button>
+    </section>
+    <!-- 玻璃卡片 -->
 
-    
-  <!-- Scene 4: 捷運使用情況 -->
-<section id="scene4" class="scene">
-  <h1>捷運使用情況</h1>
-  <div class="page-indicator">
-      <span class="bar" onclick="goToScene(1)"></span>
-      <span class="bar" onclick="goToScene(2)"></span>
-      <span class="bar" onclick="goToScene(3)"></span>
-      <span class="bar active" onclick="goToScene(4)"></span>
-      <span class="bar" onclick="goToScene(5)"></span>
-      <span class="bar" onclick="goToScene(6)"></span>
-      <span class="bar" onclick="goToScene(7)"></span>
-    </div>
-  <div class="template-row">
-    <div class="template-wrapper add-trip-wrapper">
-      <div class="input-group-MRT">
-        <label for="mrtStart">選擇起點</label>
-        <input list="mrtStationList" id="mrtStart" />
+    <!-- Scene 4: 捷運使用情況 -->
+    <section id="scene4" class="scene">
+      <h1>捷運使用情況</h1>
+      <div class="page-indicator">
+        <span class="bar" onclick="goToScene(1)"></span>
+        <span class="bar" onclick="goToScene(2)"></span>
+        <span class="bar" onclick="goToScene(3)"></span>
+        <span class="bar active" onclick="goToScene(4)"></span>
+        <span class="bar" onclick="goToScene(5)"></span>
+        <span class="bar" onclick="goToScene(6)"></span>
+        <span class="bar" onclick="goToScene(7)"></span>
       </div>
-      <div class="input-group-MRT">
-        <label for="mrtEnd">選擇訖點</label>
-        <input list="mrtStationList" id="mrtEnd"  />
-        <datalist id="mrtStationList"></datalist>
-      </div>
-      <div class="input-group-MRT">
-        <label for="mrtCount">每月搭乘</label>
-        <input id="mrtCount" type="number" min="1" />
-        <label class="special-label">趟</label>
-      </div>
-      <button class="mrt-btn" onclick="addMRTTrip()">新增行程</button>
-    </div>
+      <div class="template-row">
+        <div class="template-wrapper add-trip-wrapper">
+          <div class="input-group-MRT">
+            <label for="mrtStart">選擇起點</label>
+            <input list="mrtStationList" id="mrtStart" />
+          </div>
+          <div class="input-group-MRT">
+            <label for="mrtEnd">選擇訖點</label>
+            <input list="mrtStationList" id="mrtEnd" />
+            <datalist id="mrtStationList"></datalist>
+          </div>
+          <div class="input-group-MRT">
+            <label for="mrtCount">每月搭乘</label>
+            <input id="mrtCount" type="number" min="1" />
+            <label class="special-label">趟</label>
+          </div>
+          <button class="mrt-btn" onclick="addMRTTrip()">新增行程</button>
+        </div>
 
-    <!-- 這裡一定要加上 id="mrtTripDisplay" -->
-    <div class="template-wrapper mrt-trip-list-wrapper" id="mrtTripDisplay">
-      <div class="trip-list"><!-- 這裡會塞 trip-item --></div>
-      <button class="mrt-btn" onclick="removeMRTTrip()">刪除行程</button>
-    </div>
-  </div>
-  <button class="nav-btn prev-btn" onclick="goToScene(3)">‹</button>
-  <button class="nav-btn next-btn" onclick="goToScene(5)">›</button>
-</section>
+        <!-- 這裡一定要加上 id="mrtTripDisplay" -->
+        <div class="template-wrapper mrt-trip-list-wrapper" id="mrtTripDisplay">
+          <div class="trip-list"><!-- 這裡會塞 trip-item --></div>
+          <button class="mrt-btn" onclick="removeMRTTrip()">刪除行程</button>
+        </div>
+      </div>
+      <button class="nav-btn prev-btn" onclick="goToScene(3)">‹</button>
+      <button class="nav-btn next-btn" onclick="goToScene(5)">›</button>
+    </section>
 
-  <!-- Scene 5: 火車使用情況 -->
-  <section id="scene5" class="scene">
-    <h1>火車使用情況</h1>
-    <div class="page-indicator">
-      <span class="bar" onclick="goToScene(1)"></span>
-      <span class="bar" onclick="goToScene(2)"></span>
-      <span class="bar" onclick="goToScene(3)"></span>
-      <span class="bar" onclick="goToScene(4)"></span>
-      <span class="bar active" onclick="goToScene(5)"></span>
-      <span class="bar" onclick="goToScene(6)"></span>
-      <span class="bar" onclick="goToScene(7)"></span>
-    </div>
-    <div class="template-row">
-      <div class="template-wrapper add-trip-wrapper">
+    <!-- Scene 5: 火車使用情況 -->
+    <section id="scene5" class="scene">
+      <h1>火車使用情況</h1>
+      <div class="page-indicator">
+        <span class="bar" onclick="goToScene(1)"></span>
+        <span class="bar" onclick="goToScene(2)"></span>
+        <span class="bar" onclick="goToScene(3)"></span>
+        <span class="bar" onclick="goToScene(4)"></span>
+        <span class="bar active" onclick="goToScene(5)"></span>
+        <span class="bar" onclick="goToScene(6)"></span>
+        <span class="bar" onclick="goToScene(7)"></span>
+      </div>
+      <div class="template-row">
+        <div class="template-wrapper add-trip-wrapper">
+          <div class="input-group-MRT">
+            <label for="trainStart">選擇起點</label>
+            <select id="trainStart"></select>
+          </div>
+          <div class="input-group-MRT">
+            <label for="trainEnd">選擇訖點</label>
+            <select id="trainEnd"></select>
+          </div>
+          <div class="input-group-MRT">
+            <label for="trainCount">每月搭乘</label>
+            <input id="trainCount" type="number" min="1" />
+            <label class="special-label">趟</label>
+          </div>
+          <button class="mrt-btn" onclick="addTrainTrip()">新增行程</button>
+        </div>
+        <div class="template-wrapper mrt-trip-list-wrapper">
+          <div class="trip-list" id="trainTripList"></div>
+          <button class="mrt-btn" onclick="removeTrainTrip()">刪除行程</button>
+        </div>
+      </div>
+      <button class="nav-btn prev-btn" onclick="goToScene(4)">‹</button>
+      <button class="nav-btn next-btn" onclick="goToScene(6)">›</button>
+    </section>
+
+    <!-- Scene 6: 高鐵使用情況 -->
+    <section id="scene6" class="scene">
+      <h1>高鐵使用情況</h1>
+      <div class="page-indicator">
+        <span class="bar" onclick="goToScene(1)"></span>
+        <span class="bar" onclick="goToScene(2)"></span>
+        <span class="bar" onclick="goToScene(3)"></span>
+        <span class="bar" onclick="goToScene(4)"></span>
+        <span class="bar" onclick="goToScene(5)"></span>
+        <span class="bar active" onclick="goToScene(6)"></span>
+        <span class="bar" onclick="goToScene(7)"></span>
+      </div>
+      <div class="template-row">
+        <div class="template-wrapper add-trip-wrapper">
+          <div class="input-group-MRT">
+            <label for="hsrStart">選擇起點</label>
+            <select id="hsrStart"></select>
+          </div>
+          <div class="input-group-MRT">
+            <label for="hsrEnd">選擇訖點</label>
+            <select id="hsrEnd"></select>
+          </div>
+          <div class="input-group-MRT">
+            <label for="hsrCount">每月搭乘</label>
+            <input id="hsrCount" type="number" min="1" />
+            <label class="special-label">趟</label>
+          </div>
+          <button class="mrt-btn" onclick="addHsrTrip()">新增行程</button>
+        </div>
+        <div class="template-wrapper mrt-trip-list-wrapper">
+          <div class="trip-list" id="hsrTripList"></div>
+          <button class="mrt-btn" onclick="removeHsrTrip()">刪除行程</button>
+        </div>
+      </div>
+      <button class="nav-btn prev-btn" onclick="goToScene(5)">‹</button>
+      <button class="nav-btn next-btn" onclick="goToScene(7)">›</button>
+    </section>
+
+    <!-- Scene 7: 公車使用情況（簡化版） -->
+    <section id="scene7" class="scene">
+      <h1>公車使用情況</h1>
+      <div class="page-indicator">
+        <span class="bar" onclick="goToScene(1)"></span>
+        <span class="bar" onclick="goToScene(2)"></span>
+        <span class="bar" onclick="goToScene(3)"></span>
+        <span class="bar" onclick="goToScene(4)"></span>
+        <span class="bar" onclick="goToScene(5)"></span>
+        <span class="bar" onclick="goToScene(6)"></span>
+        <span class="bar active" onclick="goToScene(7)"></span>
+      </div>
+      <div class="template-wrapper">
         <div class="input-group-MRT">
-          <label for="trainStart">選擇起點</label>
-          <select id="trainStart"></select>
+          <label for="busCount">每周搭乘</label>
+          <input id="busCount" type="number" min="0" />
+          <label style="color: #6c808f">公里</label>
         </div>
-        <div class="input-group-MRT">
-          <label for="trainEnd">選擇訖點</label>
-          <select id="trainEnd"></select>
-        </div>
-        <div class="input-group-MRT">
-          <label for="trainCount">每月搭乘</label>
-          <input id="trainCount" type="number" min="1" />
-          <label class="special-label">趟</label>
-        </div>
-        <button class="mrt-btn" onclick="addTrainTrip()">新增行程</button>
       </div>
-      <div class="template-wrapper mrt-trip-list-wrapper">
-        <div class="trip-list" id="trainTripList"></div>
-        <button class="mrt-btn" onclick="removeTrainTrip()">刪除行程</button>
-      </div>
-    </div>
-    <button class="nav-btn prev-btn" onclick="goToScene(4)">‹</button>
-    <button class="nav-btn next-btn" onclick="goToScene(6)">›</button>
-  </section>
+      <button class="nav-btn prev-btn" onclick="goToScene(6)">‹</button>
+      <button class="nav-btn next-btn" onclick="goToScene(1)">›</button>
+    </section>
 
-  <!-- Scene 6: 高鐵使用情況 -->
-  <section id="scene6" class="scene">
-    <h1>高鐵使用情況</h1>
-    <div class="page-indicator">
-      <span class="bar" onclick="goToScene(1)"></span>
-      <span class="bar" onclick="goToScene(2)"></span>
-      <span class="bar" onclick="goToScene(3)"></span>
-      <span class="bar" onclick="goToScene(4)"></span>
-      <span class="bar" onclick="goToScene(5)"></span>
-      <span class="bar active" onclick="goToScene(6)"></span>
-      <span class="bar" onclick="goToScene(7)"></span>
-    </div>
-    <div class="template-row">
-      <div class="template-wrapper add-trip-wrapper">
-        <div class="input-group-MRT">
-          <label for="hsrStart">選擇起點</label>
-          <select id="hsrStart"></select>
-        </div>
-        <div class="input-group-MRT">
-          <label for="hsrEnd">選擇訖點</label>
-          <select id="hsrEnd"></select>
-        </div>
-        <div class="input-group-MRT">
-          <label for="hsrCount">每月搭乘</label>
-          <input id="hsrCount" type="number" min="1" />
-          <label class="special-label">趟</label>
-        </div>
-        <button class="mrt-btn" onclick="addHsrTrip()">新增行程</button>
-      </div>
-      <div class="template-wrapper mrt-trip-list-wrapper">
-        <div class="trip-list" id="hsrTripList"></div>
-        <button class="mrt-btn" onclick="removeHsrTrip()">刪除行程</button>
-      </div>
-    </div>
-    <button class="nav-btn prev-btn" onclick="goToScene(5)">‹</button>
-    <button class="nav-btn next-btn" onclick="goToScene(7)">›</button>
-  </section>
+    <script>
+      // 記錄交通工具選擇
+      const selectedTransport = [];
+      function toggleSelection(card, type) {
+        card.classList.toggle("selected");
+        if (selectedTransport.includes(type)) {
+          selectedTransport.splice(selectedTransport.indexOf(type), 1);
+        } else {
+          selectedTransport.push(type);
+        }
+        console.log("目前選擇：", selectedTransport);
+      }
 
-  <!-- Scene 7: 公車使用情況（簡化版） -->
-  <section id="scene7" class="scene">
-    <h1>公車使用情況</h1>
-    <div class="page-indicator">
-      <span class="bar" onclick="goToScene(1)"></span>
-      <span class="bar" onclick="goToScene(2)"></span>
-      <span class="bar" onclick="goToScene(3)"></span>
-      <span class="bar" onclick="goToScene(4)"></span>
-      <span class="bar" onclick="goToScene(5)"></span>
-      <span class="bar" onclick="goToScene(6)"></span>
-      <span class="bar active" onclick="goToScene(7)"></span>
-    </div>
-    <div class="template-wrapper">
-      <div class="input-group-MRT">
-        <label for="busCount">每周搭乘</label>
-        <input id="busCount" type="number" min="0" />
-        <label style="color:#6C808F;">公里</label>
-      </div>
-    </div>
-    <button class="nav-btn prev-btn" onclick="goToScene(6)">‹</button>
-    <button class="nav-btn next-btn" onclick="goToScene(1)">›</button>
-  </section>
+      // 場景切換
+      let currentScene = 1;
+      function goToScene(n) {
+        document
+          .getElementById(`scene${currentScene}`)
+          .classList.remove("active");
+        document.getElementById(`scene${n}`).classList.add("active");
+        currentScene = n;
+      }
 
-  <script>
-  // 記錄交通工具選擇
-  const selectedTransport = [];
-  function toggleSelection(card, type) {
-    card.classList.toggle('selected');
-    if (selectedTransport.includes(type)) {
-      selectedTransport.splice(selectedTransport.indexOf(type), 1);
-    } else {
-      selectedTransport.push(type);
-    }
-    console.log('目前選擇：', selectedTransport);
-  }
+      // 儲存各場景的距離資料
+      let mrtMap = {};
 
-  // 場景切換
-  let currentScene = 1;
-  function goToScene(n) {
-    document.getElementById(`scene${currentScene}`).classList.remove('active');
-    document.getElementById(`scene${n}`).classList.add('active');
-    currentScene = n;
-  }
+      document.addEventListener("DOMContentLoaded", () => {
+        // —— Scene 2 汽車燃料 & 計算方法 —— //
+        const fuelToggle = document.getElementById("fuelToggle");
+        const methodToggle = document.getElementById("methodToggle");
+        const oilLeft = document.getElementById("oil-left");
+        const oilRight = document.getElementById("oil-right");
+        const elecLeft = document.getElementById("electric-left");
+        const elecRight = document.getElementById("electric-right");
+        const paneLeft = document.getElementById("pane-left");
+        const paneRight = document.getElementById("pane-right");
 
-  // 儲存各場景的距離資料
-  let mrtMap = {};
-
-  document.addEventListener('DOMContentLoaded', () => {
-    // —— Scene 2 汽車燃料 & 計算方法 —— //
-    const fuelToggle   = document.getElementById('fuelToggle');
-    const methodToggle = document.getElementById('methodToggle');
-    const oilLeft      = document.getElementById('oil-left');
-    const oilRight     = document.getElementById('oil-right');
-    const elecLeft     = document.getElementById('electric-left');
-    const elecRight    = document.getElementById('electric-right');
-    const paneLeft     = document.getElementById('pane-left');
-    const paneRight    = document.getElementById('pane-right');
-
-    function updateFuel() {
-      const isElec = fuelToggle.checked;
-      oilLeft.classList.toggle('hidden', isElec);
-      oilRight.classList.toggle('hidden', isElec);
-      elecLeft.classList.toggle('hidden', !isElec);
-      elecRight.classList.toggle('hidden', !isElec);
-    }
-    function updateMethod() {
-      const isVol = methodToggle.checked;
-      paneLeft.classList.toggle('inactive', isVol);
-      paneRight.classList.toggle('inactive', !isVol);
-    }
-    fuelToggle.addEventListener('change', () => { updateFuel(); updateMethod(); });
-    methodToggle.addEventListener('change', updateMethod);
-    updateFuel(); updateMethod();
-
-    // —— Scene 3 機車燃料 & 計算方法 —— //
-    const fuelToggle4   = document.getElementById('fuelToggle4');
-    const methodToggle4 = document.getElementById('methodToggle4');
-    const oilLeft4      = document.getElementById('oil-left4');
-    const oilRight4     = document.getElementById('oil-right4');
-    const elecLeft4     = document.getElementById('electric-left4');
-    const elecRight4    = document.getElementById('electric-right4');
-    const paneLeft4     = document.getElementById('pane-left4');
-    const paneRight4    = document.getElementById('pane-right4');
-
-    function updateFuel4() {
-      const isElec = fuelToggle4.checked;
-      oilLeft4.classList.toggle('hidden', isElec);
-      oilRight4.classList.toggle('hidden', isElec);
-      elecLeft4.classList.toggle('hidden', !isElec);
-      elecRight4.classList.toggle('hidden', !isElec);
-    }
-    function updateMethod4() {
-      const isVol = methodToggle4.checked;
-      paneLeft4.classList.toggle('inactive', isVol);
-      paneRight4.classList.toggle('inactive', !isVol);
-    }
-    fuelToggle4.addEventListener('change', () => { updateFuel4(); updateMethod4(); });
-    methodToggle4.addEventListener('change', updateMethod4);
-    updateFuel4(); updateMethod4();
-
-    // —— Scene 5 (MRT) & Scene 6 (火車、高鐵) 站點資料載入 —— //
-    const stationList = document.getElementById('mrtStationList');
-    const trainStart   = document.getElementById('trainStart');
-    const trainEnd     = document.getElementById('trainEnd');
-    const hsrStart     = document.getElementById('hsrStart');
-    const hsrEnd       = document.getElementById('hsrEnd');
-
-    fetch('/data/mrtDistanceMap.json')
-      .then(r => r.json())
-      .then(data => {
-        mrtMap = data;
-        // 取出所有站點名稱
-        const stations = Array.from(
-          new Set(Object.keys(data).flatMap(k => k.split('_')))
-        ).sort((a, b) => a.localeCompare(b, 'zh'));
-        stations.forEach(s => {
-          // datalist for MRT
-          const opt = document.createElement('option');
-          opt.value = s;
-          stationList.appendChild(opt);
-          // select options for 火車 & 高鐵
-          [trainStart, trainEnd, hsrStart, hsrEnd].forEach(sel => {
-            const o = document.createElement('option');
-            o.value = s;
-            sel.appendChild(o);
-          });
+        function updateFuel() {
+          const isElec = fuelToggle.checked;
+          oilLeft.classList.toggle("hidden", isElec);
+          oilRight.classList.toggle("hidden", isElec);
+          elecLeft.classList.toggle("hidden", !isElec);
+          elecRight.classList.toggle("hidden", !isElec);
+        }
+        function updateMethod() {
+          const isVol = methodToggle.checked;
+          paneLeft.classList.toggle("inactive", isVol);
+          paneRight.classList.toggle("inactive", !isVol);
+        }
+        fuelToggle.addEventListener("change", () => {
+          updateFuel();
+          updateMethod();
         });
-      })
-      .catch(console.error);
+        methodToggle.addEventListener("change", updateMethod);
+        updateFuel();
+        updateMethod();
 
-  });
+        // —— Scene 3 機車燃料 & 計算方法 —— //
+        const fuelToggle4 = document.getElementById("fuelToggle4");
+        const methodToggle4 = document.getElementById("methodToggle4");
+        const oilLeft4 = document.getElementById("oil-left4");
+        const oilRight4 = document.getElementById("oil-right4");
+        const elecLeft4 = document.getElementById("electric-left4");
+        const elecRight4 = document.getElementById("electric-right4");
+        const paneLeft4 = document.getElementById("pane-left4");
+        const paneRight4 = document.getElementById("pane-right4");
 
-  // —— 新增 & 刪除行程 —— //
-  function addMRTTrip() {
-    const s = document.getElementById('mrtStart').value;
-    const e = document.getElementById('mrtEnd').value;
-    const c = parseInt(document.getElementById('mrtCount').value, 10) || 0;
-    if (!s || !e || c <= 0) {
-      return alert('請選擇完整的起訖站並輸入有效次數');
-    }
-    const dist  = mrtMap[`${s}_${e}`] || 0;
-    const total = (dist * c).toFixed(2);
-    const item  = document.createElement('div');
-    item.className = 'trip-item';
-    item.innerHTML = `<span>${s} → ${e}</span><span>${dist.toFixed(2)} km × ${c} = ${total} km</span>`;
-    // 放到 .trip-list 裡面
-    document.querySelector('#mrtTripDisplay .trip-list').appendChild(item);
-  }
-  function removeMRTTrip() {
-    const list = document.querySelector('#mrtTripDisplay .trip-list');
-    const items = list.querySelectorAll('.trip-item');
-    if (items.length === 0) return alert('目前沒有行程可刪除');
-    list.removeChild(items[items.length - 1]);
-  }
+        function updateFuel4() {
+          const isElec = fuelToggle4.checked;
+          oilLeft4.classList.toggle("hidden", isElec);
+          oilRight4.classList.toggle("hidden", isElec);
+          elecLeft4.classList.toggle("hidden", !isElec);
+          elecRight4.classList.toggle("hidden", !isElec);
+        }
+        function updateMethod4() {
+          const isVol = methodToggle4.checked;
+          paneLeft4.classList.toggle("inactive", isVol);
+          paneRight4.classList.toggle("inactive", !isVol);
+        }
+        fuelToggle4.addEventListener("change", () => {
+          updateFuel4();
+          updateMethod4();
+        });
+        methodToggle4.addEventListener("change", updateMethod4);
+        updateFuel4();
+        updateMethod4();
 
-  function addTrainTrip() {
-    const s = document.getElementById('trainStart').value;
-    const e = document.getElementById('trainEnd').value;
-    const c = parseInt(document.getElementById('trainCount').value, 10) || 0;
-    if (!s || !e || c <= 0) return alert('請選擇完整的起訖站並輸入有效次數');
-    const dist  = mrtMap[`${s}_${e}`] || 0;
-    const total = (dist * c).toFixed(2);
-    const item  = document.createElement('div');
-    item.className = 'trip-item';
-    item.innerHTML = `<span>${s} → ${e}</span><span>${dist.toFixed(2)} km × ${c} = ${total} km</span>`;
-    document.getElementById('trainTripList').appendChild(item);
-  }
-  function removeTrainTrip() {
-    const list = document.getElementById('trainTripList');
-    const items = list.querySelectorAll('.trip-item');
-    if (!items.length) return alert('目前沒有行程可刪除');
-    list.removeChild(items[items.length - 1]);
-  }
+        // —— Scene 5 (MRT) & Scene 6 (火車、高鐵) 站點資料載入 —— //
+        const stationList = document.getElementById("mrtStationList");
+        const trainStart = document.getElementById("trainStart");
+        const trainEnd = document.getElementById("trainEnd");
+        const hsrStart = document.getElementById("hsrStart");
+        const hsrEnd = document.getElementById("hsrEnd");
 
-  function addHsrTrip() {
-    const s = document.getElementById('hsrStart').value;
-    const e = document.getElementById('hsrEnd').value;
-    const c = parseInt(document.getElementById('hsrCount').value, 10) || 0;
-    if (!s || !e || c <= 0) return alert('請選擇完整的起訖站並輸入有效次數');
-    const dist  = mrtMap[`${s}_${e}`] || 0;
-    const total = (dist * c).toFixed(2);
-    const item  = document.createElement('div');
-    item.className = 'trip-item';
-    item.innerHTML = `<span>${s} → ${e}</span><span>${dist.toFixed(2)} km × ${c} = ${total} km</span>`;
-    document.getElementById('hsrTripList').appendChild(item);
-  }
-  function removeHsrTrip() {
-    const list = document.getElementById('hsrTripList');
-    const items = list.querySelectorAll('.trip-item');
-    if (!items.length) return alert('目前沒有行程可刪除');
-    list.removeChild(items[items.length - 1]);
-  }
-</script>
+        fetch("/data/mrtDistanceMap.json")
+          .then((r) => r.json())
+          .then((data) => {
+            mrtMap = data;
+            // 取出所有站點名稱
+            const stations = Array.from(
+              new Set(Object.keys(data).flatMap((k) => k.split("_")))
+            ).sort((a, b) => a.localeCompare(b, "zh"));
+            stations.forEach((s) => {
+              // datalist for MRT
+              const opt = document.createElement("option");
+              opt.value = s;
+              stationList.appendChild(opt);
+              // select options for 火車 & 高鐵
+              [trainStart, trainEnd, hsrStart, hsrEnd].forEach((sel) => {
+                const o = document.createElement("option");
+                o.value = s;
+                sel.appendChild(o);
+              });
+            });
+          })
+          .catch(console.error);
+      });
 
-</body>
+      // —— 新增 & 刪除行程 —— //
+      function addMRTTrip() {
+        const s = document.getElementById("mrtStart").value;
+        const e = document.getElementById("mrtEnd").value;
+        const c = parseInt(document.getElementById("mrtCount").value, 10) || 0;
+        if (!s || !e || c <= 0) {
+          return alert("請選擇完整的起訖站並輸入有效次數");
+        }
+        const dist = mrtMap[`${s}_${e}`] || 0;
+        const total = (dist * c).toFixed(2);
+        const item = document.createElement("div");
+        item.className = "trip-item";
+        item.innerHTML = `<span>${s} → ${e}</span><span>${dist.toFixed(
+          2
+        )} km × ${c} = ${total} km</span>`;
+        // 放到 .trip-list 裡面
+        document.querySelector("#mrtTripDisplay .trip-list").appendChild(item);
+      }
+      function removeMRTTrip() {
+        const list = document.querySelector("#mrtTripDisplay .trip-list");
+        const items = list.querySelectorAll(".trip-item");
+        if (items.length === 0) return alert("目前沒有行程可刪除");
+        list.removeChild(items[items.length - 1]);
+      }
+
+      function addTrainTrip() {
+        const s = document.getElementById("trainStart").value;
+        const e = document.getElementById("trainEnd").value;
+        const c =
+          parseInt(document.getElementById("trainCount").value, 10) || 0;
+        if (!s || !e || c <= 0)
+          return alert("請選擇完整的起訖站並輸入有效次數");
+        const dist = mrtMap[`${s}_${e}`] || 0;
+        const total = (dist * c).toFixed(2);
+        const item = document.createElement("div");
+        item.className = "trip-item";
+        item.innerHTML = `<span>${s} → ${e}</span><span>${dist.toFixed(
+          2
+        )} km × ${c} = ${total} km</span>`;
+        document.getElementById("trainTripList").appendChild(item);
+      }
+      function removeTrainTrip() {
+        const list = document.getElementById("trainTripList");
+        const items = list.querySelectorAll(".trip-item");
+        if (!items.length) return alert("目前沒有行程可刪除");
+        list.removeChild(items[items.length - 1]);
+      }
+
+      function addHsrTrip() {
+        const s = document.getElementById("hsrStart").value;
+        const e = document.getElementById("hsrEnd").value;
+        const c = parseInt(document.getElementById("hsrCount").value, 10) || 0;
+        if (!s || !e || c <= 0)
+          return alert("請選擇完整的起訖站並輸入有效次數");
+        const dist = mrtMap[`${s}_${e}`] || 0;
+        const total = (dist * c).toFixed(2);
+        const item = document.createElement("div");
+        item.className = "trip-item";
+        item.innerHTML = `<span>${s} → ${e}</span><span>${dist.toFixed(
+          2
+        )} km × ${c} = ${total} km</span>`;
+        document.getElementById("hsrTripList").appendChild(item);
+      }
+      function removeHsrTrip() {
+        const list = document.getElementById("hsrTripList");
+        const items = list.querySelectorAll(".trip-item");
+        if (!items.length) return alert("目前沒有行程可刪除");
+        list.removeChild(items[items.length - 1]);
+      }
+    </script>
+  </body>
 </html>
-
 
 <!--捷運站點可以選取要刪除哪個行程 開關要不變色 字體 寬度 可以輸入字體選站點
     郵輪:跟捷運一樣 顯示:總搭乘天數 停留天數 航行天數
     -->
 
-    <!-- 完成 開關要不變色 開關要不變色 字體 寬度
+<!-- 完成 開關要不變色 開關要不變色 字體 寬度
     -->
