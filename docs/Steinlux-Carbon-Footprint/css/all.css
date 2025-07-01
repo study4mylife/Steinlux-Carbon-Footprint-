@@ -1,109 +1,191 @@
 /*—— 自訂字體 ——*/
 @font-face {
-    font-family: 'GenSenRounded2TW-R';
-    src: url('../font/GenSenRounded2TW-R.otf') format('opentype');
-    font-weight: normal; font-style: normal; font-display: swap;
+  font-family: "GenSenRounded2TW-R";
+  src: url("../font/GenSenRounded2TW-R.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 @font-face {
-    font-family: 'GenSenRounded2TW-L';
-    src: url('../font/GenSenRounded2TW-L.otf') format('opentype');
-    font-weight: normal; font-style: normal; font-display: swap;
+  font-family: "GenSenRounded2TW-L";
+  src: url("../font/GenSenRounded2TW-L.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 html {
-    font-size: 16px;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: url('../images/圖片 1.png') no-repeat center center fixed;
-    background-size: cover;
-    font-family: 'SweiXDPearlCJKtc-DemiLight', sans-serif;
-}
-
-@media (max-width: 480px) {
-html {
-    font-size: 14px;
-}
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("../images/圖片 1.png") no-repeat center center fixed;
+  background-size: cover;
+  font-family: "SweiXDPearlCJKtc-DemiLight", sans-serif;
 }
 
 @media (min-width: 1200px) {
-html {
+  html {
     font-size: 18px;
+  }
 }
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
 }
 
 body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    font-size: 1rem;
-    letter-spacing: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: 1rem;
+  letter-spacing: 6px;
 }
 
 .scene {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    width: 900px;
-    max-width: 70%;
-    padding: 20px;
-    min-height: 500px;
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 24px;
-    box-shadow: 
-    -2.5px -2.5px 1.5px 0px #ffffff,
-    2.5px 2.5px 1.5px 0px #a5a6a85c,
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 900px;
+  max-width: 70%;
+  padding: 20px;
+  min-height: 500px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 24px;
+  box-shadow: -2.5px -2.5px 1.5px 0px #ffffff, 2.5px 2.5px 1.5px 0px #a5a6a85c,
     12px 12px 12px 0px #bbbbbb50;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    position: relative;
-    text-align: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: relative;
+  text-align: center;
 }
 
-.scene.active { 
-    display: flex; 
+.scene.active {
+  display: flex;
 }
 
 h1 {
-    font-size: 1.5rem;
-    margin-bottom: 14px;
-    color: #6C808F;
-    font-family: 'GenSenRounded2TW-R', sans-serif;
-    font-weight: 400;
-    letter-spacing: 10px;
-    text-shadow: #7F7F7F40 2pt 2pt 3pt;
+  font-size: 1.5rem;
+  margin-bottom: 14px;
+  color: #6c808f;
+  font-family: "GenSenRounded2TW-R", sans-serif;
+  font-weight: 400;
+  letter-spacing: 10px;
+  text-shadow: #7f7f7f40 2pt 2pt 3pt;
 }
 
 /* 換頁按鈕 */
 .nav-btn {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 64px; height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    color: #B5C1C6;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 50%;
-    border: none;
-    box-shadow: 
-    -4pt -4pt 5pt #ffffff46,
-    5pt 5pt 10pt #C3CADB76;
-    cursor: pointer;
-    backdrop-filter: blur(4px);
-    transition: 0.3s linear;
-    z-index: 1000;
-    user-select: none;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: #b5c1c6;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  border: none;
+  box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background-color 1s linear;
+  z-index: 1000;
+  user-select: none;
 }
 .nav-btn:hover {
-    background: #EFF3F9;
+  background: #eff3f9;
 }
-.prev-btn { left: -100px; }
-.next-btn { right: -100px; }
+.prev-btn {
+  left: -100px;
+}
+.next-btn {
+  right: -100px;
+}
+
+@media (max-width: 900px) {
+  .nav-btn {
+    scale: 0.8;
+  }
+  .prev-btn {
+    left: -40px;
+  }
+  .next-btn {
+    right: -40px;
+  }
+}
+
+/* input 框樣式 */
+.toggle-card input[type="number"],
+.fashion-box input[type="number"] {
+  padding: 4px 8px;
+  background: #fff;
+  color: #4a4a4a;
+  text-align: left;
+  min-width: 40px;
+  max-width: 80px;
+  height: 24px;
+  border: 0.25pt solid #b5c1c623;
+  border-radius: 16px;
+  box-shadow: inset 1pt 1pt 4pt #6d808f70;
+  outline: none;
+}
+
+.custom-number-input {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.custom-number-input input[type="number"]::-webkit-inner-spin-button,
+.custom-number-input input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.custom-number-input button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  border-radius: 100%;
+  background: rgba(255, 255, 255);
+  box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
+  width: 20px;
+  height: 20px;
+  padding: 12px;
+  font-size: 1rem;
+  color: #b5c1c6;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.custom-number-input button:hover {
+  background-color: #ddd;
+}
+
+.custom-number-input .btn-decrement {
+  position: relative;
+  font-size: 1.5rem;
+}
+
+.custom-number-input .btn-decrement .decrement {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

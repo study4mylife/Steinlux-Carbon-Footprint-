@@ -1,208 +1,113 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>時尚</title>
-  <link rel="stylesheet" href="css/all.css">
-  <style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>時尚</title>
+    <link rel="stylesheet" href="css/all.css" />
+    <style>
+      .fashion-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        width: 90%;
+        gap: 32px;
+        border-radius: 12px;
+        padding: 20px;
+      }
 
-    .fashion-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      width: 90%;
-      gap: 32px;
-      border-radius: 12px;
-      padding: 20px;
-    }
+      .fashion-box {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 12px;
+        padding: 20px;
+        gap: 16px;
+        text-align: center;
+        box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+      }
 
-    .fashion-box {
-      flex: 1;
-      background: rgba(255,255,255,0.4);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 
-      -4pt -4pt 5pt #ffffff46,
-      5pt 5pt 10pt #C3CADB76;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-    }
+      .fashion-box .question-title {
+        font-family: "GenSenRounded2TW-R", sans-serif;
+        color: #9c7a5c;
+        line-height: 1.2;
+      }
 
-    .fashion-box .question-title {
-      font-family: "GenSenRounded2TW-R", sans-serif;
-      color: #9C7A5C;
-      margin: 12px;
-      line-height: 1.2;
-    }
+      .fashion-box label {
+        display: block;
+        font-family: "GenSenRounded2TW-R", sans-serif;
+        color: #9c7a5c;
+        line-height: 1.2;
+      }
 
-    .fashion-box label{
-      display: block;
-      font-family: "GenSenRounded2TW-R", sans-serif;
-      color: #9C7A5C;
-      margin-bottom: 16px;
-      line-height: 1.2;
-    }
+      .fashion-box span {
+        font-family: "GenSenRounded2TW-L", sans-serif;
+        font-weight: normal;
+        color: #6c808f;
+      }
 
-     .fashion-box span {
-      font-family: "GenSenRounded2TW-L", sans-serif;
-      font-weight: normal;
-      color: #6C808F;
-     }
+      .fashion-box .input-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px; /* 數字輸入框與單位之間距離 */
+      }
 
-    .fashion-card {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 32px;
-    }
-
-    /* input 框樣式 */
-
-  .input-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 16px;
-    width: 100%;
-    min-width: 200px;
-  }
-
-  input[type="number"] {
-    width: 80%;
-    padding: 4px 8px;
-    background: #fff;
-    color: #4a4a4a; 
-    text-align: left;
-    height: 24px;
-    border: 0.25pt solid #B5C1C623;
-    border-radius: 16px;
-    box-shadow: inset 1pt 1pt 4pt #6D808F70;
-    outline: none;
-  }
-
-  .custom-number-input {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .custom-number-input input[type="number"]::-webkit-inner-spin-button, 
-  .custom-number-input input[type="number"]::-webkit-outer-spin-button { 
-    -webkit-appearance: none; 
-    margin: 0; 
-  }
-
-  .custom-number-input button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: none;
-    border: none;
-    border-radius: 100%;
-    width: 30px;
-    height: 30px;
-    background: rgba(255, 255, 255);
-    box-shadow: 
-    -4pt -4pt 5pt #ffffff46,
-    5pt 5pt 10pt #C3CADB76;
-    width: 30px;
-    height: 30px;
-    padding: 15px;
-    font-size: 24px;
-    color: #B5C1C6;
-    font-weight: 600;
-    cursor: pointer;
-    user-select: none;
-    transition: background-color 0.2s;
-  }
-
-  .custom-number-input button:hover {
-    background-color: #ddd;
-  }
-
-  .custom-number-input .btn-decrement{
-    font-size: 32px;
-  }
-
-    .fashion-input-card {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-evenly;
-      gap: 48px; /* 標籤與選項之間距離 */
-    }
-
-    .fashion-input-card-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    /* 自訂方塊 radio */
-    .custom-radio {
-      position: relative;
-      padding-left: 30px;
-      cursor: pointer;
-      display: inline-block;
-      user-select: none;
-    }
-
-    /* 隱藏原生 radio */
-    .custom-radio input[type="radio"] {
-      display: none;
-    }
-
-    /* 自訂方塊 */
-    .custom-box {
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 20px;
-      width: 20px;
-      background-color: #eee;
-      border: 2px solid #999;
-    }
-
-    /* 當選中時加色 */
-    .custom-radio input[type="radio"]:checked ~ .custom-box {
-      background-color: #3b649e;
-    }
-  </style>
-</head>
-<body>
-  <section class="scene active">
-    <h1>一年度購買的衣物金額？​</h1>
-    <div class="fashion-row">
-      <div class="fashion-box">
-        <span class="question-title">快時尚</span>
-        <label for="fastFashionInput">一年共花費</label>
-        <div class="input-container">
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">-</button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">+</button>
+      @media (max-width: 600px) {
+        .fashion-row {
+          justify-content: center;
+          width: 70%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="scene active">
+      <h1>一年度購買的衣物金額？​</h1>
+      <div class="fashion-row">
+        <div class="fashion-box">
+          <span class="question-title">快時尚</span>
+          <label for="fastFashionInput">一年共花費</label>
+          <div class="input-container">
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <span>元</span>
           </div>
         </div>
-        <span>元</span>
-      </div>
-      <div class="fashion-box">
-        <span class="question-title">奢華時尚</span>
-        <label for="luxuryFashionInput">一年共花費</label>
-        <div class="input-container">
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">-</button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">+</button>
+        <div class="fashion-box">
+          <span class="question-title">奢華時尚</span>
+          <label for="luxuryFashionInput">一年共花費</label>
+          <div class="input-container">
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <span>元</span>
           </div>
         </div>
-        <span>元</span>
       </div>
-    </div>
 
-    <button class="nav-btn prev-btn" onclick="goToScene('scene-home-1')">‹</button>
-    <button class="nav-btn next-btn" onclick="goToScene('scene-home-2')">›</button>
-  </section>
-</body>
+      <button class="nav-btn prev-btn" onclick="goToScene('scene-home-1')">
+        ‹
+      </button>
+      <button class="nav-btn next-btn" onclick="goToScene('scene-home-2')">
+        ›
+      </button>
+    </section>
+  </body>
 </html>
