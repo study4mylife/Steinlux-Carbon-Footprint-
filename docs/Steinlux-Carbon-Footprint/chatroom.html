@@ -24,6 +24,8 @@
         --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
       }
 
+      
+
       * {
         margin: 0;
         padding: 0;
@@ -143,8 +145,8 @@
       }
 
       .home-story-avatar {
-        width: 40px;
-        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
         border-radius: 12px;
         margin-right: 1rem;
         background: var(--primary-gradient);
@@ -186,47 +188,6 @@
         background: var(--user-message-bg);
         color: white;
         border-top-right-radius: 0;
-      }
-
-      .typing-indicator {
-        display: none;
-        padding: 1rem 1.5rem;
-        background-color: var(--bot-message-bg);
-        border-radius: 1rem;
-        width: fit-content;
-        margin-left: 3.5rem;
-        box-shadow: var(--shadow-sm);
-      }
-
-      .typing-dots {
-        display: flex;
-        gap: 0.4rem;
-      }
-
-      .typing-dot {
-        width: 8px;
-        height: 8px;
-        background-color: var(--text-secondary);
-        border-radius: 50%;
-        animation: typingBounce 1.4s infinite ease-in-out;
-      }
-
-      .typing-dot:nth-child(1) {
-        animation-delay: -0.32s;
-      }
-      .typing-dot:nth-child(2) {
-        animation-delay: -0.16s;
-      }
-
-      @keyframes typingBounce {
-        0%,
-        80%,
-        100% {
-          transform: scale(0);
-        }
-        40% {
-          transform: scale(1);
-        }
       }
 
       .input-container {
@@ -337,14 +298,6 @@
 
       <div class="home-story-chat-container" id="chatContainer"></div>
 
-      <div class="typing-indicator">
-        <div class="typing-dots">
-          <div class="typing-dot"></div>
-          <div class="typing-dot"></div>
-          <div class="typing-dot"></div>
-        </div>
-      </div>
-
       <div class="input-container">
         <div class="input-wrapper">
           <input
@@ -371,6 +324,10 @@
 
     <script>
       const messages = [
+        {
+          type: "time",
+          text: "上午 9:30",
+        },
         { text: "我們現在在哪裡？發生了什麼事！", from: "user" },
         {
           text: "我們回到了19世紀初，也就是第一次工業革命的時代。你有沒有聽見？是蒸汽機轟隆轟隆的聲音！。",
@@ -392,6 +349,13 @@
       const chatContainer = document.getElementById("chatContainer");
 
       function createMessageElement(message) {
+        if (message.type === "time") {
+          const timeEl = document.createElement("div");
+          timeEl.classList.add("home-story-time-stamp");
+          timeEl.textContent = message.text;
+          return timeEl;
+        }
+
         const wrapper = document.createElement("div");
         wrapper.classList.add(
           "home-story-message",
@@ -418,7 +382,7 @@
           const el = createMessageElement(messages[i]);
           chatContainer.appendChild(el);
           chatContainer.scrollTop = chatContainer.scrollHeight;
-          await new Promise((resolve) => setTimeout(resolve, 2000));
+          await new Promise((resolve) => setTimeout(resolve, 1700));
         }
       }
 
