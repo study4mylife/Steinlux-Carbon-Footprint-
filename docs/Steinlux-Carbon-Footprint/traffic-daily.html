@@ -4,11 +4,198 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>日常通勤 - 控制顯示模板</title>
-    <link rel="stylesheet" href="css/all.css" />
     <style>
-      body {
-        display: flex;
+    /*—— 自訂字體 ——*/
+    @font-face {
+      font-family: "GenSenRounded2TW-R";
+      src: url("font/GenSenRounded2TW-R.otf") format("opentype");
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "GenSenRounded2TW-L";
+      src: url("font/GenSenRounded2TW-L.otf") format("opentype");
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    html {
+      font-size: 16px;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: url("images/圖片 1.png") no-repeat center center fixed;
+      background-size: cover;
+      font-family: "SweiXDPearlCJKtc-DemiLight", sans-serif;
+    }
+
+    @media (min-width: 1200px) {
+      html {
+        font-size: 18px;
       }
+    }
+
+    @media (max-width: 480px) {
+      html {
+        font-size: 14px;
+      }
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      font-size: 1rem;
+      letter-spacing: 6px;
+    }
+
+    .scene {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 900px;
+      max-width: 70%;
+      padding: 20px;
+      min-height: 500px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 24px;
+      box-shadow: -2.5px -2.5px 1.5px 0px #ffffff, 2.5px 2.5px 1.5px 0px #a5a6a85c,
+        12px 12px 12px 0px #bbbbbb50;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      position: relative;
+      text-align: center;
+    }
+
+    .scene.active {
+      display: flex;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 14px;
+      color: #6c808f;
+      font-family: "GenSenRounded2TW-R", sans-serif;
+      font-weight: 400;
+      letter-spacing: 10px;
+      text-shadow: #7f7f7f40 2pt 2pt 3pt;
+    }
+
+    /* 換頁按鈕 */
+    .nav-btn {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: #b5c1c6;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      border: none;
+      box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      transition: background-color 0.25s linear;
+      z-index: 1000;
+      user-select: none;
+    }
+    .nav-btn:hover {
+      background: #eff3f9;
+    }
+    .prev-btn {
+      left: -100px;
+    }
+    .next-btn {
+      right: -100px;
+    }
+
+    @media (max-width: 900px) {
+      .nav-btn {
+        scale: 0.8;
+      }
+      .prev-btn {
+        left: -40px;
+      }
+      .next-btn {
+        right: -40px;
+      }
+    }
+
+    /* input 框樣式 */
+    .toggle-card input[type="number"],
+    .fashion-box input[type="number"] {
+      padding: 4px 8px;
+      background: #fff;
+      color: #4a4a4a;
+      text-align: left;
+      min-width: 40px;
+      max-width: 80px;
+      height: 24px;
+      border: 0.25pt solid #b5c1c623;
+      border-radius: 16px;
+      box-shadow: inset 1pt 1pt 4pt #6d808f70;
+      outline: none;
+    }
+
+    .custom-number-input {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .custom-number-input input[type="number"]::-webkit-inner-spin-button,
+    .custom-number-input input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .custom-number-input button {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: none;
+      border: none;
+      border-radius: 100%;
+      background: rgba(255, 255, 255);
+      box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
+      width: 20px;
+      height: 20px;
+      padding: 12px;
+      font-size: 1rem;
+      color: #b5c1c6;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.2s;
+    }
+
+    .custom-number-input button:hover {
+      background-color: #ddd;
+    }
+
+    .custom-number-input .btn-decrement {
+      position: relative;
+      font-size: 1.5rem;
+    }
+
+    .custom-number-input .btn-decrement .decrement {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
       /* ---------------------------------------
        3. 場景容器：隱藏/顯示 + 毛玻璃效果
     --------------------------------------- */
@@ -293,6 +480,10 @@
       #mrtTripDisplay .mrt-btn {
         margin-top: 18px;
         align-self: center;
+      }
+      .trip-item.selected {
+        background: rgba(0, 123, 255, 0.1);
+        border: 1px solid #007bff;
       }
       /* 讓template-wrapper 靠上對齊 */
       #scene4 .template-wrapper,
@@ -751,199 +942,200 @@
     </section>
 
     <script>
-      // 記錄交通工具選擇
-      const selectedTransport = [];
-      function toggleSelection(card, type) {
-        card.classList.toggle("selected");
-        if (selectedTransport.includes(type)) {
-          selectedTransport.splice(selectedTransport.indexOf(type), 1);
-        } else {
-          selectedTransport.push(type);
-        }
-        console.log("目前選擇：", selectedTransport);
-      }
+  // 記錄交通工具選擇
+  const selectedTransport = [];
+  function toggleSelection(card, type) {
+    card.classList.toggle("selected");
+    if (selectedTransport.includes(type)) {
+      selectedTransport.splice(selectedTransport.indexOf(type), 1);
+    } else {
+      selectedTransport.push(type);
+    }
+    console.log("目前選擇：", selectedTransport);
+  }
 
-      // 場景切換
-      let currentScene = 1;
-      function goToScene(n) {
-        document
-          .getElementById(`scene${currentScene}`)
-          .classList.remove("active");
-        document.getElementById(`scene${n}`).classList.add("active");
-        currentScene = n;
-      }
+  // 場景切換
+  let currentScene = 1;
+  function goToScene(n) {
+    document.getElementById(`scene${currentScene}`).classList.remove("active");
+    document.getElementById(`scene${n}`).classList.add("active");
+    currentScene = n;
+  }
 
-      // 儲存各場景的距離資料
-      let mrtMap = {};
+  // 汽車 & 機車 燃料切換 & 方法切換
+  function setupToggle(fuelId, methodId, oilLeftId, oilRightId, elecLeftId, elecRightId, paneLeftId, paneRightId) {
+    const fuelToggle = document.getElementById(fuelId);
+    const methodToggle = document.getElementById(methodId);
+    const oilLeft = document.getElementById(oilLeftId);
+    const oilRight = document.getElementById(oilRightId);
+    const elecLeft = document.getElementById(elecLeftId);
+    const elecRight = document.getElementById(elecRightId);
+    const paneLeft = document.getElementById(paneLeftId);
+    const paneRight = document.getElementById(paneRightId);
 
-      document.addEventListener("DOMContentLoaded", () => {
-        // —— Scene 2 汽車燃料 & 計算方法 —— //
-        const fuelToggle = document.getElementById("fuelToggle");
-        const methodToggle = document.getElementById("methodToggle");
-        const oilLeft = document.getElementById("oil-left");
-        const oilRight = document.getElementById("oil-right");
-        const elecLeft = document.getElementById("electric-left");
-        const elecRight = document.getElementById("electric-right");
-        const paneLeft = document.getElementById("pane-left");
-        const paneRight = document.getElementById("pane-right");
+    function updateFuel() {
+      const isElec = fuelToggle.checked;
+      oilLeft.classList.toggle("hidden", isElec);
+      oilRight.classList.toggle("hidden", isElec);
+      elecLeft.classList.toggle("hidden", !isElec);
+      elecRight.classList.toggle("hidden", !isElec);
+    }
+    function updateMethod() {
+      const isVol = methodToggle.checked;
+      paneLeft.classList.toggle("inactive", isVol);
+      paneRight.classList.toggle("inactive", !isVol);
+    }
 
-        function updateFuel() {
-          const isElec = fuelToggle.checked;
-          oilLeft.classList.toggle("hidden", isElec);
-          oilRight.classList.toggle("hidden", isElec);
-          elecLeft.classList.toggle("hidden", !isElec);
-          elecRight.classList.toggle("hidden", !isElec);
-        }
-        function updateMethod() {
-          const isVol = methodToggle.checked;
-          paneLeft.classList.toggle("inactive", isVol);
-          paneRight.classList.toggle("inactive", !isVol);
-        }
-        fuelToggle.addEventListener("change", () => {
-          updateFuel();
-          updateMethod();
+    fuelToggle.addEventListener("change", () => {
+      updateFuel();
+      updateMethod();
+    });
+    methodToggle.addEventListener("change", updateMethod);
+
+    updateFuel();
+    updateMethod();
+  }
+
+  // 距離資料
+  let mrtMap = {};
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Scene2 汽車
+    setupToggle(
+      "fuelToggle", "methodToggle",
+      "oil-left", "oil-right",
+      "electric-left", "electric-right",
+      "pane-left", "pane-right"
+    );
+    // Scene3 機車
+    setupToggle(
+      "fuelToggle4", "methodToggle4",
+      "oil-left4", "oil-right4",
+      "electric-left4", "electric-right4",
+      "pane-left4", "pane-right4"
+    );
+
+    // 載入站點資料給 MRT / 火車 / 高鐵
+    const stationList = document.getElementById("mrtStationList");
+    const trainStart = document.getElementById("trainStart");
+    const trainEnd   = document.getElementById("trainEnd");
+    const hsrStart   = document.getElementById("hsrStart");
+    const hsrEnd     = document.getElementById("hsrEnd");
+
+    fetch("/data/mrtDistanceMap.json")
+      .then(r => r.json())
+      .then(data => {
+        mrtMap = data;
+        const stations = Array.from(
+          new Set(Object.keys(data).flatMap(k => k.split("_")))
+        ).sort((a, b) => a.localeCompare(b, "zh"));
+        stations.forEach(s => {
+          const opt = document.createElement("option");
+          opt.value = s;
+          stationList.appendChild(opt);
+          [trainStart, trainEnd, hsrStart, hsrEnd].forEach(sel => {
+            const o = document.createElement("option");
+            o.value = s;
+            sel.appendChild(o);
+          });
         });
-        methodToggle.addEventListener("change", updateMethod);
-        updateFuel();
-        updateMethod();
+      })
+      .catch(console.error);
 
-        // —— Scene 3 機車燃料 & 計算方法 —— //
-        const fuelToggle4 = document.getElementById("fuelToggle4");
-        const methodToggle4 = document.getElementById("methodToggle4");
-        const oilLeft4 = document.getElementById("oil-left4");
-        const oilRight4 = document.getElementById("oil-right4");
-        const elecLeft4 = document.getElementById("electric-left4");
-        const elecRight4 = document.getElementById("electric-right4");
-        const paneLeft4 = document.getElementById("pane-left4");
-        const paneRight4 = document.getElementById("pane-right4");
+    // 事件代理：MRT 行程列表點擊選取
+    const tripList = document.querySelector("#mrtTripDisplay .trip-list");
+    tripList.addEventListener("click", e => {
+      const item = e.target.closest(".trip-item");
+      if (!item) return;
+      tripList.querySelectorAll(".trip-item").forEach(el =>
+        el.classList.remove("selected")
+      );
+      item.classList.toggle("selected");
+    });
+  });
 
-        function updateFuel4() {
-          const isElec = fuelToggle4.checked;
-          oilLeft4.classList.toggle("hidden", isElec);
-          oilRight4.classList.toggle("hidden", isElec);
-          elecLeft4.classList.toggle("hidden", !isElec);
-          elecRight4.classList.toggle("hidden", !isElec);
-        }
-        function updateMethod4() {
-          const isVol = methodToggle4.checked;
-          paneLeft4.classList.toggle("inactive", isVol);
-          paneRight4.classList.toggle("inactive", !isVol);
-        }
-        fuelToggle4.addEventListener("change", () => {
-          updateFuel4();
-          updateMethod4();
-        });
-        methodToggle4.addEventListener("change", updateMethod4);
-        updateFuel4();
-        updateMethod4();
+  // 新增 MRT 行程
+  function addMRTTrip() {
+    const s = document.getElementById("mrtStart").value;
+    const e = document.getElementById("mrtEnd").value;
+    const c = parseInt(document.getElementById("mrtCount").value, 10) || 0;
+    if (!s || !e || c <= 0) {
+      return alert("請選擇完整的起訖站並輸入有效次數");
+    }
+    const dist = mrtMap[`${s}_${e}`] || 0;
+    const total = (dist * c).toFixed(2);
+    const item = document.createElement("div");
+    item.className = "trip-item";
+    item.innerHTML = `<span>${s} → ${e}：${dist.toFixed(2)} km × ${c} = ${total} km</span>`;
+    document.querySelector("#mrtTripDisplay .trip-list").appendChild(item);
+  }
 
-        // —— Scene 5 (MRT) & Scene 6 (火車、高鐵) 站點資料載入 —— //
-        const stationList = document.getElementById("mrtStationList");
-        const trainStart = document.getElementById("trainStart");
-        const trainEnd = document.getElementById("trainEnd");
-        const hsrStart = document.getElementById("hsrStart");
-        const hsrEnd = document.getElementById("hsrEnd");
+  // 刪除被選取的 MRT 行程
+  function removeMRTTrip() {
+    const selected = document.querySelector("#mrtTripDisplay .trip-item.selected");
+    if (!selected) {
+      return alert("請先點擊選取要刪除的行程");
+    }
+    selected.remove();
+  }
 
-        fetch("/data/mrtDistanceMap.json")
-          .then((r) => r.json())
-          .then((data) => {
-            mrtMap = data;
-            // 取出所有站點名稱
-            const stations = Array.from(
-              new Set(Object.keys(data).flatMap((k) => k.split("_")))
-            ).sort((a, b) => a.localeCompare(b, "zh"));
-            stations.forEach((s) => {
-              // datalist for MRT
-              const opt = document.createElement("option");
-              opt.value = s;
-              stationList.appendChild(opt);
-              // select options for 火車 & 高鐵
-              [trainStart, trainEnd, hsrStart, hsrEnd].forEach((sel) => {
-                const o = document.createElement("option");
-                o.value = s;
-                sel.appendChild(o);
-              });
-            });
-          })
-          .catch(console.error);
-      });
+  // 新增／刪除 火車、高鐵 行程（示範火車，其它類似）
+  function addTrainTrip() {
+    const s = document.getElementById("trainStart").value;
+    const e = document.getElementById("trainEnd").value;
+    const c = parseInt(document.getElementById("trainCount").value, 10) || 0;
+    if (!s || !e || c <= 0) {
+      return alert("請選擇完整的起訖站並輸入有效次數");
+    }
+    const dist = mrtMap[`${s}_${e}`] || 0;
+    const total = (dist * c).toFixed(2);
+    const item = document.createElement("div");
+    item.className = "trip-item";
+    item.innerHTML = `<span>${s} → ${e}：${dist.toFixed(2)} km × ${c} = ${total} km</span>`;
+    document.getElementById("trainTripList").appendChild(item);
+  }
+  function removeTrainTrip() {
+    const list = document.getElementById("trainTripList");
+    const items = list.querySelectorAll(".trip-item");
+    if (!items.length) return alert("目前沒有行程可刪除");
+    list.removeChild(items[items.length - 1]);
+  }
 
-      // —— 新增 & 刪除行程 —— //
-      function addMRTTrip() {
-        const s = document.getElementById("mrtStart").value;
-        const e = document.getElementById("mrtEnd").value;
-        const c = parseInt(document.getElementById("mrtCount").value, 10) || 0;
-        if (!s || !e || c <= 0) {
-          return alert("請選擇完整的起訖站並輸入有效次數");
-        }
-        const dist = mrtMap[`${s}_${e}`] || 0;
-        const total = (dist * c).toFixed(2);
-        const item = document.createElement("div");
-        item.className = "trip-item";
-        item.innerHTML = `<span>${s} → ${e}</span><span>${dist.toFixed(
-          2
-        )} km × ${c} = ${total} km</span>`;
-        // 放到 .trip-list 裡面
-        document.querySelector("#mrtTripDisplay .trip-list").appendChild(item);
-      }
-      function removeMRTTrip() {
-        const list = document.querySelector("#mrtTripDisplay .trip-list");
-        const items = list.querySelectorAll(".trip-item");
-        if (items.length === 0) return alert("目前沒有行程可刪除");
-        list.removeChild(items[items.length - 1]);
-      }
+  function addHsrTrip() {
+    const s = document.getElementById("hsrStart").value;
+    const e = document.getElementById("hsrEnd").value;
+    const c = parseInt(document.getElementById("hsrCount").value, 10) || 0;
+    if (!s || !e || c <= 0) {
+      return alert("請選擇完整的起訖站並輸入有效次數");
+    }
+    const dist = mrtMap[`${s}_${e}`] || 0;
+    const total = (dist * c).toFixed(2);
+    const item = document.createElement("div");
+    item.className = "trip-item";
+    item.innerHTML = `<span>${s} → ${e}：${dist.toFixed(2)} km × ${c} = ${total} km</span>`;
+    document.getElementById("hsrTripList").appendChild(item);
+  }
+  function removeHsrTrip() {
+    const list = document.getElementById("hsrTripList");
+    const items = list.querySelectorAll(".trip-item");
+    if (!items.length) return alert("目前沒有行程可刪除");
+    list.removeChild(items[items.length - 1]);
+  }
+</script>
 
-      function addTrainTrip() {
-        const s = document.getElementById("trainStart").value;
-        const e = document.getElementById("trainEnd").value;
-        const c =
-          parseInt(document.getElementById("trainCount").value, 10) || 0;
-        if (!s || !e || c <= 0)
-          return alert("請選擇完整的起訖站並輸入有效次數");
-        const dist = mrtMap[`${s}_${e}`] || 0;
-        const total = (dist * c).toFixed(2);
-        const item = document.createElement("div");
-        item.className = "trip-item";
-        item.innerHTML = `<span>${s} → ${e}</span><span>${dist.toFixed(
-          2
-        )} km × ${c} = ${total} km</span>`;
-        document.getElementById("trainTripList").appendChild(item);
-      }
-      function removeTrainTrip() {
-        const list = document.getElementById("trainTripList");
-        const items = list.querySelectorAll(".trip-item");
-        if (!items.length) return alert("目前沒有行程可刪除");
-        list.removeChild(items[items.length - 1]);
-      }
-
-      function addHsrTrip() {
-        const s = document.getElementById("hsrStart").value;
-        const e = document.getElementById("hsrEnd").value;
-        const c = parseInt(document.getElementById("hsrCount").value, 10) || 0;
-        if (!s || !e || c <= 0)
-          return alert("請選擇完整的起訖站並輸入有效次數");
-        const dist = mrtMap[`${s}_${e}`] || 0;
-        const total = (dist * c).toFixed(2);
-        const item = document.createElement("div");
-        item.className = "trip-item";
-        item.innerHTML = `<span>${s} → ${e}</span><span>${dist.toFixed(
-          2
-        )} km × ${c} = ${total} km</span>`;
-        document.getElementById("hsrTripList").appendChild(item);
-      }
-      function removeHsrTrip() {
-        const list = document.getElementById("hsrTripList");
-        const items = list.querySelectorAll(".trip-item");
-        if (!items.length) return alert("目前沒有行程可刪除");
-        list.removeChild(items[items.length - 1]);
-      }
-    </script>
   </body>
 </html>
 
-<!--捷運站點可以選取要刪除哪個行程 開關要不變色 字體 寬度 可以輸入字體選站點
-    郵輪:跟捷運一樣 顯示:總搭乘天數 停留天數 航行天數
+<!--捷運站點可以選取要刪除哪個行程  
+    郵輪:跟捷運一樣 顯示:總搭乘天數 停留天數 航行天數 
+    飛機:左半邊:跟汽機車一樣，
+    開關:(時間/站點)，起訖站，趟數， 開關(來回/單程)
+    右半邊:display版
+    選時間的話要有大約從哪裡到哪裡3hr(ex:台北到日本)
+        
+
+    6/19  display異常 card 選取衝突bar
     -->
 
-<!-- 完成 開關要不變色 開關要不變色 字體 寬度
+    <!-- 完成 捷運站點可以選取要刪除哪個行程 可以輸入字體選站點 開關要不變色 開關要不變色 字體 寬度
     -->
