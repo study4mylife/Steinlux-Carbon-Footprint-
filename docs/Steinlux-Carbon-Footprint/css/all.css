@@ -40,7 +40,7 @@ html {
 }
 
 body {
-  display: flex;
+  display: block;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -99,7 +99,7 @@ h1 {
   box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
   cursor: pointer;
   backdrop-filter: blur(4px);
-  transition: background-color 1s linear;
+  transition: background-color 0.25s linear;
   z-index: 1000;
   user-select: none;
 }

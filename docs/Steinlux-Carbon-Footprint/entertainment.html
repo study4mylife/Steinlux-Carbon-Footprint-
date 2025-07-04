@@ -4,7 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>日常娛樂</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/all.css" />
+    <link rel="stylesheet" href="css/story.css" />
     <style>
       /* 第一頁 */
 
@@ -95,7 +100,6 @@
         flex-direction: column;
         align-items: center;
         justify-content: start;
-        min-width: fit-content;
         background: rgba(255, 255, 255, 0.4);
         border-radius: 16px;
         padding: 24px 32px;
@@ -113,7 +117,26 @@
         width: 40%;
       }
 
-      .scene-2 .entertain-card .toggle-card-3 {
+      .streaming-toggle-card-3 {
+        width: 25%;
+      }
+
+      .streaming-toggle-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 60%;
+        gap: 32px;
+      }
+
+      .streaming-toggle-card-1,
+      .streaming-toggle-card-2 {
+        width: 80%;
+      }
+
+      .scene-2 .entertain-card .streaming-toggle-card-3 {
+        display: flex;
         justify-content: center;
       }
 
@@ -286,11 +309,68 @@
           justify-content: space-around;
         }
       }
+
+      @media (max-width: 1024px) {
+        .streaming .entertain-card .toggle-card {
+          width: 80%;
+          justify-content: center;
+        }
+
+        .streaming-toggle-container {
+          width: 100%;
+          justify-content: center;
+        }
+      }
     </style>
   </head>
   <body>
+    <!-- 故事劇情 -->
+    <div class="story-body">
+      <div class="story-container">
+      <header class="story-header">
+        <div class="story-header-title">
+          <h1>星際聊天室</h1>
+          <div class="story-bot-status">
+            <div class="story-status-indicator"></div>
+            <span>Online</span>
+          </div>
+        </div>
+        <div class="story-controls">
+          <button class="story-theme-toggle" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
+      </header>
+
+      <div class="story-chat-container" id="chatContainer"></div>
+
+      <div class="input-container">
+        <div class="input-wrapper">
+          <input
+            type="text"
+            class="message-input"
+            placeholder="Type your message..."
+            aria-label="Message input"
+          />
+          <div class="action-buttons">
+            <button class="action-button" aria-label="Add attachment">
+              <i class="fas fa-paperclip"></i>
+            </button>
+            <button class="action-button" aria-label="Voice input">
+              <i class="fas fa-microphone"></i>
+            </button>
+            <button class="send-button">
+              <span>Send</span>
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
     <!-- Scene 1: 選娛樂活動 -->
-    <section id="scene-entertain-1" class="scene scene-1 active">
+    <section id="scene-entertain-1" class="scene scene-1">
       <h1>日常生活中有哪些娛樂活動？</h1>
       <div class="entertain-grid">
         <div class="entertain-card" onclick="toggleActivity(this,'KTV')">
@@ -322,12 +402,16 @@
           >
         </div>
       </div>
+      <button class="nav-btn prev-btn" onclick="window.location.href='fashion.html'">
+        ‹
+      </button>
       <button
         class="nav-btn next-btn"
         onclick="goToScene('scene-entertain-2-1')"
       >
         ›
       </button>
+      
     </section>
 
     <!-- Scene 1：KTV -->
@@ -574,19 +658,21 @@
         <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
       </div>
       <div class="entertain-card">
-        <div
-          class="toggle-container"
-          style="display: flex; flex-wrap: wrap; justify-content: space-between"
-        >
-          <div class="toggle-card toggle-card-3" style="width: 45%">
-            <span class="question-title">每月使用網路流量(GB)</span>
-            <div class="custom-number-input">
-              <button type="button" class="btn-decrement">-</button>
-              <input type="number" value="0" min="0" />
-              <button type="button" class="btn-increment">+</button>
-            </div>
+        <div class="toggle-card streaming-toggle-card-3">
+          <span class="question-title">每月使用網路流量(GB)</span>
+          <div class="custom-number-input">
+            <button type="button" class="btn-decrement">
+              <span class="decrement">-</span>
+            </button>
+            <input type="number" value="0" min="0" />
+            <button type="button" class="btn-increment">
+              <span class="increment">+</span>
+            </button>
           </div>
-          <div class="toggle-card toggle-card-1" style="width: 45%">
+        </div>
+
+        <div class="toggle-container streaming-toggle-container">
+          <div class="toggle-card streaming-toggle-card-1">
             <span class="question-title">時間單位</span>
             <div class="toggle-row">
               <span class="nowrap-text">天</span>
@@ -597,23 +683,24 @@
               <span class="nowrap-text">周</span>
             </div>
           </div>
-        </div>
-        <div class="toggle-card toggle-card-2">
-          <span class="question-title" data-template="每{unit}使用串流影音"
-            >每天使用串流影音</span
-          >
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+
+          <div class="toggle-card streaming-toggle-card-2">
+            <span class="question-title" data-template="每{unit}使用串流影音">
+              每天使用串流影音
+            </span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <span class="question-unit question-title" data-template="小時/{unit}">
+              小時/天
+            </span>
           </div>
-          <span class="question-unit question-title" data-template="小時/{unit}"
-            >小時/天</span
-          >
         </div>
       </div>
       <button
@@ -779,6 +866,74 @@
         updateTitle();
         toggle.addEventListener("change", updateTitle);
       });
+    const messages = [
+        {
+          type: "time",
+          text: "上午 9:30",
+        },
+        { text: "登入中...歡迎進入AI智慧雲端生活！你現在的生活是24小時上網、AI推薦吃穿用、手機一天充三次電的超人類時代！", from: "cat" },
+        {
+          text: "這裡是...現在的我們對吧？",
+          from: "user",
+        },
+        {
+          text: "沒錯，這正是我們的「碳生活」主場。從你打開一支reels、追一場Netflix、用AI生成一張貓貓圖，背後都是巨大的雲端伺服器在運轉。",
+          from: "cat",
+        },
+        { text: "資料中心需要全年無休和冷卻、高頻計算、高能耗伺服器，而智慧生活帶來的便利，也帶來前所未有的能源需求。說白了，現在我們不用出門也能...碳排爆表！", from: "cat" },
+        {
+          text: "確實！我們根本無法拒絕便利！但，這不就是人類推動科技進步的目的嗎...",
+          from: "user",
+        },
+      ];
+
+      const chatContainer = document.getElementById("chatContainer");
+
+      function createMessageElement(message) {
+        if (message.type === "time") {
+          const timeEl = document.createElement("div");
+          timeEl.classList.add("home-story-time-stamp");
+          timeEl.textContent = message.text;
+          return timeEl;
+        }
+        
+        const wrapper = document.createElement("div");
+        wrapper.classList.add(
+          "story-message",
+          message.from === "user"
+            ? "story-user-message"
+            : "story-cat-message"
+        );
+
+        const avatar = document.createElement("div");
+        avatar.classList.add("story-avatar");
+        avatar.textContent = message.from === "user" ? "U" : "A";
+
+        const bubble = document.createElement("div");
+        bubble.classList.add("story-message-bubble");
+        bubble.textContent = message.text;
+
+        wrapper.appendChild(avatar);
+        wrapper.appendChild(bubble);
+        return wrapper;
+      }
+
+    async function playIntroMessages() {
+      for (let i = 0; i < messages.length; i++) {
+        const el = createMessageElement(messages[i]);
+        chatContainer.appendChild(el);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+        await new Promise((resolve) => setTimeout(resolve, 1700));
+      }
+
+      // === 新增的：切換到問卷 ===
+      document.querySelector(".story-container").style.display = "none";
+      document.querySelector("body").style.display = "flex"
+      document.getElementById("scene-entertain-1").classList.add("active");
+      currentScene = "scene-entertain-1";
+    }
+
+      window.addEventListener("DOMContentLoaded", playIntroMessages);
     </script>
   </body>
 </html>

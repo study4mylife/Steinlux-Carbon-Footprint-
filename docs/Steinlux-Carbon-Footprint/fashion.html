@@ -4,7 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>時尚</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/all.css" />
+    <link rel="stylesheet" href="css/story.css" />
     <style>
       .fashion-row {
         display: flex;
@@ -65,7 +70,52 @@
     </style>
   </head>
   <body>
-    <section class="scene active">
+    <!-- 故事劇情 -->
+    <div class="story-body">
+      <div class="story-container">
+      <header class="story-header">
+        <div class="story-header-title">
+          <h1>星際聊天室</h1>
+          <div class="story-bot-status">
+            <div class="story-status-indicator"></div>
+            <span>Online</span>
+          </div>
+        </div>
+        <div class="story-controls">
+          <button class="story-theme-toggle" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
+      </header>
+
+      <div class="story-chat-container" id="chatContainer"></div>
+
+      <div class="input-container">
+        <div class="input-wrapper">
+          <input
+            type="text"
+            class="message-input"
+            placeholder="Type your message..."
+            aria-label="Message input"
+          />
+          <div class="action-buttons">
+            <button class="action-button" aria-label="Add attachment">
+              <i class="fas fa-paperclip"></i>
+            </button>
+            <button class="action-button" aria-label="Voice input">
+              <i class="fas fa-microphone"></i>
+            </button>
+            <button class="send-button">
+              <span>Send</span>
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <section id="scene-fashion" class="scene">
       <h1>一年度購買的衣物金額？​</h1>
       <div class="fashion-row">
         <div class="fashion-box">
@@ -102,12 +152,84 @@
         </div>
       </div>
 
-      <button class="nav-btn prev-btn" onclick="goToScene('scene-home-1')">
+      <button class="nav-btn prev-btn" onclick="window.location.href='food.html'">
         ‹
       </button>
-      <button class="nav-btn next-btn" onclick="goToScene('scene-home-2')">
+      <button class="nav-btn next-btn" onclick="window.location.href='entertainment.html'">
         ›
       </button>
     </section>
+
+  <script>
+        const messages = [
+        {
+          type: "time",
+          text: "上午 9:30",
+        },
+        { text: "歡迎光臨「週週新品」的快時尚星球！這件衣服昨天還在孟加拉，今天已經在你購物車裡了喔！", from: "cat" },
+        {
+          text: "我才剛買的這件T恤，是從地球另一端來的？！",
+          from: "user",
+        },
+        {
+          text: "是啊，從棉花田的播種、紡線、染整、縫製、包裝、船運、上架、退貨、丟掉...一件衣服的生命歷程，簡直像在參加全球碳馬拉松。",
+          from: "cat",
+        },
+        { text: "但大家都說便宜又多才好啊...買一送一、第二件五折，多划算！", from: "user" },
+        {
+          text: "快時尚催生了「買→穿→丟」的短命循環，每件衣服平均壽命不到10次穿搭，剩下的...就被丟進垃圾山的碳記憶裡了。",
+          from: "cat",
+        },
+        { text: "我開始有點懷念小時候那件穿五年的體育服了...", from: "user" },
+      ];
+
+      const chatContainer = document.getElementById("chatContainer");
+
+      function createMessageElement(message) {
+        if (message.type === "time") {
+          const timeEl = document.createElement("div");
+          timeEl.classList.add("home-story-time-stamp");
+          timeEl.textContent = message.text;
+          return timeEl;
+        }
+
+        const wrapper = document.createElement("div");
+        wrapper.classList.add(
+          "story-message",
+          message.from === "user"
+            ? "story-user-message"
+            : "story-cat-message"
+        );
+
+        const avatar = document.createElement("div");
+        avatar.classList.add("story-avatar");
+        avatar.textContent = message.from === "user" ? "U" : "A";
+
+        const bubble = document.createElement("div");
+        bubble.classList.add("story-message-bubble");
+        bubble.textContent = message.text;
+
+        wrapper.appendChild(avatar);
+        wrapper.appendChild(bubble);
+        return wrapper;
+      }
+
+    async function playIntroMessages() {
+      for (let i = 0; i < messages.length; i++) {
+        const el = createMessageElement(messages[i]);
+        chatContainer.appendChild(el);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+        await new Promise((resolve) => setTimeout(resolve, 1700));
+      }
+
+      // === 新增的：切換到問卷 ===
+      document.querySelector(".story-container").style.display = "none";
+      document.querySelector("body").style.display = "flex"
+      document.getElementById("scene-fashion").classList.add("active");
+      currentScene = "scene-entertain";
+    }
+
+      window.addEventListener("DOMContentLoaded", playIntroMessages);
+  </script>
   </body>
 </html>
