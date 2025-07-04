@@ -4,11 +4,198 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>日常通勤 - 餐點選擇</title>
-    <link rel="stylesheet" href="css/all.css" />
     <style>
-      body{
-        display: flex;
+  /*—— 自訂字體 ——*/
+    @font-face {
+      font-family: "GenSenRounded2TW-R";
+      src: url("/font/GenSenRounded2TW-R.otf") format("opentype");
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "GenSenRounded2TW-L";
+      src: url("/font/GenSenRounded2TW-L.otf") format("opentype");
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    html {
+      font-size: 16px;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: url("images/圖片 1.png") no-repeat center center fixed;
+      background-size: cover;
+      font-family: "SweiXDPearlCJKtc-DemiLight", sans-serif;
+    }
+
+    @media (min-width: 1200px) {
+      html {
+        font-size: 18px;
       }
+    }
+
+    @media (max-width: 480px) {
+      html {
+        font-size: 14px;
+      }
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      font-size: 1rem;
+      letter-spacing: 6px;
+    }
+
+    .scene {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 900px;
+      max-width: 70%;
+      padding: 20px;
+      min-height: 500px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 24px;
+      box-shadow: -2.5px -2.5px 1.5px 0px #ffffff, 2.5px 2.5px 1.5px 0px #a5a6a85c,
+        12px 12px 12px 0px #bbbbbb50;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      position: relative;
+      text-align: center;
+    }
+
+    .scene.active {
+      display: flex;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 14px;
+      color: #6c808f;
+      font-family: "GenSenRounded2TW-R", sans-serif;
+      font-weight: 400;
+      letter-spacing: 10px;
+      text-shadow: #7f7f7f40 2pt 2pt 3pt;
+    }
+
+    /* 換頁按鈕 */
+    .nav-btn {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: #b5c1c6;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      border: none;
+      box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      transition: background-color 0.25s linear;
+      z-index: 1000;
+      user-select: none;
+    }
+    .nav-btn:hover {
+      background: #eff3f9;
+    }
+    .prev-btn {
+      left: -100px;
+    }
+    .next-btn {
+      right: -100px;
+    }
+
+    @media (max-width: 900px) {
+      .nav-btn {
+        scale: 0.8;
+      }
+      .prev-btn {
+        left: -40px;
+      }
+      .next-btn {
+        right: -40px;
+      }
+    }
+
+    /* input 框樣式 */
+    .toggle-card input[type="number"],
+    .fashion-box input[type="number"] {
+      padding: 4px 8px;
+      background: #fff;
+      color: #4a4a4a;
+      text-align: left;
+      min-width: 40px;
+      max-width: 80px;
+      height: 24px;
+      border: 0.25pt solid #b5c1c623;
+      border-radius: 16px;
+      box-shadow: inset 1pt 1pt 4pt #6d808f70;
+      outline: none;
+    }
+
+    .custom-number-input {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .custom-number-input input[type="number"]::-webkit-inner-spin-button,
+    .custom-number-input input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .custom-number-input button {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: none;
+      border: none;
+      border-radius: 100%;
+      background: rgba(255, 255, 255);
+      box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
+      width: 20px;
+      height: 20px;
+      padding: 12px;
+      font-size: 1rem;
+      color: #b5c1c6;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.2s;
+    }
+
+    .custom-number-input button:hover {
+      background-color: #ddd;
+    }
+
+    .custom-number-input .btn-decrement {
+      position: relative;
+      font-size: 1.5rem;
+    }
+
+    .custom-number-input .btn-decrement .decrement {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
       /* 食物選單 Grid */
       .food-grid {
         display: grid;
@@ -51,6 +238,44 @@
         background: rgba(255, 255, 255, 0.4);
         border-color: #4a90e2;
       }
+      /* 前置頁面：葷食／素食 選擇 */
+      .diet-grid {
+        display: flex;
+        gap: 40px;
+        justify-content: center;
+        margin: 20px 0;
+      }
+      .diet-card {
+        width: 240px;
+        height: 300px;
+        background: rgba(255,255,255,0.2);
+        border: 2px solid transparent;
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 0.2s, border-color 0.2s;
+      }
+      .diet-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 12px;
+        margin-bottom: 8px;
+      }
+      .diet-card:hover,
+      .diet-card.selected {
+        transform: translateY(-4px);
+        border-color: #4a90e2;
+      }
+      .diet-card .label {
+       font-family: "GenSenRounded2TW-R", sans-serif;
+        letter-spacing: 6px;
+        color: #6c808f;
+      }
+
 
       /* 卡片上的份數輸入框 */
       .quantity-input {
@@ -177,7 +402,7 @@
         height: 400px;
         margin: 10px 20px;
       }
-      #scene3 .template-wrapper {
+      #scene5 .template-wrapper {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(4, auto);
@@ -188,7 +413,7 @@
         height: 400px;
         margin: 10px 20px;
       }
-      #scene4 .template-wrapper {
+      #scene6 .template-wrapper {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(3, auto);
@@ -246,20 +471,98 @@
         letter-spacing: 6px;
         box-shadow: inset 2pt 2pt 7pt #6d808f70;
       }
-      #scene2 .input-group,
-      #scene3 .input-group,
-      #scene4 .input-group {
+      #scene4 .input-group,
+      #scene5 .input-group,
+      #scene6 .input-group {
         display: grid;
         grid-template-columns: 100px auto max-content;
         align-items: center;
         gap: 8px; /* 欄位之間的間距，可自行微調 */
         margin-bottom: 16px;
       }
+      #scene4 .template-wrapper .input-group label,
+      #scene5 .template-wrapper .input-group label,
+      #scene6 .template-wrapper .input-group label {
+        justify-self: start; /* 在 grid 中靠左 */
+        text-align: left;    /* 文字靠左 */
+      }
+      /* 跳轉橫槓 */
+
+      .page-indicator {
+        display: flex;
+        justify-content: center;
+        width: 60%;
+        min-width: 250px;
+        gap: 12px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      .bar {
+        width: 40%;
+        height: 3px;
+        background-color: #e4ecf1;
+        transition: background-color 0.3s;
+        cursor: pointer;
+      }
+
+      .bar.active {
+        background-color: #b5c1c6;
+        box-shadow: 1pt 1pt 4pt #7f7f7f60, -2pt -2pt 3pt #ffffff55;
+      }
     </style>
   </head>
   <body>
     <section id="scene1" class="scene active">
+      <h1>請問您是葷食者還是素食者？</h1>
+      <div class="page-indicator">
+        <span class="bar active" onclick="goToScene(1)"></span>
+      </div>
+      <div class="diet-grid">
+        <div class="diet-card" onclick="selectDiet('omnivore', this)">
+          <img src="images/葷食代表.png" alt="葷食者" />
+          <span class="label">葷食者</span>
+        </div>
+        <div class="diet-card" onclick="selectDiet('vegetarian', this)">
+          <img src="images/素食代表.png" alt="素食者" />
+          <span class="label">素食者</span>
+        </div>
+      </div>
+      <button class="nav-btn prev-btn" onclick="goToScene()">‹</button>
+      <button class="nav-btn next-btn" onclick="handleDietNext()">›</button>
+
+    </section>
+
+    <section id="scene2" class="scene">
+      <h1>請問您吃哪種素食？</h1>
+      <div class="page-indicator">
+        <span class="bar" onclick="goToScene(1)"></span>
+        <span class="bar active" onclick="goToScene(2)"></span>
+      </div>
+      <div class="diet-grid">
+        <div class="diet-card" onclick="selectSubDiet('seafood', this)">
+          <img src="images/海鮮素.png" alt="海鮮素" />
+          <span class="label">海鮮素</span>
+        </div>
+        <div class="diet-card" onclick="selectSubDiet('eggmilk', this)">
+          <img src="images/蛋奶素.png" alt="蛋奶素" />
+          <span class="label">蛋奶素</span>
+        </div>
+        <div class="diet-card" onclick="selectSubDiet('vegan', this)">
+          <img src="images/全素.png" alt="全素" />
+          <span class="label">全素</span>
+        </div>
+      </div>
+      <button class="nav-btn prev-btn" onclick="goToScene(1)">‹</button>
+      <button class="nav-btn next-btn" onclick="handleSubDietNext()">›</button>
+    </section>
+
+    <section id="scene3" class="scene">
       <h1>請問您日常會選擇吃哪些食物？</h1>
+      <div class="page-indicator">
+        <span class="bar" onclick="goToScene(1)"></span>
+        <span class="bar active" onclick="goToScene(3)"></span>
+      </div>
       <div class="food-grid">
         <div
           class="food-card"
@@ -442,11 +745,17 @@
       </div>
 
       <!-- 導覽按鈕 -->
-      <button class="nav-btn prev-btn" onclick="goToScene()">‹</button>
-      <button class="nav-btn next-btn" onclick="goToScene(2)">›</button>
+      <button class="nav-btn prev-btn" onclick="goToScene(1)">‹</button>
+      <button class="nav-btn next-btn" onclick="goToScene(4)">›</button>
     </section>
-    <section id="scene2" class="scene">
+
+    <section id="scene4" class="scene">
       <h1>海鮮素</h1>
+      <div class="page-indicator">
+        <span class="bar" onclick="goToScene(1)"></span>
+        <span class="bar" onclick="goToScene(2)"></span>
+        <span class="bar active" onclick="goToScene(4)"></span>
+      </div>
       <div class="template-wrapper">
         <div class="input-group">
           <label>白飯</label><input type="number" min="1" value="1" /><label
@@ -509,11 +818,17 @@
           >
         </div>
       </div>
-      <button class="nav-btn prev-btn" onclick="goToScene(1)">‹</button>
-      <button class="nav-btn next-btn" onclick="goToScene(3)">›</button>
+      <button class="nav-btn prev-btn" onclick="goToScene(2)">‹</button>
+      <button class="nav-btn next-btn" onclick="goToScene(5)">›</button>
     </section>
-    <section id="scene3" class="scene">
+
+    <section id="scene5" class="scene">
       <h1>蛋奶素</h1>
+      <div class="page-indicator">
+        <span class="bar" onclick="goToScene(1)"></span>
+        <span class="bar" onclick="goToScene(2)"></span>
+        <span class="bar active" onclick="goToScene(5)"></span>
+      </div>
       <div class="template-wrapper">
         <div class="input-group">
           <label>白飯</label><input type="number" min="1" value="1" /><label
@@ -565,11 +880,16 @@
         </div>
       </div>
       <button class="nav-btn prev-btn" onclick="goToScene(2)">‹</button>
-      <button class="nav-btn next-btn" onclick="goToScene(4)">›</button>
+      <button class="nav-btn next-btn" onclick="goToScene(6)">›</button>
     </section>
 
-    <section id="scene4" class="scene">
+    <section id="scene6" class="scene">
       <h1>全素</h1>
+      <div class="page-indicator">
+        <span class="bar" onclick="goToScene(1)"></span>
+        <span class="bar" onclick="goToScene(2)"></span>
+        <span class="bar active" onclick="goToScene(6)"></span>
+      </div>
       <div class="template-wrapper">
         <div class="input-group">
           <label>白飯</label><input type="number" min="1" value="1" /><label
@@ -608,53 +928,103 @@
           >
         </div>
       </div>
-      <button class="nav-btn prev-btn" onclick="goToScene(3)">‹</button>
-      <button class="nav-btn next-btn" onclick="goToScene(5)">›</button>
+      <button class="nav-btn prev-btn" onclick="goToScene(2)">‹</button>
+      <button class="nav-btn next-btn" onclick="goToScene(7)">›</button>
     </section>
 
     <script>
-      const selectedFood = {};
+    // 1. 紀錄第 1 幕與第 2 幕的選擇
+    let selectedDiet = null;
+    let selectedSubDiet = null;
 
-      function toggleSelection(card) {
-        const type = card.dataset.type;
-        const qtyInput = card.querySelector(".quantity-input");
-        card.classList.toggle("selected");
+    // 2. 通用：切換場景
+    function goToScene(n) {
+      document.querySelector('.scene.active').classList.remove('active');
+      document.getElementById(`scene${n}`).classList.add('active');
+    }
 
-        if (card.classList.contains("selected")) {
-          // 選取時才加入
-          selectedFood[type] = parseInt(qtyInput.value, 10);
-        } else {
-          // 取消時移除
-          delete selectedFood[type];
-        }
+    // 3. 第 1 幕：選葷／素
+    function selectDiet(diet, card) {
+      // 樣式
+      document.querySelectorAll('#scene1 .diet-card')
+              .forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      // 紀錄
+      selectedDiet = diet;
+    }
 
-        console.log("目前選擇：", selectedFood);
+    // 第 1 幕 下一頁
+    function handleDietNext() {
+      if (!selectedDiet) {
+        alert('請先選擇您是葷食者或素食者');
+        return;
       }
-
-      function setQuantity(input) {
-        const card = input.closest(".transport-card");
-        const type = card.dataset.type;
-        if (selectedFood[type] !== undefined) {
-          selectedFood[type] = parseInt(input.value, 10);
-          console.log(`已更新 ${type} 數量為 ${input.value}`);
-        }
+      if (selectedDiet === 'omnivore') {
+        goToScene(3);
+      } else {
+        goToScene(2);
       }
+    }
 
-      function goToScene(n) {
-        document.querySelector(".scene.active").classList.remove("active");
-        document.getElementById(`scene${n}`).classList.add("active");
+    // 4. 第 2 幕：三種素食
+    function selectSubDiet(diet, card) {
+      document.querySelectorAll('#scene2 .diet-card')
+              .forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      selectedSubDiet = diet;
+    }
+
+    // 第 2 幕 下一頁
+    function handleSubDietNext() {
+      if (!selectedSubDiet) {
+        alert('請先選擇一種素食類型');
+        return;
       }
+      // 根據選擇跳到對應場景
+      switch (selectedSubDiet) {
+        case 'seafood':
+          goToScene(4);
+          break;
+        case 'eggmilk':
+        goToScene(5);
+          break;
+        case 'vegan':
+        goToScene(6);
+          break;
+      }
+    }
 
-      const infoBtn = document.getElementById("info-btn");
-      const modal = document.getElementById("modal");
-      const closeX = document.getElementById("modal-close");
+    // 5. 第 3 幕之後的餐點選擇功能
+    const selectedFood = {};
 
-      infoBtn.addEventListener("click", () => {
-        modal.style.display = "flex";
-      });
-      closeX.addEventListener("click", () => {
-        modal.style.display = "none";
-      });
+    function toggleSelection(card) {
+      const type = card.dataset.type;
+      const qty = parseInt(card.querySelector('.quantity-input').value, 10);
+      card.classList.toggle('selected');
+      if (card.classList.contains('selected')) {
+        selectedFood[type] = qty;
+      } else {
+        delete selectedFood[type];
+      }
+      console.log('目前選擇：', selectedFood);
+    }
+
+    function setQuantity(input) {
+      const card = input.closest('.food-card');
+      const type = card.dataset.type;
+      if (selectedFood[type] !== undefined) {
+        selectedFood[type] = parseInt(input.value, 10);
+        console.log(`已更新 ${type} 數量為 ${input.value}`);
+      }
+    }
+
+    // 6. Modal 彈窗
+    const infoBtn = document.getElementById('info-btn');
+    const modal   = document.getElementById('modal');
+    const closeX  = document.getElementById('modal-close');
+
+    infoBtn.addEventListener('click', () => modal.style.display = 'flex');
+    closeX.addEventListener('click', () => modal.style.display = 'none');
     </script>
   </body>
 </html>
@@ -663,4 +1033,8 @@
      小icon 在文字前 靠左對其 加減按鈕
      套餐選擇:加減紐直接顯示，不是選了後才顯示(會被往下擠) 
      新增前置頁面(吃葷吃素選擇)用圖片選擇(跟選擇套餐一樣(兩個大圖))，吃葷跳到葷食區，吃素則接下來問吃哪種素(三個大圖)
+    -->
+<!-- 完成：
+ 新增前置頁面(吃葷吃素選擇)用圖片選擇(跟選擇套餐一樣(兩個大圖))，吃葷跳到葷食區，吃素則接下來問吃哪種素(三個大圖)
+ 靠左對其
     -->
