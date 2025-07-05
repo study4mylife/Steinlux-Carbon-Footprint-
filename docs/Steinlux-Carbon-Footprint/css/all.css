@@ -39,16 +39,19 @@ html {
   }
 }
 
+/* 全局和版面 */
 body {
-  display: block;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   font-size: 1rem;
   letter-spacing: 6px;
+  overflow: hidden;
 }
 
 .scene {
+  position: absolute;
   display: none;
   flex-direction: column;
   align-items: center;
@@ -65,10 +68,24 @@ body {
   -webkit-backdrop-filter: blur(10px);
   position: relative;
   text-align: center;
+  transition: transform .005s ease-in-out;
 }
 
 .scene.active {
   display: flex;
+  animation: slideIn 0.5s ease forwards;
+  z-index: 1;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
 }
 
 h1 {
@@ -81,7 +98,56 @@ h1 {
   text-shadow: #7f7f7f40 2pt 2pt 3pt;
 }
 
+/* 跳轉橫槓 */
+
+.page-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+.bar-container {
+  display: flex;
+  align-items: center;
+  width: 60%;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .bar-container {
+    width: 80%;
+  }
+}
+
+@media (max-width: 600px) {
+  .bar-container {
+    width: 100%;
+  }
+}
+
+.bar {
+  flex: 1;
+  height: 3.5px;
+  background-color: #e4ecf1;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.bar.active {
+  background-color: #b5c1c6;
+  box-shadow: 1pt 1pt 4pt #7f7f7f60, -2pt -2pt 3pt #ffffff55;
+}
+
+.bar:hover {
+  background-color: #b5c1c6;
+  box-shadow: 1pt 1pt 4pt #7f7f7f60, -2pt -2pt 3pt #ffffff55;
+}
+
 /* 換頁按鈕 */
+
 .nav-btn {
   position: fixed;
   top: 50%;
@@ -125,6 +191,55 @@ h1 {
   }
 }
 
+/* 切換開關 */
+.toggle-switch {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  margin: 2px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #eff3f9;
+  border: none;
+  box-shadow: 2pt 2.5pt 3pt #6d808f50 inset;
+  border-radius: 10px;
+  transition: 0.75s;
+}
+
+.toggle-switch .slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background: #fff;
+  border-radius: 50%;
+  transition: 0.3s;
+  box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
+}
+
+.toggle-switch input:checked + .slider {
+  background: #d0d2d6;
+}
+
+.toggle-switch input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
 /* input 框樣式 */
 .toggle-card input[type="number"],
 .fashion-box input[type="number"] {
@@ -144,7 +259,7 @@ h1 {
 .custom-number-input {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .custom-number-input input[type="number"]::-webkit-inner-spin-button,
@@ -188,4 +303,72 @@ h1 {
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+/* Info 按鈕 */
+.info-btn {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(236, 240, 245, 1) 100%
+  );
+  box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.info-btn img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: -8px;
+  right: -32px;
+  transform: translate(-50%, -50%);
+  width: fit-content;
+  height: 16px;
+  background-color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0px 0px 3px #6c808f;
+  border-radius: 16px;
+  padding: 16px;
+  z-index: 1000;
+}
+.modal-close {
+  position: absolute;
+  top: 0;
+  right: 4px;
+  color: #aaa;
+  cursor: pointer;
+  user-select: none;
+}
+.modal-close:hover {
+  color: #333;
+}
+
+/* Modal 內容排版 */
+.modal-body {
+  font-size: 0.75rem;
+  flex: 1;
+  overflow-y: auto;
+  white-space: nowrap;
 }

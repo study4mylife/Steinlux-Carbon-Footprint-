@@ -58,7 +58,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px; /* 數字輸入框與單位之間距離 */
+        gap: 12px
       }
 
       @media (max-width: 600px) {
@@ -81,11 +81,6 @@
             <span>Online</span>
           </div>
         </div>
-        <div class="story-controls">
-          <button class="story-theme-toggle" aria-label="Toggle theme">
-            <i class="fas fa-moon"></i>
-          </button>
-        </div>
       </header>
 
       <div class="story-chat-container" id="chatContainer"></div>
@@ -95,19 +90,13 @@
           <input
             type="text"
             class="message-input"
-            placeholder="Type your message..."
+            placeholder="請輸入訊息..."
             aria-label="Message input"
           />
           <div class="action-buttons">
-            <button class="action-button" aria-label="Add attachment">
-              <i class="fas fa-paperclip"></i>
-            </button>
-            <button class="action-button" aria-label="Voice input">
-              <i class="fas fa-microphone"></i>
-            </button>
-            <button class="send-button">
-              <span>Send</span>
-              <i class="fas fa-paper-plane"></i>
+            <button id="send-button" class="send-button" >
+              <span>出發</span>
+              <i class="fa-regular fa-font-awesome"></i>
             </button>
           </div>
         </div>
@@ -221,13 +210,20 @@
         chatContainer.scrollTop = chatContainer.scrollHeight;
         await new Promise((resolve) => setTimeout(resolve, 1700));
       }
+    }
 
-      // === 新增的：切換到問卷 ===
+    const sendButton = document.getElementById("send-button")
+
+    function StartQuestionnaire() {
       document.querySelector(".story-container").style.display = "none";
       document.querySelector("body").style.display = "flex"
       document.getElementById("scene-fashion").classList.add("active");
-      currentScene = "scene-entertain";
+      currentScene = "scene-fashion";
     }
+
+    sendButton.addEventListener("click", () => {
+      StartQuestionnaire()
+    })
 
       window.addEventListener("DOMContentLoaded", playIntroMessages);
   </script>

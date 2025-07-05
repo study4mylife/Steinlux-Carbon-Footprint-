@@ -11,31 +11,6 @@
     <link rel="stylesheet" href="css/all.css" />
     <link rel="stylesheet" href="css/story.css" />
     <style>
-      /* 跳轉橫槓 */
-
-      .page-indicator {
-        display: flex;
-        justify-content: center;
-        width: 60%;
-        min-width: 250px;
-        gap: 12px;
-        margin-top: 10px;
-        margin-bottom: 40px;
-      }
-
-      .bar {
-        width: 40%;
-        height: 3px;
-        min-width: 80px;
-        background-color: #e4ecf1;
-        transition: background-color 0.3s;
-        cursor: pointer;
-      }
-
-      .bar.active {
-        background-color: #b5c1c6;
-        box-shadow: 1pt 1pt 4pt #7f7f7f60, -2pt -2pt 3pt #ffffff55;
-      }
 
       /* 第一頁 */
 
@@ -112,50 +87,6 @@
         white-space: nowrap;
       }
 
-      .toggle-switch {
-        position: relative;
-        min-width: 40px;
-        height: 20px;
-        margin: 4px;
-      }
-
-      .toggle-switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-      }
-
-      .toggle-switch .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: #eff3f9;
-        border: none;
-        box-shadow: 2pt 2.5pt 3pt #6d808f50 inset;
-        border-radius: 10px;
-        transition: 0.75s;
-      }
-
-      .toggle-switch .slider:before {
-        position: absolute;
-        content: "";
-        height: 16px;
-        width: 16px;
-        left: 2px;
-        bottom: 2px;
-        background: #fff;
-        border-radius: 50%;
-        transition: 0.3s;
-        box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
-      }
-
-      .toggle-switch input:checked + .slider:before {
-        transform: translateX(20px);
-      }
-
       /* 第二頁 */
       .scene-2 .toggle-card {
         flex-wrap: wrap;
@@ -173,6 +104,12 @@
 
       .circle-container .range-thumb {
         cursor: pointer;
+      }
+
+      .circular-value {
+        font-family: "GenSenRounded2TW-L", sans-serif;
+        font-size: 1.2rem;
+        color: #6c808f;
       }
 
       @media (max-width: 1024px) {
@@ -209,11 +146,6 @@
             <span>Online</span>
           </div>
         </div>
-        <div class="story-controls">
-          <button class="story-theme-toggle" aria-label="Toggle theme">
-            <i class="fas fa-moon"></i>
-          </button>
-        </div>
       </header>
 
       <div class="story-chat-container" id="chatContainer"></div>
@@ -223,19 +155,13 @@
           <input
             type="text"
             class="message-input"
-            placeholder="Type your message..."
+            placeholder="請輸入訊息..."
             aria-label="Message input"
           />
           <div class="action-buttons">
-            <button class="action-button" aria-label="Add attachment">
-              <i class="fas fa-paperclip"></i>
-            </button>
-            <button class="action-button" aria-label="Voice input">
-              <i class="fas fa-microphone"></i>
-            </button>
-            <button class="send-button">
-              <span>Send</span>
-              <i class="fas fa-paper-plane"></i>
+            <button id="send-button" class="send-button" >
+              <span>出發</span>
+              <i class="fa-regular fa-font-awesome"></i>
             </button>
           </div>
         </div>
@@ -247,8 +173,10 @@
     <section id="scene-home-1" class="scene scene-1">
       <h1>每個月大約使用多少能源資源？</h1>
       <div class="page-indicator">
-        <span class="bar active" onclick="goToScene('scene-home-1')"></span>
-        <span class="bar" onclick="goToScene('scene-home-2')"></span>
+        <div class="bar-container">
+          <span class="bar active" onclick="goToScene('scene-home-1')"></span>
+          <span class="bar" onclick="goToScene('scene-home-2')"></span>
+        </div>
       </div>
       <div class="home-card">
         <div class="toggle-card toggle-card-1">
@@ -339,8 +267,10 @@
     <section id="scene-home-2" class="scene scene-2">
       <h1>請問您家中倒垃圾情況如何 ?</h1>
       <div class="page-indicator">
-        <span class="bar" onclick="goToScene('scene-home-1')"></span>
-        <span class="bar active" onclick="goToScene('scene-home-2')"></span>
+        <div class="bar-container">
+          <span class="bar" onclick="goToScene('scene-home-1')"></span>
+          <span class="bar active" onclick="goToScene('scene-home-2')"></span>
+        </div>
       </div>
       <div class="home-card">
         <div class="toggle-card">
@@ -431,9 +361,9 @@
 
         container.innerHTML = `
     <svg viewBox="0 0 200 200" width="200" height="200">
-      <circle cx="100" cy="100" r="80" stroke="#E4ECF1" stroke-width="10" fill="none"/>
+      <circle cx="100" cy="100" r="80" stroke="#E4ECF1" stroke-width="14" fill="none"/>
       <path class="range-arc" stroke="#ccc" stroke-width="10" fill="none"/>
-      <circle class="range-thumb" r="10" fill="#B5C1C6" style="filter: drop-shadow(1pt 1pt 4pt #7F7F7F60);" cx="100" cy="20" />
+      <circle class="range-thumb" r="12" fill="#B5C1C6" style="filter: drop-shadow(1pt 1pt 1pt #7F7F7F60);" cx="100" cy="20" />
     </svg>
     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px;">
       <span class="circular-value"></span>
@@ -621,13 +551,20 @@
         chatContainer.scrollTop = chatContainer.scrollHeight;
         await new Promise((resolve) => setTimeout(resolve, 1700));
       }
+    }
 
-      // === 新增的：切換到問卷 ===
+      const sendButton = document.getElementById("send-button")
+
+    function StartQuestionnaire() {
       document.querySelector(".story-container").style.display = "none";
       document.querySelector("body").style.display = "flex"
       document.getElementById("scene-home-1").classList.add("active");
       currentScene = "scene-home-1";
     }
+
+    sendButton.addEventListener("click", () => {
+      StartQuestionnaire()
+    })
 
       window.addEventListener("DOMContentLoaded", playIntroMessages);
     </script>
