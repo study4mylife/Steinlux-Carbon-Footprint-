@@ -62,29 +62,9 @@
 
       /* 第二頁 */
 
-      /* 跳轉橫槓 */
-
-      .page-indicator {
-        display: flex;
+      .custom-number-input {
+        flex-wrap: wrap;
         justify-content: center;
-        width: 60%;
-        min-width: 250px;
-        gap: 12px;
-        margin-top: 10px;
-        margin-bottom: 40px;
-      }
-
-      .bar {
-        width: 15%;
-        height: 3px;
-        background-color: #e4ecf1;
-        transition: background-color 0.3s;
-        cursor: pointer;
-      }
-
-      .bar.active {
-        background-color: #b5c1c6;
-        box-shadow: 1pt 1pt 4pt #7f7f7f60, -2pt -2pt 3pt #ffffff55;
       }
 
       .scene-2 .entertain-card {
@@ -117,16 +97,11 @@
         width: 40%;
       }
 
-      .streaming-toggle-card-3 {
-        width: 25%;
-      }
-
       .streaming-toggle-container {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        width: 60%;
         gap: 32px;
       }
 
@@ -175,123 +150,6 @@
         letter-spacing: 6px;
       }
 
-      /* 切換開關保持原本樣式 */
-      .toggle-switch {
-        position: relative;
-        width: 40px;
-        height: 20px;
-        margin: 2px;
-      }
-
-      .toggle-switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-      }
-
-      .toggle-switch .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: #eff3f9;
-        border: none;
-        box-shadow: 2pt 2.5pt 3pt #6d808f50 inset;
-        border-radius: 10px;
-        transition: 0.75s;
-      }
-
-      .toggle-switch .slider:before {
-        position: absolute;
-        content: "";
-        height: 16px;
-        width: 16px;
-        left: 2px;
-        bottom: 2px;
-        background: #fff;
-        border-radius: 50%;
-        transition: 0.3s;
-        box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
-      }
-
-      .toggle-switch input:checked + .slider:before {
-        transform: translateX(20px);
-      }
-      /* Info 按鈕 */
-      .info-btn {
-        position: absolute;
-        bottom: 16px;
-        right: 16px;
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background: radial-gradient(
-          circle at 30% 30%,
-          rgba(255, 255, 255, 0.9) 0%,
-          rgba(236, 240, 245, 1) 100%
-        );
-        box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: none;
-        cursor: pointer;
-        z-index: 10;
-      }
-
-      .info-btn img {
-        width: 20px;
-        height: 20px;
-        object-fit: contain;
-      }
-
-      /* Modal */
-      .modal {
-        display: none;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        bottom: -8px;
-        right: -32px;
-        transform: translate(-50%, -50%);
-        width: fit-content;
-        height: 16px;
-        background: linear-gradient(
-            135deg,
-            rgba(255, 255, 255, 0.3) 0%,
-            rgba(255, 255, 255, 0.1) 100%
-          ),
-          rgba(255, 255, 255, 1);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        border-radius: 16px;
-        padding: 12px;
-        z-index: 1000;
-      }
-      .modal-close {
-        position: absolute;
-        top: 0;
-        right: 4px;
-        color: #aaa;
-        cursor: pointer;
-        user-select: none;
-      }
-      .modal-close:hover {
-        color: #333;
-      }
-
-      /* Modal 內容排版 */
-      .modal-body {
-        font-size: 0.75rem;
-        flex: 1;
-        overflow-y: auto;
-        white-space: nowrap;
-      }
-
       @media (max-width: 600px) {
         .scene-2 .entertain-card .toggle-card-1 {
           flex-direction: column;
@@ -335,11 +193,6 @@
             <span>Online</span>
           </div>
         </div>
-        <div class="story-controls">
-          <button class="story-theme-toggle" aria-label="Toggle theme">
-            <i class="fas fa-moon"></i>
-          </button>
-        </div>
       </header>
 
       <div class="story-chat-container" id="chatContainer"></div>
@@ -349,27 +202,21 @@
           <input
             type="text"
             class="message-input"
-            placeholder="Type your message..."
+            placeholder="請輸入訊息..."
             aria-label="Message input"
           />
           <div class="action-buttons">
-            <button class="action-button" aria-label="Add attachment">
-              <i class="fas fa-paperclip"></i>
-            </button>
-            <button class="action-button" aria-label="Voice input">
-              <i class="fas fa-microphone"></i>
-            </button>
-            <button class="send-button">
-              <span>Send</span>
-              <i class="fas fa-paper-plane"></i>
+            <button id="send-button" class="send-button" >
+              <span>出發</span>
+              <i class="fa-regular fa-font-awesome"></i>
             </button>
           </div>
         </div>
       </div>
       </div>
     </div>
-
     <!-- Scene 1: 選娛樂活動 -->
+
     <section id="scene-entertain-1" class="scene scene-1">
       <h1>日常生活中有哪些娛樂活動？</h1>
       <div class="entertain-grid">
@@ -416,17 +263,19 @@
 
     <!-- Scene 1：KTV -->
     <section id="scene-entertain-2-1" class="scene scene-2 KTV">
-      <h1>日常生活中娛樂活動頻率？</h1>
+      <h1>日常生活中去KTV頻率？</h1>
       <div class="page-indicator">
-        <span
-          class="bar active"
-          onclick="goToScene('scene-entertain-2-1')"
-        ></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-2')"></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-3')"></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-4')"></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-5')"></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
+        <div class="bar-container">
+          <span
+            class="bar active"
+            onclick="goToScene('scene-entertain-2-1')"
+          ></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-2')"></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-3')"></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-4')"></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-5')"></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
+        </div>
       </div>
       <div class="entertain-card">
         <div class="toggle-card toggle-card-1">
@@ -452,10 +301,10 @@
             <button type="button" class="btn-increment">
               <span class="increment">+</span>
             </button>
+            <span class="question-unit question-title" data-template="次/{unit}"
+              >次/月</span
+            >
           </div>
-          <span class="question-unit question-title" data-template="次/{unit}"
-            >次/月</span
-          >
         </div>
       </div>
       <button class="nav-btn prev-btn" onclick="goToScene('scene-entertain-1')">
@@ -471,17 +320,19 @@
 
     <!-- Scene 2：電影院 -->
     <section id="scene-entertain-2-2" class="scene scene-2 Cinema">
-      <h1>日常生活中娛樂活動頻率？</h1>
+      <h1>日常生活中到電影院看電影頻率？</h1>
       <div class="page-indicator">
-        <span class="bar" onclick="goToScene('scene-entertain-2-1')"></span>
-        <span
-          class="bar active"
-          onclick="goToScene('scene-entertain-2-2')"
-        ></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-3')"></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-4')"></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-5')"></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
+        <div class="bar-container">
+          <span class="bar" onclick="goToScene('scene-entertain-2-1')"></span>
+          <span
+            class="bar active"
+            onclick="goToScene('scene-entertain-2-2')"
+          ></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-3')"></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-4')"></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-5')"></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
+        </div>
       </div>
       <div class="entertain-card">
         <div class="toggle-card toggle-card-1">
@@ -507,10 +358,10 @@
             <button type="button" class="btn-increment">
               <span class="increment">+</span>
             </button>
+            <span class="question-unit question-title" data-template="次/{unit}"
+              >次/月</span
+            >
           </div>
-          <span class="question-unit question-title" data-template="次/{unit}"
-            >次/月</span
-          >
         </div>
       </div>
       <button
@@ -529,17 +380,19 @@
 
     <!-- Scene 3：健身房 -->
     <section id="scene-entertain-2-3" class="scene scene-2 gym">
-      <h1>日常生活中娛樂活動頻率？</h1>
+      <h1>日常生活中到健身房健身頻率？</h1>
       <div class="page-indicator">
-        <span class="bar" onclick="goToScene('scene-entertain-2-1')"></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-2')"></span>
-        <span
-          class="bar active"
-          onclick="goToScene('scene-entertain-2-3')"
-        ></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-4')"></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-5')"></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
+        <div class="bar-container">
+          <span class="bar" onclick="goToScene('scene-entertain-2-1')"></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-2')"></span>
+          <span
+            class="bar active"
+            onclick="goToScene('scene-entertain-2-3')"
+          ></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-4')"></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-5')"></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
+        </div>
       </div>
       <div class="entertain-card">
         <div class="toggle-card toggle-card-1">
@@ -565,10 +418,10 @@
             <button type="button" class="btn-increment">
               <span class="increment">+</span>
             </button>
-          </div>
-          <span class="question-unit question-title" data-template="次/{unit}"
+            <span class="question-unit question-title" data-template="次/{unit}"
             >次/週</span
-          >
+            >
+          </div>
         </div>
       </div>
       <button
@@ -587,17 +440,19 @@
 
     <!-- Scene 4：飯店 -->
     <section id="scene-entertain-2-4" class="scene scene-2 hotel">
-      <h1>日常生活中娛樂活動頻率？</h1>
+      <h1>日常生活中住飯店頻率？</h1>
       <div class="page-indicator">
-        <span class="bar" onclick="goToScene('scene-entertain-2-1')"></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-2')"></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-3')"></span>
-        <span
-          class="bar active"
-          onclick="goToScene('scene-entertain-2-4')"
-        ></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-5')"></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
+        <div class="bar-container">
+          <span class="bar" onclick="goToScene('scene-entertain-2-1')"></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-2')"></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-3')"></span>
+          <span
+            class="bar active"
+            onclick="goToScene('scene-entertain-2-4')"
+          ></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-5')"></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
+        </div>
       </div>
       <div class="entertain-card">
         <div class="toggle-card toggle-card-1">
@@ -623,10 +478,10 @@
             <button type="button" class="btn-increment">
               <span class="increment">+</span>
             </button>
-          </div>
-          <span class="question-unit question-title" data-template="次/{unit}"
+            <span class="question-unit question-title" data-template="次/{unit}"
             >次/月</span
           >
+          </div>
         </div>
       </div>
       <button
@@ -645,17 +500,19 @@
 
     <!-- Scene 5：網路流量 -->
     <section id="scene-entertain-2-5" class="scene scene-2 streaming">
-      <h1>日常生活中娛樂活動頻率？</h1>
+      <h1>日常生活中串流影音使用多少流量？</h1>
       <div class="page-indicator">
-        <span class="bar" onclick="goToScene('scene-entertain-2-1')"></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-2')"></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-3')"></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-4')"></span>
-        <span
-          class="bar active"
-          onclick="goToScene('scene-entertain-2-5')"
-        ></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
+        <div class="bar-container">
+          <span class="bar" onclick="goToScene('scene-entertain-2-1')"></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-2')"></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-3')"></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-4')"></span>
+          <span
+            class="bar active"
+            onclick="goToScene('scene-entertain-2-5')"
+          ></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
+        </div>
       </div>
       <div class="entertain-card">
         <div class="toggle-card streaming-toggle-card-3">
@@ -696,10 +553,10 @@
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
-            </div>
-            <span class="question-unit question-title" data-template="小時/{unit}">
+              <span class="question-unit question-title" data-template="小時/{unit}">
               小時/天
-            </span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -719,17 +576,19 @@
 
     <!-- Scene 6：宗教活動 -->
     <section id="scene-entertain-2-6" class="scene scene-2 religion">
-      <h1>日常生活中娛樂活動頻率？</h1>
+      <h1>日常生活中參與宗教活動頻率？</h1>
       <div class="page-indicator">
-        <span class="bar" onclick="goToScene('scene-entertain-2-1')"></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-2')"></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-3')"></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-4')"></span>
-        <span class="bar" onclick="goToScene('scene-entertain-2-5')"></span>
-        <span
-          class="bar active"
-          onclick="goToScene('scene-entertain-2-6')"
-        ></span>
+        <div class="bar-container">
+          <span class="bar" onclick="goToScene('scene-entertain-2-1')"></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-2')"></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-3')"></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-4')"></span>
+          <span class="bar" onclick="goToScene('scene-entertain-2-5')"></span>
+          <span
+            class="bar active"
+            onclick="goToScene('scene-entertain-2-6')"
+          ></span>
+        </div>
       </div>
       <div class="entertain-card">
         <div class="toggle-card toggle-card-1">
@@ -755,10 +614,10 @@
             <button type="button" class="btn-increment">
               <span class="increment">+</span>
             </button>
-          </div>
-          <span class="question-unit question-title" data-template="份/{unit}"
+            <span class="question-unit question-title" data-template="份/{unit}"
             >次/週</span
-          >
+            >
+          </div>
         </div>
       </div>
       <button
@@ -834,8 +693,13 @@
       const closeX = document.getElementById("modal-close");
 
       infoBtn.addEventListener("click", () => {
-        modal.style.display = "flex";
+        if (modal.style.display === "flex") {
+          modal.style.display = "none";
+        } else {
+          modal.style.display = "flex";
+        }
       });
+
       closeX.addEventListener("click", () => {
         modal.style.display = "none";
       });
@@ -925,15 +789,21 @@
         chatContainer.scrollTop = chatContainer.scrollHeight;
         await new Promise((resolve) => setTimeout(resolve, 1700));
       }
+    }
+    const sendButton = document.getElementById("send-button")
 
-      // === 新增的：切換到問卷 ===
+    function StartQuestionnaire() {
       document.querySelector(".story-container").style.display = "none";
       document.querySelector("body").style.display = "flex"
       document.getElementById("scene-entertain-1").classList.add("active");
       currentScene = "scene-entertain-1";
     }
 
-      window.addEventListener("DOMContentLoaded", playIntroMessages);
+    sendButton.addEventListener("click", () => {
+      StartQuestionnaire()
+    })
+
+    window.addEventListener("DOMContentLoaded", playIntroMessages);
     </script>
   </body>
 </html>
