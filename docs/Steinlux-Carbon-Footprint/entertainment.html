@@ -45,7 +45,7 @@
 
       .scene-1 .entertain-card .label {
         font-family: "GenSenRounded2TW-R", sans-serif;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         color: #6d808f;
         text-align: center;
         white-space: nowrap;
@@ -150,6 +150,26 @@
         letter-spacing: 6px;
       }
 
+      @media(min-width: 320px) and (max-width: 600px) {
+        .scene-1 .entertain-grid {
+          grid-template-columns: repeat(2, minmax(60px, 1fr));
+          grid-template-rows: repeat(3, auto);
+          gap: 8px;
+        }
+        .scene-1 .entertain-card {
+          padding: 0;
+        }
+      }
+
+
+      @media(min-width: 600px) and (max-width: 900px) {
+        .scene-1 .entertain-grid {
+          grid-template-columns: repeat(2, minmax(120px, 1fr));
+          grid-template-rows: repeat(3, auto);
+          gap: 8px;
+        }
+      }
+
       @media (max-width: 600px) {
         .scene-2 .entertain-card .toggle-card-1 {
           flex-direction: column;
@@ -162,6 +182,14 @@
       }
 
       @media (max-width: 900px) {
+        .scene-1 .entertain-card {
+          margin: 24px auto;
+          padding: 0;
+        }
+        .scene-1 .entertain-card img {
+          width: 65px;
+          height: 65px;
+        }
         .scene-2 .entertain-card .toggle-card {
           width: 100%;
           justify-content: space-around;
@@ -215,36 +243,89 @@
       </div>
       </div>
     </div>
-    <!-- Scene 1: 選娛樂活動 -->
 
+  <div class="chapter-bar">
+    <div class="chapter-button" onclick="window.location.href='traffic-daily.html'">
+      <div class="chapter-icon"><i class="fa-solid fa-car-side"></i></div>
+      <div class="chapter-label">日常</div>
+    </div>
+    <div class="chapter-button" onclick="window.location.href='home.html'">
+      <div class="chapter-icon"><i class="fa-solid fa-house-chimney"></i></div>
+      <div class="chapter-label">居住</div>
+    </div>
+    <div class="chapter-button" onclick="window.location.href='traffic.html'">
+      <div class="chapter-icon"><i class="fa-solid fa-plane-departure"></i></div>
+      <div class="chapter-label">旅遊</div>
+    </div>
+    <div class="chapter-button" onclick="window.location.href='food.html'">
+      <div class="chapter-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
+      <div class="chapter-label">飲食</div>
+    </div>
+    <div class="chapter-button" onclick="window.location.href='fashion.html'">
+      <div class="chapter-icon"><i class="fa-solid fa-shirt"></i></div>
+      <div class="chapter-label">時尚</div>
+    </div>
+    <div class="chapter-button" onclick="window.location.href='entertainment.html'">
+      <div class="chapter-icon"><i class="fa-solid fa-wifi"></i></div>
+      <div class="chapter-label">娛樂</div>
+    </div>
+  </div>
+
+
+  <div class="carbon-ring-container">
+    <div class="carbon-ring">
+      <svg width="200" height="200">
+        <circle cx="100" cy="100" r="80" stroke="#e0e0e0" stroke-width="12" fill="none" />
+        <circle
+          cx="100"
+          cy="100"
+          r="80"
+          stroke="#ff7043"
+          stroke-width="10"
+          fill="none"
+          stroke-linecap="round"
+          stroke-dasharray="477"
+        />
+      </svg>
+      <div class="text">
+        累積碳排<br>
+        <span>123 kgCO₂</span>
+      </div>
+    </div>
+    <div class="carbon-temperature">
+      <span>Now 4度C</span>
+    </div>
+  </div>
+
+    <!-- Scene 1: 選娛樂活動 -->
     <section id="scene-entertain-1" class="scene scene-1">
       <h1>日常生活中有哪些娛樂活動？</h1>
       <div class="entertain-grid">
         <div class="entertain-card" onclick="toggleActivity(this,'KTV')">
-          <img src="images/KTV.png" alt="KTV" /><span class="label">KTV</span>
+          <img src="images/公車.png" alt="KTV" /><span class="label">KTV</span>
         </div>
         <div class="entertain-card" onclick="toggleActivity(this,'電影')">
-          <img src="images/電影.png" alt="電影" /><span class="label"
+          <img src="images/公車.png" alt="電影" /><span class="label"
             >電影</span
           >
         </div>
         <div class="entertain-card" onclick="toggleActivity(this,'健身房')">
-          <img src="images/健身房.png" alt="健身房" /><span class="label"
+          <img src="images/公車.png" alt="健身房" /><span class="label"
             >健身房</span
           >
         </div>
         <div class="entertain-card" onclick="toggleActivity(this,'旅遊住宿')">
-          <img src="images/旅遊住宿.png" alt="旅遊住宿" /><span class="label"
+          <img src="images/公車.png" alt="旅遊住宿" /><span class="label"
             >旅遊住宿</span
           >
         </div>
         <div class="entertain-card" onclick="toggleActivity(this,'影音串流')">
-          <img src="images/影音串流.png" alt="影音串流" /><span class="label"
+          <img src="images/公車.png" alt="影音串流" /><span class="label"
             >影音串流</span
           >
         </div>
         <div class="entertain-card" onclick="toggleActivity(this,'宗教信仰')">
-          <img src="images/宗教信仰.png" alt="宗教信仰" /><span class="label"
+          <img src="images/公車.png" alt="宗教信仰" /><span class="label"
             >宗教信仰</span
           >
         </div>
@@ -730,7 +811,8 @@
         updateTitle();
         toggle.addEventListener("change", updateTitle);
       });
-    const messages = [
+
+      const messages = [
         {
           type: "time",
           text: "上午 9:30",
@@ -793,6 +875,7 @@
     const sendButton = document.getElementById("send-button")
 
     function StartQuestionnaire() {
+      document.querySelector(".chapter-bar").style.display = "flex"
       document.querySelector(".story-container").style.display = "none";
       document.querySelector("body").style.display = "flex"
       document.getElementById("scene-entertain-1").classList.add("active");
