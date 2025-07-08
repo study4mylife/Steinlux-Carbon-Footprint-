@@ -21,6 +21,18 @@
         font-display: swap;
       }
 
+      @media (min-width: 1200px) {
+        html {
+          font-size: 18px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        html {
+          font-size: 14px;
+        }
+      }
+
       /*—— 全域設定 ——*/
       body {
         margin: 0;
@@ -199,15 +211,6 @@
         z-index: 3;
         animation: floatCloud 2s ease-in-out 1.5s infinite;
       }
-      /*—— 語音框容器 ——*/
-      .tex-container {
-        position: absolute;
-        left: 50px;
-        bottom: -10px;
-        transform: translate(-100%, 100%);
-        z-index: 3;
-        animation: slideIn 1s ease-out 0.5s forwards;
-      }
       /*——雲朵容器 ——*/
       .cloud-container {
         position: absolute;
@@ -220,7 +223,7 @@
       }
       .cloud-container img {
         display: block;
-        width: 450px; /* 可自行調整尺寸 */
+        width: 40vw;
         height: auto;
         opacity: 0.5;
       }
@@ -306,15 +309,22 @@
         animation-delay: 0s, 1.4s;
       }
 
+      .text-container {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        min-width: max-content;
+        top: 25%;
+        left: 35%;
+        translate:(-50%, -50%); ;
+        z-index: 2;
+      }
+
       /*—— 標題 ——*/
       .floating-title {
-        position: absolute;
-        bottom: 90%;
-        left: 100%;
         display: inline-flex;
         gap: 10px;
-        font-size: 140px;
-        line-height: 1;
+        font-size: 8rem;
         opacity: 0;
         animation: fadeIn 0.5s ease-out 1.5s forwards;
         z-index: 2;
@@ -329,16 +339,15 @@
 
       /*—— 毛玻璃語音框 ——*/
       .speech-box {
-        position: absolute;
-        left: 110%;
-        top: 20%;
-        width: 840px;
+        width: 55vw;
+        max-width: 840px;
         height: 300px; /* ✅ 最小高度 */
         border-radius: 40px;
         background: rgba(7, 68, 70, 0.3);
         border: 4px solid #ffffff;
         box-shadow: 0 0 20px #428284, inset 0 0 35px #a8ece9;
-        overflow: hidden;
+        overflow-y: scroll;
+        scrollbar-width: none;
         display: flex;
         align-items: center; /* 垂直置中 */
         justify-content: center; /* 水平置中 ✅ 新增 */
@@ -347,17 +356,54 @@
         animation: growWidth 0.8s ease-out 1.5s forwards;
         z-index: 2;
       }
+
       .speech-box p {
         margin: 0;
         font-family: "SweiXDPearlCJKtc-DemiLight", sans-serif;
-        font-size: 25px;
+        font-size: 1.4rem;
         color: #ffffff;
-        line-height: 1.8;
+        line-height: 2.5rem;
         white-space: pre-wrap;
         word-break: break-all;
         text-align: left;
         width: 100%;
       }
+
+      .button-box {
+        position: relative;
+        text-align: center;
+        margin-top: 1.5rem;
+      }
+
+      .button-box button {
+        padding: 8px 24px;
+        font-size: 24px;
+        font-family: "SweiXDPearlCJKtc-Medium", serif;
+        color: #ffffff;
+        background-color: #F2AA84;
+        border: none;
+        border-radius: 30px;
+        box-shadow: 0 0 20px #F2AA84;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      @media (max-width: 1024px) {
+        .text-container {
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+        .speech-box {
+          width: 80vw;
+          padding: 40px;
+        }
+
+        .floating-title {
+        font-size: 5rem;
+        }
+      }
+      
     </style>
   </head>
   <body>
@@ -377,7 +423,15 @@
           <img src="images/雲.png" alt="雲朵" />
         </div>
         <img src="images/貓.png" alt="太空貓" class="flying-cat" />
+      </div>
 
+      <div class="floating-stars">
+        <img src="images/星星_1.png" class="star star1" alt="star1" />
+        <img src="images/星星_2.png" class="star star2" alt="star2" />
+        <img src="images/星星_3.png" class="star star3" alt="star3" />
+      </div>
+
+      <div class="text-container">
         <div class="floating-title">
           <span>星</span><span>際</span><span>碳</span><span>險</span>
         </div>
@@ -387,12 +441,9 @@
             data-text="跟隨調查員的腳步，探索人類文明繁榮發展的歷程，\n同時逐步揭開其背後隱藏的環境危機與人類走向滅亡的原因。\n在深入了解過去的同時，也尋找可能的轉機與希望，探索挽救未來的方法。"
           ></p>
         </div>
-      </div>
-
-      <div class="floating-stars">
-        <img src="images/星星_1.png" class="star star1" alt="star1" />
-        <img src="images/星星_2.png" class="star star2" alt="star2" />
-        <img src="images/星星_3.png" class="star star3" alt="star3" />
+        <div class="button-box">
+          <button onclick="window.location.href='traffic-daily.html'">進入調查</button>
+        </div>
       </div>
     </section>
 

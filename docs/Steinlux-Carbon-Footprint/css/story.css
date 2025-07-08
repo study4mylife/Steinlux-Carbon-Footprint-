@@ -18,7 +18,7 @@
     justify-content: center;
     align-items: center;
     transition: all 0.3s ease;
-    min-height: 100vh;
+    min-height: 80vh;
     }
 
     .story-container {
@@ -28,7 +28,7 @@
     width: 900px;
     height: 500px;
     max-width: 100%;
-    min-height: 500px;
+    max-height: 90vh;
     padding: 20px;
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -250,16 +250,14 @@
     .story-body {
         max-width: 100%;
     }
-    .story-container {
-        height: 100dvh;
-    }
     .story-header-title h1 {
         font-size: 1rem;
     }
     .story-chat-container {
-        padding: 1rem;
+        padding: 0.5rem;
     }
     .story-message-bubble {
         max-width: 85%;
+        padding: 0.75rem 1.25rem;
     }
     }

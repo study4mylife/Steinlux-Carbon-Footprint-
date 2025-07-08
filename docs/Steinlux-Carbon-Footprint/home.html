@@ -169,6 +169,33 @@
       </div>
     </div>
 
+      <div class="chapter-bar">
+    <div class="chapter-button" onclick="window.location.href='traffic-daily.html'">
+      <div class="chapter-icon"><i class="fa-solid fa-car-side"></i></div>
+      <div class="chapter-label">日常</div>
+    </div>
+    <div class="chapter-button" onclick="window.location.href='home.html'">
+      <div class="chapter-icon"><i class="fa-solid fa-house-chimney"></i></div>
+      <div class="chapter-label">居住</div>
+    </div>
+    <div class="chapter-button" onclick="window.location.href='traffic.html'">
+      <div class="chapter-icon"><i class="fa-solid fa-plane-departure"></i></div>
+      <div class="chapter-label">旅遊</div>
+    </div>
+    <div class="chapter-button" onclick="window.location.href='food.html'">
+      <div class="chapter-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
+      <div class="chapter-label">飲食</div>
+    </div>
+    <div class="chapter-button" onclick="window.location.href='fashion.html'">
+      <div class="chapter-icon"><i class="fa-solid fa-shirt"></i></div>
+      <div class="chapter-label">時尚</div>
+    </div>
+    <div class="chapter-button" onclick="window.location.href='entertainment.html'">
+      <div class="chapter-icon"><i class="fa-solid fa-wifi"></i></div>
+      <div class="chapter-label">娛樂</div>
+    </div>
+  </div>
+
     <!-- 第一頁：問人數 -->
     <section id="scene-home-1" class="scene scene-1">
       <h1>每個月大約使用多少能源資源？</h1>
@@ -556,6 +583,7 @@
       const sendButton = document.getElementById("send-button")
 
     function StartQuestionnaire() {
+      document.querySelector(".chapter-bar").style.display = "flex"
       document.querySelector(".story-container").style.display = "none";
       document.querySelector("body").style.display = "flex"
       document.getElementById("scene-home-1").classList.add("active");
