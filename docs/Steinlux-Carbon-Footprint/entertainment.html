@@ -57,7 +57,6 @@
       }
       .scene-1 .entertain-card.selected {
         background: rgba(255, 255, 255, 0.4);
-        color: rgba(255, 255, 255);
       }
 
       /* 第二頁 */
@@ -150,7 +149,7 @@
         letter-spacing: 6px;
       }
 
-      @media(min-width: 320px) and (max-width: 600px) {
+      @media (min-width: 320px) and (max-width: 600px) {
         .scene-1 .entertain-grid {
           grid-template-columns: repeat(2, minmax(60px, 1fr));
           grid-template-rows: repeat(3, auto);
@@ -161,8 +160,7 @@
         }
       }
 
-
-      @media(min-width: 600px) and (max-width: 900px) {
+      @media (min-width: 600px) and (max-width: 900px) {
         .scene-1 .entertain-grid {
           grid-template-columns: repeat(2, minmax(120px, 1fr));
           grid-template-rows: repeat(3, auto);
@@ -213,89 +211,108 @@
     <!-- 故事劇情 -->
     <div class="story-body">
       <div class="story-container">
-      <header class="story-header">
-        <div class="story-header-title">
-          <h1>星際聊天室</h1>
-          <div class="story-bot-status">
-            <div class="story-status-indicator"></div>
-            <span>Online</span>
+        <header class="story-header">
+          <div class="story-header-title">
+            <h1>星際聊天室</h1>
+            <div class="story-bot-status">
+              <div class="story-status-indicator"></div>
+              <span>Online</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="story-chat-container" id="chatContainer"></div>
+
+        <div class="input-container">
+          <div class="input-wrapper">
+            <input
+              type="text"
+              class="message-input"
+              placeholder="請輸入訊息..."
+              aria-label="Message input"
+            />
+            <div class="action-buttons">
+              <button id="send-button" class="send-button">
+                <span>出發</span>
+                <i class="fa-regular fa-font-awesome"></i>
+              </button>
+            </div>
           </div>
         </div>
-      </header>
+      </div>
+    </div>
 
-      <div class="story-chat-container" id="chatContainer"></div>
+    <div class="chapter-bar">
+      <div
+        class="chapter-button"
+        onclick="window.location.href='traffic-daily.html'"
+      >
+        <div class="chapter-icon"><i class="fa-solid fa-car-side"></i></div>
+        <div class="chapter-label">日常</div>
+      </div>
+      <div class="chapter-button" onclick="window.location.href='home.html'">
+        <div class="chapter-icon">
+          <i class="fa-solid fa-house-chimney"></i>
+        </div>
+        <div class="chapter-label">居住</div>
+      </div>
+      <div class="chapter-button" onclick="window.location.href='traffic.html'">
+        <div class="chapter-icon">
+          <i class="fa-solid fa-plane-departure"></i>
+        </div>
+        <div class="chapter-label">旅遊</div>
+      </div>
+      <div class="chapter-button" onclick="window.location.href='food.html'">
+        <div class="chapter-icon">
+          <i class="fa-solid fa-drumstick-bite"></i>
+        </div>
+        <div class="chapter-label">飲食</div>
+      </div>
+      <div class="chapter-button" onclick="window.location.href='fashion.html'">
+        <div class="chapter-icon"><i class="fa-solid fa-shirt"></i></div>
+        <div class="chapter-label">時尚</div>
+      </div>
+      <div
+        class="chapter-button"
+        onclick="window.location.href='entertainment.html'"
+      >
+        <div class="chapter-icon"><i class="fa-solid fa-wifi"></i></div>
+        <div class="chapter-label">娛樂</div>
+      </div>
+    </div>
 
-      <div class="input-container">
-        <div class="input-wrapper">
-          <input
-            type="text"
-            class="message-input"
-            placeholder="請輸入訊息..."
-            aria-label="Message input"
+    <div class="carbon-ring-container">
+      <div class="carbon-ring">
+        <svg width="200" height="200">
+          <circle
+            cx="100"
+            cy="100"
+            r="80"
+            stroke="transparent"
+            stroke-width="12"
+            fill="none"
           />
-          <div class="action-buttons">
-            <button id="send-button" class="send-button" >
-              <span>出發</span>
-              <i class="fa-regular fa-font-awesome"></i>
-            </button>
-          </div>
+          <circle
+            cx="100"
+            cy="100"
+            r="80"
+            stroke="#ff7043"
+            stroke-width="10"
+            fill="transparent"
+            stroke-linecap="round"
+            stroke-dasharray="270 107"
+            stroke-dashoffset="43"
+          />
+        </svg>
+        <div class="text">
+          累積碳排<br />
+          <span>123 kgCO₂</span>
         </div>
       </div>
+      <div class="carbon-temperature">
+        <span>Now 4度C</span>
       </div>
     </div>
-
-  <div class="chapter-bar">
-    <div class="chapter-button" onclick="window.location.href='traffic-daily.html'">
-      <div class="chapter-icon"><i class="fa-solid fa-car-side"></i></div>
-      <div class="chapter-label">日常</div>
-    </div>
-    <div class="chapter-button" onclick="window.location.href='home.html'">
-      <div class="chapter-icon"><i class="fa-solid fa-house-chimney"></i></div>
-      <div class="chapter-label">居住</div>
-    </div>
-    <div class="chapter-button" onclick="window.location.href='traffic.html'">
-      <div class="chapter-icon"><i class="fa-solid fa-plane-departure"></i></div>
-      <div class="chapter-label">旅遊</div>
-    </div>
-    <div class="chapter-button" onclick="window.location.href='food.html'">
-      <div class="chapter-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
-      <div class="chapter-label">飲食</div>
-    </div>
-    <div class="chapter-button" onclick="window.location.href='fashion.html'">
-      <div class="chapter-icon"><i class="fa-solid fa-shirt"></i></div>
-      <div class="chapter-label">時尚</div>
-    </div>
-    <div class="chapter-button" onclick="window.location.href='entertainment.html'">
-      <div class="chapter-icon"><i class="fa-solid fa-wifi"></i></div>
-      <div class="chapter-label">娛樂</div>
-    </div>
-  </div>
-
-
-  <div class="carbon-ring-container">
-    <div class="carbon-ring">
-      <svg width="200" height="200">
-        <circle cx="100" cy="100" r="80" stroke="#e0e0e0" stroke-width="12" fill="none" />
-        <circle
-          cx="100"
-          cy="100"
-          r="80"
-          stroke="#ff7043"
-          stroke-width="10"
-          fill="none"
-          stroke-linecap="round"
-          stroke-dasharray="477"
-        />
-      </svg>
-      <div class="text">
-        累積碳排<br>
-        <span>123 kgCO₂</span>
-      </div>
-    </div>
-    <div class="carbon-temperature">
-      <span>Now 4度C</span>
-    </div>
-  </div>
 
     <!-- Scene 1: 選娛樂活動 -->
     <section id="scene-entertain-1" class="scene scene-1">
@@ -330,33 +347,23 @@
           >
         </div>
       </div>
-      <button class="nav-btn prev-btn" onclick="window.location.href='fashion.html'">
+      <button
+        class="nav-btn prev-btn"
+        onclick="window.location.href='fashion.html'"
+      >
         ‹
       </button>
-      <button
-        class="nav-btn next-btn"
-        onclick="goToScene('scene-entertain-2-1')"
-      >
+      <!-- 第一頁下一頁按鈕 -->
+      <button class="nav-btn next-btn" onclick="handleFirstSceneNext()">
         ›
       </button>
-      
     </section>
 
     <!-- Scene 1：KTV -->
     <section id="scene-entertain-2-1" class="scene scene-2 KTV">
       <h1>日常生活中去KTV頻率？</h1>
       <div class="page-indicator">
-        <div class="bar-container">
-          <span
-            class="bar active"
-            onclick="goToScene('scene-entertain-2-1')"
-          ></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-2')"></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-3')"></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-4')"></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-5')"></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
-        </div>
+        <div class="bar-container dynamic-bar-container"></div>
       </div>
       <div class="entertain-card">
         <div class="toggle-card toggle-card-1">
@@ -388,32 +395,15 @@
           </div>
         </div>
       </div>
-      <button class="nav-btn prev-btn" onclick="goToScene('scene-entertain-1')">
-        ‹
-      </button>
-      <button
-        class="nav-btn next-btn"
-        onclick="goToScene('scene-entertain-2-2')"
-      >
-        ›
-      </button>
+      <button class="nav-btn prev-btn" onclick="goToPrevScene()">‹</button>
+      <button class="nav-btn next-btn" onclick="goToNextScene()">›</button>
     </section>
 
     <!-- Scene 2：電影院 -->
     <section id="scene-entertain-2-2" class="scene scene-2 Cinema">
-      <h1>日常生活中到電影院看電影頻率？</h1>
+      <h1>日常生活中到電影院觀影頻率？</h1>
       <div class="page-indicator">
-        <div class="bar-container">
-          <span class="bar" onclick="goToScene('scene-entertain-2-1')"></span>
-          <span
-            class="bar active"
-            onclick="goToScene('scene-entertain-2-2')"
-          ></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-3')"></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-4')"></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-5')"></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
-        </div>
+        <div class="bar-container dynamic-bar-container"></div>
       </div>
       <div class="entertain-card">
         <div class="toggle-card toggle-card-1">
@@ -445,35 +435,15 @@
           </div>
         </div>
       </div>
-      <button
-        class="nav-btn prev-btn"
-        onclick="goToScene('scene-entertain-2-1')"
-      >
-        ‹
-      </button>
-      <button
-        class="nav-btn next-btn"
-        onclick="goToScene('scene-entertain-2-3')"
-      >
-        ›
-      </button>
+      <button class="nav-btn prev-btn" onclick="goToPrevScene()">‹</button>
+      <button class="nav-btn next-btn" onclick="goToNextScene()">›</button>
     </section>
 
     <!-- Scene 3：健身房 -->
     <section id="scene-entertain-2-3" class="scene scene-2 gym">
       <h1>日常生活中到健身房健身頻率？</h1>
       <div class="page-indicator">
-        <div class="bar-container">
-          <span class="bar" onclick="goToScene('scene-entertain-2-1')"></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-2')"></span>
-          <span
-            class="bar active"
-            onclick="goToScene('scene-entertain-2-3')"
-          ></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-4')"></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-5')"></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
-        </div>
+        <div class="bar-container dynamic-bar-container"></div>
       </div>
       <div class="entertain-card">
         <div class="toggle-card toggle-card-1">
@@ -500,40 +470,20 @@
               <span class="increment">+</span>
             </button>
             <span class="question-unit question-title" data-template="次/{unit}"
-            >次/週</span
+              >次/週</span
             >
           </div>
         </div>
       </div>
-      <button
-        class="nav-btn prev-btn"
-        onclick="goToScene('scene-entertain-2-2')"
-      >
-        ‹
-      </button>
-      <button
-        class="nav-btn next-btn"
-        onclick="goToScene('scene-entertain-2-4')"
-      >
-        ›
-      </button>
+      <button class="nav-btn prev-btn" onclick="goToPrevScene()">‹</button>
+      <button class="nav-btn next-btn" onclick="goToNextScene()">›</button>
     </section>
 
     <!-- Scene 4：飯店 -->
     <section id="scene-entertain-2-4" class="scene scene-2 hotel">
       <h1>日常生活中住飯店頻率？</h1>
       <div class="page-indicator">
-        <div class="bar-container">
-          <span class="bar" onclick="goToScene('scene-entertain-2-1')"></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-2')"></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-3')"></span>
-          <span
-            class="bar active"
-            onclick="goToScene('scene-entertain-2-4')"
-          ></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-5')"></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
-        </div>
+        <div class="bar-container dynamic-bar-container"></div>
       </div>
       <div class="entertain-card">
         <div class="toggle-card toggle-card-1">
@@ -560,40 +510,20 @@
               <span class="increment">+</span>
             </button>
             <span class="question-unit question-title" data-template="次/{unit}"
-            >次/月</span
-          >
+              >次/月</span
+            >
           </div>
         </div>
       </div>
-      <button
-        class="nav-btn prev-btn"
-        onclick="goToScene('scene-entertain-2-3')"
-      >
-        ‹
-      </button>
-      <button
-        class="nav-btn next-btn"
-        onclick="goToScene('scene-entertain-2-5')"
-      >
-        ›
-      </button>
+      <button class="nav-btn prev-btn" onclick="goToPrevScene()">‹</button>
+      <button class="nav-btn next-btn" onclick="goToNextScene()">›</button>
     </section>
 
     <!-- Scene 5：網路流量 -->
     <section id="scene-entertain-2-5" class="scene scene-2 streaming">
-      <h1>日常生活中串流影音使用多少流量？</h1>
+      <h1>日常生活中使用多少串流和網路流量？</h1>
       <div class="page-indicator">
-        <div class="bar-container">
-          <span class="bar" onclick="goToScene('scene-entertain-2-1')"></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-2')"></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-3')"></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-4')"></span>
-          <span
-            class="bar active"
-            onclick="goToScene('scene-entertain-2-5')"
-          ></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-6')"></span>
-        </div>
+        <div class="bar-container dynamic-bar-container"></div>
       </div>
       <div class="entertain-card">
         <div class="toggle-card streaming-toggle-card-3">
@@ -634,42 +564,25 @@
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
-              <span class="question-unit question-title" data-template="小時/{unit}">
-              小時/天
+              <span
+                class="question-unit question-title"
+                data-template="小時/{unit}"
+              >
+                小時/天
               </span>
             </div>
           </div>
         </div>
       </div>
-      <button
-        class="nav-btn prev-btn"
-        onclick="goToScene('scene-entertain-2-4')"
-      >
-        ‹
-      </button>
-      <button
-        class="nav-btn next-btn"
-        onclick="goToScene('scene-entertain-2-6')"
-      >
-        ›
-      </button>
+      <button class="nav-btn prev-btn" onclick="goToPrevScene()">‹</button>
+      <button class="nav-btn next-btn" onclick="goToNextScene()">›</button>
     </section>
 
     <!-- Scene 6：宗教活動 -->
     <section id="scene-entertain-2-6" class="scene scene-2 religion">
       <h1>日常生活中參與宗教活動頻率？</h1>
       <div class="page-indicator">
-        <div class="bar-container">
-          <span class="bar" onclick="goToScene('scene-entertain-2-1')"></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-2')"></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-3')"></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-4')"></span>
-          <span class="bar" onclick="goToScene('scene-entertain-2-5')"></span>
-          <span
-            class="bar active"
-            onclick="goToScene('scene-entertain-2-6')"
-          ></span>
-        </div>
+        <div class="bar-container dynamic-bar-container"></div>
       </div>
       <div class="entertain-card">
         <div class="toggle-card toggle-card-1">
@@ -696,17 +609,13 @@
               <span class="increment">+</span>
             </button>
             <span class="question-unit question-title" data-template="份/{unit}"
-            >次/週</span
+              >次/週</span
             >
           </div>
         </div>
       </div>
-      <button
-        class="nav-btn prev-btn"
-        onclick="goToScene('scene-entertain-2-5')"
-      >
-        ‹
-      </button>
+      <button class="nav-btn prev-btn" onclick="goToPrevScene()">‹</button>
+      <button class="nav-btn next-btn" onclick="goToNextScene()">›</button>
 
       <!-- Info 按鈕 -->
       <button id="info-btn" class="info-btn">
@@ -723,25 +632,51 @@
     </section>
 
     <script>
+
+      /* 切換頁面 */
+
       let currentScene = "scene-entertain-1";
 
-      function goToScene(targetId) {
-        document.getElementById(currentScene).classList.remove("active");
-        document.getElementById(targetId).classList.add("active");
-        currentScene = targetId;
+      function goToNextScene() {
+        // 取得目前場景在使用者選取活動中的位置
+        const currentIndex = selectedActivities.findIndex(
+          (activity) => activityScenes[activity] === currentScene
+        );
+
+        // 是最後一個場景 → 導向結果頁
+        if (currentIndex === selectedActivities.length - 1) {
+          window.location.href = "analysis.html";
+          return;
+        }
+
+        // 還有下一頁 → 取得下一個活動的 sceneId，跳轉
+        const nextActivity = selectedActivities[currentIndex + 1];
+        const nextSceneId = activityScenes[nextActivity];
+        if (nextSceneId) {
+          goToScene(nextSceneId);
+        }
       }
 
-      function goToCalcScene() {
-        document.getElementById(currentScene).classList.remove("active");
-        document.getElementById("scene-calc").classList.add("active");
-        currentScene = "scene-calc";
+      function goToPrevScene() {
+        const currentIndex = selectedActivities.findIndex(
+          (activity) => activityScenes[activity] === currentScene
+        );
+
+        // 是第一個選擇的活動 → 回到 scene-entertain-1
+        if (currentIndex === 0) {
+          goToScene("scene-entertain-1");
+          return;
+        }
+
+        // 還有上一頁 → 跳到上一個活動頁面
+        const prevActivity = selectedActivities[currentIndex - 1];
+        const prevSceneId = activityScenes[prevActivity];
+        if (prevSceneId) {
+          goToScene(prevSceneId);
+        }
       }
 
-      function prevScene() {
-        document.getElementById(currentScene).classList.remove("active");
-        document.getElementById("scene-entertain").classList.add("active");
-        currentScene = "scene-entertain";
-      }
+      //增減按鈕
 
       const containers = document.querySelectorAll(".custom-number-input");
 
@@ -769,6 +704,8 @@
         });
       });
 
+      // 資訊按鈕 
+
       const infoBtn = document.getElementById("info-btn");
       const modal = document.getElementById("modal");
       const closeX = document.getElementById("modal-close");
@@ -784,6 +721,8 @@
       closeX.addEventListener("click", () => {
         modal.style.display = "none";
       });
+
+      // 單位切換
 
       document.querySelectorAll(".entertain-card").forEach((card) => {
         const toggle = card.querySelector(
@@ -812,12 +751,17 @@
         toggle.addEventListener("change", updateTitle);
       });
 
+      // 星際聊天室
+
       const messages = [
         {
           type: "time",
           text: "上午 9:30",
         },
-        { text: "登入中...歡迎進入AI智慧雲端生活！你現在的生活是24小時上網、AI推薦吃穿用、手機一天充三次電的超人類時代！", from: "cat" },
+        {
+          text: "登入中...歡迎進入AI智慧雲端生活！你現在的生活是24小時上網、AI推薦吃穿用、手機一天充三次電的超人類時代！",
+          from: "cat",
+        },
         {
           text: "這裡是...現在的我們對吧？",
           from: "user",
@@ -826,7 +770,10 @@
           text: "沒錯，這正是我們的「碳生活」主場。從你打開一支reels、追一場Netflix、用AI生成一張貓貓圖，背後都是巨大的雲端伺服器在運轉。",
           from: "cat",
         },
-        { text: "資料中心需要全年無休和冷卻、高頻計算、高能耗伺服器，而智慧生活帶來的便利，也帶來前所未有的能源需求。說白了，現在我們不用出門也能...碳排爆表！", from: "cat" },
+        {
+          text: "資料中心需要全年無休和冷卻、高頻計算、高能耗伺服器，而智慧生活帶來的便利，也帶來前所未有的能源需求。說白了，現在我們不用出門也能...碳排爆表！",
+          from: "cat",
+        },
         {
           text: "確實！我們根本無法拒絕便利！但，這不就是人類推動科技進步的目的嗎...",
           from: "user",
@@ -842,13 +789,11 @@
           timeEl.textContent = message.text;
           return timeEl;
         }
-        
+
         const wrapper = document.createElement("div");
         wrapper.classList.add(
           "story-message",
-          message.from === "user"
-            ? "story-user-message"
-            : "story-cat-message"
+          message.from === "user" ? "story-user-message" : "story-cat-message"
         );
 
         const avatar = document.createElement("div");
@@ -864,29 +809,236 @@
         return wrapper;
       }
 
-    async function playIntroMessages() {
-      for (let i = 0; i < messages.length; i++) {
-        const el = createMessageElement(messages[i]);
-        chatContainer.appendChild(el);
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-        await new Promise((resolve) => setTimeout(resolve, 1700));
+      async function playIntroMessages() {
+        for (let i = 0; i < messages.length; i++) {
+          const el = createMessageElement(messages[i]);
+          chatContainer.appendChild(el);
+          chatContainer.scrollTop = chatContainer.scrollHeight;
+          await new Promise((resolve) => setTimeout(resolve, 1700));
+        }
       }
+      const sendButton = document.getElementById("send-button");
+
+      function StartQuestionnaire() {
+        document.querySelector(".chapter-bar").style.display = "flex";
+        document.querySelector(".story-container").style.display = "none";
+        document.querySelector("body").style.display = "flex";
+        document.getElementById("scene-entertain-1").classList.add("active");
+        currentScene = "scene-entertain-1";
+      }
+
+      sendButton.addEventListener("click", () => {
+        StartQuestionnaire();
+      });
+
+      window.addEventListener("DOMContentLoaded", playIntroMessages);
+
+      // 選擇娛樂活動
+
+      function handleFirstSceneNext() {
+        // 固定順序
+        const fullOrder = [
+          "KTV",
+          "電影",
+          "健身房",
+          "旅遊住宿",
+          "影音串流",
+          "宗教信仰",
+        ];
+
+        // 過濾選取的項目並依照固定順序排序
+        const sortedActivities = fullOrder.filter((activity) =>
+          selectedActivities.includes(activity)
+        );
+
+        // 更新陣列
+        selectedActivities.length = 0;
+        selectedActivities.push(...sortedActivities);
+
+        if (selectedActivities.length === 0) {
+          alert("請至少選擇一個娛樂活動！");
+          return;
+        }
+
+        const firstScene = activityScenes[selectedActivities[0]];
+        goToScene(firstScene);
+      }
+
+      const selectedActivities = []; // 儲存選取的項目，例如 ['KTV', '電影']
+      const activityScenes = {
+        KTV: "scene-entertain-2-1",
+        電影: "scene-entertain-2-2",
+        健身房: "scene-entertain-2-3",
+        旅遊住宿: "scene-entertain-2-4",
+        影音串流: "scene-entertain-2-5",
+        宗教信仰: "scene-entertain-2-6",
+      };
+
+      function toggleActivity(card, activity) {
+        const index = selectedActivities.indexOf(activity);
+
+        // 選中：加入陣列
+        if (index === -1) {
+          selectedActivities.push(activity);
+          card.classList.add("selected");
+        } else {
+          selectedActivities.splice(index, 1);
+          card.classList.remove("selected");
+        }
+
+        updatePageIndicators();
+      }
+
+      // bar跳轉頁面
+
+      function goToScene(targetId) {
+        document.getElementById(currentScene).classList.remove("active");
+        document.getElementById(targetId).classList.add("active");
+        currentScene = targetId;
+        updatePageIndicators();
+        updateNavButtonsVisibility();
+      }
+
+      function updatePageIndicators() {
+        const scene = document.getElementById(currentScene);
+        const container = scene.querySelector(".dynamic-bar-container");
+
+        if (!container) return;
+        container.innerHTML = "";
+
+        if (selectedActivities.length <= 1) {
+          container.style.display = "none";
+          return;
+        } else {
+          container.style.display = "flex";
+        }
+
+        selectedActivities.forEach((activity, idx) => {
+          const sceneId = activityScenes[activity];
+          if (!sceneId) return;
+
+          const bar = document.createElement("span");
+          bar.classList.add("bar");
+          if (sceneId === currentScene) bar.classList.add("active");
+
+          bar.onclick = () => {
+            goToScene(sceneId);
+            updateBarActive(idx);
+          };
+          container.appendChild(bar);
+        });
+      }
+
+    function updateNavButtonsVisibility() {
+      const sceneEl = document.getElementById(currentScene);
+
+      // 取得按鈕（用 querySelector 找當前 scene 裡的按鈕）
+      const prevBtn = sceneEl.querySelector(".prev-btn");
+      const nextBtn = sceneEl.querySelector(".next-btn");
+
+      // 全部先隱藏
+      document.querySelectorAll(".prev-btn, .next-btn").forEach(btn => {
+        btn.style.display = "none";
+      });
+
+      // 這個 scene 有的才顯示
+      if (prevBtn) prevBtn.style.display = "block";
+      if (nextBtn) nextBtn.style.display = "block";
     }
-    const sendButton = document.getElementById("send-button")
 
-    function StartQuestionnaire() {
-      document.querySelector(".chapter-bar").style.display = "flex"
-      document.querySelector(".story-container").style.display = "none";
-      document.querySelector("body").style.display = "flex"
-      document.getElementById("scene-entertain-1").classList.add("active");
-      currentScene = "scene-entertain-1";
-    }
 
-    sendButton.addEventListener("click", () => {
-      StartQuestionnaire()
-    })
+      function updateBarActive(activeIndex) {
+        const bars = document.querySelectorAll("#dynamic-bar-container .bar");
+        bars.forEach((bar, idx) => {
+          if (idx === activeIndex) {
+            bar.classList.add("active");
+          } else {
+            bar.classList.remove("active");
+          }
+        });
+      }
 
-    window.addEventListener("DOMContentLoaded", playIntroMessages);
+    function collectUserInputs() {
+    const emissionFactors = {
+      KTV: {
+        月: 46.584,
+        年: 3.882,
+      },
+      電影院: {
+        月: 23.394,
+        年: 1.95,
+      },
+      健身房: {
+        週: 9.351,
+        月: 37.405,
+      },
+      網路流量: {
+        "GB/月": 0.123,
+      },
+      影音串流: {
+        "小時/天": 1.682,
+        "小時/週": 0.24,
+      },
+    };
+
+    const results = {};
+
+    selectedActivities.forEach((activity) => {
+      const sceneId = activityScenes[activity];
+      const scene = document.getElementById(sceneId);
+      if (!scene) return;
+
+      let value = 0;
+      let unit = "";
+      let emission = 0;
+
+      if (activity === "網路流量") {
+        const input = scene.querySelector(".streaming-toggle-card-3 input[type='number']");
+        value = parseFloat(input.value) || 0;
+        unit = "GB/月";
+        emission = value * emissionFactors["網路流量"][unit];
+      }
+
+      else if (activity === "影音串流") {
+        const input = scene.querySelector(".streaming-toggle-card-2 input[type='number']");
+        value = parseFloat(input.value) || 0;
+
+        const isWeekly = scene.querySelector(".streaming-toggle-card-1 input[type='checkbox']").checked;
+        unit = isWeekly ? "小時/週" : "小時/天";
+
+        emission = value * emissionFactors["影音串流"][unit];
+      }
+
+      else if (activity === "健身房") {
+        const input = scene.querySelector(".toggle-card-2 input[type='number']");
+        value = parseFloat(input.value) || 0;
+
+        const isMonthly = scene.querySelector(".toggle-card-1 input[type='checkbox']").checked;
+        unit = isMonthly ? "月" : "週";
+
+        emission = value * emissionFactors["健身房"][unit];
+      }
+
+      else {
+        const input = scene.querySelector(".toggle-card-2 input[type='number']");
+        value = parseFloat(input.value) || 0;
+
+        const isYearly = scene.querySelector(".toggle-card-1 input[type='checkbox']").checked;
+        unit = isYearly ? "年" : "月";
+
+        emission = value * emissionFactors[activity][unit];
+      }
+
+      results[activity] = {
+        value,
+        unit,
+        emission: parseFloat(emission.toFixed(3)),
+      };
+    });
+
+    return results;
+  }
+
     </script>
   </body>
 </html>
