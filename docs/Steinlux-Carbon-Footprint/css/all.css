@@ -72,6 +72,10 @@ body {
 
 .scene.active {
   display: flex;
+  z-index: 1;
+}
+
+.scene.active .entertain-grid, .scene.active .entertain-card {
   animation: slideIn 0.5s ease forwards;
   z-index: 1;
 }
