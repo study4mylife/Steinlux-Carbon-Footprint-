@@ -75,11 +75,7 @@
       <div class="story-container">
       <header class="story-header">
         <div class="story-header-title">
-          <h1>星際聊天室</h1>
-          <div class="story-bot-status">
-            <div class="story-status-indicator"></div>
-            <span>Online</span>
-          </div>
+          <h1>星際聊天室(2)</h1>
         </div>
       </header>
 
@@ -181,20 +177,29 @@
         {
           type: "time",
           text: "上午 9:30",
+          time: 1000,
         },
-        { text: "歡迎光臨「週週新品」的快時尚星球！這件衣服昨天還在孟加拉，今天已經在你購物車裡了喔！", from: "cat" },
+        { text: "歡迎光臨「週週新品」的快時尚星球！這件衣服昨天還在孟加拉，今天已經在你購物車裡了喔！", 
+          from: "cat",
+          time: 2000, 
+        },
         {
           text: "我才剛買的這件T恤，是從地球另一端來的？！",
           from: "user",
+          time: 1500,
         },
         {
           text: "是啊，從棉花田的播種、紡線、染整、縫製、包裝、船運、上架、退貨、丟掉...一件衣服的生命歷程，簡直像在參加全球碳馬拉松。",
           from: "cat",
+          time: 2500,
         },
-        { text: "但大家都說便宜又多才好啊...買一送一、第二件五折，多划算！", from: "user" },
+        { text: "但大家都說便宜又多才好啊...買一送一、第二件五折，多划算！", 
+          from: "user",
+          time: 1800, },
         {
           text: "快時尚催生了「買→穿→丟」的短命循環，每件衣服平均壽命不到10次穿搭，剩下的...就被丟進垃圾山的碳記憶裡了。",
           from: "cat",
+          time: 2500,
         },
         { text: "我開始有點懷念小時候那件穿五年的體育服了...", from: "user" },
       ];
@@ -233,9 +238,10 @@
     async function playIntroMessages() {
       for (let i = 0; i < messages.length; i++) {
         const el = createMessageElement(messages[i]);
+        const messageTime = messages[i].time;
         chatContainer.appendChild(el);
         chatContainer.scrollTop = chatContainer.scrollHeight;
-        await new Promise((resolve) => setTimeout(resolve, 1700));
+        await new Promise((resolve) => setTimeout(resolve, messageTime));
       }
     }
 
