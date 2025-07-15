@@ -213,11 +213,7 @@
       <div class="story-container">
         <header class="story-header">
           <div class="story-header-title">
-            <h1>星際聊天室</h1>
-            <div class="story-bot-status">
-              <div class="story-status-indicator"></div>
-              <span>Online</span>
-            </div>
+            <h1>星際聊天室(2)</h1>
           </div>
         </header>
 
@@ -316,35 +312,37 @@
 
     <!-- Scene 1: 選娛樂活動 -->
     <section id="scene-entertain-1" class="scene scene-1">
-      <h1>日常生活中有哪些娛樂活動？</h1>
-      <div class="entertain-grid">
-        <div class="entertain-card" onclick="toggleActivity(this,'KTV')">
-          <img src="images/公車.png" alt="KTV" /><span class="label">KTV</span>
-        </div>
-        <div class="entertain-card" onclick="toggleActivity(this,'電影')">
-          <img src="images/公車.png" alt="電影" /><span class="label"
-            >電影</span
-          >
-        </div>
-        <div class="entertain-card" onclick="toggleActivity(this,'健身房')">
-          <img src="images/公車.png" alt="健身房" /><span class="label"
-            >健身房</span
-          >
-        </div>
-        <div class="entertain-card" onclick="toggleActivity(this,'旅遊住宿')">
-          <img src="images/公車.png" alt="旅遊住宿" /><span class="label"
-            >旅遊住宿</span
-          >
-        </div>
-        <div class="entertain-card" onclick="toggleActivity(this,'影音串流')">
-          <img src="images/公車.png" alt="影音串流" /><span class="label"
-            >影音串流</span
-          >
-        </div>
-        <div class="entertain-card" onclick="toggleActivity(this,'宗教信仰')">
-          <img src="images/公車.png" alt="宗教信仰" /><span class="label"
-            >宗教信仰</span
-          >
+      <div class="slideContainer">
+        <h1>日常生活中有哪些娛樂活動？</h1>
+        <div class="entertain-grid">
+          <div class="entertain-card" onclick="toggleActivity(this,'KTV')">
+            <img src="images/公車.png" alt="KTV" /><span class="label">KTV</span>
+          </div>
+          <div class="entertain-card" onclick="toggleActivity(this,'電影')">
+            <img src="images/公車.png" alt="電影" /><span class="label"
+              >電影</span
+            >
+          </div>
+          <div class="entertain-card" onclick="toggleActivity(this,'健身房')">
+            <img src="images/公車.png" alt="健身房" /><span class="label"
+              >健身房</span
+            >
+          </div>
+          <div class="entertain-card" onclick="toggleActivity(this,'旅遊住宿')">
+            <img src="images/公車.png" alt="旅遊住宿" /><span class="label"
+              >旅遊住宿</span
+            >
+          </div>
+          <div class="entertain-card" onclick="toggleActivity(this,'影音串流')">
+            <img src="images/公車.png" alt="影音串流" /><span class="label"
+              >影音串流</span
+            >
+          </div>
+          <div class="entertain-card" onclick="toggleActivity(this,'宗教信仰')">
+            <img src="images/公車.png" alt="宗教信仰" /><span class="label"
+              >宗教信仰</span
+            >
+          </div>
         </div>
       </div>
       <button
@@ -361,37 +359,39 @@
 
     <!-- Scene 1：KTV -->
     <section id="scene-entertain-2-1" class="scene scene-2 KTV">
-      <h1>日常生活中去KTV頻率？</h1>
-      <div class="page-indicator">
-        <div class="bar-container dynamic-bar-container"></div>
-      </div>
-      <div class="entertain-card">
-        <div class="toggle-card toggle-card-1">
-          <span class="question-title">時間單位</span>
-          <div class="toggle-row">
-            <span class="nowrap-text">月</span>
-            <label class="toggle-switch">
-              <input type="checkbox" />
-              <span class="slider"></span>
-            </label>
-            <span class="nowrap-text">年</span>
-          </div>
+      <div class="slideContainer">
+        <h1>日常生活中去KTV頻率？</h1>
+        <div class="page-indicator">
+          <div class="bar-container dynamic-bar-container"></div>
         </div>
-        <div class="toggle-card toggle-card-2">
-          <span class="question-title" data-template="每{unit}去KTV"
-            >每月去KTV</span
-          >
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-            <span class="question-unit question-title" data-template="次/{unit}"
-              >次/月</span
+        <div class="entertain-card">
+          <div class="toggle-card toggle-card-1">
+            <span class="question-title">時間單位</span>
+            <div class="toggle-row">
+              <span class="nowrap-text">月</span>
+              <label class="toggle-switch">
+                <input type="checkbox" />
+                <span class="slider"></span>
+              </label>
+              <span class="nowrap-text">年</span>
+            </div>
+          </div>
+          <div class="toggle-card toggle-card-2">
+            <span class="question-title" data-template="每{unit}去KTV"
+              >每月去KTV</span
             >
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+              <span class="question-unit question-title" data-template="次/{unit}"
+                >次/月</span
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -401,37 +401,39 @@
 
     <!-- Scene 2：電影院 -->
     <section id="scene-entertain-2-2" class="scene scene-2 Cinema">
-      <h1>日常生活中到電影院觀影頻率？</h1>
-      <div class="page-indicator">
-        <div class="bar-container dynamic-bar-container"></div>
-      </div>
-      <div class="entertain-card">
-        <div class="toggle-card toggle-card-1">
-          <span class="question-title">時間單位</span>
-          <div class="toggle-row">
-            <span class="nowrap-text">月</span>
-            <label class="toggle-switch">
-              <input type="checkbox" />
-              <span class="slider"></span>
-            </label>
-            <span class="nowrap-text">年</span>
-          </div>
+      <div class="slideContainer">
+        <h1>日常生活中到電影院觀影頻率？</h1>
+        <div class="page-indicator">
+          <div class="bar-container dynamic-bar-container"></div>
         </div>
-        <div class="toggle-card toggle-card-2">
-          <span class="question-title" data-template="每{unit}去電影院"
-            >每月去電影院</span
-          >
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-            <span class="question-unit question-title" data-template="次/{unit}"
-              >次/月</span
+        <div class="entertain-card">
+          <div class="toggle-card toggle-card-1">
+            <span class="question-title">時間單位</span>
+            <div class="toggle-row">
+              <span class="nowrap-text">月</span>
+              <label class="toggle-switch">
+                <input type="checkbox" />
+                <span class="slider"></span>
+              </label>
+              <span class="nowrap-text">年</span>
+            </div>
+          </div>
+          <div class="toggle-card toggle-card-2">
+            <span class="question-title" data-template="每{unit}去電影院"
+              >每月去電影院</span
             >
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+              <span class="question-unit question-title" data-template="次/{unit}"
+                >次/月</span
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -441,39 +443,41 @@
 
     <!-- Scene 3：健身房 -->
     <section id="scene-entertain-2-3" class="scene scene-2 gym">
-      <h1>日常生活中到健身房健身頻率？</h1>
-      <div class="page-indicator">
-        <div class="bar-container dynamic-bar-container"></div>
-      </div>
-      <div class="entertain-card">
-        <div class="toggle-card toggle-card-1">
-          <span class="question-title">時間單位</span>
-          <div class="toggle-row">
-            <span class="nowrap-text">週</span>
-            <label class="toggle-switch">
-              <input type="checkbox" />
-              <span class="slider"></span>
-            </label>
-            <span class="nowrap-text">月</span>
-          </div>
+      <div class="slideContainer">
+        <h1>日常生活中到健身房健身頻率？</h1>
+        <div class="page-indicator">
+          <div class="bar-container dynamic-bar-container"></div>
         </div>
-        <div class="toggle-card toggle-card-2">
-          <span class="question-title" data-template="每{unit}去健身房"
-            >每週去健身房</span
-          >
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-            <span class="question-unit question-title" data-template="次/{unit}"
-              >次/週</span
+          <div class="entertain-card">
+          <div class="toggle-card toggle-card-1">
+            <span class="question-title">時間單位</span>
+            <div class="toggle-row">
+              <span class="nowrap-text">週</span>
+              <label class="toggle-switch">
+                <input type="checkbox" />
+                <span class="slider"></span>
+              </label>
+              <span class="nowrap-text">月</span>
+            </div>
+          </div>
+          <div class="toggle-card toggle-card-2">
+            <span class="question-title" data-template="每{unit}去健身房"
+              >每週去健身房</span
             >
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+              <span class="question-unit question-title" data-template="次/{unit}"
+                >次/週</span
+              >
+            </div>
           </div>
-        </div>
+          </div>
       </div>
       <button class="nav-btn prev-btn" onclick="goToPrevScene()">‹</button>
       <button class="nav-btn next-btn" onclick="goToNextScene()">›</button>
@@ -481,37 +485,39 @@
 
     <!-- Scene 4：飯店 -->
     <section id="scene-entertain-2-4" class="scene scene-2 hotel">
-      <h1>日常生活中住飯店頻率？</h1>
-      <div class="page-indicator">
-        <div class="bar-container dynamic-bar-container"></div>
-      </div>
-      <div class="entertain-card">
-        <div class="toggle-card toggle-card-1">
-          <span class="question-title">時間單位</span>
-          <div class="toggle-row">
-            <span class="nowrap-text">月</span>
-            <label class="toggle-switch">
-              <input type="checkbox" />
-              <span class="slider"></span>
-            </label>
-            <span class="nowrap-text">年</span>
-          </div>
+      <div class="slideContainer">
+        <h1>日常生活中住飯店頻率？</h1>
+        <div class="page-indicator">
+          <div class="bar-container dynamic-bar-container"></div>
         </div>
-        <div class="toggle-card toggle-card-2">
-          <span class="question-title" data-template="每{unit}去住飯店"
-            >每月去住飯店</span
-          >
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-            <span class="question-unit question-title" data-template="次/{unit}"
-              >次/月</span
+        <div class="entertain-card">
+          <div class="toggle-card toggle-card-1">
+            <span class="question-title">時間單位</span>
+            <div class="toggle-row">
+              <span class="nowrap-text">月</span>
+              <label class="toggle-switch">
+                <input type="checkbox" />
+                <span class="slider"></span>
+              </label>
+              <span class="nowrap-text">年</span>
+            </div>
+          </div>
+          <div class="toggle-card toggle-card-2">
+            <span class="question-title" data-template="每{unit}去住飯店"
+              >每月去住飯店</span
             >
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+              <span class="question-unit question-title" data-template="次/{unit}"
+                >次/月</span
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -521,41 +527,14 @@
 
     <!-- Scene 5：網路流量 -->
     <section id="scene-entertain-2-5" class="scene scene-2 streaming">
-      <h1>日常生活中使用多少串流和網路流量？</h1>
-      <div class="page-indicator">
-        <div class="bar-container dynamic-bar-container"></div>
-      </div>
-      <div class="entertain-card">
-        <div class="toggle-card streaming-toggle-card-3">
-          <span class="question-title">每月使用網路流量(GB)</span>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-          </div>
+      <div class="slideContainer">
+        <h1>日常生活中使用多少串流和網路流量？</h1>
+        <div class="page-indicator">
+          <div class="bar-container dynamic-bar-container"></div>
         </div>
-
-        <div class="toggle-container streaming-toggle-container">
-          <div class="toggle-card streaming-toggle-card-1">
-            <span class="question-title">時間單位</span>
-            <div class="toggle-row">
-              <span class="nowrap-text">天</span>
-              <label class="toggle-switch">
-                <input type="checkbox" />
-                <span class="slider"></span>
-              </label>
-              <span class="nowrap-text">周</span>
-            </div>
-          </div>
-
-          <div class="toggle-card streaming-toggle-card-2">
-            <span class="question-title" data-template="每{unit}使用串流影音">
-              每天使用串流影音
-            </span>
+        <div class="entertain-card">
+          <div class="toggle-card streaming-toggle-card-3">
+            <span class="question-title">每月使用網路流量(GB)</span>
             <div class="custom-number-input">
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
@@ -564,12 +543,41 @@
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
-              <span
-                class="question-unit question-title"
-                data-template="小時/{unit}"
-              >
-                小時/天
+            </div>
+          </div>
+
+          <div class="toggle-container streaming-toggle-container">
+            <div class="toggle-card streaming-toggle-card-1">
+              <span class="question-title">時間單位</span>
+              <div class="toggle-row">
+                <span class="nowrap-text">天</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" />
+                  <span class="slider"></span>
+                </label>
+                <span class="nowrap-text">周</span>
+              </div>
+            </div>
+
+            <div class="toggle-card streaming-toggle-card-2">
+              <span class="question-title" data-template="每{unit}使用串流影音">
+                每天使用串流影音
               </span>
+              <div class="custom-number-input">
+                <button type="button" class="btn-decrement">
+                  <span class="decrement">-</span>
+                </button>
+                <input type="number" value="0" min="0" />
+                <button type="button" class="btn-increment">
+                  <span class="increment">+</span>
+                </button>
+                <span
+                  class="question-unit question-title"
+                  data-template="小時/{unit}"
+                >
+                  小時/天
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -580,37 +588,39 @@
 
     <!-- Scene 6：宗教活動 -->
     <section id="scene-entertain-2-6" class="scene scene-2 religion">
-      <h1>日常生活中參與宗教活動頻率？</h1>
-      <div class="page-indicator">
-        <div class="bar-container dynamic-bar-container"></div>
-      </div>
-      <div class="entertain-card">
-        <div class="toggle-card toggle-card-1">
-          <span class="question-title">時間單位</span>
-          <div class="toggle-row">
-            <span class="nowrap-text">週</span>
-            <label class="toggle-switch">
-              <input type="checkbox" />
-              <span class="slider"></span>
-            </label>
-            <span class="nowrap-text">月</span>
-          </div>
+      <div class="slideContainer">
+        <h1>日常生活中參與宗教活動頻率？</h1>
+        <div class="page-indicator">
+          <div class="bar-container dynamic-bar-container"></div>
         </div>
-        <div class="toggle-card toggle-card-2">
-          <span class="question-title" data-template="每{unit}使用金紙"
-            >每周使用金紙？</span
-          >
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-            <span class="question-unit question-title" data-template="份/{unit}"
-              >次/週</span
+        <div class="entertain-card">
+          <div class="toggle-card toggle-card-1">
+            <span class="question-title">時間單位</span>
+            <div class="toggle-row">
+              <span class="nowrap-text">週</span>
+              <label class="toggle-switch">
+                <input type="checkbox" />
+                <span class="slider"></span>
+              </label>
+              <span class="nowrap-text">月</span>
+            </div>
+          </div>
+          <div class="toggle-card toggle-card-2">
+            <span class="question-title" data-template="每{unit}使用金紙"
+              >每周使用金紙？</span
             >
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+              <span class="question-unit question-title" data-template="份/{unit}"
+                >次/週</span
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -757,22 +767,27 @@
         {
           type: "time",
           text: "上午 9:30",
+          time: 1000,
         },
         {
           text: "登入中...歡迎進入AI智慧雲端生活！你現在的生活是24小時上網、AI推薦吃穿用、手機一天充三次電的超人類時代！",
           from: "cat",
+          time: 2000,
         },
         {
           text: "這裡是...現在的我們對吧？",
           from: "user",
+          time: 1000,
         },
         {
           text: "沒錯，這正是我們的「碳生活」主場。從你打開一支reels、追一場Netflix、用AI生成一張貓貓圖，背後都是巨大的雲端伺服器在運轉。",
           from: "cat",
+          time: 2500,
         },
         {
           text: "資料中心需要全年無休和冷卻、高頻計算、高能耗伺服器，而智慧生活帶來的便利，也帶來前所未有的能源需求。說白了，現在我們不用出門也能...碳排爆表！",
           from: "cat",
+          time: 3000,
         },
         {
           text: "確實！我們根本無法拒絕便利！但，這不就是人類推動科技進步的目的嗎...",
@@ -809,14 +824,16 @@
         return wrapper;
       }
 
-      async function playIntroMessages() {
-        for (let i = 0; i < messages.length; i++) {
-          const el = createMessageElement(messages[i]);
-          chatContainer.appendChild(el);
-          chatContainer.scrollTop = chatContainer.scrollHeight;
-          await new Promise((resolve) => setTimeout(resolve, 1700));
-        }
+    async function playIntroMessages() {
+      for (let i = 0; i < messages.length; i++) {
+        const el = createMessageElement(messages[i]);
+        const messageTime = messages[i].time;
+        chatContainer.appendChild(el);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+        await new Promise((resolve) => setTimeout(resolve, messageTime));
       }
+    }
+
       const sendButton = document.getElementById("send-button");
 
       function StartQuestionnaire() {
@@ -899,35 +916,41 @@
         updateNavButtonsVisibility();
       }
 
-      function updatePageIndicators() {
-        const scene = document.getElementById(currentScene);
-        const container = scene.querySelector(".dynamic-bar-container");
+    function updatePageIndicators() {
+      const scene = document.getElementById(currentScene);
+      const container = scene.querySelector(".dynamic-bar-container");
 
-        if (!container) return;
-        container.innerHTML = "";
+      if (!container) return;
+      container.innerHTML = "";
 
-        if (selectedActivities.length <= 1) {
-          container.style.display = "none";
-          return;
-        } else {
-          container.style.display = "flex";
-        }
-
-        selectedActivities.forEach((activity, idx) => {
-          const sceneId = activityScenes[activity];
-          if (!sceneId) return;
-
-          const bar = document.createElement("span");
-          bar.classList.add("bar");
-          if (sceneId === currentScene) bar.classList.add("active");
-
-          bar.onclick = () => {
-            goToScene(sceneId);
-            updateBarActive(idx);
-          };
-          container.appendChild(bar);
-        });
+      if (selectedActivities.length <= 1) {
+        container.style.display = "none";
+        return;
+      } else {
+        container.style.display = "flex";
       }
+
+      selectedActivities.forEach((activity, idx) => {
+        const sceneId = activityScenes[activity];
+        if (!sceneId) return;
+
+        const hitArea = document.createElement("div");
+        hitArea.classList.add("bar-hit-area");
+
+        const bar = document.createElement("span");
+        bar.classList.add("bar");
+        if (sceneId === currentScene) bar.classList.add("active");
+
+        hitArea.appendChild(bar);
+        hitArea.onclick = () => {
+          goToScene(sceneId);
+          updateBarActive(idx);
+        };
+
+        container.appendChild(hitArea);
+      });
+    }
+
 
     function updateNavButtonsVisibility() {
       const sceneEl = document.getElementById(currentScene);
@@ -947,16 +970,21 @@
     }
 
 
-      function updateBarActive(activeIndex) {
-        const bars = document.querySelectorAll("#dynamic-bar-container .bar");
-        bars.forEach((bar, idx) => {
-          if (idx === activeIndex) {
-            bar.classList.add("active");
-          } else {
-            bar.classList.remove("active");
-          }
-        });
+  function updateBarActive(activeIndex) {
+    const hitAreas = document.querySelectorAll("#dynamic-bar-container .bar-hit-area");
+
+    hitAreas.forEach((hitArea, idx) => {
+      const bar = hitArea.querySelector(".bar");
+      if (!bar) return;
+
+      if (idx === activeIndex) {
+        bar.classList.add("active");
+      } else {
+        bar.classList.remove("active");
       }
+    });
+  }
+
 
     function collectUserInputs() {
     const emissionFactors = {

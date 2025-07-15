@@ -387,7 +387,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        transition: cubic-bezier(0.23, 1, 0.320, 1) 0.5s;
+        transition: cubic-bezier(0.23, 1, 0.320, 1) 0.8s;
       }
       .template-row {
         display: flex;
@@ -451,6 +451,7 @@
       .mrt-trip-list-wrapper {
         display: flex;
         flex-direction: column;
+        align-items: center;
         height: 200px; /* 或你要的固定高度 */
       }
       .mrt-trip-list-wrapper .trip-list {
@@ -1054,7 +1055,7 @@ let airportCoords   = {},
 
 document.addEventListener("DOMContentLoaded", () => {
   // 1. 載入機場座標 JSON
-  fetch("/data/AirportDistanceMap.json")
+  fetch("data/AirportDistanceMap.json")
     .then(r => r.json())
     .then(data => {
       const dl = document.getElementById("airportStationList");
@@ -1068,7 +1069,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch(console.error);
 
   // 2. 載入捷運距離表
-  fetch("/data/mrtDistanceMap.json")
+  fetch("data/mrtDistanceMap.json")
     .then(r => r.json())
     .then(data => {
       mrtDistanceMap = data;
@@ -1082,7 +1083,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch(console.error);
 
   // 3. 載入火車距離表
-  fetch("/data/trDistanceMap.json")
+  fetch("data/trDistanceMap.json")
     .then(r => r.json())
     .then(data => {
       trDistanceMap = data;
@@ -1096,7 +1097,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch(console.error);
 
   // 4. 載入高鐵距離表
-  fetch("/data/hsrDistanceMap.json")
+  fetch("data/hsrDistanceMap.json")
     .then(r => r.json())
     .then(data => {
       hsrDistanceMap = data;
@@ -1197,7 +1198,7 @@ function addMRTTrip() {
   if (dist===undefined||c<=0) return alert("請選完整正確的 起點／訖點 並輸入趟數");
   const total=(dist*c).toFixed(2);
   const item=document.createElement("div"); item.className="trip-item";
-  item.textContent=`${s}→${e}：${dist} km ×${c} = ${total} km`;
+  item.textContent=`${s}→${e}`;
   document.querySelector("#mrtTripDisplay .trip-list").appendChild(item);
 }
 function removeMRTTrip() {
@@ -1217,7 +1218,7 @@ function addTrainTrip() {
   const dist = Math.abs(d2-d1).toFixed(2);
   const total= (dist*c).toFixed(2);
   const item=document.createElement("div"); item.className="trip-item";
-  item.textContent=`${s}→${e}：${dist} km ×${c} = ${total} km`;
+  item.textContent=`${s}→${e}`;
   document.getElementById("trainTripList").appendChild(item);
 }
 function removeTrainTrip() {

@@ -19,20 +19,20 @@
         justify-content: center;
         flex-wrap: wrap;
         width: 100%;
-        gap: 32px;
+        gap: 2rem;
       }
 
       .toggle-row {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 10px;
+        gap: 0.65rem;
       }
 
       .toggle-card .question-title {
         font-family: "GenSenRounded2TW-R", sans-serif;
         color: #9c7a5c;
-        margin-bottom: 16px;
+        margin-bottom: 1rem;
         line-height: 1.2;
         white-space: nowrap;
       }
@@ -43,32 +43,24 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 8px;
-        margin-bottom: 16px;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
       }
 
       /* 切換單位按鈕 */
       .toggle-card {
-        flex: auto;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        border-radius: 16px;
-        padding: 24px 32px;
-        gap: 16px;
+        max-width: 70%;
+        border-radius: 1rem;
+        padding: 1.5rem 3rem;
+        gap: 1rem;
         background: rgba(255, 255, 255, 0.4);
         box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
         backdrop-filter: blur(5px);
         -webkit-backdrop-filter: blur(5px);
-      }
-
-      .home-card .toggle-card-1 {
-        width: 25%;
-      }
-
-      .home-card .toggle-card-2 {
-        width: 50%;
       }
 
       span.label {
@@ -76,7 +68,7 @@
         color: #9c7a5c;
         white-space: nowrap;
         text-align: left;
-        width: 45px;
+        width: 48px;
       }
 
       .nowrap-text {
@@ -99,7 +91,7 @@
       }
 
       .circle-container {
-        margin: 0 32px;
+        margin: 0 2rem;
       }
 
       .circle-container .range-thumb {
@@ -113,12 +105,6 @@
       }
 
       @media (max-width: 1024px) {
-        .home-card,
-        .input-container {
-          flex-direction: column;
-          align-items: center;
-        }
-
         .home-card .toggle-card {
           width: 70%;
           gap: 0;
@@ -132,6 +118,14 @@
           text-align: center;
         }
       }
+
+      @media (max-width: 768px) {
+        .home-card,
+        .input-container {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
     </style>
   </head>
   <body>
@@ -140,11 +134,7 @@
       <div class="story-container">
       <header class="story-header">
         <div class="story-header-title">
-          <h1>星際聊天室</h1>
-          <div class="story-bot-status">
-            <div class="story-status-indicator"></div>
-            <span>Online</span>
-          </div>
+          <h1>星際聊天室(2)</h1>
         </div>
       </header>
 
@@ -201,12 +191,16 @@
       <h1>每個月大約使用多少能源資源？</h1>
       <div class="page-indicator">
         <div class="bar-container">
-          <span class="bar active" onclick="goToScene('scene-home-1')"></span>
-          <span class="bar" onclick="goToScene('scene-home-2')"></span>
+          <div class="bar-hit-area">
+            <span class="bar active" onclick="goToScene('scene-home-1')"></span>
+          </div>
+          <div class="bar-hit-area">
+            <span class="bar" onclick="goToScene('scene-home-2')"></span>
+          </div>
         </div>
       </div>
       <div class="home-card">
-        <div class="toggle-card toggle-card-1">
+        <div class="toggle-card">
           <span class="question-title">家中有幾位成員?</span>
           <div class="custom-number-input">
             <button type="button" class="btn-decrement">
@@ -218,8 +212,7 @@
             </button>
           </div>
         </div>
-        <div class="toggle-card toggle-card-2">
-          <label><input type="checkbox" id="useAvg" /> 套用平均值</label>
+        <div class="toggle-card">
           <div class="input-container">
             <span class="label">電</span>
             <div class="custom-number-input">
@@ -389,7 +382,7 @@
         container.innerHTML = `
     <svg viewBox="0 0 200 200" width="200" height="200">
       <circle cx="100" cy="100" r="80" stroke="#E4ECF1" stroke-width="14" fill="none"/>
-      <path class="range-arc" stroke="#ccc" stroke-width="10" fill="none"/>
+      <path class="range-arc" stroke="#6c808f" stroke-width="10" fill="none"/>
       <circle class="range-thumb" r="12" fill="#B5C1C6" style="filter: drop-shadow(1pt 1pt 1pt #7F7F7F60);" cx="100" cy="20" />
     </svg>
     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px;">
@@ -527,17 +520,26 @@
         {
           type: "time",
           text: "上午 9:30",
+          time: 1000,
         },
-        { text: "接下來我們來到19世紀末。城市發展越來越快，電力開始普及，工廠林立、摩天大樓拔地而起。", from: "cat" },
+        { text: "接下來我們來到19世紀末。城市發展越來越快，電力開始普及，工廠林立、摩天大樓拔地而起。", 
+          from: "cat",
+          time: 1500 ,
+        },
         {
           text: "所以...碳排放也不只來自交通了？",
           from: "user",
+          time: 1500,
         },
         {
           text: "就是這樣。從「移動產生碳」，變成「住也在排碳」。無論是蓋房子、照明、冷暖氣，每一樣都需要消耗龐大的能源。",
           from: "cat",
+          time: 2000,
         },
-        { text: "鋼筋混凝土、電梯、電燈、電器——這些都讓生活更方便，也讓能源使用進一步上升。這是人類首次進入「大量電氣化生活」的時代。", from: "cat" },
+        { text: "鋼筋混凝土、電梯、電燈、電器——這些都讓生活更方便，也讓能源使用進一步上升。這是人類首次進入「大量電氣化生活」的時代。",
+          from: "cat", 
+          time: 5000 
+        }
       ];
 
       const chatContainer = document.getElementById("chatContainer");
@@ -574,9 +576,10 @@
     async function playIntroMessages() {
       for (let i = 0; i < messages.length; i++) {
         const el = createMessageElement(messages[i]);
+        const messageTime = messages[i].time;
         chatContainer.appendChild(el);
         chatContainer.scrollTop = chatContainer.scrollHeight;
-        await new Promise((resolve) => setTimeout(resolve, 1700));
+        await new Promise((resolve) => setTimeout(resolve, messageTime));
       }
     }
 
