@@ -213,7 +213,15 @@
       <div class="story-container">
         <header class="story-header">
           <div class="story-header-title">
-            <h1>星際聊天室(2)</h1>
+            <div class="story-header-title-lt">
+              <div class="story-header-profile-photo"></div>
+              <h1>Neo(2)</h1>
+              <i class="fa-solid fa-volume-low" style="color: #6c808f;"></i>
+            </div>
+            <div class="story-header-title-rt">
+              <i class="fa-solid fa-phone"></i>
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </div>
           </div>
         </header>
 
@@ -239,39 +247,27 @@
     </div>
 
     <div class="chapter-bar">
-      <div
-        class="chapter-button"
-        onclick="window.location.href='traffic-daily.html'"
-      >
+      <div class="chapter-button" onclick="window.location.href='traffic-daily.html'">
         <div class="chapter-icon"><i class="fa-solid fa-car-side"></i></div>
         <div class="chapter-label">日常</div>
       </div>
       <div class="chapter-button" onclick="window.location.href='home.html'">
-        <div class="chapter-icon">
-          <i class="fa-solid fa-house-chimney"></i>
-        </div>
+        <div class="chapter-icon"><i class="fa-solid fa-house-chimney"></i></div>
         <div class="chapter-label">居住</div>
       </div>
       <div class="chapter-button" onclick="window.location.href='traffic.html'">
-        <div class="chapter-icon">
-          <i class="fa-solid fa-plane-departure"></i>
-        </div>
+        <div class="chapter-icon"><i class="fa-solid fa-plane-departure"></i></div>
         <div class="chapter-label">旅遊</div>
       </div>
       <div class="chapter-button" onclick="window.location.href='food.html'">
-        <div class="chapter-icon">
-          <i class="fa-solid fa-drumstick-bite"></i>
-        </div>
+        <div class="chapter-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
         <div class="chapter-label">飲食</div>
       </div>
       <div class="chapter-button" onclick="window.location.href='fashion.html'">
         <div class="chapter-icon"><i class="fa-solid fa-shirt"></i></div>
         <div class="chapter-label">時尚</div>
       </div>
-      <div
-        class="chapter-button"
-        onclick="window.location.href='entertainment.html'"
-      >
+      <div class="chapter-button" onclick="window.location.href='entertainment.html'">
         <div class="chapter-icon"><i class="fa-solid fa-wifi"></i></div>
         <div class="chapter-label">娛樂</div>
       </div>
@@ -984,6 +980,15 @@
       }
     });
   }
+
+  // Tabbar 設定
+  const currentPage = window.location.pathname.split('/').pop();
+  document.querySelectorAll('.chapter-button').forEach(button => {
+    const href = button.getAttribute('onclick')?.match(/'(.*?)'/)?.[1];
+    if (href && currentPage === href) {
+      button.classList.add('active');
+    }
+  });
 
 
     function collectUserInputs() {

@@ -150,54 +150,80 @@ h1 {
 
 /* 切換開關 */
 .chapter-bar {
+  display: none;
   position: fixed;
-  top: 0px;
+  bottom: 5px;
   left: 50%;
   transform: translateX(-50%);
-  display: none;
+  width: fit-content;
+  height: fit-content;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 48px;
+  justify-content: space-around;
+  align-items: center;
   z-index: 999;
+}
+
+.chapter-bar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  box-shadow:
+  inset 4px 20px 16px#ffffff60,
+  inset 4px -20px 16px #00000040;
+  background: linear-gradient(45deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255) 50%,
+    rgba(255, 255, 255, 0.05) 100%);
+  mask:
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: -1;
+  border-radius: 96px;
 }
 
 .chapter-button {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  background-color: #E4ECF1;
+  justify-content: center;
   color: #6D808F;
-  border-radius: 0 0 24px 24px;
-  overflow: hidden;
-  width: 80px;
-  height: 40px;
-  margin: 0 -16px;
-  box-shadow: 3pt 3pt 4pt#6D808F60;
-  transition: all 0.3s ease;
+  text-decoration: none;
+  font-size: 12px;
+  margin: 0 4px;
+  padding: 8px 32px;
+  transition: background-color 0.3s ease;
+  border-radius: 96px;
+  text-wrap: nowrap;
+}
+
+.chapter-button.active {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+
+.chapter-button:hover {
+  background-color: rgba(255, 255, 255, 0.7);;
   cursor: pointer;
 }
 
-.chapter-button:hover {
-  width: 160px;
-  background-color: #B5C2C6;
-}
-
 .chapter-icon {
-  width: 40px;
-  height: 40px;
-  padding-left: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  font-size: 20px;
+  line-height: 1;
 }
 
 .chapter-label {
-  padding-left: 8px;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.chapter-button:hover .chapter-label {
-  color: #E4ECF1;
-  opacity: 1;
+  font-size: 10px;
+  margin-top: 2px;
 }
 
 @media (max-width: 900px) {
