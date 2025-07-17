@@ -75,7 +75,15 @@
       <div class="story-container">
       <header class="story-header">
         <div class="story-header-title">
-          <h1>Neo(2)</h1>
+          <div class="story-header-title-lt">
+            <div class="story-header-profile-photo"></div>
+            <h1>Neo(2)</h1>
+            <i class="fa-solid fa-volume-low" style="color: #6c808f;"></i>
+          </div>
+          <div class="story-header-title-rt">
+            <i class="fa-solid fa-phone"></i>
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+          </div>
         </div>
       </header>
 
@@ -127,7 +135,8 @@
     </div>
   </div>
 
-    <section id="scene-fashion" class="scene">
+    <section id="scene-fashion" class="scene scene-1">
+      <Chapter-Bar></Chapter-Bar>
       <h1>一年度購買的衣物金額？​</h1>
       <div class="fashion-row">
         <div class="fashion-box">
@@ -171,7 +180,7 @@
         ›
       </button>
     </section>
-
+  <script src="./js/all.js"></script>
   <script>
         const messages = [
         {
@@ -244,20 +253,6 @@
         await new Promise((resolve) => setTimeout(resolve, messageTime));
       }
     }
-
-    const sendButton = document.getElementById("send-button")
-
-    function StartQuestionnaire() {
-      document.querySelector(".chapter-bar").style.display = "flex"
-      document.querySelector(".story-container").style.display = "none";
-      document.querySelector("body").style.display = "flex"
-      document.getElementById("scene-fashion").classList.add("active");
-      currentScene = "scene-fashion";
-    }
-
-    sendButton.addEventListener("click", () => {
-      StartQuestionnaire()
-    })
 
       window.addEventListener("DOMContentLoaded", playIntroMessages);
   </script>

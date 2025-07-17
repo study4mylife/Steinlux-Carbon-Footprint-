@@ -14,7 +14,7 @@
     }
 
     .story-body {
-    display: flex;
+    display: n;
     justify-content: center;
     align-items: center;
     transition: all 0.3s ease;
@@ -93,11 +93,11 @@
     }
 
     .story-header-profile-photo {
-    width: 48px;
-    height: 48px;
+    width: 3rem;
+    height: 3rem;
     background-image: url('../images/貓.png');
-    background-size: 120px auto;
-    background-position: -28px -12px;
+    background-size: 7.5rem auto;
+    background-position: -1.75rem -0.75rem;
     background-repeat: no-repeat;
     border-radius: 50%;
     }
@@ -278,10 +278,14 @@
     transform: translateY(-1px);
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
     .story-body {
         max-width: 100%;
     }
+    }
+
+    @media (max-width: 768px) {
+
     .story-header-title h1 {
         font-size: 1rem;
     }
@@ -291,5 +295,8 @@
     .story-message-bubble {
         max-width: 85%;
         padding: 0.75rem 1.25rem;
+    }
+    .send-button {
+        padding: 0.5rem;
     }
     }
