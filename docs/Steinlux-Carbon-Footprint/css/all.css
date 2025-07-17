@@ -151,13 +151,10 @@ h1 {
 /* 切換開關 */
 .chapter-bar {
   display: none;
-  position: fixed;
-  bottom: 5px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
   width: fit-content;
   height: fit-content;
-  padding: 12px;
+  padding: 0.25rem;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 48px;
   justify-content: space-around;
@@ -187,23 +184,25 @@ h1 {
   mask-composite: exclude;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  z-index: -1;
+  z-index: 999;
   border-radius: 96px;
 }
 
 .chapter-button {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: #6D808F;
   text-decoration: none;
-  font-size: 12px;
-  margin: 0 4px;
-  padding: 8px 32px;
+  font-size: 0.75rem;
+  margin: 0.25rem;
+  padding: 0.5rem 1.75rem;
   transition: background-color 0.3s ease;
   border-radius: 96px;
   text-wrap: nowrap;
+  z-index: 999;
 }
 
 .chapter-button.active {
@@ -226,36 +225,10 @@ h1 {
   margin-top: 2px;
 }
 
-@media (max-width: 900px) {
-.chapter-bar {
-  flex-direction: column;
-  top: unset;
-  bottom: 0px;
-  left: 3%;
-}
-
-.chapter-button {
-  display: flex;
-  flex-direction: column;
-  width: 40px;
-  height: 80px;
-  margin: -16px 0;
-  border-radius:0px 24px 24px 0;
-}
-
-.chapter-button:hover {
-  width: auto;
-  height: 160px;
-  background-color: #B5C2C6;
-}
-
-.chapter-label {
-  writing-mode:vertical-lr;
-}
-
-.chapter-icon {
-  padding-left: 0;
-}
+@media (min-width: 901px) {
+  .chapter-bar.show {
+    display: flex;
+  }
 }
 
 /* 碳排圓環 */
@@ -390,22 +363,23 @@ h1 {
 
 @keyframes switchOn {
   0% {
-    transform: translateX(0px);;
+    transform: translateX(0px);
   }
   20% {
-    transform: translateX(10px);;
+    transform: translateX(10px);
   }
   40% {
     transform: translateX(20px);
   }
   60% {
-    transform: translateX(21px);;
+    transform: translateX(21px);
   }
   80% {
     transform: translateX(19px);
   }
   100% {
-    transform: translateX(20px);;
+    transform: translateX(20px);
+    box-shadow: #ffffff 0;
   }
 }
 
@@ -551,8 +525,8 @@ h1 {
 /* Info 按鈕 */
 .info-btn {
   position: absolute;
-  bottom: 16px;
-  right: 16px;
+  bottom: 48px;
+  right: 32px;
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -582,8 +556,8 @@ h1 {
   justify-content: center;
   align-items: center;
   position: fixed;
-  bottom: -8px;
-  right: -32px;
+  bottom: 24px;
+  right: -8px;
   transform: translate(-50%, -50%);
   width: fit-content;
   height: 16px;
@@ -593,7 +567,7 @@ h1 {
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0px 0px 3px #6c808f;
   border-radius: 16px;
-  padding: 16px;
+  padding: 0.75rem;
   z-index: 1000;
 }
 .modal-close {
