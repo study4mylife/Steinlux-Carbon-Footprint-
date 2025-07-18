@@ -16,7 +16,7 @@
         display: grid;
         grid-template-columns: repeat(3, minmax(120px, 1fr));
         grid-template-rows: repeat(2, auto);
-        gap: 20px;
+        gap: 1rem;
         width: 90%;
         max-width: 700px;
         margin: 0 auto;
@@ -29,9 +29,7 @@
         align-items: center;
         background: rgba(255, 255, 255, 0);
         border-radius: 16px;
-        padding: 1rem;
         cursor: pointer;
-        border: 2px solid transparent;
         transition: transform 0.2s, border-color 0.2s;
       }
 
@@ -198,6 +196,29 @@
     </style>
   </head>
   <body>
+  <svg style="display: none">
+    <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
+      <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="1" seed="5" result="turbulence" />
+
+      <feComponentTransfer in="turbulence" result="mapped">
+        <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5" />
+        <feFuncG type="gamma" amplitude="0" exponent="1" offset="0" />
+        <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5" />
+      </feComponentTransfer>
+
+      <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap" />
+
+      <feSpecularLighting in="softMap" surfaceScale="5" specularConstant="1" specularExponent="100"
+        lighting-color="white" result="specLight">
+        <fePointLight x="-200" y="-200" z="300" />
+      </feSpecularLighting>
+
+      <feComposite in="specLight" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litImage" />
+
+      <feDisplacementMap in="SourceGraphic" in2="softMap" scale="150" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </svg>
+
     <!-- 故事劇情 -->
     <div class="story-body">
       <div class="story-container">
@@ -267,12 +288,14 @@
         <span>Now 4度C</span>
       </div>
     </div>
-
     <!-- Scene 1: 選娛樂活動 -->
     <section id="scene-entertain-1" class="scene scene-1">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>日常生活中有哪些娛樂活動？</h1>
+        <div class="page-indicator">
+          <div class="bar-container dynamic-bar-container"></div>
+        </div>
         <div class="entertain-grid">
           <div class="entertain-card" onclick="toggleActivity(this,'KTV')">
             <img src="images/公車.png" alt="KTV" /><span class="label">KTV</span>
@@ -715,7 +738,7 @@
         {
           text: "這裡是...現在的我們對吧？",
           from: "user",
-          time: 1000,
+          time: 1500,
         },
         {
           text: "沒錯，這正是我們的「碳生活」主場。從你打開一支reels、追一場Netflix、用AI生成一張貓貓圖，背後都是巨大的雲端伺服器在運轉。",
@@ -818,7 +841,6 @@
       function toggleActivity(card, activity) {
         const index = selectedActivities.indexOf(activity);
 
-        // 選中：加入陣列
         if (index === -1) {
           selectedActivities.push(activity);
           card.classList.add("selected");
@@ -847,13 +869,26 @@
       if (!container) return;
       container.innerHTML = "";
 
-      if (selectedActivities.length <= 1) {
-        container.style.display = "none";
-        return;
-      } else {
-        container.style.display = "flex";
+      // 👉 1. 先加上「選擇頁」的 bar（永遠是第一個）
+      const selectHitArea = document.createElement("div");
+      selectHitArea.classList.add("bar-hit-area");
+
+      const selectBar = document.createElement("span");
+      selectBar.classList.add("bar");
+
+      // 如果現在頁面是 scene-entertain-1，設定 active 狀態
+      if (currentScene === "scene-entertain-1") {
+        selectBar.classList.add("active");
       }
 
+      selectHitArea.appendChild(selectBar);
+      selectHitArea.onclick = () => {
+        goToScene("scene-entertain-1");
+        updateBarActive(0); // 第一個 bar 是 index 0
+      };
+      container.appendChild(selectHitArea);
+
+      // 👉 2. 依據選到的 activity 加上對應 bar
       selectedActivities.forEach((activity, idx) => {
         const sceneId = activityScenes[activity];
         if (!sceneId) return;
@@ -863,12 +898,17 @@
 
         const bar = document.createElement("span");
         bar.classList.add("bar");
-        if (sceneId === currentScene) bar.classList.add("active");
+
+        // 注意：因為第一個 bar 是選擇頁，這邊是 idx+1
+        if (currentScene === sceneId) {
+          bar.classList.add("active");
+        }
 
         hitArea.appendChild(bar);
+
         hitArea.onclick = () => {
           goToScene(sceneId);
-          updateBarActive(idx);
+          updateBarActive(idx + 1);
         };
 
         container.appendChild(hitArea);
@@ -894,22 +934,26 @@
     }
 
 
-  function updateBarActive(activeIndex) {
-    const hitAreas = document.querySelectorAll("#dynamic-bar-container .bar-hit-area");
+    function updateBarActive(activeIndex) {
+      const scene = document.getElementById(currentScene);
+      const container = scene.querySelector(".dynamic-bar-container");
+      if (!container) return;
 
-    hitAreas.forEach((hitArea, idx) => {
-      const bar = hitArea.querySelector(".bar");
-      if (!bar) return;
+      const bars = container.querySelectorAll(".bar-hit-area .bar");
+      bars.forEach((bar, idx) => {
+        if (idx === activeIndex) {
+          bar.classList.add("active");
+        } else {
+          bar.classList.remove("active");
+        }
+      });
+    }
 
-      if (idx === activeIndex) {
-        bar.classList.add("active");
-      } else {
-        bar.classList.remove("active");
-      }
+    document.addEventListener("DOMContentLoaded", () => {
+      currentScene = "scene-entertain-1";
+      updatePageIndicators();   // ← 加上這個
+      updateNavButtonsVisibility(); // ← 如果需要按鈕也加上
     });
-  }
-
-
 
     function collectUserInputs() {
     const emissionFactors = {
