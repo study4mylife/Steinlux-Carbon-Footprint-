@@ -3,7 +3,7 @@
 const sendButton = document.getElementById("send-button");
 
 function StartQuestionnaire() {
-    document.querySelector(".story-container").style.display = "none";
+    document.querySelector(".story-body").style.display = "none";
     document.querySelector("body").style.display = "flex";
     document.querySelector(".scene-1").classList.add("active");
 }

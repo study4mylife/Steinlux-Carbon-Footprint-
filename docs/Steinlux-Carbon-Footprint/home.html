@@ -171,148 +171,152 @@
     <!-- 第一頁：問人數 -->
     <section id="scene-home-1" class="scene scene-1">
       <Chapter-Bar></Chapter-Bar>
-      <h1>每個月大約使用多少能源資源？</h1>
-      <div class="page-indicator">
-        <div class="bar-container">
-          <div class="bar-hit-area" onclick="goToScene('scene-home-1')">
-            <span class="bar active" onclick="goToScene('scene-home-1')" ></span>
-          </div>
-          <div class="bar-hit-area" onclick="goToScene('scene-home-2')">
-            <span class="bar" onclick="goToScene('scene-home-2')"></span>
+      <div class="slideContainer">
+        <h1>每個月大約使用多少能源資源？</h1>
+        <div class="page-indicator">
+          <div class="bar-container">
+            <div class="bar-hit-area" onclick="goToScene('scene-home-1')">
+              <span class="bar active" onclick="goToScene('scene-home-1')" ></span>
+            </div>
+            <div class="bar-hit-area" onclick="goToScene('scene-home-2')">
+              <span class="bar" onclick="goToScene('scene-home-2')"></span>
+            </div>
           </div>
         </div>
+        <div class="home-card">
+          <div class="toggle-card">
+            <span class="question-title">家中有幾位成員?</span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+          </div>
+          <div class="toggle-card">
+            <div class="input-container">
+              <span class="label">電</span>
+              <div class="custom-number-input">
+                <button type="button" class="btn-decrement">
+                  <span class="decrement">-</span>
+                </button>
+                <input type="number" value="0" min="0" />
+                <button type="button" class="btn-increment">
+                  <span class="increment">+</span>
+                </button>
+              </div>
+              <div class="toggle-row">
+                <span class="nowrap-text">度 Kwh​</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="fuelToggle" />
+                  <span class="slider"></span>
+                </label>
+                <span class="nowrap-text">元(NTD)​</span>
+              </div>
+            </div>
+            <div class="input-container">
+              <span class="label">水</span>
+              <div class="custom-number-input">
+                <button type="button" class="btn-decrement">
+                  <span class="decrement">-</span>
+                </button>
+                <input type="number" value="0" min="0" />
+                <button type="button" class="btn-increment">
+                  <span class="increment">+</span>
+                </button>
+              </div>
+              <div class="toggle-row">
+                <span class="nowrap-text">度 Kwh​</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="fuelToggle" />
+                  <span class="slider"></span>
+                </label>
+                <span class="nowrap-text">元(NTD)​</span>
+              </div>
+            </div>
+            <div class="input-container">
+              <span class="label">瓦斯</span>
+              <div class="custom-number-input">
+                <button type="button" class="btn-decrement">
+                  <span class="decrement">-</span>
+                </button>
+                <input type="number" value="0" min="0" />
+                <button type="button" class="btn-increment">
+                  <span class="increment">+</span>
+                </button>
+              </div>
+              <div class="toggle-row">
+                <span class="nowrap-text">度 Kwh​</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="fuelToggle" />
+                  <span class="slider"></span>
+                </label>
+                <span class="nowrap-text">元(NTD)​</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="nav-btn prev-btn" onclick="goToScene('scene-home-1')">
+          ‹
+        </button>
+        <button class="nav-btn next-btn" onclick="goToScene('scene-home-2')">
+          ›
+        </button>
       </div>
-      <div class="home-card">
-        <div class="toggle-card">
-          <span class="question-title">家中有幾位成員?</span>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-          </div>
-        </div>
-        <div class="toggle-card">
-          <div class="input-container">
-            <span class="label">電</span>
-            <div class="custom-number-input">
-              <button type="button" class="btn-decrement">
-                <span class="decrement">-</span>
-              </button>
-              <input type="number" value="0" min="0" />
-              <button type="button" class="btn-increment">
-                <span class="increment">+</span>
-              </button>
-            </div>
-            <div class="toggle-row">
-              <span class="nowrap-text">度 Kwh​</span>
-              <label class="toggle-switch">
-                <input type="checkbox" id="fuelToggle" />
-                <span class="slider"></span>
-              </label>
-              <span class="nowrap-text">元(NTD)​</span>
-            </div>
-          </div>
-          <div class="input-container">
-            <span class="label">水</span>
-            <div class="custom-number-input">
-              <button type="button" class="btn-decrement">
-                <span class="decrement">-</span>
-              </button>
-              <input type="number" value="0" min="0" />
-              <button type="button" class="btn-increment">
-                <span class="increment">+</span>
-              </button>
-            </div>
-            <div class="toggle-row">
-              <span class="nowrap-text">度 Kwh​</span>
-              <label class="toggle-switch">
-                <input type="checkbox" id="fuelToggle" />
-                <span class="slider"></span>
-              </label>
-              <span class="nowrap-text">元(NTD)​</span>
-            </div>
-          </div>
-          <div class="input-container">
-            <span class="label">瓦斯</span>
-            <div class="custom-number-input">
-              <button type="button" class="btn-decrement">
-                <span class="decrement">-</span>
-              </button>
-              <input type="number" value="0" min="0" />
-              <button type="button" class="btn-increment">
-                <span class="increment">+</span>
-              </button>
-            </div>
-            <div class="toggle-row">
-              <span class="nowrap-text">度 Kwh​</span>
-              <label class="toggle-switch">
-                <input type="checkbox" id="fuelToggle" />
-                <span class="slider"></span>
-              </label>
-              <span class="nowrap-text">元(NTD)​</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button class="nav-btn prev-btn" onclick="goToScene('scene-home-1')">
-        ‹
-      </button>
-      <button class="nav-btn next-btn" onclick="goToScene('scene-home-2')">
-        ›
-      </button>
     </section>
 
     <!-- 第二頁：問用電水瓦斯與垃圾袋大小和倒垃圾頻率 -->
     <section id="scene-home-2" class="scene scene-2">
       <Chapter-Bar></Chapter-Bar>
-      <h1>每個月家中倒垃圾情況如何 ?</h1>
-      <div class="page-indicator">
-        <div class="bar-container">
-          <div class="bar-hit-area" onclick="goToScene('scene-home-1')">
-            <span class="bar" onclick="goToScene('scene-home-1')"></span>
-          </div>
-          <div class="bar-hit-area" onclick="goToScene('scene-home-2')">
-            <span class="bar active" onclick="goToScene('scene-home-2')"></span>
-          </div>
-        </div>
-      </div>
-      <div class="home-card">
-        <div class="toggle-card">
-          <div class="circle-container">
-            <span class="label">垃圾袋容量​</span>
-            <div
-              class="circular-range"
-              data-unit="L"
-              data-initial="3"
-              data-min="3"
-              data-max="25"
-              data-step="1"
-            ></div>
-          </div>
-          <div class="circle-container">
-            <span class="label">倒垃圾頻率</span>
-            <div
-              class="circular-range"
-              data-unit="次"
-              data-initial="1"
-              data-min="1"
-              data-max="7"
-              data-step="1"
-            ></div>
+      <div class="slideContainer">
+        <h1>每個月家中倒垃圾情況如何 ?</h1>
+        <div class="page-indicator">
+          <div class="bar-container">
+            <div class="bar-hit-area" onclick="goToScene('scene-home-1')">
+              <span class="bar" onclick="goToScene('scene-home-1')"></span>
+            </div>
+            <div class="bar-hit-area" onclick="goToScene('scene-home-2')">
+              <span class="bar active" onclick="goToScene('scene-home-2')"></span>
+            </div>
           </div>
         </div>
-      </div>
+        <div class="home-card">
+          <div class="toggle-card">
+            <div class="circle-container">
+              <span class="label">垃圾袋容量​</span>
+              <div
+                class="circular-range"
+                data-unit="L"
+                data-initial="3"
+                data-min="3"
+                data-max="25"
+                data-step="1"
+              ></div>
+            </div>
+            <div class="circle-container">
+              <span class="label">倒垃圾頻率</span>
+              <div
+                class="circular-range"
+                data-unit="次"
+                data-initial="1"
+                data-min="1"
+                data-max="7"
+                data-step="1"
+              ></div>
+            </div>
+          </div>
+        </div>
 
-      <button class="nav-btn prev-btn" onclick="goToScene('scene-home-1')">
-        ‹
-      </button>
-      <button class="nav-btn next-btn" onclick="goToScene('scene-home-2')">
-        ›
-      </button>
+        <button class="nav-btn prev-btn" onclick="goToScene('scene-home-1')">
+          ‹
+        </button>
+        <button class="nav-btn next-btn" onclick="goToScene('scene-home-2')">
+          ›
+        </button>
+      </div>
     </section>
 
     <script src="./js/all.js"></script>
