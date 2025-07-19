@@ -26,7 +26,7 @@ connectedCallback() {
             <div class="chapter-icon"><i class="fa-solid fa-house-chimney"></i></div>
             <div class="chapter-label">居住</div>
         </div>
-        <div class="chapter-button" onclick="window.location.href='traffic.html'">
+        <div class="chapter-button" onclick="window.location.href='traffic-travel.html'">
             <div class="chapter-icon"><i class="fa-solid fa-plane-departure"></i></div>
             <div class="chapter-label">旅遊</div>
         </div>
