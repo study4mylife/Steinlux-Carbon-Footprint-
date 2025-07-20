@@ -11,12 +11,11 @@
     <link rel="stylesheet" href="css/all.css" />
     <link rel="stylesheet" href="css/story.css" />
     <style>
-
       /* 食物選單 Grid */
       .food-grid {
         display: grid;
         grid-template-columns: repeat(4, minmax(120px, 1fr));
-        gap: 10px 40px;
+        gap: 8px 32px;
         width: 90%;
         max-width: 900px;
         margin: 0 auto;
@@ -26,72 +25,88 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        cursor: pointer;
-        border-radius: 16px;
-        padding: 16px;
+        border-radius: 1rem;
         border: 2px solid transparent;
         transition: transform 0.2s, border-color 0.2s;
         position: relative;
       }
+
       .food-card img {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
         object-fit: contain;
-        margin-bottom: 10px;
       }
       .food-card .label {
-        font-size: 1.5rem;
+        font-size: 1rem;
         color: #6c808f;
         text-align: center;
         white-space: nowrap;
         font-family: "GenSenRounded2TW-R", sans-serif;
         letter-spacing: 6px;
+        margin: 0.5rem 0;
       }
-      .food-card:hover {
-        transform: translateY(-4px);
-      }
-      .food-card.selected {
-        background: rgba(255, 255, 255, 0.4);
-        border-color: #4a90e2;
-      }
+
       /* 前置頁面：葷食／素食 選擇 */
       .diet-grid {
         display: flex;
-        gap: 40px;
+        width: 90%;
+        gap: 2.5rem;
         justify-content: center;
-        margin: 20px 0;
+        padding: 20px;
       }
+
       .diet-card {
-        width: 240px;
-        height: 300px;
-        background: rgba(255,255,255,0.2);
-        border: 2px solid transparent;
-        border-radius: 16px;
+        position: relative;
+        padding: 1.5rem;
+        border-radius: 32px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         transition: transform 0.2s, border-color 0.2s;
+        z-index: 1;
       }
+
+      .diet-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        -webkit-box-shadow: inset -7px -5.25px 2px -6.5px rgba(255, 255, 255),
+          inset 7px 5.25px 2px -6.5px rgb(255, 255, 255),
+          inset -2.25px -8px 2px -6.75px rgb(255, 255, 255),
+          inset 2.25px 8px 2px -6.75px rgb(255, 255, 255),
+          4px 8px 32px 0px rgba(110, 110, 110, 0.25);
+        box-shadow: inset -7px -5.25px 2px -6.5px rgba(255, 255, 255),
+          inset 7px 5.25px 2px -6.5px rgb(255, 255, 255),
+          inset -2.25px -8px 2px -6.75px rgb(255, 255, 255),
+          inset 2.25px 8px 2px -6.75px rgb(255, 255, 255),
+          4px 8px 32px 0px rgba(110, 110, 110, 0.25);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        z-index: -1;
+        border-radius: 16px;
+        opacity: 0;
+      }
+
       .diet-card img {
-        width: 100%;
-        height: 100%;
+        width: 200px;
+        height: 200px;
         object-fit: cover;
         border-radius: 12px;
         margin-bottom: 8px;
       }
-      .diet-card:hover,
-      .diet-card.selected {
-        transform: translateY(-4px);
-        border-color: #4a90e2;
+
+      .diet-card:hover.diet-card::before,
+      .diet-card.selected.diet-card::before {
+        transition: 0.25s ease;
+        opacity: 1;
       }
       .diet-card .label {
-       font-family: "GenSenRounded2TW-R", sans-serif;
+        font-family: "GenSenRounded2TW-R", sans-serif;
         letter-spacing: 6px;
         color: #6c808f;
       }
-
 
       /* 卡片上的份數輸入框 */
       .quantity-input {
@@ -124,7 +139,7 @@
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        border-radius: 24px;
+        border-radius: 96px;
         padding: 24px;
         z-index: 1000;
       }
@@ -170,41 +185,28 @@
       .template-wrapper {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(5, auto);
+        grid-template-rows: repeat(5, 48px);
         grid-auto-flow: column;
-        gap: 12px 24px;
-        width: 750px;
+        gap: 1rem;
         max-width: 100%;
-        height: 400px;
-        margin: 10px 20px;
       }
+
       #scene5 .template-wrapper {
-        display: grid;
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(4, auto);
+        grid-template-rows: repeat(4, 60px);
         grid-auto-flow: column;
-        gap: 12px 24px;
-        width: 750px;
-        max-width: 100%;
-        height: 400px;
-        margin: 10px 20px;
       }
       #scene6 .template-wrapper {
-        display: grid;
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(3, auto);
+        grid-template-rows: repeat(3, 80px);
         grid-auto-flow: column;
-        gap: 12px 24px;
-        width: 750px;
-        max-width: 100%;
-        height: 400px;
-        margin: 10px 20px;
       }
       .input-group {
         display: flex;
         flex-direction: row;
+        align-items: center;
         align-items: flex-start;
-        margin-bottom: 16px;
+        margin-bottom: 0.5rem;
         gap: 10px;
         justify-content: space-between;
       }
@@ -228,7 +230,7 @@
         padding: 8px 30px 8px 12px;
         border: 1px solid rgba(208, 210, 214, 0.6);
         border-radius: 6px;
-        background: #fff url("images/下拉式箭頭.png") no-repeat right center;
+        background: #fff url("./images/下拉式箭頭.png") no-repeat right center;
         background-size: 30px;
         font-size: 0.95rem;
         color: #4a4a4a;
@@ -242,70 +244,137 @@
         display: grid;
         grid-template-columns: 100px auto max-content;
         align-items: center;
-        gap: 8px; /* 欄位之間的間距，可自行微調 */
-        margin-bottom: 16px;
-      }
-      #scene4 .template-wrapper .input-group label,
-      #scene5 .template-wrapper .input-group label,
-      #scene6 .template-wrapper .input-group label {
-        justify-self: start; /* 在 grid 中靠左 */
-        text-align: left;    /* 文字靠左 */
       }
 
-/* 讓主 Label 內文字與圖示並排置中 */
-.input-group label.main-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;          /* 圖示與文字間距 */
-}
+      /* 讓主 Label 內文字與圖示並排置中 */
+      .input-group label.main-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px; /* 圖示與文字間距 */
+      }
 
-/* 圖示尺寸 */
-.input-group label.main-label img.icon {
-  width: 24px;
-  height: 24px;
-}
+      /* 圖示尺寸 */
+      .input-group label.main-label img.icon {
+        width: 24px;
+        height: 24px;
+      }
 
+      @media (max-width: 900px) {
+        .diet-grid{
+          gap: 1rem;
+          padding: 0;
+        }
+
+        .diet-card {
+          padding: 0.5rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .diet-grid {
+          width: 50%;
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .diet-card {
+          padding: 0.5rem 0.25rem;
+        }
+        .diet-card img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
     </style>
   </head>
   <body>
-    <section id="scene1" class="scene active">
-      <h1>請問您是葷食者還是素食者？</h1>
-      <div class="page-indicator">
-        <span class="bar active" onclick="goToScene(1)"></span>
-      </div>
-      <div class="diet-grid">
-        <div class="diet-card" onclick="selectDiet('omnivore', this)">
-          <img src="images/葷食代表.png" alt="葷食者" />
-          <span class="label">葷食者</span>
+    <!-- 故事劇情 -->
+    <div class="story-body">
+      <div class="story-container">
+        <header class="story-header">
+          <div class="story-header-title">
+            <div class="story-header-title-lt">
+              <div class="story-header-profile-photo"></div>
+              <h1>Neo(2)</h1>
+              <i class="fa-solid fa-volume-low" style="color: #6c808f"></i>
+            </div>
+            <div class="story-header-title-rt">
+              <i class="fa-solid fa-phone"></i>
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </div>
+          </div>
+        </header>
+
+        <div class="story-chat-container" id="chatContainer"></div>
+
+        <div class="input-container">
+          <div class="input-wrapper">
+            <input
+              type="text"
+              class="message-input"
+              placeholder="請輸入訊息..."
+              aria-label="Message input"
+            />
+            <div class="action-buttons">
+              <button id="send-button" class="send-button">
+                <span>出發</span>
+                <i class="fa-regular fa-font-awesome"></i>
+              </button>
+            </div>
+          </div>
         </div>
-        <div class="diet-card" onclick="selectDiet('vegetarian', this)">
-          <img src="images/素食代表.png" alt="素食者" />
-          <span class="label">素食者</span>
+      </div>
+    </div>
+
+    <section id="scene1" class="scene scene-1">
+      <Chapter-Bar></Chapter-Bar>
+      <div class="slideContainer">
+        <h1>請問您是葷食者還是素食者？</h1>
+        <div class="page-indicator">
+          <div class="bar-container dynamic-bar-container">
+            <span class="bar active" onclick="goToScene(1)"></span>
+          </div>
+        </div>
+        <div class="diet-grid">
+          <div class="diet-card" onclick="selectDiet('omnivore', this)">
+            <img src="./images/葷食代表.png" alt="葷食者" />
+            <span class="label">葷食者</span>
+          </div>
+          <div class="diet-card" onclick="selectDiet('vegetarian', this)">
+            <img src="./images/素食代表.png" alt="素食者" />
+            <span class="label">素食者</span>
+          </div>
         </div>
       </div>
       <button class="nav-btn prev-btn" onclick="goToScene()">‹</button>
       <button class="nav-btn next-btn" onclick="handleDietNext()">›</button>
-
     </section>
 
     <section id="scene2" class="scene">
-      <h1>請問您吃哪種素食？</h1>
-      <div class="page-indicator">
-        <span class="bar" onclick="goToScene(1)"></span>
-        <span class="bar active" onclick="goToScene(2)"></span>
-      </div>
-      <div class="diet-grid">
-        <div class="diet-card" onclick="selectSubDiet('seafood', this)">
-          <img src="images/海鮮素.png" alt="海鮮素" />
-          <span class="label">海鮮素</span>
+      <Chapter-Bar></Chapter-Bar>
+      <div class="slideContainer">
+        <h1>請問您吃哪種素食？</h1>
+        <div class="page-indicator">
+          <div class="bar-container dynamic-bar-container">
+            <span class="bar" onclick="goToScene(1)"></span>
+            <span class="bar active" onclick="goToScene(2)"></span>
+          </div>
         </div>
-        <div class="diet-card" onclick="selectSubDiet('eggmilk', this)">
-          <img src="images/蛋奶素.png" alt="蛋奶素" />
-          <span class="label">蛋奶素</span>
-        </div>
-        <div class="diet-card" onclick="selectSubDiet('vegan', this)">
-          <img src="images/全素.png" alt="全素" />
-          <span class="label">全素</span>
+        <div class="diet-grid">
+          <div class="diet-card" onclick="selectSubDiet('seafood', this)">
+            <img src="./images/海鮮素.png" alt="海鮮素" />
+            <span class="label">海鮮素</span>
+          </div>
+          <div class="diet-card" onclick="selectSubDiet('eggmilk', this)">
+            <img src="./images/蛋奶素.png" alt="蛋奶素" />
+            <span class="label">蛋奶素</span>
+          </div>
+          <div class="diet-card" onclick="selectSubDiet('vegan', this)">
+            <img src="./images/全素.png" alt="全素" />
+            <span class="label">全素</span>
+          </div>
         </div>
       </div>
       <button class="nav-btn prev-btn" onclick="goToScene(1)">‹</button>
@@ -313,306 +382,323 @@
     </section>
 
     <section id="scene3" class="scene">
-      <h1>請問您日常會選擇吃哪些食物？</h1>
-      <div class="page-indicator">
-        <span class="bar" onclick="goToScene(1)"></span>
-        <span class="bar active" onclick="goToScene(3)"></span>
-      </div>
-      <div class="food-grid">
-        <div
-          class="food-card"
-          data-type="水餃/鍋貼"
-          onclick="toggleSelection(this)"
-        >
-          <img src="images/水餃.png" alt="水餃/鍋貼" />
-          <span class="label">水餃/鍋貼</span>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+      <Chapter-Bar></Chapter-Bar>
+      <div class="slideContainer">
+        <h1>請問您日常會選擇吃哪些食物？</h1>
+        <div class="page-indicator">
+          <div class="bar-container dynamic-bar-container">
+            <span class="bar" onclick="goToScene(1)"></span>
+            <span class="bar active" onclick="goToScene(3)"></span>
           </div>
         </div>
-        <div
-          class="food-card"
-          data-type="牛肉麵"
-          onclick="toggleSelection(this)"
-        >
-          <img src="images/牛肉麵.png" alt="牛肉麵" />
-          <span class="label">牛肉麵</span>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+        <div class="food-grid">
+          <div
+            class="food-card"
+            data-type="水餃/鍋貼"
+            onclick="toggleSelection(this)"
+          >
+            <img src="./images/水餃.png" alt="水餃/鍋貼" />
+            <span class="label">水餃/鍋貼</span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+          </div>
+          <div
+            class="food-card"
+            data-type="牛肉麵"
+            onclick="toggleSelection(this)"
+          >
+            <img src="./images/牛肉麵.png" alt="牛肉麵" />
+            <span class="label">牛肉麵</span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+          </div>
+          <div
+            class="food-card"
+            data-type="排骨便當"
+            onclick="toggleSelection(this)"
+          >
+            <img src="./images/排骨便當.png" alt="排骨便當" />
+            <span class="label">排骨便當</span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+          </div>
+          <div
+            class="food-card"
+            data-type="雞腿便當"
+            onclick="toggleSelection(this)"
+          >
+            <img src="./images/雞腿便當.png" alt="雞腿便當" />
+            <span class="label">雞腿便當</span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+          </div>
+          <div
+            class="food-card"
+            data-type="牛丼"
+            onclick="toggleSelection(this)"
+          >
+            <img src="./images/牛丼.png" alt="牛丼" />
+            <span class="label">牛丼</span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+          </div>
+          <div
+            class="food-card"
+            data-type="咖哩豬排飯"
+            onclick="toggleSelection(this)"
+          >
+            <img src="./images/咖哩豬排飯.png" alt="咖哩豬排飯" />
+            <span class="label">咖哩豬排飯</span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+          </div>
+          <div
+            class="food-card"
+            data-type="漢堡"
+            onclick="toggleSelection(this)"
+          >
+            <img src="./images/漢堡.png" alt="漢堡" />
+            <span class="label">漢堡</span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+          </div>
+          <div
+            class="food-card"
+            data-type="火鍋"
+            onclick="toggleSelection(this)"
+          >
+            <img src="./images/火鍋.png" alt="火鍋" />
+            <span class="label">火鍋</span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
           </div>
         </div>
-        <div
-          class="food-card"
-          data-type="排骨便當"
-          onclick="toggleSelection(this)"
-        >
-          <img src="images/排骨便當.png" alt="排骨便當" />
-          <span class="label">排骨便當</span>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-          </div>
-        </div>
-        <div
-          class="food-card"
-          data-type="雞腿便當"
-          onclick="toggleSelection(this)"
-        >
-          <img src="images/雞腿便當.png" alt="雞腿便當" />
-          <span class="label">雞腿便當</span>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-          </div>
-        </div>
-        <div class="food-card" data-type="牛丼" onclick="toggleSelection(this)">
-          <img src="images/牛丼.png" alt="牛丼" />
-          <span class="label">牛丼</span>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-          </div>
-        </div>
-        <div
-          class="food-card"
-          data-type="咖哩豬排飯"
-          onclick="toggleSelection(this)"
-        >
-          <img src="images/咖哩豬排飯.png" alt="咖哩豬排飯" />
-          <span class="label">咖哩豬排飯</span>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-          </div>
-        </div>
-        <div class="food-card" data-type="漢堡" onclick="toggleSelection(this)">
-          <img src="images/漢堡.png" alt="漢堡" />
-          <span class="label">漢堡</span>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-          </div>
-        </div>
-        <div class="food-card" data-type="火鍋" onclick="toggleSelection(this)">
-          <img src="images/火鍋.png" alt="火鍋" />
-          <span class="label">火鍋</span>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-          </div>
-        </div>
-      </div>
 
-      <!-- Info 按鈕 -->
-      <button id="info-btn" class="info-btn">
-        <img src="images/info.png" alt="!" />
-      </button>
+        <!-- Info 按鈕 -->
+        <button id="info-btn" class="info-btn">
+          <img src="./images/info.png" alt="!" />
+        </button>
 
-      <!-- 彈跳式視窗 -->
-      <div id="modal" class="modal">
-        <span id="modal-close" class="modal-close">&times;</span>
-        <div class="modal-body">
-          <div class="input-group">
-            <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="白飯">  
-              白飯
-            </label>
-            <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-          </div>
-            <label class="special-label">份</label>
-          </div>
-          <div class="input-group">
-            <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="蔬菜">  
-              蔬菜
-            </label>
-            <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-          </div>
-            <label class="special-label">份</label>
-          </div>
-          <div class="input-group">
-            <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="牛奶">  
-              牛奶
-            </label>
-            <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-          </div>
-            <label class="special-label">份</label>
-          </div>
-          <div class="input-group">
-            <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="羊肉">  
-              羊肉
-            </label>
-            <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-          </div>
-            <label class="special-label">份</label>
-          </div>
-          <div class="input-group">
-            <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="豬肉">  
-              豬肉
-            </label>
-            <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-          </div>
-            <label class="special-label">份</label>
-          </div>
-          <div class="input-group">
-            <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="雞肉">  
-              雞肉
-            </label>
-            <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-          </div>
-            <label class="special-label">份</label>
-          </div>
-          <div class="input-group">
-            <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="雞蛋">  
-              雞蛋
-            </label>
-            <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-          </div>
-            <label class="special-label">顆</label>
-          </div>
-          <div class="input-group">
-            <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="白蝦">  
-              白蝦
-            </label>
-            <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-          </div>
-            <label class="special-label">份</label>
-          </div>
-          <div class="input-group">
-            <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="魚肉">  
-              魚肉
-            </label>
-            <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-          </div>
-            <label class="special-label">份</label>
-          </div>
-          <div class="input-group">
-            <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="麵條">  
-              麵條
-            </label>
-            <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
-          </div>
-            <label class="special-label">份</label>
+        <!-- 彈跳式視窗 -->
+        <div id="modal" class="modal">
+          <span id="modal-close" class="modal-close">&times;</span>
+          <div class="modal-body">
+            <div class="input-group">
+              <label class="main-label">
+                <img class="icon" src="./images/icon_rice.png" alt="白飯" />
+                白飯
+              </label>
+              <div class="custom-number-input">
+                <button type="button" class="btn-decrement">
+                  <span class="decrement">-</span>
+                </button>
+                <input type="number" value="0" min="0" />
+                <button type="button" class="btn-increment">
+                  <span class="increment">+</span>
+                </button>
+              </div>
+              <label class="special-label">份</label>
+            </div>
+            <div class="input-group">
+              <label class="main-label">
+                <img class="icon" src="./images/icon_rice.png" alt="蔬菜" />
+                蔬菜
+              </label>
+              <div class="custom-number-input">
+                <button type="button" class="btn-decrement">
+                  <span class="decrement">-</span>
+                </button>
+                <input type="number" value="0" min="0" />
+                <button type="button" class="btn-increment">
+                  <span class="increment">+</span>
+                </button>
+              </div>
+              <label class="special-label">份</label>
+            </div>
+            <div class="input-group">
+              <label class="main-label">
+                <img class="icon" src="./images/icon_rice.png" alt="牛奶" />
+                牛奶
+              </label>
+              <div class="custom-number-input">
+                <button type="button" class="btn-decrement">
+                  <span class="decrement">-</span>
+                </button>
+                <input type="number" value="0" min="0" />
+                <button type="button" class="btn-increment">
+                  <span class="increment">+</span>
+                </button>
+              </div>
+              <label class="special-label">份</label>
+            </div>
+            <div class="input-group">
+              <label class="main-label">
+                <img class="icon" src="./images/icon_rice.png" alt="羊肉" />
+                羊肉
+              </label>
+              <div class="custom-number-input">
+                <button type="button" class="btn-decrement">
+                  <span class="decrement">-</span>
+                </button>
+                <input type="number" value="0" min="0" />
+                <button type="button" class="btn-increment">
+                  <span class="increment">+</span>
+                </button>
+              </div>
+              <label class="special-label">份</label>
+            </div>
+            <div class="input-group">
+              <label class="main-label">
+                <img class="icon" src="./images/icon_rice.png" alt="豬肉" />
+                豬肉
+              </label>
+              <div class="custom-number-input">
+                <button type="button" class="btn-decrement">
+                  <span class="decrement">-</span>
+                </button>
+                <input type="number" value="0" min="0" />
+                <button type="button" class="btn-increment">
+                  <span class="increment">+</span>
+                </button>
+              </div>
+              <label class="special-label">份</label>
+            </div>
+            <div class="input-group">
+              <label class="main-label">
+                <img class="icon" src="./images/icon_rice.png" alt="雞肉" />
+                雞肉
+              </label>
+              <div class="custom-number-input">
+                <button type="button" class="btn-decrement">
+                  <span class="decrement">-</span>
+                </button>
+                <input type="number" value="0" min="0" />
+                <button type="button" class="btn-increment">
+                  <span class="increment">+</span>
+                </button>
+              </div>
+              <label class="special-label">份</label>
+            </div>
+            <div class="input-group">
+              <label class="main-label">
+                <img class="icon" src="./images/icon_rice.png" alt="雞蛋" />
+                雞蛋
+              </label>
+              <div class="custom-number-input">
+                <button type="button" class="btn-decrement">
+                  <span class="decrement">-</span>
+                </button>
+                <input type="number" value="0" min="0" />
+                <button type="button" class="btn-increment">
+                  <span class="increment">+</span>
+                </button>
+              </div>
+              <label class="special-label">顆</label>
+            </div>
+            <div class="input-group">
+              <label class="main-label">
+                <img class="icon" src="./images/icon_rice.png" alt="白蝦" />
+                白蝦
+              </label>
+              <div class="custom-number-input">
+                <button type="button" class="btn-decrement">
+                  <span class="decrement">-</span>
+                </button>
+                <input type="number" value="0" min="0" />
+                <button type="button" class="btn-increment">
+                  <span class="increment">+</span>
+                </button>
+              </div>
+              <label class="special-label">份</label>
+            </div>
+            <div class="input-group">
+              <label class="main-label">
+                <img class="icon" src="./images/icon_rice.png" alt="魚肉" />
+                魚肉
+              </label>
+              <div class="custom-number-input">
+                <button type="button" class="btn-decrement">
+                  <span class="decrement">-</span>
+                </button>
+                <input type="number" value="0" min="0" />
+                <button type="button" class="btn-increment">
+                  <span class="increment">+</span>
+                </button>
+              </div>
+              <label class="special-label">份</label>
+            </div>
+            <div class="input-group">
+              <label class="main-label">
+                <img class="icon" src="./images/icon_rice.png" alt="麵條" />
+                麵條
+              </label>
+              <div class="custom-number-input">
+                <button type="button" class="btn-decrement">
+                  <span class="decrement">-</span>
+                </button>
+                <input type="number" value="0" min="0" />
+                <button type="button" class="btn-increment">
+                  <span class="increment">+</span>
+                </button>
+              </div>
+              <label class="special-label">份</label>
+            </div>
           </div>
         </div>
       </div>
@@ -623,172 +709,177 @@
     </section>
 
     <section id="scene4" class="scene">
-      <h1>海鮮素</h1>
-      <div class="page-indicator">
-        <span class="bar" onclick="goToScene(1)"></span>
-        <span class="bar" onclick="goToScene(2)"></span>
-        <span class="bar active" onclick="goToScene(4)"></span>
-      </div>
-      <div class="template-wrapper">
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="白飯">  
+      <Chapter-Bar></Chapter-Bar>
+      <div class="slideContainer">
+        <h1>海鮮素</h1>
+        <div class="page-indicator">
+          <div class="bar-container dynamic-bar-container">
+            <span class="bar" onclick="goToScene(1)"></span>
+            <span class="bar" onclick="goToScene(2)"></span>
+            <span class="bar active" onclick="goToScene(4)"></span>
+          </div>
+        </div>
+        <div class="template-wrapper">
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="白飯" />
               白飯
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="蔬菜">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="蔬菜" />
               蔬菜
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="豆腐">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="豆腐" />
               豆腐
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="牛奶">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="牛奶" />
               牛奶
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="麵條">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="麵條" />
               麵條
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="素火腿">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="素火腿" />
               素火腿
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="雞蛋">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="雞蛋" />
               雞蛋
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">顆</label>
           </div>
-          <label class="special-label">顆</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="白蝦">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="白蝦" />
               白蝦
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="魚肉">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="魚肉" />
               魚肉
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="菇類">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="菇類" />
               菇類
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
         </div>
       </div>
       <button class="nav-btn prev-btn" onclick="goToScene(2)">‹</button>
@@ -796,140 +887,145 @@
     </section>
 
     <section id="scene5" class="scene">
-      <h1>蛋奶素</h1>
-      <div class="page-indicator">
-        <span class="bar" onclick="goToScene(1)"></span>
-        <span class="bar" onclick="goToScene(2)"></span>
-        <span class="bar active" onclick="goToScene(5)"></span>
-      </div>
-      <div class="template-wrapper">
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="白飯">  
+      <Chapter-Bar></Chapter-Bar>
+      <div class="slideContainer">
+        <h1>蛋奶素</h1>
+        <div class="page-indicator">
+          <div class="bar-container dynamic-bar-container">
+            <span class="bar" onclick="goToScene(1)"></span>
+            <span class="bar" onclick="goToScene(2)"></span>
+            <span class="bar active" onclick="goToScene(5)"></span>
+          </div>
+        </div>
+        <div class="template-wrapper">
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="白飯" />
               白飯
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="蔬菜">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="蔬菜" />
               蔬菜
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="豆腐">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="豆腐" />
               豆腐
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="牛奶">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="牛奶" />
               牛奶
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="麵條">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="麵條" />
               麵條
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="素火腿">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="素火腿" />
               素火腿
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="雞蛋">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="雞蛋" />
               雞蛋
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">顆</label>
           </div>
-          <label class="special-label">顆</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="菇類">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="菇類" />
               菇類
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
         </div>
       </div>
       <button class="nav-btn prev-btn" onclick="goToScene(2)">‹</button>
@@ -937,108 +1033,113 @@
     </section>
 
     <section id="scene6" class="scene">
-      <h1>全素</h1>
-      <div class="page-indicator">
-        <span class="bar" onclick="goToScene(1)"></span>
-        <span class="bar" onclick="goToScene(2)"></span>
-        <span class="bar active" onclick="goToScene(6)"></span>
-      </div>
-      <div class="template-wrapper">
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="白飯">  
+      <Chapter-Bar></Chapter-Bar>
+      <div class="slideContainer">
+        <h1>全素</h1>
+        <div class="page-indicator">
+          <div class="bar-container dynamic-bar-container">
+            <span class="bar" onclick="goToScene(1)"></span>
+            <span class="bar" onclick="goToScene(2)"></span>
+            <span class="bar active" onclick="goToScene(6)"></span>
+          </div>
+        </div>
+        <div class="template-wrapper">
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="白飯" />
               白飯
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="蔬菜">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="蔬菜" />
               蔬菜
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="豆腐">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="豆腐" />
               豆腐
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="麵條">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="麵條" />
               麵條
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="素火腿">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="素火腿" />
               素火腿
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
-        </div>
-        <div class="input-group">
-          <label class="main-label">
-              <img class="icon" src="images/icon_rice.png" alt="菇類">  
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.png" alt="菇類" />
               菇類
             </label>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
-          <label class="special-label">份</label>
         </div>
       </div>
       <button class="nav-btn prev-btn" onclick="goToScene(2)">‹</button>
@@ -1046,134 +1147,151 @@
     </section>
 
     <section id="scene7" class="scene">
-      <h1>請問您日常會選擇吃哪些點心？</h1>
-      <div class="page-indicator">
-        <span class="bar" onclick="goToScene(1)"></span>
-        <span class="bar active" onclick="goToScene(3)"></span>
-      </div>
-      <div class="food-grid">
-        <div
-          class="food-card"
-          data-type="雞排加珍奶"
-          onclick="toggleSelection(this)"
-        >
-          <img src="images/水餃.png" alt="雞排加珍奶" />
-          <span class="label">雞排加珍奶</span>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+      <Chapter-Bar></Chapter-Bar>
+      <div class="slideContainer">
+        <h1>請問您日常會選擇吃哪些點心？</h1>
+        <div class="page-indicator">
+          <div class="bar-container dynamic-bar-container">
+            <span class="bar" onclick="goToScene(1)"></span>
+            <span class="bar active" onclick="goToScene(3)"></span>
           </div>
         </div>
-        <div
-          class="food-card"
-          data-type="泡麵"
-          onclick="toggleSelection(this)"
-        >
-          <img src="images/牛肉麵.png" alt="泡麵" />
-          <span class="label">泡麵</span>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+        <div class="food-grid">
+          <div
+            class="food-card"
+            data-type="雞排加珍奶"
+            onclick="toggleSelection(this)"
+          >
+            <img src="./images/水餃.png" alt="雞排加珍奶" />
+            <span class="label">雞排加珍奶</span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
           </div>
-        </div>
-        <div
-          class="food-card"
-          data-type="啤酒"
-          onclick="toggleSelection(this)"
-        >
-          <img src="images/排骨便當.png" alt="啤酒" />
-          <span class="label">啤酒</span>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+          <div
+            class="food-card"
+            data-type="泡麵"
+            onclick="toggleSelection(this)"
+          >
+            <img src="./images/牛肉麵.png" alt="泡麵" />
+            <span class="label">泡麵</span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
           </div>
-        </div>
-        <div
-          class="food-card"
-          data-type="薯條"
-          onclick="toggleSelection(this)"
-        >
-          <img src="images/雞腿便當.png" alt="薯條" />
-          <span class="label">薯條</span>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+          <div
+            class="food-card"
+            data-type="啤酒"
+            onclick="toggleSelection(this)"
+          >
+            <img src="./images/排骨便當.png" alt="啤酒" />
+            <span class="label">啤酒</span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="food-card" data-type="茶葉蛋" onclick="toggleSelection(this)">
-          <img src="images/牛丼.png" alt="茶葉蛋" />
-          <span class="label">牛茶葉蛋</span>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+          <div
+            class="food-card"
+            data-type="薯條"
+            onclick="toggleSelection(this)"
+          >
+            <img src="./images/雞腿便當.png" alt="薯條" />
+            <span class="label">薯條</span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
           </div>
-        </div>
-        <div
-          class="food-card"
-          data-type="無糖豆漿"
-          onclick="toggleSelection(this)"
-        >
-          <img src="images/咖哩豬排飯.png" alt="無糖豆漿" />
-          <span class="label">無糖豆漿</span>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+          <div
+            class="food-card"
+            data-type="茶葉蛋"
+            onclick="toggleSelection(this)"
+          >
+            <img src="./images/牛丼.png" alt="茶葉蛋" />
+            <span class="label">牛茶葉蛋</span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="food-card" data-type="黑咖啡" onclick="toggleSelection(this)">
-          <img src="images/漢堡.png" alt="黑咖啡" />
-          <span class="label">黑咖啡</span>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+          <div
+            class="food-card"
+            data-type="無糖豆漿"
+            onclick="toggleSelection(this)"
+          >
+            <img src="./images/咖哩豬排飯.png" alt="無糖豆漿" />
+            <span class="label">無糖豆漿</span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="food-card" data-type="牛奶" onclick="toggleSelection(this)">
-          <img src="images/火鍋.png" alt="牛奶" />
-          <span class="label">牛奶</span>
-          <div class="custom-number-input">
-            <button type="button" class="btn-decrement">
-              <span class="decrement">-</span>
-            </button>
-            <input type="number" value="0" min="0" />
-            <button type="button" class="btn-increment">
-              <span class="increment">+</span>
-            </button>
+          <div
+            class="food-card"
+            data-type="黑咖啡"
+            onclick="toggleSelection(this)"
+          >
+            <img src="./images/漢堡.png" alt="黑咖啡" />
+            <span class="label">黑咖啡</span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+          </div>
+          <div
+            class="food-card"
+            data-type="牛奶"
+            onclick="toggleSelection(this)"
+          >
+            <img src="./images/火鍋.png" alt="牛奶" />
+            <span class="label">牛奶</span>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -1182,138 +1300,238 @@
     </section>
 
     <section id="scene8" class="scene">
-  <h1>平常會有多少剩食？</h1>
-  <div class="page-indicator">
-    <span class="bar" onclick="goToScene(1)"></span>
-    <span class="bar active" onclick="goToScene(8)"></span>
-  </div>
+      <Chapter-Bar></Chapter-Bar>
+      <div class="slideContainer">
+        <h1>平常會有多少剩食？</h1>
+        <div class="page-indicator">
+          <div class="bar-container dynamic-bar-container">
+            <span class="bar" onclick="goToScene(1)"></span>
+            <span class="bar active" onclick="goToScene(8)"></span>
+          </div>
+        </div>
 
-  <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 40px;">
-    <label for="waste-slider" style="font-family: 'GenSenRounded2TW-R', sans-serif; letter-spacing: 6px; font-size: 1.2rem; color: #6c808f;">
-      選擇剩食比例：
-    </label>
-    <input
-      type="range"
-      id="waste-slider"
-      name="waste"
-      min="10"
-      max="100"
-      step="10"
-      value="10"
-      oninput="updateWasteValue(this.value)"
-      style="width: 300px;"
-    />
-    <div id="waste-value" style="font-size: 1.4rem; color: #9c7a5c; font-family: 'GenSenRounded2TW-R', sans-serif; letter-spacing: 6px;">
-      10%
-    </div>
-  </div>
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 40px;
+          "
+        >
+          <label
+            for="waste-slider"
+            style="
+              font-family: 'GenSenRounded2TW-R', sans-serif;
+              letter-spacing: 6px;
+              font-size: 1.2rem;
+              color: #6c808f;
+            "
+          >
+            選擇剩食比例：
+          </label>
+          <input
+            type="range"
+            id="waste-slider"
+            name="waste"
+            min="10"
+            max="100"
+            step="10"
+            value="10"
+            oninput="updateWasteValue(this.value)"
+            style="width: 300px"
+          />
+          <div
+            id="waste-value"
+            style="
+              font-size: 1.4rem;
+              color: #9c7a5c;
+              font-family: 'GenSenRounded2TW-R', sans-serif;
+              letter-spacing: 6px;
+            "
+          >
+            10%
+          </div>
+        </div>
+      </div>
 
-  <button class="nav-btn prev-btn" onclick="goToScene(7)">‹</button>
-  <button class="nav-btn next-btn" onclick="goToScene(9)">›</button>
-</section>
+      <button class="nav-btn prev-btn" onclick="goToScene(7)">‹</button>
+      <button class="nav-btn next-btn" onclick="goToScene(9)">›</button>
+    </section>
 
-
+    <script src="./js/all.js"></script>
     <script>
-    // 1. 紀錄第 1 幕與第 2 幕的選擇
-    let selectedDiet = null;
-    let selectedSubDiet = null;
+      // 星際聊天室
 
-    // 2. 通用：切換場景
-    function goToScene(n) {
-      document.querySelector('.scene.active').classList.remove('active');
-      document.getElementById(`scene${n}`).classList.add('active');
-    }
+      const messages = [
+        {
+          type: "time",
+          text: "上午 9:30",
+          time: 1000,
+        },
+        {
+          text: "貓嗚～我們今晚的前菜是使用來自地中海的冷壓初榨橄欖油、主餐是來自日本神戶牛搭配北海道當日冰鮮急送的海膽。而甜點是使用來自比利時巧克力搭配斯里蘭卡紅茶做成的錫蘭可可歐蕾。",
+          from: "cat",
+          time: 3500,
+        },
+        {
+          text: "Wow ~ 全球美食大集合欸！等等，原來現在在餐桌上，就能像大富翁一樣環遊世界！？",
+          from: "user",
+          time: 2500,
+        },
+        {
+          text: "不只飛，還經過冷藏、加工、包裝、再冷藏、再配送，吃到嘴裡之前，已經累積了好幾層「碳層」了，像千層派一樣。",
+          from: "cat",
+          time: 3000,
+        },
+        {
+          text: "但你知道嗎？那些精緻加工的美食還沒來得及被吃，就先躺進垃圾桶了。剩食，早就悄悄變成這個時代最習慣不說出口的小秘密了喵～",
+          from: "cat",
+          time: 3000,
+        },
+      ];
 
-    // 3. 第 1 幕：選葷／素
-    function selectDiet(diet, card) {
-      // 樣式
-      document.querySelectorAll('#scene1 .diet-card')
-              .forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      // 紀錄
-      selectedDiet = diet;
-    }
+      const chatContainer = document.getElementById("chatContainer");
 
-    // 第 1 幕 下一頁
-    function handleDietNext() {
-      if (!selectedDiet) {
-        alert('請先選擇您是葷食者或素食者');
-        return;
+      function createMessageElement(message) {
+        if (message.type === "time") {
+          const timeEl = document.createElement("div");
+          timeEl.classList.add("story-time-stamp");
+          timeEl.textContent = message.text;
+          return timeEl;
+        }
+
+        const wrapper = document.createElement("div");
+        wrapper.classList.add(
+          "story-message",
+          message.from === "user" ? "story-user-message" : "story-cat-message"
+        );
+
+        const avatar = document.createElement("div");
+        avatar.classList.add("story-avatar");
+        avatar.textContent = message.from === "user" ? "U" : "A";
+
+        const bubble = document.createElement("div");
+        bubble.classList.add("story-message-bubble");
+        bubble.textContent = message.text;
+
+        wrapper.appendChild(avatar);
+        wrapper.appendChild(bubble);
+        return wrapper;
       }
-      if (selectedDiet === 'omnivore') {
-        goToScene(3);
-      } else {
-        goToScene(2);
+
+      async function playIntroMessages() {
+        for (let i = 0; i < messages.length; i++) {
+          const el = createMessageElement(messages[i]);
+          const messageTime = messages[i].time;
+          chatContainer.appendChild(el);
+          chatContainer.scrollTop = chatContainer.scrollHeight;
+          await new Promise((resolve) => setTimeout(resolve, messageTime));
+        }
       }
-    }
 
-    // 4. 第 2 幕：三種素食
-    function selectSubDiet(diet, card) {
-      document.querySelectorAll('#scene2 .diet-card')
-              .forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      selectedSubDiet = diet;
-    }
+      window.addEventListener("DOMContentLoaded", playIntroMessages);
+      // 1. 紀錄第 1 幕與第 2 幕的選擇
+      let selectedDiet = null;
+      let selectedSubDiet = null;
 
-    // 第 2 幕 下一頁
-    function handleSubDietNext() {
-      if (!selectedSubDiet) {
-        alert('請先選擇一種素食類型');
-        return;
+      // 2. 通用：切換場景
+      function goToScene(n) {
+        document.querySelector(".scene.active").classList.remove("active");
+        document.getElementById(`scene${n}`).classList.add("active");
       }
-      // 根據選擇跳到對應場景
-      switch (selectedSubDiet) {
-        case 'seafood':
-          goToScene(4);
-          break;
-        case 'eggmilk':
-        goToScene(5);
-          break;
-        case 'vegan':
-        goToScene(6);
-          break;
+
+      // 3. 第 1 幕：選葷／素
+      function selectDiet(diet, card) {
+        // 樣式
+        document
+          .querySelectorAll("#scene1 .diet-card")
+          .forEach((c) => c.classList.remove("selected"));
+        card.classList.add("selected");
+        // 紀錄
+        selectedDiet = diet;
       }
-    }
 
-    // 5. 第 3 幕之後的餐點選擇功能
-    const selectedFood = {};
-
-    function toggleSelection(card) {
-      const type = card.dataset.type;
-      const qty = parseInt(card.querySelector('.quantity-input').value, 10);
-      card.classList.toggle('selected');
-      if (card.classList.contains('selected')) {
-        selectedFood[type] = qty;
-      } else {
-        delete selectedFood[type];
+      // 第 1 幕 下一頁
+      function handleDietNext() {
+        if (!selectedDiet) {
+          alert("請先選擇您是葷食者或素食者");
+          return;
+        }
+        if (selectedDiet === "omnivore") {
+          goToScene(3);
+        } else {
+          goToScene(2);
+        }
       }
-      console.log('目前選擇：', selectedFood);
-    }
 
-    function setQuantity(input) {
-      const card = input.closest('.food-card');
-      const type = card.dataset.type;
-      if (selectedFood[type] !== undefined) {
-        selectedFood[type] = parseInt(input.value, 10);
-        console.log(`已更新 ${type} 數量為 ${input.value}`);
+      // 4. 第 2 幕：三種素食
+      function selectSubDiet(diet, card) {
+        document
+          .querySelectorAll("#scene2 .diet-card")
+          .forEach((c) => c.classList.remove("selected"));
+        card.classList.add("selected");
+        selectedSubDiet = diet;
       }
-    }
 
-    // 6. Modal 彈窗
-    const infoBtn = document.getElementById('info-btn');
-    const modal   = document.getElementById('modal');
-    const closeX  = document.getElementById('modal-close');
+      // 第 2 幕 下一頁
+      function handleSubDietNext() {
+        if (!selectedSubDiet) {
+          alert("請先選擇一種素食類型");
+          return;
+        }
+        // 根據選擇跳到對應場景
+        switch (selectedSubDiet) {
+          case "seafood":
+            goToScene(4);
+            break;
+          case "eggmilk":
+            goToScene(5);
+            break;
+          case "vegan":
+            goToScene(6);
+            break;
+        }
+      }
 
-    infoBtn.addEventListener('click', () => modal.style.display = 'flex');
-    closeX.addEventListener('click', () => modal.style.display = 'none');
-    function updateWasteValue(val) {
-      document.getElementById("waste-value").innerText = val + "%";
-    }
+      // 5. 第 3 幕之後的餐點選擇功能
+      const selectedFood = {};
 
+      function toggleSelection(card) {
+        const type = card.dataset.type;
+        const qty = parseInt(card.querySelector(".quantity-input").value, 10);
+        card.classList.toggle("selected");
+        if (card.classList.contains("selected")) {
+          selectedFood[type] = qty;
+        } else {
+          delete selectedFood[type];
+        }
+        console.log("目前選擇：", selectedFood);
+      }
+
+      function setQuantity(input) {
+        const card = input.closest(".food-card");
+        const type = card.dataset.type;
+        if (selectedFood[type] !== undefined) {
+          selectedFood[type] = parseInt(input.value, 10);
+          console.log(`已更新 ${type} 數量為 ${input.value}`);
+        }
+      }
+
+      // 6. Modal 彈窗
+      const infoBtn = document.getElementById("info-btn");
+      const modal = document.getElementById("modal");
+      const closeX = document.getElementById("modal-close");
+
+      infoBtn.addEventListener("click", () => (modal.style.display = "flex"));
+      closeX.addEventListener("click", () => (modal.style.display = "none"));
+
+      function updateWasteValue(val) {
+        document.getElementById("waste-value").innerText = val + "%";
+      }
     </script>
   </body>
 </html>
-
 
 <!-- 完成：
  新增前置頁面(吃葷吃素選擇)用圖片選擇(跟選擇套餐一樣(兩個大圖))
