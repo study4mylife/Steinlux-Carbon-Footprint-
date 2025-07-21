@@ -108,9 +108,16 @@ body {
   z-index: 1;
 }
 
-.scene.active .entertain-grid, .scene.active .entertain-card,
-.scene.active .home-card, .scene.active .transport-grid,
-.scene.active .travel-card{
+.scene.active .entertain-grid,
+.scene.active .diet-grid, 
+.scene.active .food-grid,
+.scene.active .transport-grid,
+.scene.active .entertain-card,
+.scene.active .home-card,
+.scene.active .travel-card,
+.scene.active .daily-card,
+.scene.active .waste-container,
+.scene.active .template-wrapper{
   animation: slideIn 0.5s ease forwards;
   z-index: 1;
 }

@@ -52,7 +52,7 @@
         width: 90%;
         gap: 2.5rem;
         justify-content: center;
-        padding: 20px;
+        padding: 1rem;
       }
 
       .diet-card {
@@ -72,20 +72,22 @@
         content: "";
         position: absolute;
         inset: 0;
-        -webkit-box-shadow: inset -7px -5.25px 2px -6.5px rgba(255, 255, 255),
-          inset 7px 5.25px 2px -6.5px rgb(255, 255, 255),
-          inset -2.25px -8px 2px -6.75px rgb(255, 255, 255),
-          inset 2.25px 8px 2px -6.75px rgb(255, 255, 255),
-          4px 8px 32px 0px rgba(110, 110, 110, 0.25);
-        box-shadow: inset -7px -5.25px 2px -6.5px rgba(255, 255, 255),
-          inset 7px 5.25px 2px -6.5px rgb(255, 255, 255),
-          inset -2.25px -8px 2px -6.75px rgb(255, 255, 255),
-          inset 2.25px 8px 2px -6.75px rgb(255, 255, 255),
-          4px 8px 32px 0px rgba(110, 110, 110, 0.25);
+        -webkit-box-shadow:
+        inset -8px -2.25px 0 -6.75px rgb(255, 255, 255), 
+        inset 8px 2.25px 0 -6.75px rgb(255, 255, 255),
+        inset -2.75px -8px 0 -7px rgb(255, 255, 255), 
+        inset 2.75px 8.25px 0 -7px rgb(255, 255, 255),
+        2px 2px 12px 4px rgba(110, 110, 110, 0.15);
+        box-shadow:
+        inset -8px -2.25px 0 -6.75px rgb(255, 255, 255), 
+        inset 8px 2.25px 0 -6.75px rgb(255, 255, 255),
+        inset -2.75px -8px 0 -7px rgb(255, 255, 255), 
+        inset 2.75px 8px 0 -7px rgb(255, 255, 255),
+        2px 2px 12px 4px rgba(110, 110, 110, 0.15);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         z-index: -1;
-        border-radius: 16px;
+        border-radius: 32px;
         opacity: 0;
       }
 
@@ -259,6 +261,32 @@
         height: 24px;
       }
 
+      .waste-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 20px;
+        margin-top: 40px;
+      }
+      .waste-container label {
+        font-family: 'GenSenRounded2TW-R', sans-serif;
+        letter-spacing: 6px;
+        font-size: 1.2rem;
+        color: #6c808f;
+      }
+
+      .waste-slider {
+        width: 300px;
+      }
+
+      .waste-value {          
+        font-size: 1.4rem;
+        color: #9c7a5c;
+        font-family: 'GenSenRounded2TW-R', sans-serif;
+        letter-spacing: 6px;
+      }
+
       @media (max-width: 900px) {
         .diet-grid{
           gap: 1rem;
@@ -348,7 +376,7 @@
           </div>
         </div>
       </div>
-      <button class="nav-btn prev-btn" onclick="goToScene()">‹</button>
+      <button class="nav-btn prev-btn" onclick="window.location.href='traffic-travel.html'">‹</button>
       <button class="nav-btn next-btn" onclick="handleDietNext()">›</button>
     </section>
 
@@ -1309,29 +1337,11 @@
             <span class="bar active" onclick="goToScene(8)"></span>
           </div>
         </div>
-
-        <div
-          style="
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            margin-top: 40px;
-          "
-        >
-          <label
-            for="waste-slider"
-            style="
-              font-family: 'GenSenRounded2TW-R', sans-serif;
-              letter-spacing: 6px;
-              font-size: 1.2rem;
-              color: #6c808f;
-            "
-          >
-            選擇剩食比例：
-          </label>
+        <div class="waste-container">
+          <label for="waste-slider">選擇剩食比例: </label>
           <input
             type="range"
+            class="waste-slider"
             id="waste-slider"
             name="waste"
             min="10"
@@ -1339,19 +1349,8 @@
             step="10"
             value="10"
             oninput="updateWasteValue(this.value)"
-            style="width: 300px"
           />
-          <div
-            id="waste-value"
-            style="
-              font-size: 1.4rem;
-              color: #9c7a5c;
-              font-family: 'GenSenRounded2TW-R', sans-serif;
-              letter-spacing: 6px;
-            "
-          >
-            10%
-          </div>
+          <div class="waste-value" id="waste-value">10%</div>
         </div>
       </div>
 
