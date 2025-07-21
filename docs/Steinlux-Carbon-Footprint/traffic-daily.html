@@ -65,19 +65,17 @@
       
       .transport-card.selected {
       -webkit-box-shadow:
-      inset -8.25px -2.25px 0 -6.75px rgb(255, 255, 255), 
-      inset 8.25px 2.25px 0 -6.75px rgb(255, 255, 255),
-      inset -2.75px -8px 0 -7px rgb(255, 255, 255), 
-      inset 2.75px 8px 0 -7px rgb(255, 255, 255),
-      0 0 0 0.2px rgb(255, 255, 255),
-      2px 2px 16px 4px rgba(110, 110, 110, 0.15);
+      inset -7.5px -4.75px 1px -6.5px rgb(255, 255, 255), 
+      inset 7.5px 4.75px 1px -6.5px rgb(255, 255, 255),
+      inset -1.75px -7.5px 1px -6.75px rgb(255, 255, 255), 
+      inset 1.75px 7.5px 1px -6.75px rgb(255, 255, 255),
+      2px 4px 16px 0px rgba(110, 110, 110, 0.275);
       box-shadow:
-      inset -8.25px -2.25px 0 -6.75px rgb(255, 255, 255), 
-      inset 8.25px 2.25px 0 -6.75px rgb(255, 255, 255),
-      inset -2.75px -8.25px 0 -7px rgb(255, 255, 255), 
-      inset 2.75px 8.25px 0 -7px rgb(255, 255, 255),
-      0 0 0 0.2px rgb(255, 255, 255),
-      2px 2px 12px 4px rgba(110, 110, 110, 0.15);
+      inset -7px -4.75px 1px -6.5px rgb(255, 255, 255), 
+      inset 7px 4.75px 1px -6.5px rgb(255, 255, 255),
+      inset -1.75px -7px 1px -6.75px rgb(255, 255, 255), 
+      inset 1.75px 7px 1px -6.75px rgb(255, 255, 255),
+      2px 4px 16px 0px rgba(110, 110, 110, 0.275);
       }
       
       /* ---------------------------------------
@@ -95,17 +93,17 @@
         justify-content: center;
         flex-wrap: wrap;
         width: 100%;
-        gap: 32px;
+        gap: 1.25rem;
       }
 
       .toggle-card {
         display: flex;
         align-items: center;
         width: 40%;
-        background: rgba(245, 245, 245, 0.1);
-        border-radius: 16px;
-        padding: 24px;
-        gap: 16px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 32px;
+        padding: 1rem 1.25rem;
+        gap: 0.75rem;
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
       }
@@ -119,14 +117,12 @@
       inset 8.5px 2.25px 0 -6.75px rgb(255, 255, 255),
       inset -2.75px -8.5px 0 -7px rgb(255, 255, 255), 
       inset 2.75px 8.5px 0 -7px rgb(255, 255, 255),
-      0 0 0 0.2px rgb(255, 255, 255),
       2px 2px 16px 4px rgba(110, 110, 110, 0.15);
       box-shadow:
       inset -8.5px -2.25px 0 -6.75px rgb(255, 255, 255), 
       inset 8.5px 2.25px 0 -6.75px rgb(255, 255, 255),
       inset -2.75px -8.5px 0 -7px rgb(255, 255, 255), 
       inset 2.75px 8.5px 0 -7px rgb(255, 255, 255),
-      0 0 0 0.2px rgb(255, 255, 255),
       2px 2px 16px 4px rgba(110, 110, 110, 0.15);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
@@ -157,10 +153,10 @@
       flex-wrap: wrap;
       align-items: center;
       width: 40%;
-      background: rgba(245, 245, 245, 0.1);
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 32px;
-      padding: 24px;
-      gap: 16px;
+      padding: 1.25rem;
+      gap: 1rem;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       }
@@ -174,14 +170,12 @@
       inset 8.5px 2.25px 0 -6.75px rgb(255, 255, 255),
       inset -2.75px -8.5px 0 -7px rgb(255, 255, 255), 
       inset 2.75px 8.5px 0 -7px rgb(255, 255, 255),
-      0 0 0 0.2px rgb(255, 255, 255),
       2px 2px 16px 4px rgba(110, 110, 110, 0.15);
       box-shadow:
       inset -8.5px -2.25px 0 -6.75px rgb(255, 255, 255), 
       inset 8.5px 2.25px 0 -6.75px rgb(255, 255, 255),
       inset -2.75px -8.5px 0 -7px rgb(255, 255, 255), 
       inset 2.75px 8.5px 0 -7px rgb(255, 255, 255),
-      0 0 0 0.2px rgb(255, 255, 255),
       2px 2px 16px 4px rgba(110, 110, 110, 0.15);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
@@ -198,15 +192,14 @@
       .fuel-group .input-group {
         display: flex;
         align-items: center;
-        padding: 16px 0;
-        gap: 8px;
+        padding: 1.25rem 0.75rem;
+        gap: 0.5rem;
       }
       
       .fuel-group .input-group label {
-        margin: 5px 12px;
+        font-family: "GenSenRounded2TW-R", sans-serif;
         font-size: 1rem;
         color: #9c7a5c;
-        font-family: "GenSenRounded2TW-R", sans-serif;
         letter-spacing: 4px;
         white-space: nowrap;
       }
@@ -235,11 +228,12 @@
         -moz-appearance: none;
         appearance: none;
         width: 120px;
-        padding: 8px 30px 8px 12px;
+        padding: 0.5rem;
         border: 0.25pt solid #b5c1c623;
         border-radius: 8px;
         box-shadow: inset 2pt 2pt 7pt #6d808f70;
-        background: #fff url("images/下拉式箭頭.png") no-repeat right center;
+        background: #fff url("images/下拉式箭頭.png") no-repeat;
+        background-position: calc(100% - 4px) calc(100% - 4px);
         background-size: 30px;
         font-size: 14px;
         color: #4a4a4a;
@@ -256,36 +250,32 @@
       /* ---------------------------------------
        7. MRT區域 (Scene 2 & 4)
     --------------------------------------- */
-      .mrt-trip-list-wrapper {
-        display: flex;
-        flex-direction: column;
-        height: 200px; /* 或你要的固定高度 */
-      }
-      .mrt-trip-list-wrapper .trip-list {
-        flex: 1; /* 滾動區撐滿剩下空間 */
-        overflow-y: auto;
-      }
+
+
       .mrt-trip-list-wrapper .mrt-btn {
         flex: 0 0 auto; /* 按鈕不跟著滾動區縮放 */
         margin-top: 20px;
-        align-self: center;
       }
+
       .input-group-MRT {
         display: flex;
+        align-items: center;
         flex-direction: row;
-        align-items: flex-start;
-        margin-bottom: 16px;
-        gap: 10px;
+        gap: 0.5rem;
+        margin: 0.15rem 0;
       }
+
       .input-group-MRT label {
-        margin: 5px 12px;
-        font-size: 15px;
+        margin: 0.15rem 0.75rem;
+        font-size: 0.85rem;
         color: #9c7a5c;
         white-space: nowrap;
         font-family: "GenSenRounded2TW-R", sans-serif;
         letter-spacing: 6px;
       }
       .input-group-MRT .special-label {
+        font-family: "GenSenRounded2TW-L", sans-serif;
+        font-weight: normal;
         color: #6c808f;
       }
 
@@ -306,7 +296,7 @@
 
       .input-group-MRT input {
         width: 120px;
-        padding: 8px 12px;
+        padding: 0.375rem 0.675rem;
         border: 0.25pt solid #b5c1c623;
         border-radius: 6px;
         background: #fff;
@@ -316,68 +306,196 @@
         font-family: "GenSenRounded2TW-L", sans-serif;
         letter-spacing: 2px;
       }
+
       #mrtTripDisplay {
         display: flex;
         flex-direction: column;
-        /* 保留原本的滾動 */
-        overflow-y: auto;
       }
-      #mrtTripDisplay .mrt-btn {
-        margin-top: 18px;
-        align-self: center;
-      }
-      .trip-item.selected {
-        background: rgba(0, 123, 255, 0.1);
-        border: 1px solid #007bff;
-      }
-      /* 讓template-wrapper 靠上對齊 */
-      #scene4 .template-wrapper,
-      #scene5 .template-wrapper,
-      #scene6 .template-wrapper {
-        justify-content: flex-start;
-      }
-      #scene4 .template-row,
-      #scene5 .template-row,
-      #scene6 .template-row {
-        margin: auto 0;
-      }
-      /* trip-list */
-      .trip-item {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-        font-size: 0.9rem;
-        color: #222;
-      }
-      .add-trip-wrapper {
-        display: flex;
-        flex-direction: column;
-      }
-      /* 2) 推按鈕到底部，並置中 */
-      .add-trip-wrapper .mrt-btn {
-        margin-top: auto;
-        align-self: center;
-      }
+
       .mrt-btn {
-        width: 200px;
-        margin: 0 auto;
-        /* 背景色與半透明毛玻璃感 */
+        width: 50%;
+        margin: auto 0 0.25rem;
+        align-self: center;
         background: rgba(240, 244, 252, 0.8);
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
-        /* 邊框、陰影、圓角 */
         border: 1px solid rgba(255, 255, 255, 0.6);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         border-radius: 32px;
-        /* 文字大小、顏色、陰影 */
-        font-size: 15px;
+        font-size: 0.85rem;
         font-weight: bold;
         color: rgba(0, 0, 0, 0.2);
         text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-        /* 內邊距 & 游標 */
         padding: 6px 12px;
         cursor: pointer;
-        transition: background 0.2s, box-shadow 0.2s;
+        transition: background-color 0.2s, box-shadow 0.2s;
+        font-family: "GenSenRounded2TW-R", sans-serif;
+      }
+
+      .mrt-btn:hover {
+        background-color: rgba(240, 244, 252, 1);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      /* trip-list */
+      .mrt-trip-list-wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 200px;
+      }
+
+      .trip-list {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        max-width: 100%;
+        min-width: 100%;
+        width: 100%;
+        max-height: 200px;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+      
+      /* trip-list */
+      .trip-item {
+        display: flex;
+        justify-content: center;
+        min-width: 100%;
+        width: 100%;
+        font-size: 0.9rem;
+        color: #6c808f;
+        margin: 0.25rem;
+        padding: 12px;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        user-select: none;
+        position: relative;
+      }
+
+    .trip-item:hover {
+      border-color: #3b82f6;
+      background-color: #f8fafc;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .trip-item.selected {
+      border-color: #10b981;
+      background-color: #ecfdf5;
+      color: #047857;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+    }
+    
+    .trip-item.selected:hover {
+      border-color: #ef4444;
+      background-color: #fef2f2;
+      color: #dc2626;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+    }
+    
+    .trip-item::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      border: 2px solid #d1d5db;
+      border-radius: 50%;
+      margin-right: 12px;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+      position: relative;
+      background-color: white;
+    }
+    
+    .trip-item:hover::before {
+      border-color: #3b82f6;
+    }
+    
+    .trip-item.selected::before {
+      border-color: #10b981;
+      background-color: #10b981;
+      background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m13.854 3.646-7.5 7.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6 10.293l7.146-7.147a.5.5 0 0 1 .708.708z'/%3e%3c/svg%3e");
+      background-size: 12px 12px;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    
+    .trip-item.selected:hover::before {
+      border-color: #ef4444;
+      background-color: #ef4444;
+      background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    }
+    
+    .trip-item.selected::after {
+      content: '點擊取消選擇';
+      position: absolute;
+      top: -4px;
+      right: 12px;
+      background-color: #ef4444;
+      color: white;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      opacity: 0;
+      transform: translateY(-5px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+      z-index: 10;
+    }
+    
+    .trip-item.selected:hover::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .trip-item-text {
+      flex: 1;
+    }
+
+    .selection-info {
+      margin: 8px 0;
+      padding: 8px 12px;
+      background-color: #f1f5f9;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #475569;
+      border-left: 3px solid #3b82f6;
+    }
+    
+    .selection-info.has-selection {
+      background-color: #ecfdf5;
+      border-left-color: #10b981;
+      color: #047857;
+    }
+
+      .add-trip-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      align-content: center;
+      flex-direction: column;
+      }
+
+      .mrt-btn {
+        width: 50%;
+        margin: auto 0 0.25rem;
+        align-self: center;
+        background: rgba(240, 244, 252, 0.8);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        border-radius: 32px;
+        font-size: 0.85rem;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.2);
+        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        padding: 6px 12px;
+        cursor: pointer;
+        transition: background-color 0.2s, box-shadow 0.2s;
         font-family: "GenSenRounded2TW-R", sans-serif;
       }
 
@@ -491,26 +609,30 @@
           <!-- 燃料開關 -->
           <div class="toggle-card">
             <span class="label">選擇<br />車種燃料</span>
-            <span class="nowrap-text">油車</span>
-            <label class="toggle-switch">
-              <input type="checkbox" id="fuelToggle" />
-              <span class="slider"></span>
-            </label>
-            <span class="nowrap-text">電車</span>
+            <div class="toggle-row">
+              <span class="nowrap-text">油車</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="fuelToggle" />
+                <span class="slider"></span>
+              </label>
+              <span class="nowrap-text">電車</span>
+            <div>
+          </div>
+            </div>
           </div>
           <!-- 方法開關 -->
           <div class="toggle-card">
             <span class="label">選擇<br />計算方法</span>
-            <span class="nowrap-text">距離</span>
-            <label class="toggle-switch">
-              <input type="checkbox" id="methodToggle" />
-              <span class="slider"></span>
-            </label>
-            <span class="nowrap-text">油量</span>
+            <div class="toggle-row">
+              <span class="nowrap-text">距離</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="methodToggle" />
+                <span class="slider"></span>
+              </label>
+              <span class="nowrap-text">油量</span>
+            </div>
           </div>
-        </div>
 
-        <div class="daily-card">
           <div id="pane-left" class="template-wrapper">
             <div id="oil-left" class="fuel-group">
               <div class="input-group">
@@ -564,6 +686,7 @@
               </div>
             </div>
           </div>
+          </div>
         </div>
       </div>
 
@@ -582,26 +705,29 @@
           <!-- 燃料開關 -->
           <div class="toggle-card">
             <span class="label">選擇<br />車種燃料</span>
-            <span class="nowrap-text">油車</span>
-            <label class="toggle-switch">
-              <input type="checkbox" id="fuelToggle4" />
-              <span class="slider"></span>
-            </label>
-            <span class="nowrap-text">電車</span>
+            <div class="toggle-row">
+              <span class="nowrap-text">油車</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="fuelToggle4" />
+                <span class="slider"></span>
+              </label>
+              <span class="nowrap-text">電車</span>
+            </div>
           </div>
+
           <!-- 方法開關 -->
           <div class="toggle-card">
             <span class="label">選擇<br />計算方法</span>
-            <span class="nowrap-text">距離</span>
-            <label class="toggle-switch">
-              <input type="checkbox" id="methodToggle4" />
-              <span class="slider"></span>
-            </label>
-            <span class="nowrap-text">油量</span>
+            <div class="toggle-row">
+              <span class="nowrap-text">距離</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="methodToggle4" />
+                <span class="slider"></span>
+              </label>
+              <span class="nowrap-text">油量</span>
+            </div>
           </div>
-        </div>
 
-        <div class="daily-card">
           <div id="pane-left4" class="template-wrapper">
             <div id="oil-left4" class="fuel-group">
               <div class="input-group">
@@ -651,8 +777,28 @@
     </section>
     <!-- 玻璃卡片 -->
 
-    <!-- Scene 3: 捷運使用情況 -->
+    <!-- Scene 3: 公車使用情況 -->
     <section id="scene-daily-2-3" class="scene">
+      <Chapter-Bar></Chapter-Bar>
+      <div class="slideContainer">
+        <h1>公車使用情況</h1>
+        <div class="page-indicator">
+          <div class="bar-container dynamic-bar-container"></div>
+        </div>
+        <div class="template-wrapper">
+          <div class="input-group-MRT">
+            <label for="busCount">每周搭乘</label>
+            <input id="busCount" type="number" min="0" />
+            <label style="color: #6c808f">公里</label>
+          </div>
+        </div>
+      </div>
+      <button class="nav-btn prev-btn" onclick="goToPrevScene()">‹</button>
+      <button class="nav-btn next-btn" onclick="goToNextScene()">›</button>
+    </section>
+
+    <!-- Scene 4: 捷運使用情況 -->
+    <section id="scene-daily-2-4" class="scene">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>捷運使用情況</h1>
@@ -689,8 +835,8 @@
       <button class="nav-btn next-btn" onclick="goToNextScene()">›</button>
     </section>
 
-    <!-- Scene 4: 火車使用情況 -->
-    <section id="scene-daily-2-4" class="scene">
+    <!-- Scene 5: 火車使用情況 -->
+    <section id="scene-daily-2-5" class="scene">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>火車使用情況</h1>
@@ -725,8 +871,8 @@
       <button class="nav-btn next-btn" onclick="goToNextScene()">›</button>
     </section>
 
-    <!-- Scene 5: 高鐵使用情況 -->
-    <section id="scene-daily-2-5" class="scene">
+    <!-- Scene 6: 高鐵使用情況 -->
+    <section id="scene-daily-2-6" class="scene">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>高鐵使用情況</h1>
@@ -754,26 +900,6 @@
           <div class="template-wrapper mrt-trip-list-wrapper">
             <div class="trip-list" id="hsrTripList"></div>
             <button class="mrt-btn" onclick="removeHsrTrip()">刪除行程</button>
-          </div>
-        </div>
-      </div>
-      <button class="nav-btn prev-btn" onclick="goToPrevScene()">‹</button>
-      <button class="nav-btn next-btn" onclick="goToNextScene()">›</button>
-    </section>
-
-    <!-- Scene 6: 公車使用情況（簡化版） -->
-    <section id="scene-daily-2-6" class="scene">
-      <Chapter-Bar></Chapter-Bar>
-      <div class="slideContainer">
-        <h1>公車使用情況</h1>
-        <div class="page-indicator">
-          <div class="bar-container dynamic-bar-container"></div>
-        </div>
-        <div class="template-wrapper">
-          <div class="input-group-MRT">
-            <label for="busCount">每周搭乘</label>
-            <input id="busCount" type="number" min="0" />
-            <label style="color: #6c808f">公里</label>
           </div>
         </div>
       </div>
@@ -1146,105 +1272,38 @@
       });
 
 // 汽車 & 機車：燃料切換 & 方法切換
-function setupToggle(
-  fuelId, methodId,
-  oilLeftId, oilRightId,
-  elecLeftId, elecRightId,
-  paneLeftId, paneRightId
-) {
-  const fuelToggle   = document.getElementById(fuelId);
-  const methodToggle = document.getElementById(methodId);
-  const oilLeft      = document.getElementById(oilLeftId);
-  const oilRight     = document.getElementById(oilRightId);
-  const elecLeft     = document.getElementById(elecLeftId);
-  const elecRight    = document.getElementById(elecRightId);
-  const paneLeft     = document.getElementById(paneLeftId);
-  const paneRight    = document.getElementById(paneRightId);
+    function setupToggle(fuelId, methodId, oilLeftId, oilRightId, elecLeftId, elecRightId, paneLeftId, paneRightId) {
+          const fuelToggle   = document.getElementById(fuelId);
+          const methodToggle = document.getElementById(methodId);
+          const oilLeft      = document.getElementById(oilLeftId);
+          const oilRight     = document.getElementById(oilRightId);
+          const elecLeft     = document.getElementById(elecLeftId);
+          const elecRight    = document.getElementById(elecRightId);
+          const paneLeft     = document.getElementById(paneLeftId);
+          const paneRight    = document.getElementById(paneRightId);
 
-  function updateFuel() {
-    const isElec = fuelToggle.checked;
-    oilLeft.classList.toggle("hidden", isElec);
-    oilRight.classList.toggle("hidden", isElec);
-    elecLeft.classList.toggle("hidden", !isElec);
-    elecRight.classList.toggle("hidden", !isElec);
-  }
-  function updateMethod() {
-    const isVol = methodToggle.checked;
-    paneLeft.classList.toggle("inactive", isVol);
-    paneRight.classList.toggle("inactive", !isVol);
-  }
-
-  fuelToggle.addEventListener("change", () => {
-    updateFuel();
-    updateMethod();
-  });
-  methodToggle.addEventListener("change", updateMethod);
-
-  updateFuel();
-  updateMethod();
-}
+          function updateFuel() {
+              const isElec = fuelToggle.checked;
+              oilLeft.classList.toggle("hidden", isElec);
+              oilRight.classList.toggle("hidden", isElec);
+              elecLeft.classList.toggle("hidden", !isElec);
+              elecRight.classList.toggle("hidden", !isElec);
+          }
+          
+          function updateMethod() {
+              const isVol = methodToggle.checked;
+              paneLeft.classList.toggle("inactive", isVol);
+              paneRight.classList.toggle("inactive", !isVol);
+          }
+          
+          fuelToggle.addEventListener("change", () => { updateFuel(); updateMethod(); });
+          methodToggle.addEventListener("change", updateMethod);
+          updateFuel();
+          updateMethod();
+      }
 
 // 距離資料容器
-let mrtMap = {}, trMap = {}, hsrMap = {};
-
-// 將 JSON 資料分開讀取
-function loadMrtData() {
-  fetch("data/mrtDistanceMap.json")
-    .then(r => r.json())
-    .then(data => {
-      mrtMap = data;
-      const list = document.getElementById("mrtStationList");
-      list.innerHTML = "";
-      Object.keys(mrtMap)
-        .flatMap(k => k.split("_"))
-        .filter((v, i, a) => a.indexOf(v) === i)
-        .sort((a, b) => a.localeCompare(b, "zh"))
-        .forEach(st => {
-          const o = document.createElement("option");
-          o.value = st;
-          list.appendChild(o);
-        });
-    })
-    .catch(console.error);
-}
-
-function loadTrainData() {
-  fetch("data/trDistanceMap.json")
-    .then(r => r.json())
-    .then(data => {
-      trMap = data;
-      const list = document.getElementById("trDistanceMap");
-      list.innerHTML = "";
-      Object.keys(trMap)
-        .sort((a, b) => a.localeCompare(b, "zh"))
-        .forEach(st => {
-          const o = document.createElement("option");
-          o.value = st;
-          list.appendChild(o);
-        });
-    })
-    .catch(console.error);
-}
-
-function loadHsrData() {
-  fetch("data/hsrDistanceMap.json")
-    .then(r => r.json())
-    .then(data => {
-      hsrMap = data;
-      const list = document.getElementById("hsrStationList");
-      list.innerHTML = "";
-      Object.keys(hsrMap)
-        .flatMap(k => k.split("_"))
-        .filter((v, i, a) => a.indexOf(v) === i)
-        .sort((a, b) => a.localeCompare(b, "zh"))
-        .forEach(st => {
-          const o = document.createElement("option");
-          o.value = st;
-          list.appendChild(o);
-        });
-    })
-    .catch(console.error);
-}
+mrtDistanceMap = {}, trDistanceMap = {}, hsrDistanceMap = {};
 
 // 初始化
 document.addEventListener("DOMContentLoaded", () => {
@@ -1252,77 +1311,251 @@ document.addEventListener("DOMContentLoaded", () => {
   setupToggle("fuelToggle", "methodToggle", "oil-left", "oil-right", "electric-left", "electric-right", "pane-left", "pane-right");
   setupToggle("fuelToggle4", "methodToggle4", "oil-left4", "oil-right4", "electric-left4", "electric-right4", "pane-left4", "pane-right4");
 
-  // 分別載入三種交通
-  loadMrtData();
-  loadTrainData();
-  loadHsrData();
 
-  // MRT 行程選取代理
-  document.querySelector("#mrtTripDisplay .trip-list").addEventListener("click", e => {
-    const item = e.target.closest(".trip-item");
-    if (!item) return;
-    document.querySelectorAll("#mrtTripDisplay .trip-item").forEach(el => el.classList.remove("selected"));
-    item.classList.toggle("selected");
-  });
+// 將 JSON 資料分開讀取
+  fetch("./data/mrtDistanceMap.json").then(r => r.json()).then(data => {
+    mrtDistanceMap = data;
+    const dl = document.getElementById("mrtStationList");
+    if (dl) {
+      new Set(Object.keys(data).flatMap(k => k.split("_"))).forEach(st => {
+        const o = document.createElement("option");
+        o.value = st;
+        dl.appendChild(o);
+      });
+    }
+  }).catch(err => console.log("MRT data not loaded:", err));
+
+  fetch("./data/trDistanceMap.json").then(r => r.json()).then(data => {
+    trDistanceMap = data;
+    const dl = document.getElementById("trDistanceMap");
+    if (dl) {
+      const stations = new Set();
+      if (typeof data === 'object') {
+        Object.keys(data).forEach(key => {
+          stations.add(key);
+          if (typeof data[key] === 'object') {
+            Object.keys(data[key]).forEach(subKey => stations.add(subKey));
+          }
+        });
+      }
+      stations.forEach(st => {
+        const o = document.createElement("option");
+        o.value = st;
+        dl.appendChild(o);
+      });
+    }
+  }).catch(err => console.log("Train data not loaded:", err));
+
+  fetch("./data/hsrDistanceMap.json").then(r => r.json()).then(data => {
+    hsrDistanceMap = data;
+    const dl = document.getElementById("hsrStationList");
+    if (dl) {
+      new Set(Object.keys(data).flatMap(k => k.split("_"))).forEach(st => {
+        const o = document.createElement("option");
+        o.value = st;
+        dl.appendChild(o);
+      });
+    }
+  }).catch(err => console.log("HSR data not loaded:", err));
+
+  setupTripListSelection();
 });
+
+// ===== 更新選取資訊 =====
+function updateSelectionInfo(container) {
+  // 移除選取資訊顯示功能，僅保留函數結構以維持兼容性
+}
+
+function setupTripListSelection() {
+  const tripContainers = [
+    "#mrtTripDisplay .trip-list", 
+    "#trainTripList",
+    "#hsrTripList"
+  ];
+
+  tripContainers.forEach(selector => {
+    const container = document.querySelector(selector);
+    if (container && !container.hasAttribute('data-selection-setup')) {
+      // 綁定點擊事件
+      container.addEventListener("click", e => {
+        const item = e.target.closest(".trip-item");
+        if (!item) return;
+        
+        // 阻止事件冒泡
+        e.stopPropagation();
+        e.preventDefault();
+        
+        // 切換選取狀態（多選模式）
+        item.classList.toggle("selected");
+      });
+      
+      // 標記已設置
+      container.setAttribute('data-selection-setup', 'true');
+    }
+  });
+}
+
+function makeSelectable(item) {
+  item.classList.add("trip-item");
+  
+  // 確保項目可以被點擊
+  item.style.cursor = "pointer";
+  item.style.userSelect = "none";
+  
+  return item;
+}
+
+// ===== 通用新增行程函數 =====
+function addTrip(map, startId, endId, countId, displaySelector) {
+  const s = document.getElementById(startId).value.trim();
+  const e = document.getElementById(endId).value.trim();
+  const c = parseInt(document.getElementById(countId).value, 10) || 0;
+  
+  if (!s || !e || c <= 0) {
+    return alert("請填寫完整的起訖點並輸入趟數");
+  }
+  
+  const dist = map[`${s}_${e}`];
+  if (dist === undefined) return alert("請選擇正確的起訖點並輸入趟數");
+
+  const item = document.createElement("div");
+  item.innerHTML = `<span class="trip-item-text">${s} → ${e} ${c}趟</span>`;
+  makeSelectable(item);
+  
+  const listContainer = document.querySelector(`${displaySelector} .trip-list`);
+  if (listContainer) {
+    listContainer.appendChild(item);
+  }
+}
+
+// ===== 通用刪除行程函數 =====
+function deleteTrip(displaySelector) {
+  const list = document.querySelector(`${displaySelector} .trip-list`) || document.querySelector(displaySelector);
+  if (!list) return alert("找不到行程列表");
+  
+  const selectedItems = list.querySelectorAll(".trip-item.selected");
+  
+  if (selectedItems.length > 0) {
+    // 刪除所有選中的項目
+    selectedItems.forEach(item => item.remove());
+  } else if (list.lastElementChild && list.lastElementChild.classList.contains("trip-item")) {
+    // 如果沒有選中項目，刪除最後一個
+    list.lastElementChild.remove();
+  } else {
+    alert("沒有行程可刪除");
+  }
+}
 
 // MRT 行程管理
 function addMRTTrip() {
-  const s = document.getElementById("mrtStart").value;
-  const e = document.getElementById("mrtEnd").value;
-  const c = parseInt(document.getElementById("mrtCount").value, 10) || 0;
-  if (!s || !e || c <= 0) return alert("請選擇完整的起訖站並輸入有效次數");
-  const dist = mrtMap[`${s}_${e}`] || 0;
-  const total = (dist * c).toFixed(2);
-  const item = document.createElement("div");
-  item.className = "trip-item";
-  item.innerHTML = `<span>${s} → ${e}`;
-  document.querySelector("#mrtTripDisplay .trip-list").appendChild(item);
+  addTrip(mrtDistanceMap, "mrtStart", "mrtEnd", "mrtCount", "#mrtTripDisplay");
+  
+  document.getElementById("mrtStart").value = "";
+  document.getElementById("mrtEnd").value = "";
+  document.getElementById("mrtCount").value = "";
 }
+
 function removeMRTTrip() {
-  const sel = document.querySelector("#mrtTripDisplay .trip-item.selected");
-  if (!sel) return alert("請先點擊選取要刪除的行程");
-  sel.remove();
+  deleteTrip("#mrtTripDisplay");
 }
 
 // 火車行程管理
 function addTrainTrip() {
-  const s = document.getElementById("trainStart").value;
-  const e = document.getElementById("trainEnd").value;
+  const s = document.getElementById("trainStart").value.trim();
+  const e = document.getElementById("trainEnd").value.trim();
   const c = parseInt(document.getElementById("trainCount").value, 10) || 0;
-  if (!s || !e || c <= 0) return alert("請選擇完整的起訖站並輸入有效次數");
-  const dist = Math.abs((trMap[e] || 0) - (trMap[s] || 0));
-  const total = (dist * c).toFixed(2);
+  
+  if (!s || !e || c <= 0) {
+    return alert("請填寫完整的起訖點並輸入趟數");
+  }
+  
+  if (trDistanceMap[s] === undefined) {
+    const availableStations = Object.keys(trDistanceMap).filter(station => 
+      station.toLowerCase().includes(s.toLowerCase()) || 
+      s.toLowerCase().includes(station.toLowerCase())
+    );
+    return alert(`找不到車站 "${s}"。\n可能的車站名稱: ${availableStations.slice(0, 5).join(', ')}${availableStations.length > 5 ? '...' : ''}`);
+  }
+  
+  if (trDistanceMap[e] === undefined) {
+    const availableStations = Object.keys(trDistanceMap).filter(station => 
+      station.toLowerCase().includes(e.toLowerCase()) || 
+      e.toLowerCase().includes(station.toLowerCase())
+    );
+    return alert(`找不到車站 "${e}"。\n可能的車站名稱: ${availableStations.slice(0, 5).join(', ')}${availableStations.length > 5 ? '...' : ''}`);
+  }
+  
+  const startKm = trDistanceMap[s];
+  const endKm = trDistanceMap[e];
+  const dist = Math.abs(endKm - startKm).toFixed(1);
+
   const item = document.createElement("div");
-  item.className = "trip-item";
-  item.innerHTML = `<span>${s} → ${e}`;
-  document.getElementById("trainTripList").appendChild(item);
+  item.innerHTML = `<span class="trip-item-text">${s} → ${e} ${c}趟</span>`;
+  makeSelectable(item);
+  
+  const listContainer = document.getElementById("trainTripList");
+  listContainer.appendChild(item);
+  
+  document.getElementById("trainStart").value = "";
+  document.getElementById("trainEnd").value = "";
+  document.getElementById("trainCount").value = "";
 }
+
 function removeTrainTrip() {
   const list = document.getElementById("trainTripList");
-  const items = list.querySelectorAll(".trip-item");
-  if (!items.length) return alert("目前沒有行程可刪除");
-  list.removeChild(items[items.length - 1]);
+  if (!list) return alert("找不到行程列表");
+  
+  const selectedItems = list.querySelectorAll(".trip-item.selected");
+  
+  if (selectedItems.length > 0) {
+    selectedItems.forEach(item => item.remove());
+  } else if (list.lastElementChild && list.lastElementChild.classList.contains("trip-item")) {
+    list.lastElementChild.remove();
+  } else {
+    alert("沒有行程可刪除");
+  }
 }
 
 // 高鐵行程管理
 function addHsrTrip() {
-  const s = document.getElementById("hsrStart").value;
-  const e = document.getElementById("hsrEnd").value;
+  const s = document.getElementById("hsrStart").value.trim();
+  const e = document.getElementById("hsrEnd").value.trim();
   const c = parseInt(document.getElementById("hsrCount").value, 10) || 0;
-  if (!s || !e || c <= 0) return alert("請選擇完整的起訖站並輸入有效次數");
-  const dist = hsrMap[`${s}_${e}`] || 0;
-  const total = (dist * c).toFixed(2);
+  
+  if (!s || !e || c <= 0) {
+    return alert("請填寫完整的起訖點並輸入趟數");
+  }
+  
+  const dist = hsrDistanceMap[`${s}_${e}`] || hsrDistanceMap[`${e}_${s}`];
+  if (dist === undefined) return alert("請選擇正確的起訖點並輸入趟數");
+
   const item = document.createElement("div");
-  item.className = "trip-item";
-  item.innerHTML = `<span>${s} → ${e}`;
-  document.getElementById("hsrTripList").appendChild(item);
+  item.innerHTML = `<span class="trip-item-text">${s} → ${e} ${c}趟</span>`;
+  makeSelectable(item);
+  
+  const listContainer = document.getElementById("hsrTripList");
+  listContainer.appendChild(item);
+  
+  document.getElementById("hsrStart").value = "";
+  document.getElementById("hsrEnd").value = "";
+  document.getElementById("hsrCount").value = "";
 }
+
 function removeHsrTrip() {
   const list = document.getElementById("hsrTripList");
-  const items = list.querySelectorAll(".trip-item");
-  if (!items.length) return alert("目前沒有行程可刪除");
-  list.removeChild(items[items.length - 1]);
+  if (!list) return alert("找不到行程列表");
+  
+  const selectedItems = list.querySelectorAll(".trip-item.selected");
+  
+  if (selectedItems.length > 0) {
+    selectedItems.forEach(item => item.remove());
+    updateSelectionInfo(list);
+  } else if (list.lastElementChild && list.lastElementChild.classList.contains("trip-item")) {
+    list.lastElementChild.remove();
+    updateSelectionInfo(list);
+  } else {
+    alert("沒有行程可刪除");
+  }
 }
 
 </script>
