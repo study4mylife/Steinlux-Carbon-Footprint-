@@ -77,13 +77,13 @@
         inset 8px 2.25px 0 -6.75px rgb(255, 255, 255),
         inset -2.75px -8px 0 -7px rgb(255, 255, 255), 
         inset 2.75px 8.25px 0 -7px rgb(255, 255, 255),
-        2px 2px 12px 4px rgba(110, 110, 110, 0.15);
+        2px 2px 12px 0px rgba(110, 110, 110, 0.15);
         box-shadow:
         inset -8px -2.25px 0 -6.75px rgb(255, 255, 255), 
         inset 8px 2.25px 0 -6.75px rgb(255, 255, 255),
         inset -2.75px -8px 0 -7px rgb(255, 255, 255), 
         inset 2.75px 8px 0 -7px rgb(255, 255, 255),
-        2px 2px 12px 4px rgba(110, 110, 110, 0.15);
+        2px 2px 12px 0px rgba(110, 110, 110, 0.15);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         z-index: -1;
@@ -166,6 +166,7 @@
         gap: 16px 300px; /* 可依實際需求微調 */
         padding: 24px; /* 保留原有內距 */
         max-height: 80vh; /* 若需要滾動，可加上限制高度 */
+        background: rgba(255, 255, 255, 0.05);
         overflow-y: auto;
       }
       .modal-body .input-group {
@@ -189,7 +190,7 @@
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(5, 48px);
         grid-auto-flow: column;
-        gap: 1rem;
+        gap: 1rem 3rem;
         max-width: 100%;
       }
 
@@ -224,6 +225,14 @@
         font-size: 0.88rem;
         color: #6c808f;
       }
+
+      .food-card .custom-number-input input[type="number"], .input-group .custom-number-input input[type="number"]{
+        text-align: center;
+        min-width: 35px;
+        max-width: 65px;
+        height: 20px;
+      }
+      
       .input-group select {
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -252,7 +261,7 @@
       .input-group label.main-label {
         display: inline-flex;
         align-items: center;
-        gap: 6px; /* 圖示與文字間距 */
+        gap: 6px;
       }
 
       /* 圖示尺寸 */
@@ -356,13 +365,22 @@
       </div>
     </div>
 
+    <!-- Scene 1: 葷素選擇 -->
     <section id="scene1" class="scene scene-1">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>請問您是葷食者還是素食者？</h1>
         <div class="page-indicator">
           <div class="bar-container dynamic-bar-container">
-            <span class="bar active" onclick="goToScene(1)"></span>
+            <div class="bar-hit-area">
+              <span class="bar active" onclick="goToScene(1)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(7)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(8)"></span>
+            </div>
           </div>
         </div>
         <div class="diet-grid">
@@ -380,14 +398,19 @@
       <button class="nav-btn next-btn" onclick="handleDietNext()">›</button>
     </section>
 
+    <!-- Scene 2: 素食選擇 -->
     <section id="scene2" class="scene">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>請問您吃哪種素食？</h1>
         <div class="page-indicator">
           <div class="bar-container dynamic-bar-container">
-            <span class="bar" onclick="goToScene(1)"></span>
-            <span class="bar active" onclick="goToScene(2)"></span>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(1)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar active" onclick="goToScene(2)"></span>
+            </div>
           </div>
         </div>
         <div class="diet-grid">
@@ -409,14 +432,19 @@
       <button class="nav-btn next-btn" onclick="handleSubDietNext()">›</button>
     </section>
 
+    <!-- Scene 3: 日常食物 -->
     <section id="scene3" class="scene">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>請問您日常會選擇吃哪些食物？</h1>
         <div class="page-indicator">
           <div class="bar-container dynamic-bar-container">
-            <span class="bar" onclick="goToScene(1)"></span>
-            <span class="bar active" onclick="goToScene(3)"></span>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(1)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar active" onclick="goToScene(3)"></span>
+            </div>
           </div>
         </div>
         <div class="food-grid">
@@ -557,6 +585,7 @@
             </div>
           </div>
         </div>
+        <!-- Scene: 日常食物彈出視窗 -->
 
         <!-- Info 按鈕 -->
         <button id="info-btn" class="info-btn">
@@ -735,16 +764,22 @@
       <button class="nav-btn prev-btn" onclick="goToScene(1)">‹</button>
       <button class="nav-btn next-btn" onclick="goToScene(4)">›</button>
     </section>
-
+    <!-- Scene 4: 海鮮素 -->
     <section id="scene4" class="scene">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>海鮮素</h1>
         <div class="page-indicator">
           <div class="bar-container dynamic-bar-container">
-            <span class="bar" onclick="goToScene(1)"></span>
-            <span class="bar" onclick="goToScene(2)"></span>
-            <span class="bar active" onclick="goToScene(4)"></span>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(1)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(2)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar active" onclick="goToScene(4)"></span>
+            </div>
           </div>
         </div>
         <div class="template-wrapper">
@@ -913,16 +948,22 @@
       <button class="nav-btn prev-btn" onclick="goToScene(2)">‹</button>
       <button class="nav-btn next-btn" onclick="goToScene(5)">›</button>
     </section>
-
+    <!-- Scene 5: 蛋奶素 -->
     <section id="scene5" class="scene">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>蛋奶素</h1>
         <div class="page-indicator">
           <div class="bar-container dynamic-bar-container">
-            <span class="bar" onclick="goToScene(1)"></span>
-            <span class="bar" onclick="goToScene(2)"></span>
-            <span class="bar active" onclick="goToScene(5)"></span>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(1)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(2)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar active" onclick="goToScene(5)"></span>
+            </div>
           </div>
         </div>
         <div class="template-wrapper">
@@ -1060,15 +1101,22 @@
       <button class="nav-btn next-btn" onclick="goToScene(6)">›</button>
     </section>
 
+    <!-- Scene 6: 全素 -->
     <section id="scene6" class="scene">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>全素</h1>
         <div class="page-indicator">
           <div class="bar-container dynamic-bar-container">
-            <span class="bar" onclick="goToScene(1)"></span>
-            <span class="bar" onclick="goToScene(2)"></span>
-            <span class="bar active" onclick="goToScene(6)"></span>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(1)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(2)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar active" onclick="goToScene(6)"></span>
+            </div>
           </div>
         </div>
         <div class="template-wrapper">
@@ -1174,14 +1222,22 @@
       <button class="nav-btn next-btn" onclick="goToScene(7)">›</button>
     </section>
 
+    <!-- Scene 7: 點心 -->
     <section id="scene7" class="scene">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>請問您日常會選擇吃哪些點心？</h1>
         <div class="page-indicator">
           <div class="bar-container dynamic-bar-container">
-            <span class="bar" onclick="goToScene(1)"></span>
-            <span class="bar active" onclick="goToScene(3)"></span>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(1)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(3)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar active" onclick="goToScene(7)"></span>
+            </div>
           </div>
         </div>
         <div class="food-grid">
@@ -1326,15 +1382,22 @@
       <button class="nav-btn prev-btn" onclick="goToScene(2)">‹</button>
       <button class="nav-btn next-btn" onclick="goToScene(8)">›</button>
     </section>
-
+    <!-- Scene 8: 剩食 -->
     <section id="scene8" class="scene">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>平常會有多少剩食？</h1>
         <div class="page-indicator">
           <div class="bar-container dynamic-bar-container">
-            <span class="bar" onclick="goToScene(1)"></span>
-            <span class="bar active" onclick="goToScene(8)"></span>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(1)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(7)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(8)"></span>
+            </div>
           </div>
         </div>
         <div class="waste-container">

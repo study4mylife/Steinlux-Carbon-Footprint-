@@ -33,7 +33,7 @@
     max-height: 90vh;
     padding: 20px;
     background: rgba(255, 255, 255, 0.05);
-    border-radius: 96px;
+    border-radius:72px;
     -webkit-backdrop-filter:blur(10px);
     backdrop-filter:blur(10px);
     position: relative;
@@ -60,7 +60,7 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     z-index: -1;
-    border-radius: 96px;
+    border-radius: 72px;
     }
 
     .story-header {
