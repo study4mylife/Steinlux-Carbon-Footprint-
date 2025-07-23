@@ -385,17 +385,9 @@
         width: 50vw;
         max-width: 840px;
         min-height: max-content;
-        height: 300px; /* ✅ 最小高度 */
-        border-radius: 40px;
-        background: rgba(7, 68, 70, 0.3);
-        border: 4px solid #ffffff;
-        box-shadow: 0 0 20px #428284, inset 0 0 35px #a8ece9;
+        height: 300px;
         overflow-y: scroll;
         scrollbar-width: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px 40px;
         opacity: 0;
         animation: growWidth 0.8s ease-out 1.5s forwards;
         z-index: 2;
@@ -405,7 +397,7 @@
         margin: 0;
         font-family: "SweiXDPearlCJKtc-DemiLight", sans-serif;
         font-size: 1.2rem;
-        letter-spacing: 2px;
+        letter-spacing: 4px;
         color: #ffffff;
         line-height: 2rem;
         white-space: pre-wrap;
@@ -446,19 +438,13 @@
       }
 
       .scene-2 .speech-box {
-        width: 55vw;
+        width: 50vw;
         max-width: 840px;
-        height: 300px; /* ✅ 最小高度 */
-        border-radius: 40px;
-        background: rgba(7, 68, 70, 0.3);
-        border: 4px solid #ffffff;
-        box-shadow: 0 0 20px #428284, inset 0 0 35px #a8ece9;
+        min-height: max-content;
+        height: 300px;
+        padding: 1.25rem 2.5rem;
         overflow-y: scroll;
         scrollbar-width: none;
-        display: flex;
-        align-items: center; /* 垂直置中 */
-        justify-content: center; /* 水平置中 ✅ 新增 */
-        padding: 20px 40px;
         opacity: 0;
         animation: growWidth 0.8s ease-out 1.5s forwards;
         z-index: 2;
@@ -468,8 +454,9 @@
         margin: 0;
         font-family: "SweiXDPearlCJKtc-DemiLight", sans-serif;
         font-size: 1.2rem;
+        letter-spacing: 4px;
         color: #ffffff;
-        line-height: 2.5rem;
+        line-height: 2rem;
         white-space: pre-wrap;
         word-break: break-all;
         text-align: left;
@@ -539,7 +526,7 @@
           <div class="text-container">
             <div class="speech-box">
               <p
-                data-text="宇宙靜默無聲，無數星系在無邊的黑暗中閃爍，[主角]駕駛著太空船，在這片寂靜之海飄流。\n\n某天，[主角]的偵測儀發出微弱的訊號，顯示前方一顆失落的藍色星球 - 根據古老的星際記錄，這裡曾是「地球」，一個擁有數十億生命的世界。\n\n然而，當[主角]的艙體降落，迎接的卻只有滿目瘡痍的廢墟。城市已成沙塵，海洋早已乾涸，連空氣都充滿了令人窒息的沉寂。這裡曾經發生了什麼？"
+                data-text="宇宙靜默無聲，無數星系在無邊的黑暗中閃爍，[主角]駕駛著太空船，在這片寂靜之海飄流。\n\n某天，[主角]的偵測儀發出微弱的訊號，顯示前方一顆失落的藍色星球 - 根據古老的星際記錄，這裡曾是「地球」，一個擁有數十億生命的世界。"
               ></p>
             </div>
           </div>

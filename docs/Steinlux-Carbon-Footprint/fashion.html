@@ -44,14 +44,14 @@
         inset -2.75px -8.5px 0 -7px rgb(255, 255, 255), 
         inset 2.75px 8.5px 0 -7px rgb(255, 255, 255),
         0 0 0 0.2px rgb(255, 255, 255),
-        2px 2px 16px 4px rgba(110, 110, 110, 0.15);
+        2px 2px 12px 0px rgba(110, 110, 110, 0.15);
         box-shadow:
         inset -8.5px -2.25px 0 -6.75px rgb(255, 255, 255), 
         inset 8.5px 2.25px 0 -6.75px rgb(255, 255, 255),
         inset -2.75px -8.5px 0 -7px rgb(255, 255, 255), 
         inset 2.75px 8.5px 0 -7px rgb(255, 255, 255),
         0 0 0 0.2px rgb(255, 255, 255),
-        2px 2px 16px 4px rgba(110, 110, 110, 0.15);
+        2px 2px 12px 0px rgba(110, 110, 110, 0.15);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         z-index: -1;
@@ -131,67 +131,49 @@
       </div>
     </div>
 
-      <div class="chapter-bar">
-    <div class="chapter-button" onclick="window.location.href='traffic-daily.html'">
-      <div class="chapter-icon"><i class="fa-solid fa-car-side"></i></div>
-      <div class="chapter-label">日常</div>
-    </div>
-    <div class="chapter-button" onclick="window.location.href='home.html'">
-      <div class="chapter-icon"><i class="fa-solid fa-house-chimney"></i></div>
-      <div class="chapter-label">居住</div>
-    </div>
-    <div class="chapter-button" onclick="window.location.href='traffic.html'">
-      <div class="chapter-icon"><i class="fa-solid fa-plane-departure"></i></div>
-      <div class="chapter-label">旅遊</div>
-    </div>
-    <div class="chapter-button" onclick="window.location.href='food.html'">
-      <div class="chapter-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
-      <div class="chapter-label">飲食</div>
-    </div>
-    <div class="chapter-button" onclick="window.location.href='fashion.html'">
-      <div class="chapter-icon"><i class="fa-solid fa-shirt"></i></div>
-      <div class="chapter-label">時尚</div>
-    </div>
-    <div class="chapter-button" onclick="window.location.href='entertainment.html'">
-      <div class="chapter-icon"><i class="fa-solid fa-wifi"></i></div>
-      <div class="chapter-label">娛樂</div>
-    </div>
-  </div>
-
     <section id="scene-fashion" class="scene scene-1">
       <Chapter-Bar></Chapter-Bar>
-      <h1>一年度購買的衣物金額？​</h1>
-      <div class="fashion-row">
-        <div class="fashion-box">
-          <span class="question-title">快時尚</span>
-          <label for="fastFashionInput">一年共花費</label>
-          <div class="input-container">
-            <div class="custom-number-input">
-              <button type="button" class="btn-decrement">
-                <span class="decrement">-</span>
-              </button>
-              <input type="number" value="0" min="0" />
-              <button type="button" class="btn-increment">
-                <span class="increment">+</span>
-              </button>
+      <div class="slideContainer">
+        <h1>一年度購買的衣物金額？​</h1>
+        <div class="page-indicator">
+          <div class="bar-container dynamic-bar-container">
+            <div class="bar-hit-area">
+              <span class="bar active"></span>
             </div>
-            <span>元</span>
           </div>
         </div>
-        <div class="fashion-box">
-          <span class="question-title">奢華時尚</span>
-          <label for="luxuryFashionInput">一年共花費</label>
-          <div class="input-container">
-            <div class="custom-number-input">
-              <button type="button" class="btn-decrement">
-                <span class="decrement">-</span>
-              </button>
-              <input type="number" value="0" min="0" />
-              <button type="button" class="btn-increment">
-                <span class="increment">+</span>
-              </button>
+        <div class="fashion-row">
+          <div class="fashion-box">
+            <span class="question-title">快時尚</span>
+            <label for="fastFashionInput">一年共花費</label>
+            <div class="input-container">
+              <div class="custom-number-input">
+                <button type="button" class="btn-decrement">
+                  <span class="decrement">-</span>
+                </button>
+                <input type="number" value="0" min="0" />
+                <button type="button" class="btn-increment">
+                  <span class="increment">+</span>
+                </button>
+              </div>
+              <span>元</span>
             </div>
-            <span>元</span>
+          </div>
+          <div class="fashion-box">
+            <span class="question-title">奢華時尚</span>
+            <label for="luxuryFashionInput">一年共花費</label>
+            <div class="input-container">
+              <div class="custom-number-input">
+                <button type="button" class="btn-decrement">
+                  <span class="decrement">-</span>
+                </button>
+                <input type="number" value="0" min="0" />
+                <button type="button" class="btn-increment">
+                  <span class="increment">+</span>
+                </button>
+              </div>
+              <span>元</span>
+            </div>
           </div>
         </div>
       </div>
