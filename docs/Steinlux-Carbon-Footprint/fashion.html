@@ -94,42 +94,7 @@
   </head>
   <body>
     <!-- 故事劇情 -->
-    <div class="story-body">
-      <div class="story-container">
-      <header class="story-header">
-        <div class="story-header-title">
-          <div class="story-header-title-lt">
-            <div class="story-header-profile-photo"></div>
-            <h1>Neo(2)</h1>
-            <i class="fa-solid fa-volume-low" style="color: #6c808f;"></i>
-          </div>
-          <div class="story-header-title-rt">
-            <i class="fa-solid fa-phone"></i>
-            <i class="fa-solid fa-ellipsis-vertical"></i>
-          </div>
-        </div>
-      </header>
-
-      <div class="story-chat-container" id="chatContainer"></div>
-
-      <div class="input-container">
-        <div class="input-wrapper">
-          <input
-            type="text"
-            class="message-input"
-            placeholder="請輸入訊息..."
-            aria-label="Message input"
-          />
-          <div class="action-buttons">
-            <button id="send-button" class="send-button" >
-              <span>出發</span>
-              <i class="fa-regular fa-font-awesome"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      </div>
-    </div>
+    <story-chatroom></story-chatroom>
 
     <section id="scene-fashion" class="scene scene-1">
       <Chapter-Bar></Chapter-Bar>
@@ -217,49 +182,6 @@
         },
         { text: "我開始有點懷念小時候那件穿五年的體育服了...", from: "user" },
       ];
-
-      const chatContainer = document.getElementById("chatContainer");
-
-      function createMessageElement(message) {
-        if (message.type === "time") {
-          const timeEl = document.createElement("div");
-          timeEl.classList.add("story-time-stamp");
-          timeEl.textContent = message.text;
-          return timeEl;
-        }
-
-        const wrapper = document.createElement("div");
-        wrapper.classList.add(
-          "story-message",
-          message.from === "user"
-            ? "story-user-message"
-            : "story-cat-message"
-        );
-
-        const avatar = document.createElement("div");
-        avatar.classList.add("story-avatar");
-        avatar.textContent = message.from === "user" ? "U" : "A";
-
-        const bubble = document.createElement("div");
-        bubble.classList.add("story-message-bubble");
-        bubble.textContent = message.text;
-
-        wrapper.appendChild(avatar);
-        wrapper.appendChild(bubble);
-        return wrapper;
-      }
-
-    async function playIntroMessages() {
-      for (let i = 0; i < messages.length; i++) {
-        const el = createMessageElement(messages[i]);
-        const messageTime = messages[i].time;
-        chatContainer.appendChild(el);
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-        await new Promise((resolve) => setTimeout(resolve, messageTime));
-      }
-    }
-
-      window.addEventListener("DOMContentLoaded", playIntroMessages);
   </script>
   </body>
 </html>

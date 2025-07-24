@@ -328,42 +328,7 @@
   </head>
   <body>
     <!-- 故事劇情 -->
-    <div class="story-body">
-      <div class="story-container">
-        <header class="story-header">
-          <div class="story-header-title">
-            <div class="story-header-title-lt">
-              <div class="story-header-profile-photo"></div>
-              <h1>Neo(2)</h1>
-              <i class="fa-solid fa-volume-low" style="color: #6c808f"></i>
-            </div>
-            <div class="story-header-title-rt">
-              <i class="fa-solid fa-phone"></i>
-              <i class="fa-solid fa-ellipsis-vertical"></i>
-            </div>
-          </div>
-        </header>
-
-        <div class="story-chat-container" id="chatContainer"></div>
-
-        <div class="input-container">
-          <div class="input-wrapper">
-            <input
-              type="text"
-              class="message-input"
-              placeholder="請輸入訊息..."
-              aria-label="Message input"
-            />
-            <div class="action-buttons">
-              <button id="send-button" class="send-button">
-                <span>出發</span>
-                <i class="fa-regular fa-font-awesome"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <story-chatroom></story-chatroom>
 
     <!-- Scene 1: 葷素選擇 -->
     <section id="scene1" class="scene scene-1">
@@ -1418,7 +1383,7 @@
       </div>
 
       <button class="nav-btn prev-btn" onclick="goToScene(7)">‹</button>
-      <button class="nav-btn next-btn" onclick="goToScene(9)">›</button>
+      <button class="nav-btn next-btn" onclick="window.location.href='fashion.html'">›</button>
     </section>
 
     <script src="./js/all.js"></script>
@@ -1453,46 +1418,6 @@
         },
       ];
 
-      const chatContainer = document.getElementById("chatContainer");
-
-      function createMessageElement(message) {
-        if (message.type === "time") {
-          const timeEl = document.createElement("div");
-          timeEl.classList.add("story-time-stamp");
-          timeEl.textContent = message.text;
-          return timeEl;
-        }
-
-        const wrapper = document.createElement("div");
-        wrapper.classList.add(
-          "story-message",
-          message.from === "user" ? "story-user-message" : "story-cat-message"
-        );
-
-        const avatar = document.createElement("div");
-        avatar.classList.add("story-avatar");
-        avatar.textContent = message.from === "user" ? "U" : "A";
-
-        const bubble = document.createElement("div");
-        bubble.classList.add("story-message-bubble");
-        bubble.textContent = message.text;
-
-        wrapper.appendChild(avatar);
-        wrapper.appendChild(bubble);
-        return wrapper;
-      }
-
-      async function playIntroMessages() {
-        for (let i = 0; i < messages.length; i++) {
-          const el = createMessageElement(messages[i]);
-          const messageTime = messages[i].time;
-          chatContainer.appendChild(el);
-          chatContainer.scrollTop = chatContainer.scrollHeight;
-          await new Promise((resolve) => setTimeout(resolve, messageTime));
-        }
-      }
-
-      window.addEventListener("DOMContentLoaded", playIntroMessages);
       // 1. 紀錄第 1 幕與第 2 幕的選擇
       let selectedDiet = null;
       let selectedSubDiet = null;

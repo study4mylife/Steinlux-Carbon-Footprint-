@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>星際碳險</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <style>
+      /*—— 自訂字體 ——*/
+      @font-face {
+        font-family: "SweiXDPearlCJKtc-Medium";
+        src: url("font/SweiXDPearlCJKtc-Medium.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "SweiXDPearlCJKtc-DemiLight";
+        src: url("font/SweiXDPearlCJKtc-DemiLight.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @media (min-width: 1200px) {
+        html {
+          font-size: 18px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        html {
+          font-size: 14px;
+        }
+      }
+
+      /*—— 全域設定 ——*/
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .scroll-container {
+        position: fixed;
+        height: 100vh;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+        z-index: 999;
+      }
+
+      /*—— 場景容器 ——*/
+      .scene {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        scroll-snap-align: start;
+        z-index: 999;
+      }
+
+      .scene-1 {
+        background: url("images/分析頁背景.png") no-repeat 0 0;
+        background-size: cover;
+      }
+
+      .scene-2 {
+        background: url("images/分析頁背景.png") no-repeat 0 -100vh;
+        background-size: cover;
+      }
+
+    .stars-bg {
+      position: fixed;
+      top: -100px;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url("images/首頁背景星星.png") no-repeat 0 0;
+      background-size: cover;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 0;
+      transform: rotate(45deg);
+      transform-origin: center center;
+      transition: transform 0.5s linear;
+    }
+
+      /*—— 動畫定義 ——*/
+
+      @keyframes growWidth {
+        /*—— 文字框展開動畫 ——*/
+        from {
+          height: 0;
+          opacity: 0;
+        }
+        to {
+          height: 150px;
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeIn {
+        /*—— 淡入動畫 ——*/
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes floatCloud {
+        /*—— 雲朵動畫 ——*/
+        0%,
+        100% {
+          bottom: 0;
+        }
+        50% {
+          bottom: 30px;
+        }
+      }
+
+      @keyframes breath {
+        0% {
+          transform: scale(1.05); /* 初始大小 */
+          box-shadow: 0 0 20px #F2AA84;
+        }
+        50% {
+          transform: scale(1); /* 中间大小 */
+          box-shadow: 0 0 0px #F2AA84;
+        }
+        100% {
+          transform: scale(1.05); /* 结束大小 */
+          box-shadow: 0 0 20px #F2AA84;
+        }
+      }
+
+      /*——雲朵容器 ——*/
+      .cloud-container {
+        position: absolute;
+        left: -30px;
+        bottom: 15px;
+        z-index: 4;
+        animation: floatCloud 2s ease-in-out 1.5s infinite;
+      }
+      .cloud-container img {
+        display: block;
+        width: 30vw;
+        height: auto;
+        opacity: 0.5;
+      }
+      /* —— 地球容器 —— */
+      .moon-container {
+        position: fixed;
+        top: -10%;
+        right: -5%;
+        z-index: 2;
+      }
+      .moon-container img {
+        display: block;
+        min-width: 100px;
+        width: 12vw;
+        height: auto;
+      }
+
+      /*—— 色塊容器 ——*/
+      .color-block {
+        position: fixed;
+        right: -100%;
+        top: 152.5%;
+        transform: translate(-50%, -50%);
+        width: 100vw;
+        aspect-ratio: 1/1;
+        background: linear-gradient(45deg, #84551F 0%,#686868 55%, #2F6E77 100%);
+        border-radius: 100%;
+        box-shadow: 0 0 48px 48pt#F0E6D107;
+        z-index: 1;
+      }
+
+      /*—— 標題 ——*/
+      .floating-title {
+        display: inline-flex;
+        gap: 10px;
+        font-size: 6rem;
+        opacity: 0;
+        animation: fadeIn 0.5s ease-out 1.5s forwards;
+        z-index: 2;
+      }
+      .floating-title span {
+        font-family: "SweiXDPearlCJKtc-Medium", serif;
+        color: #ffffff;
+      }
+      .floating-title span:nth-child(3) {
+        color: #f5d5a1;
+      }
+
+      /*第一幕*/
+      .scene-1 .text-container {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        min-width: max-content;
+        top: 5%;
+        left: 5%;
+        translate:(-50%, -50%); ;
+        z-index: 2;
+      }
+
+      .scene-1 .cat-container {
+        position: absolute;
+        left: 15%;
+        bottom: 3%;
+        scale: 1;
+        z-index: 3;
+      }
+
+      .scene-1 .flying-cat {
+        display: block;
+        min-width: 180px;
+        width: 18vw;
+        height: auto;
+        position: relative;
+        z-index: 3;
+        animation: floatCloud 2s ease-in-out 1.5s infinite;
+      }
+
+      .scene-1 .spaceship-container {
+        position: absolute;
+        left: -180px;
+        bottom: 60px;
+        z-index: 4;
+      }
+
+      .scene-1 .cloud-container img {
+        display: block;
+        width: 8vw;
+        height: auto;
+        opacity: 0.5;
+      }
+
+       .scene-1 .speech-box {
+        width: 50vw;
+        max-width: 840px;
+        min-height: max-content;
+        height: 300px;
+        overflow-y: scroll;
+        scrollbar-width: none;
+        opacity: 0;
+        animation: growWidth 0.8s ease-out 1.5s forwards;
+        z-index: 2;
+      }
+
+      .scene-1 .speech-box p {
+        margin: 0;
+        font-family: "SweiXDPearlCJKtc-DemiLight", sans-serif;
+        font-size: 1.2rem;
+        letter-spacing: 4px;
+        color: #ffffff;
+        line-height: 2rem;
+        white-space: pre-wrap;
+        word-break: break-all;
+        text-align: justify;
+        width: 100%;
+      }
+
+      /*第二幕*/
+
+      .scene-2 .cat-container {
+        position: absolute;
+        left: -30%;
+        bottom: 0px;
+        scale: 0.5;
+        z-index: 3;
+      }
+
+      .scene-2 .flying-cat {
+        display: block;
+        width: 22vw;
+        height: auto;
+        position: relative;
+        z-index: 3;
+        animation: floatCloud 2s ease-in-out 1.5s infinite;
+      }
+
+      .scene-2 .text-container {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        min-width: max-content;
+        top: 20%;
+        left: 35%;
+        translate:(-50%, -50%); ;
+        z-index: 2;
+      }
+
+      .scene-2 .speech-box {
+        width: 50vw;
+        max-width: 840px;
+        min-height: max-content;
+        height: 300px;
+        padding: 1.25rem 1rem;
+        overflow-y: scroll;
+        scrollbar-width: none;
+        opacity: 0;
+        animation: growWidth 0.8s ease-out 1.5s forwards;
+        z-index: 2;
+      }
+
+      .scene-2 .speech-box p {
+        margin: 0;
+        font-family: "SweiXDPearlCJKtc-DemiLight", sans-serif;
+        font-size: 1.2rem;
+        letter-spacing: 4px;
+        color: #ffffff;
+        line-height: 2.5rem;
+        white-space: pre-wrap;
+        word-break: break-all;
+        text-align: justify;
+        width: 100%;
+      }
+
+      .scene-2 .button-box {
+        position: absolute;
+        text-align: center;
+        margin-top: 1.5rem;
+        left: 27.5%;
+        bottom: -110%;
+        transform: translate(-50%, -50%);
+      }
+
+      .scene-2 .button-box button {
+        padding: 0.75rem 1.5rem;
+        font-size: 24px;
+        font-family: "SweiXDPearlCJKtc-Medium", serif;
+        color: #ffffff;
+        background-color: #F2AA84;
+        border: none;
+        border-radius: 30px;
+        box-shadow: 0 0 20px #F2AA84;
+        text-shadow: 2pt 2pt 4pt #00000060;
+        letter-spacing: 3px;
+        cursor: pointer;
+      }
+
+      .scene-2 .button-box button:hover {
+        animation: breath 1.6s infinite linear;
+      }
+
+      @media (max-width: 1024px) {
+        .scene-2 .text-container {
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+        .scene-2 .speech-box {
+          width: 80vw;
+          padding: 40px;
+        }
+        .scene-2 .button-box {
+          position: relative;
+          text-align: center;
+          margin-top: 1.5rem;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+
+        .scene-2 .floating-title {
+        font-size: 5rem;
+        }
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div class="scroll-container">
+      <section class="scene scene-1">
+          <div class="stars-bg"></div>
+          <div class="moon-container">
+            <img src="images/月球.png" alt="月球" />
+          </div>
+
+          <div class="color-block"></div>
+
+          <div class="cat-container">
+            <div class="spaceship-container">
+              <img src="images/太空火箭.png" alt="太空火箭" />
+            </div>
+            <img src="images/太空服貓.png" alt="太空貓" class="flying-cat" />
+          </div>
+          <div class="text-container">
+            <div class="speech-box">
+              <p
+                data-text="宇宙靜默無聲，無數星系在無邊的黑暗中閃爍，[主角]駕駛著太空船，在這片寂靜之海飄流。\n\n某天，[主角]的偵測儀發出微弱的訊號，顯示前方一顆失落的藍色星球 - 根據古老的星際記錄，這裡曾是「地球」，一個擁有數十億生命的世界。"
+              ></p>
+            </div>
+          </div>
+
+      </section>
+
+      <section class="scene scene-2">
+        <div class="stars-bg"></div>
+        <div class="moon-container">
+          <img src="images/月球.png" alt="地球" />
+        </div>
+
+        <div class="color-block"></div>
+
+        <div class="cat-container">
+          <div class="cloud-container">
+            <img src="images/雲.png" alt="雲朵" />
+          </div>
+          <img src="images/火箭貓.png" alt="太空貓" class="flying-cat" />
+        </div>
+
+        <div class="text-container">
+          <div class="floating-title">
+            <span>星</span><span>際</span><span>碳</span><span>險</span>
+          </div>
+
+          <div class="speech-box">
+            <p
+              data-text="跟隨調查員的腳步，探索人類文明繁榮發展的歷程，同時逐步揭開其背後隱藏的環境危機與人類走向滅亡的原因。在深入了解過去的同時，也尋找可能的轉機與希望，探索挽救未來的方法。"
+            ></p>
+          </div>
+          <div class="button-box">
+            <button onclick="window.location.href='traffic-daily.html'">進入調查</button>
+          </div>
+      </section>
+    </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+function typeText(p, text, speed = 50) {
+  let i = 0;
+  function type() {
+    if (i < text.length) {
+      p.textContent += text[i++];
+      setTimeout(type, speed);
+    }
+  }
+  type();
+}
+
+// 第一幕直接開始
+const scene1P = document.querySelector(".scene-1 .speech-box p");
+const scene1Text = scene1P.getAttribute("data-text")?.replace(/\\n/g, "\n");
+scene1P.textContent = "";
+document.querySelector(".scene-1 .speech-box").addEventListener("animationend", (e) => {
+  if (e.animationName === "growWidth") {
+    typeText(scene1P, scene1Text);
+  }
+});
+
+// 第二幕使用 IntersectionObserver 等進入畫面後才執行
+const scene2Box = document.querySelector(".scene-2 .speech-box");
+const scene2P = scene2Box.querySelector("p");
+const scene2Text = scene2P.getAttribute("data-text")?.replace(/\\n/g, "\n");
+scene2P.textContent = "";
+
+const observer = new IntersectionObserver(
+  (entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // 動畫時間是 1 秒，這裡延遲 1000ms 再打字
+        setTimeout(() => {
+          typeText(scene2P, scene2Text);
+        }, 1000);
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    threshold: 0.6,
+  }
+);
+
+observer.observe(document.querySelector(".scene-2"));
+
+    // 函數：暫時禁止滾動
+    function disableScroll() {
+      document.body.style.overflow = "hidden";
+    }
+
+    // 函數：恢復滾動
+    function enableScroll() {
+      document.body.style.overflow = "";
+    }
+
+    const container = document.querySelector(".scroll-container");
+    let isScrolling = false;
+    const cooldownTime = 1500;
+    let lastScrollTime = 0;
+
+    container.addEventListener(
+      "wheel",
+      (e) => {
+        const now = Date.now();
+
+        // ✅ 冷卻中 or 動畫中：禁止預設行為，並跳出
+        if (now - lastScrollTime < cooldownTime || isScrolling) {
+          e.preventDefault();
+          return;
+        }
+
+        const deltaY = e.deltaY;
+        const scrollTop = container.scrollTop;
+        const vh = window.innerHeight;
+
+        if (deltaY > 0 && scrollTop < vh / 2) {
+          e.preventDefault();
+          isScrolling = true;
+          lastScrollTime = now;
+          disableScroll();
+
+        // 進入第二幕
+        gsap.to(container, {
+          scrollTo: { y: vh },
+          duration: 2,
+          ease: "power2.out",
+          onStart: () => {
+            gsap.to(".stars-bg", {
+              rotate: 90,
+              scale: 1.25,
+              duration: 2,
+              ease: "power2.out",
+            });
+          gsap.to(
+            ".color-block",
+            { 
+              width: "270%",
+              right: "-220%",
+              top: "372.5%",
+              transform: "translate(-50%, -50%)",
+              duration: 2,
+            },
+          );
+          gsap.to(
+            ".moon-container",
+            {
+              top: "-8%",
+              right: "-3%",
+              rotate: "90deg",
+              scale: 1.25,
+              duration: 2
+            });
+          gsap.to(
+            ".scene-1 .cat-container",
+            {
+              left: "-25%",
+              bottom: "3%",
+              scale: 0.25,
+              duration: 2
+            });
+          gsap.to(
+            ".scene-2 .cat-container",
+            {
+              left: "7%",
+              bottom: 0,
+              scale: 1,
+              duration: 1.5
+            });
+          gsap.to(
+            ".scene-2 .button-box",
+            {
+              bottom: "-20%",
+              duration: 2
+            })
+          },
+          onComplete: () => {
+            isScrolling = false;
+            enableScroll();
+          },
+        });
+        } 
+        else if (
+          deltaY < 0 &&
+          scrollTop > vh / 1.5 &&
+          scrollTop < vh * 1.5
+        ) {
+          e.preventDefault();
+          isScrolling = true;
+          lastScrollTime = now;
+          disableScroll();
+
+        // 回到第一幕
+        gsap.to(container, {
+          scrollTo: { y: 0 },
+          duration: 2,
+          ease: "power2.out",
+          onStart: () => {
+            gsap.to(".stars-bg", {
+              rotate: 0,
+              scale: 1,
+              duration: 2,
+              ease: "power2.out",
+            });
+            gsap.to(".color-block", {
+              width: "100%",
+              right: "-100%",
+              top: "152.5%",
+              duration: 2,
+              ease: "power2.out",
+            });
+            gsap.to(
+            ".moon-container",
+            { 
+              top: "-10%",
+              right: "-5%",
+              rotate: "-90deg",
+              scale: 1,
+              duration: 2
+            });
+            gsap.to(
+            ".scene-1 .cat-container",
+            {
+              left: "15%",
+              bottom: "3%",
+              scale: 1,
+              duration: 2
+            });
+            gsap.to(
+            ".scene-2 .cat-container",
+            {
+              left: "-30%",
+              bottom: 0,
+              scale: 0.25,
+              duration: 1.5
+            });
+            gsap.to(
+            ".scene-2 .button-box",
+            {
+              bottom: "-110%",
+              duration: 2
+            })
+          },
+          onComplete: () => {
+            isScrolling = false;
+            enableScroll();
+          },
+        });
+                }
+              },
+              { passive: false }
+            );
+          }
+        )
+</script>
+
+  </body>
+</html>
