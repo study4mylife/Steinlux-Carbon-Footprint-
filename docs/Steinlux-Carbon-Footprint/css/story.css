@@ -18,8 +18,6 @@
     justify-content: center;
     align-items: center;
     transition: all 0.3s ease;
-    width: 100%;
-    min-height: 80vh;
     }
 
     .story-container {
@@ -28,15 +26,13 @@
     flex-direction: column;
     align-items: center;
     width: 900px;
-    max-width: 90%;
     height: 500px;
     max-height: 90vh;
     padding: 20px;
     background: rgba(255, 255, 255, 0.05);
-    border-radius:72px;
+    border-radius: 72px;
     -webkit-backdrop-filter:blur(10px);
     backdrop-filter:blur(10px);
-    position: relative;
     scroll-behavior: smooth;
     z-index: 1;
     }
@@ -175,7 +171,7 @@
 
     .story-message-bubble {
     max-width: 70%;
-    padding: 1rem 1.25rem;
+    padding: 0.75rem 0.75rem 0.75rem 1rem;
     border-radius: 1rem;
     box-shadow: var(--shadow-sm);
     line-height: 1.4;
@@ -207,6 +203,48 @@
     .story-body .input-container {
     width: 95%;
     border-top: 1px solid var(--border-color);
+    }
+
+     /* 打字效果 */
+    .typing-indicator {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        opacity: 0;
+        animation: fadeInUp 0.3s ease forwards;
+    }
+
+    .typing-dots {
+        background: white;
+        border-radius: 18px;
+        padding: 12px 16px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        display: flex;
+        gap: 4px;
+        align-items: center;
+    }
+
+    .typing-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #999;
+        animation: typingDot 1.4s infinite ease-in-out;
+    }
+
+    .typing-dot:nth-child(1) { animation-delay: 0s; }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typingDot {
+        0%, 60%, 100% {
+            opacity: 0.3;
+            transform: scale(0.8);
+        }
+        30% {
+            opacity: 1;
+            transform: scale(1);
+        }
     }
 
     .input-wrapper {
@@ -255,17 +293,66 @@
     padding: 0.5rem 1rem;
     border-radius: 1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
     font-size: 0.75rem;
     font-weight: 500;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    transition: all 0.3s ease;
     }
 
     .send-button:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+        animation: none;
+    }
+
+    /* 晃動動畫 */
+    .shake-animation {
+        animation: shake 0.6s ease-in-out infinite;
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: rotate(0); }
+        25% { transform: rotate(3deg); }
+        75% { transform: rotate(-3deg); }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* 滾動條樣式 */
+    .story-chat-container::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .story-chat-container::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .story-chat-container::-webkit-scrollbar-thumb {
+        background: #ddd;
+        border-radius: 2px;
+    }
+
+    .story-chat-container::-webkit-scrollbar-thumb:hover {
+        background: #bbb;
+    }
+
+    @media (max-width: 1024px) {
+
+    .story-container {
+        width: unset;
+        max-width: 90%;
+    }
     }
 
     @media (max-width: 768px) {

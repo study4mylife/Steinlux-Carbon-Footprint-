@@ -37,4 +37,6 @@ EX: git push -u origin HOW<br>
 
 [時尚](https://study4mylife.github.io/Steinlux-Carbon-Footprint-/Steinlux-Carbon-Footprint/fashion.html)
 
+[分析頁](https://study4mylife.github.io/Steinlux-Carbon-Footprint-/Steinlux-Carbon-Footprint/analysis.html)
+
 

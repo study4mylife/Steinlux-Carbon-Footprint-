@@ -212,7 +212,7 @@
       .fuel-group .input-group input {
         font-family: "GenSenRounded2TW-L", sans-serif;
         width: 100px;
-        padding: 8px 10px;
+        padding: 0.5rem 0.5rem 0.5rem 0.75rem;
         border: 0.25pt solid #b5c1c623;
         border-radius: 8px;
         box-shadow: inset 2pt 2pt 7pt #6d808f70;
@@ -281,11 +281,12 @@
         box-shadow: inset 2pt 2pt 7pt #6d808f70;
         font-size: 14px;
         color: #4a4a4a;
+        outline: none;
       }
 
       .input-group-MRT input {
         width: 120px;
-        padding: 0.375rem 0.675rem;
+        padding: 0.375rem 0.5rem 0.375rem 0.75rem;
         border: 0.25pt solid #b5c1c623;
         border-radius: 6px;
         background: #fff;
@@ -294,6 +295,7 @@
         box-shadow: inset 2pt 2pt 7pt #6d808f70;
         font-family: "GenSenRounded2TW-L", sans-serif;
         letter-spacing: 2px;
+        outline: none;
       }
 
       #mrtTripDisplay {
@@ -322,7 +324,7 @@
       }
 
       .mrt-btn:hover {
-        background-color: rgba(240, 244, 252, 1);
+        background-color: #eee;
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
       }
 
@@ -347,16 +349,16 @@
         overflow-y: auto;
       }
       
-      /* trip-list */
       .trip-item {
         display: flex;
         justify-content: center;
+        text-align: left;
         min-width: 100%;
         width: 100%;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         color: #6c808f;
-        margin: 0.25rem;
-        padding: 12px;
+        margin: 0.1rem;
+        padding: 0.35rem;
         border: 2px solid #e5e7eb;
         border-radius: 8px;
         cursor: pointer;
@@ -388,11 +390,11 @@
     
     .trip-item::before {
       content: '';
-      width: 20px;
-      height: 20px;
+      width: 0.75rem;
+      height: 0.75rem;
       border: 2px solid #d1d5db;
       border-radius: 50%;
-      margin-right: 12px;
+      margin: auto 0.75rem;
       flex-shrink: 0;
       transition: all 0.3s ease;
       position: relative;
@@ -468,31 +470,6 @@
       flex-direction: column;
       }
 
-      .mrt-btn {
-        width: 50%;
-        margin: auto 0 0.25rem;
-        align-self: center;
-        background: rgba(240, 244, 252, 0.8);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        border: 1px solid rgba(255, 255, 255, 0.6);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        border-radius: 32px;
-        font-size: 0.85rem;
-        font-weight: bold;
-        color: rgba(0, 0, 0, 0.2);
-        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-        padding: 6px 12px;
-        cursor: pointer;
-        transition: background-color 0.2s, box-shadow 0.2s;
-        font-family: "GenSenRounded2TW-R", sans-serif;
-      }
-
-      /* 2. 滑鼠懸停效果（選填） */
-      .mrt-btn:hover {
-        background: rgba(240, 244, 252, 1);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-      }
       #scene7 .template-wrapper {
         width: 750px;
         max-width: 100%;
@@ -510,42 +487,7 @@
 
   <body>
     <!-- 故事劇情 -->
-    <div class="story-body">
-      <div class="story-container">
-        <header class="story-header">
-          <div class="story-header-title">
-            <div class="story-header-title-lt">
-              <div class="story-header-profile-photo"></div>
-              <h1>Neo(2)</h1>
-              <i class="fa-solid fa-volume-low" style="color: #6c808f;"></i>
-            </div>
-            <div class="story-header-title-rt">
-              <i class="fa-solid fa-phone"></i>
-              <i class="fa-solid fa-ellipsis-vertical"></i>
-            </div>
-          </div>
-        </header>
-
-        <div class="story-chat-container" id="chatContainer"></div>
-
-        <div class="input-container">
-          <div class="input-wrapper">
-            <input
-              type="text"
-              class="message-input"
-              placeholder="請輸入訊息..."
-              aria-label="Message input"
-            />
-            <div class="action-buttons">
-              <button id="send-button" class="send-button">
-                <span>出發</span>
-                <i class="fa-regular fa-font-awesome"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <story-chatroom></story-chatroom>
 
     <!-- Scene 1: 選車種 -->
     <section id="scene-daily-1" class="scene scene-1">
@@ -894,9 +836,9 @@
           time: 1000,
         },
         {
-          text: "歡我們現在在哪裡？發生了什麼事！",
+          text: "我們現在在哪裡？發生了什麼事！",
           from: "user",
-          time: 2500,
+          time: 2000,
         },
         {
           text: "我們回到了19世紀初，也就是第一次工業革命的時代。你有沒有聽見？是蒸汽機轟隆轟隆的聲音！",
@@ -927,46 +869,6 @@
         },
       ];
 
-      const chatContainer = document.getElementById("chatContainer");
-
-      function createMessageElement(message) {
-        if (message.type === "time") {
-          const timeEl = document.createElement("div");
-          timeEl.classList.add("story-time-stamp");
-          timeEl.textContent = message.text;
-          return timeEl;
-        }
-
-        const wrapper = document.createElement("div");
-        wrapper.classList.add(
-          "story-message",
-          message.from === "user" ? "story-user-message" : "story-cat-message"
-        );
-
-        const avatar = document.createElement("div");
-        avatar.classList.add("story-avatar");
-        avatar.textContent = message.from === "user" ? "U" : "A";
-
-        const bubble = document.createElement("div");
-        bubble.classList.add("story-message-bubble");
-        bubble.textContent = message.text;
-
-        wrapper.appendChild(avatar);
-        wrapper.appendChild(bubble);
-        return wrapper;
-      }
-
-    async function playIntroMessages() {
-      for (let i = 0; i < messages.length; i++) {
-        const el = createMessageElement(messages[i]);
-        const messageTime = messages[i].time;
-        chatContainer.appendChild(el);
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-        await new Promise((resolve) => setTimeout(resolve, messageTime));
-      }
-    }
-
-      window.addEventListener("DOMContentLoaded", playIntroMessages);
         let currentScene = "scene-daily-1";
 
         function goToNextScene() {
@@ -977,7 +879,7 @@
 
           // 是最後一個場景 → 導向結果頁
           if (currentIndex === selectedActivities.length - 1) {
-            window.location.href = "food.html";
+            window.location.href = "home.html";
             return;
           }
 

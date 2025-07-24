@@ -151,42 +151,7 @@
   </head>
   <body>
     <!-- 故事劇情 -->
-    <div class="story-body">
-      <div class="story-container">
-      <header class="story-header">
-        <div class="story-header-title">
-          <div class="story-header-title-lt">
-            <div class="story-header-profile-photo"></div>
-            <h1>Neo(2)</h1>
-            <i class="fa-solid fa-volume-low" style="color: #6c808f;"></i>
-          </div>
-          <div class="story-header-title-rt">
-            <i class="fa-solid fa-phone"></i>
-            <i class="fa-solid fa-ellipsis-vertical"></i>
-          </div>
-        </div>
-      </header>
-
-      <div class="story-chat-container" id="chatContainer"></div>
-
-      <div class="input-container">
-        <div class="input-wrapper">
-          <input
-            type="text"
-            class="message-input"
-            placeholder="請輸入訊息..."
-            aria-label="Message input"
-          />
-          <div class="action-buttons">
-            <button id="send-button" class="send-button" >
-              <span>出發</span>
-              <i class="fa-regular fa-font-awesome"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      </div>
-    </div>
+    <story-chatroom></story-chatroom>
 
     <!-- 第一頁：問人數 -->
     <section id="scene-home-1" class="scene scene-1">
@@ -341,6 +306,31 @@
 
     <script src="./js/all.js"></script>
     <script>
+        const messages = [
+        {
+          type: "time",
+          text: "上午 9:30",
+          time: 1000,
+        },
+        { text: "接下來我們來到19世紀末。城市發展越來越快，電力開始普及，工廠林立、摩天大樓拔地而起。", 
+          from: "cat",
+          time: 1500 ,
+        },
+        {
+          text: "所以...碳排放也不只來自交通了？",
+          from: "user",
+          time: 1500,
+        },
+        {
+          text: "就是這樣。從「移動產生碳」，變成「住也在排碳」。無論是蓋房子、照明、冷暖氣，每一樣都需要消耗龐大的能源。",
+          from: "cat",
+          time: 2000,
+        },
+        { text: "鋼筋混凝土、電梯、電燈、電器——這些都讓生活更方便，也讓能源使用進一步上升。這是人類首次進入「大量電氣化生活」的時代。",
+          from: "cat", 
+          time: 5000 
+        }
+      ];
 
       let currentScene = "scene-home-1";
 
@@ -504,74 +494,6 @@
         createCircularSlider(el);
       });
 
-    const messages = [
-        {
-          type: "time",
-          text: "上午 9:30",
-          time: 1000,
-        },
-        { text: "接下來我們來到19世紀末。城市發展越來越快，電力開始普及，工廠林立、摩天大樓拔地而起。", 
-          from: "cat",
-          time: 1500 ,
-        },
-        {
-          text: "所以...碳排放也不只來自交通了？",
-          from: "user",
-          time: 1500,
-        },
-        {
-          text: "就是這樣。從「移動產生碳」，變成「住也在排碳」。無論是蓋房子、照明、冷暖氣，每一樣都需要消耗龐大的能源。",
-          from: "cat",
-          time: 2000,
-        },
-        { text: "鋼筋混凝土、電梯、電燈、電器——這些都讓生活更方便，也讓能源使用進一步上升。這是人類首次進入「大量電氣化生活」的時代。",
-          from: "cat", 
-          time: 5000 
-        }
-      ];
-
-      const chatContainer = document.getElementById("chatContainer");
-
-      function createMessageElement(message) {
-        if (message.type === "time") {
-          const timeEl = document.createElement("div");
-          timeEl.classList.add("story-time-stamp");
-          timeEl.textContent = message.text;
-          return timeEl;
-        }
-
-        const wrapper = document.createElement("div");
-        wrapper.classList.add(
-          "story-message",
-          message.from === "user"
-            ? "story-user-message"
-            : "story-cat-message"
-        );
-
-        const avatar = document.createElement("div");
-        avatar.classList.add("story-avatar");
-        avatar.textContent = message.from === "user" ? "U" : "A";
-
-        const bubble = document.createElement("div");
-        bubble.classList.add("story-message-bubble");
-        bubble.textContent = message.text;
-
-        wrapper.appendChild(avatar);
-        wrapper.appendChild(bubble);
-        return wrapper;
-      }
-
-    async function playIntroMessages() {
-      for (let i = 0; i < messages.length; i++) {
-        const el = createMessageElement(messages[i]);
-        const messageTime = messages[i].time;
-        chatContainer.appendChild(el);
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-        await new Promise((resolve) => setTimeout(resolve, messageTime));
-      }
-    }
-
-      window.addEventListener("DOMContentLoaded", playIntroMessages);
     </script>
   </body>
 </html>

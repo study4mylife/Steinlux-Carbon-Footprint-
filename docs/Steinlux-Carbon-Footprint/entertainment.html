@@ -230,43 +230,9 @@
   </head>
   <body>
     <!-- 故事劇情 -->
-    <div class="story-body">
-      <div class="story-container">
-        <header class="story-header">
-          <div class="story-header-title">
-            <div class="story-header-title-lt">
-              <div class="story-header-profile-photo"></div>
-              <h1>Neo(2)</h1>
-              <i class="fa-solid fa-volume-low" style="color: #6c808f;"></i>
-            </div>
-            <div class="story-header-title-rt">
-              <i class="fa-solid fa-phone"></i>
-              <i class="fa-solid fa-ellipsis-vertical"></i>
-            </div>
-          </div>
-        </header>
-
-        <div class="story-chat-container" id="chatContainer"></div>
-
-        <div class="input-container">
-          <div class="input-wrapper">
-            <input
-              type="text"
-              class="message-input"
-              placeholder="請輸入訊息..."
-              aria-label="Message input"
-            />
-            <div class="action-buttons">
-              <button id="send-button" class="send-button">
-                <span>出發</span>
-                <i class="fa-regular fa-font-awesome"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <story-chatroom></story-chatroom>
     
+    <!--
     <div class="carbon-ring-container">
       <div class="carbon-ring">
         <svg width="200" height="200">
@@ -299,6 +265,7 @@
         <span>Now 4度C</span>
       </div>
     </div>
+  -->
     <!-- Scene 1: 選娛樂活動 -->
     <section id="scene-entertain-1" class="scene scene-1">
       <Chapter-Bar></Chapter-Bar>
@@ -733,80 +700,43 @@
         toggle.addEventListener("change", updateTitle);
       });
 
-      // 星際聊天室
-
       const messages = [
-        {
-          type: "time",
-          text: "上午 9:30",
-          time: 1000,
-        },
-        {
-          text: "登入中...歡迎進入AI智慧雲端生活！你現在的生活是24小時上網、AI推薦吃穿用、手機一天充三次電的超人類時代！",
-          from: "cat",
-          time: 2000,
-        },
-        {
-          text: "這裡是...現在的我們對吧？",
-          from: "user",
-          time: 1500,
-        },
-        {
-          text: "沒錯，這正是我們的「碳生活」主場。從你打開一支reels、追一場Netflix、用AI生成一張貓貓圖，背後都是巨大的雲端伺服器在運轉。",
-          from: "cat",
-          time: 2500,
-        },
-        {
-          text: "資料中心需要全年無休和冷卻、高頻計算、高能耗伺服器，而智慧生活帶來的便利，也帶來前所未有的能源需求。說白了，現在我們不用出門也能...碳排爆表！",
-          from: "cat",
-          time: 3000,
-        },
-        {
-          text: "確實！我們根本無法拒絕便利！但，這不就是人類推動科技進步的目的嗎...",
-          from: "user",
-        },
-      ];
-
-      const chatContainer = document.getElementById("chatContainer");
-
-      function createMessageElement(message) {
-        if (message.type === "time") {
-          const timeEl = document.createElement("div");
-          timeEl.classList.add("story-time-stamp");
-          timeEl.textContent = message.text;
-          return timeEl;
-        }
-
-        const wrapper = document.createElement("div");
-        wrapper.classList.add(
-          "story-message",
-          message.from === "user" ? "story-user-message" : "story-cat-message"
-        );
-
-        const avatar = document.createElement("div");
-        avatar.classList.add("story-avatar");
-        avatar.textContent = message.from === "user" ? "U" : "A";
-
-        const bubble = document.createElement("div");
-        bubble.classList.add("story-message-bubble");
-        bubble.textContent = message.text;
-
-        wrapper.appendChild(avatar);
-        wrapper.appendChild(bubble);
-        return wrapper;
-      }
-
-    async function playIntroMessages() {
-      for (let i = 0; i < messages.length; i++) {
-        const el = createMessageElement(messages[i]);
-        const messageTime = messages[i].time;
-        chatContainer.appendChild(el);
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-        await new Promise((resolve) => setTimeout(resolve, messageTime));
-      }
-    }
-
-      window.addEventListener("DOMContentLoaded", playIntroMessages);
+            {
+                type: "time",
+                text: "上午 9:30",
+                time: 1000,
+            },
+            {
+                text: "登入中...歡迎進入AI智慧雲端生活！你現在的生活是24小時上網、AI推薦吃穿用、手機一天充三次電的超人類時代！",
+                from: "cat",
+                time: 2000,
+                typingTime: 1500,
+            },
+            {
+                text: "這裡是...現在的我們對吧？",
+                from: "user",
+                time: 1500,
+                typingTime: 800,
+            },
+            {
+                text: "沒錯，這正是我們的「碳生活」主場。從你打開一支reels、追一場Netflix、用AI生成一張貓貓圖，背後都是巨大的雲端伺服器在運轉。",
+                from: "cat",
+                time: 2500,
+                typingTime: 2000,
+            },
+            {
+                text: "資料中心需要全年無休和冷卻、高頻計算、高能耗伺服器，而智慧生活帶來的便利，也帶來前所未有的能源需求。說白了，現在我們不用出門也能...碳排爆表！",
+                from: "cat",
+                time: 3000,
+                typingTime: 2500,
+            },
+            {
+                text: "確實！我們根本無法拒絕便利！但，這不就是人類推動科技進步的目的嗎...",
+                from: "user",
+                time: 2000,
+                typingTime: 1200,
+            },
+        ];
 
       // 選擇娛樂活動
 
