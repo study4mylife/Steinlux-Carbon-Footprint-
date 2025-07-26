@@ -17,6 +17,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
     transition: all 0.3s ease;
     }
 
@@ -350,7 +351,7 @@
     @media (max-width: 1024px) {
 
     .story-container {
-        width: unset;
+        width: 90vw;
         max-width: 90%;
     }
     }

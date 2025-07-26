@@ -61,7 +61,7 @@ sendButton.addEventListener("click", () => {
 });
 
 playIntroMessages()
-})
+
 
 function createMessageElement(message) {
     if (message.type === "time") {
@@ -155,7 +155,7 @@ async function playIntroMessages() {
         }, 5000);
     }, 500);
 }
-
+})
 // chapter-bar 設定
 
 class ChapterBar extends HTMLElement {
