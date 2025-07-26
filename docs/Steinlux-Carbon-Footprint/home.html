@@ -26,7 +26,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 0.65rem;
+        gap: 0.6rem;
       }
 
       .toggle-card .question-title {
@@ -111,11 +111,33 @@
       }
 
       .circle-container {
-        margin: 0 2rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1rem;
+      }
+
+      .circle-container span.label {
+        width: unset
+      }
+
+      .circular-range {
+          position: relative;
+      }
+
+      .tick-label {
+        font-family: "GenSenRounded2TW-L", sans-serif;
+        position: absolute;
+        font-size: 0.75rem;
+        color: #6c808f;
+        transform: translate(-50%, -50%);
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
       }
 
       .circle-container .range-thumb {
+        position: relative;
         cursor: pointer;
+        z-index: 2;
       }
 
       .circular-value {
@@ -269,28 +291,28 @@
           </div>
         </div>
         <div class="home-card">
-          <div class="toggle-card">
+          <div class="toggle-card" style="gap: 2.5rem 5rem;">
             <div class="circle-container">
-              <span class="label">垃圾袋容量​</span>
-              <div
-                class="circular-range"
-                data-unit="L"
-                data-initial="3"
-                data-min="3"
-                data-max="25"
-                data-step="1"
-              ></div>
+                <span class="label">垃圾袋容量</span>
+                <div
+                    class="circular-range"
+                    data-unit="L"
+                    data-initial="3"
+                    data-min="3"
+                    data-max="25"
+                    data-step="1"
+                ></div>
             </div>
             <div class="circle-container">
-              <span class="label">倒垃圾頻率</span>
-              <div
-                class="circular-range"
-                data-unit="次"
-                data-initial="1"
-                data-min="1"
-                data-max="7"
-                data-step="1"
-              ></div>
+                <span class="label">倒垃圾頻率</span>
+                <div
+                    class="circular-range"
+                    data-unit="次"
+                    data-initial="1"
+                    data-min="1"
+                    data-max="7"
+                    data-step="1"
+                ></div>
             </div>
           </div>
         </div>
@@ -346,153 +368,203 @@
         currentScene = "scene-entertain";
       }
 
-      function createCircularSlider(container) {
-        const centerX = 100,
-          centerY = 100,
-          radius = 80;
-        const min = parseInt(container.dataset.min || 3);
-        const max = parseInt(container.dataset.max || 25);
-        const step = parseInt(container.dataset.step || 1);
+        function createCircularSlider(container) {
+            const centerX = 100,
+                centerY = 100,
+                radius = 80;
+            const min = parseInt(container.dataset.min || 3);
+            const max = parseInt(container.dataset.max || 25);
+            const step = parseInt(container.dataset.step || 1);
+            const unit = container.dataset.unit || "L"; // 提前定義 unit
 
-        let lastAngle = 0,
-          dragging = false;
+            let lastAngle = 0,
+                dragging = false;
 
-        container.innerHTML = `
-    <svg viewBox="0 0 200 200" width="200" height="200">
-      <circle cx="100" cy="100" r="80" stroke="#E4ECF1" stroke-width="14" fill="none"/>
-      <path class="range-arc" stroke="#6c808f" stroke-width="10" fill="none"/>
-      <circle class="range-thumb" r="12" fill="#B5C1C6" style="filter: drop-shadow(1pt 1pt 1pt #7F7F7F60);" cx="100" cy="20" />
-    </svg>
-    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px;">
-      <span class="circular-value"></span>
-    </div>
-  `;
-        container.style.position = "relative";
-        container.style.width = "200px";
-        container.style.height = "200px";
-
-        const thumb = container.querySelector(".range-thumb");
-        const arc = container.querySelector(".range-arc");
-        const valueText = container.querySelector(".circular-value");
-        const unit = container.dataset.unit || "L";
-        const initial = parseInt(container.dataset.initial || min);
-
-        function angleToValue(angle) {
-          const ratio = angle / 360;
-          const rawValue = min + (max - min) * ratio;
-          return Math.round(rawValue / step) * step;
-        }
-
-        function valueToAngle(value) {
-          return ((value - min) / (max - min)) * 360;
-        }
-
-        function polarToCartesian(cx, cy, r, angleDeg) {
-          const angleRad = ((angleDeg - 90) * Math.PI) / 180;
-          return {
-            x: cx + r * Math.cos(angleRad),
-            y: cy + r * Math.sin(angleRad),
-          };
-        }
-
-        function describeArc(cx, cy, r, endAngle) {
-          if (endAngle >= 359.99) {
-            return `
-        M ${cx} ${cy - r}
-        A ${r} ${r} 0 1 1 ${cx} ${cy + r}
-        A ${r} ${r} 0 1 1 ${cx} ${cy - r}
-      `;
-          }
-          const start = polarToCartesian(cx, cy, r, 0);
-          const end = polarToCartesian(cx, cy, r, endAngle);
-          const largeArc = endAngle > 180 ? 1 : 0;
-          return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArc} 1 ${end.x} ${end.y}`;
-        }
-
-        function updateUI(value, round = true) {
-          const shownValue = round ? Math.round(value / step) * step : value;
-          const angle = valueToAngle(shownValue);
-          const thumbPos = polarToCartesian(centerX, centerY, radius, angle);
-          thumb.setAttribute("cx", thumbPos.x);
-          thumb.setAttribute("cy", thumbPos.y);
-          arc.setAttribute("d", describeArc(centerX, centerY, radius, angle));
-          valueText.textContent = `${Math.round(shownValue)}${unit}`;
-        }
-
-        let currentRawValue = initial;
-
-        function handleMove(e) {
-          if (!dragging) return;
-          const rect = container.querySelector("svg").getBoundingClientRect();
-          const x = (e.clientX || e.touches[0].clientX) - rect.left;
-          const y = (e.clientY || e.touches[0].clientY) - rect.top;
-          const dx = x - centerX;
-          const dy = y - centerY;
-          let angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
-          if (angle < 0) angle += 360;
-
-          const angleDiff = angle - lastAngle;
-          if (angleDiff < -300 || angleDiff > 300) return;
-          lastAngle = angle;
-
-          currentRawValue = min + (max - min) * (angle / 360);
-          updateUI(currentRawValue, false);
-        }
-
-        // 滑鼠事件
-        thumb.addEventListener("mousedown", () => {
-          dragging = true;
-        });
-        window.addEventListener("mousemove", handleMove);
-        window.addEventListener("mouseup", () => {
-          if (dragging) {
-            dragging = false;
-            const snappedValue = Math.round(currentRawValue / step) * step;
-            updateUI(snappedValue, true);
-          }
-        });
-
-        // 觸控事件，加入 preventDefault() 禁止頁面滑動
-        thumb.addEventListener(
-          "touchstart",
-          (e) => {
-            e.preventDefault();
-            dragging = true;
-          },
-          { passive: false }
-        );
-
-        window.addEventListener(
-          "touchmove",
-          (e) => {
-            if (dragging) {
-              e.preventDefault();
-              handleMove(e);
+            // 創建刻度標記
+            function createTicks() {
+                let tickValues;
+                // 根據不同的滑桿設置不同的刻度值
+                if (unit === 'L') {
+                    tickValues = [3, 10, 18]; // 垃圾袋容量
+                } else if (unit === '次') {
+                    tickValues = [1, 3, 5]; // 倒垃圾頻率
+                } else {
+                    tickValues = [min, Math.round((min + max) / 2), max]; // 預設
+                }
+                
+                let ticksHTML = '';
+                
+                tickValues.forEach((value, index) => {
+                    // 將整個圓切成三等份：0°, 120°, 240°
+                    const angle = index * 120;
+                    const tickPos = polarToCartesian(centerX, centerY, radius + 25, angle);
+                    ticksHTML += `<div class="tick-label" style="left: ${tickPos.x}px; top: ${tickPos.y}px;">${value}</div>`;
+                });
+                
+                return ticksHTML;
             }
-          },
-          { passive: false }
-        );
 
-        window.addEventListener(
-          "touchend",
-          (e) => {
-            if (dragging) {
-              e.preventDefault();
-              dragging = false;
-              const snappedValue = Math.round(currentRawValue / step) * step;
-              updateUI(snappedValue, true);
+            function createTickMarks() {
+                let tickValues;
+                // 根據不同的滑桿設置不同的刻度值
+                if (unit === 'L') {
+                    tickValues = [3, 10, 18]; // 垃圾袋容量
+                } else if (unit === '次') {
+                    tickValues = [1, 3, 5]; // 倒垃圾頻率
+                } else {
+                    tickValues = [min, Math.round((min + max) / 2), max]; // 預設
+                }
+                
+                let tickMarks = '';
+                
+                tickValues.forEach((value, index) => {
+                    // 將整個圓切成三等份：0°, 120°, 240°
+                    const angle = index * 120;
+                    const innerPos = polarToCartesian(centerX, centerY, radius - 7, angle);
+                    const outerPos = polarToCartesian(centerX, centerY, radius + 7, angle);
+                    tickMarks += `<line x1="${innerPos.x}" y1="${innerPos.y}" x2="${outerPos.x}" y2="${outerPos.y}" stroke="white" stroke-width="2"/>`;
+                });
+                
+                return tickMarks;
             }
-          },
-          { passive: false }
-        );
 
-        updateUI(initial);
-      }
+            container.innerHTML = `
+                <svg viewBox="0 0 200 200" width="200" height="200">
+                    <circle cx="100" cy="100" r="80" stroke="#E4ECF1" stroke-width="14" fill="none"/>
+                    ${createTickMarks()}
+                    <path class="range-arc" stroke="#6c808f" stroke-width="10" fill="none"/>
+                    <circle class="range-thumb" r="12" fill="#B5C1C6" style="filter: drop-shadow(1pt 1pt 1pt #7F7F7F60);" cx="100" cy="20" />
+                </svg>
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px;">
+                    <span class="circular-value"></span>
+                </div>
+                ${createTicks()}
+            `;
+            container.style.position = "relative";
+            container.style.width = "100%";
+            container.style.height = "100%";
 
-      // 初始化所有 circular-range
-      document.querySelectorAll(".circular-range").forEach((el) => {
-        createCircularSlider(el);
-      });
+            const thumb = container.querySelector(".range-thumb");
+            const arc = container.querySelector(".range-arc");
+            const valueText = container.querySelector(".circular-value");
+            const initial = parseInt(container.dataset.initial || min);
+
+            function angleToValue(angle) {
+                const ratio = angle / 360;
+                const rawValue = min + (max - min) * ratio;
+                return Math.round(rawValue / step) * step;
+            }
+
+            function valueToAngle(value) {
+                return ((value - min) / (max - min)) * 360;
+            }
+
+            function polarToCartesian(cx, cy, r, angleDeg) {
+                const angleRad = ((angleDeg - 90) * Math.PI) / 180;
+                return {
+                    x: cx + r * Math.cos(angleRad),
+                    y: cy + r * Math.sin(angleRad),
+                };
+            }
+
+            function describeArc(cx, cy, r, endAngle) {
+                if (endAngle >= 359.99) {
+                    return `
+                        M ${cx} ${cy - r}
+                        A ${r} ${r} 0 1 1 ${cx} ${cy + r}
+                        A ${r} ${r} 0 1 1 ${cx} ${cy - r}
+                    `;
+                }
+                const start = polarToCartesian(cx, cy, r, 0);
+                const end = polarToCartesian(cx, cy, r, endAngle);
+                const largeArc = endAngle > 180 ? 1 : 0;
+                return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArc} 1 ${end.x} ${end.y}`;
+            }
+
+            function updateUI(value, round = true) {
+                const shownValue = round ? Math.round(value / step) * step : value;
+                const angle = valueToAngle(shownValue);
+                const thumbPos = polarToCartesian(centerX, centerY, radius, angle);
+                thumb.setAttribute("cx", thumbPos.x);
+                thumb.setAttribute("cy", thumbPos.y);
+                arc.setAttribute("d", describeArc(centerX, centerY, radius, angle));
+                valueText.textContent = `${Math.round(shownValue)}${unit}`;
+            }
+
+            let currentRawValue = initial;
+
+            function handleMove(e) {
+                if (!dragging) return;
+                const rect = container.querySelector("svg").getBoundingClientRect();
+                const x = (e.clientX || e.touches[0].clientX) - rect.left;
+                const y = (e.clientY || e.touches[0].clientY) - rect.top;
+                const dx = x - centerX;
+                const dy = y - centerY;
+                let angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+                if (angle < 0) angle += 360;
+
+                const angleDiff = angle - lastAngle;
+                if (angleDiff < -300 || angleDiff > 300) return;
+                lastAngle = angle;
+
+                currentRawValue = min + (max - min) * (angle / 360);
+                updateUI(currentRawValue, false);
+            }
+
+            // 滑鼠事件
+            thumb.addEventListener("mousedown", () => {
+                dragging = true;
+            });
+            window.addEventListener("mousemove", handleMove);
+            window.addEventListener("mouseup", () => {
+                if (dragging) {
+                    dragging = false;
+                    const snappedValue = Math.round(currentRawValue / step) * step;
+                    updateUI(snappedValue, true);
+                }
+            });
+
+            // 觸控事件，加入 preventDefault() 禁止頁面滑動
+            thumb.addEventListener(
+                "touchstart",
+                (e) => {
+                    e.preventDefault();
+                    dragging = true;
+                },
+                { passive: false }
+            );
+
+            window.addEventListener(
+                "touchmove",
+                (e) => {
+                    if (dragging) {
+                        e.preventDefault();
+                        handleMove(e);
+                    }
+                },
+                { passive: false }
+            );
+
+            window.addEventListener(
+                "touchend",
+                (e) => {
+                    if (dragging) {
+                        e.preventDefault();
+                        dragging = false;
+                        const snappedValue = Math.round(currentRawValue / step) * step;
+                        updateUI(snappedValue, true);
+                    }
+                },
+                { passive: false }
+            );
+
+            updateUI(initial);
+        }
+
+        // 初始化所有 circular-range
+        document.querySelectorAll(".circular-range").forEach((el) => {
+            createCircularSlider(el);
+        });
 
     </script>
   </body>

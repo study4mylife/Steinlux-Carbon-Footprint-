@@ -21,9 +21,9 @@
       }
 
       .inactive {
-          opacity: 0.4;
-          transition: all 0.3s ease;
-          pointer-events: none;
+        opacity: 0.4;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
       }
 
       /* ---------------------------------------
@@ -33,7 +33,7 @@
         display: grid;
         grid-template-columns: repeat(3, minmax(120px, 1fr));
         grid-template-rows: repeat(2, auto);
-        gap: 1rem;
+        gap: 1.5rem;
         width: 90%;
         max-width: 700px;
         margin: 0 auto;
@@ -90,7 +90,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 10px;
+        gap: 0.6rem;
       }
 
       .daily-card {
@@ -205,7 +205,7 @@
         font-family: "GenSenRounded2TW-R", sans-serif;
         font-size: 1rem;
         color: #9c7a5c;
-        letter-spacing: 4px;
+        line-height: 1.2;
         white-space: nowrap;
       }
 
@@ -353,8 +353,8 @@
         display: flex;
         justify-content: center;
         text-align: left;
-        min-width: 100%;
         width: 100%;
+        max-width: 400px;
         font-size: 0.85rem;
         color: #6c808f;
         margin: 0.1rem;
@@ -482,6 +482,52 @@
       #scene7 .add-trip-wrapper {
         gap: 12px;
       }
+
+      @media (min-width: 320px) and (max-width: 600px) {
+        .scene-1 .transport-grid {
+          grid-template-columns: repeat(2, minmax(80px, 1fr));
+          grid-template-rows: repeat(3, minmax(120px, 1fr));
+        }
+      }
+
+      @media (min-width: 600px) and (max-width: 900px) {
+        .scene-1 .transport-grid {
+          grid-template-columns: repeat(2, minmax(120px, 1fr));
+          grid-template-rows: repeat(3, auto);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .scene-1 .transport-card img {
+          width: 80px;
+          height: 80px;
+        }
+
+        .scene-2 .daily-card .toggle-card .input-group, .scene-2 .daily-card .template-wrapper .input-group{
+          flex-direction: column;
+          padding: 0.5rem;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .scene-2 .daily-card .toggle-card, .scene-2 .daily-card .template-wrapper  {
+          width: 80%;
+          padding: 1rem;
+          justify-content: center;
+        }
+
+         .scene-2 .add-trip-wrapper {
+          align-items: center;
+         }
+
+        .input-group-MRT {
+          flex-direction: column;
+        }
+
+        .trip-item {
+          text-align: center;
+        }
+    }
     </style>
   </head>
 
@@ -529,7 +575,7 @@
     </section>
 
     <!-- Scene 1: 燃料 & 計算方法 -->
-    <section id="scene-daily-2-1" class="scene">
+    <section id="scene-daily-2-1" class="scene scene-2">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>汽車使用狀況</h1>
@@ -574,14 +620,14 @@
               <div class="input-group">
                 <label>每週加油</label>
                 <input type="number" />
-                <label class="special-label">元 / 週</label>
+                <label class="special-label">元/週</label>
               </div>
             </div>
             <div id="electric-left" class="fuel-group hidden">
               <div class="input-group">
                 <label>行駛里程</label>
                 <input type="number" />
-                <label class="special-label">公里 / 週</label>
+                <label class="special-label">公里/週</label>
               </div>
             </div>
           </div>
@@ -596,14 +642,14 @@
               <div class="input-group">
                 <label>每週行駛</label>
                 <input type="number" />
-                <label class="special-label">公里 / 週</label>
+                <label class="special-label">公里/週</label>
               </div>
             </div>
             <div id="electric-right" class="fuel-group hidden">
               <div class="input-group">
                 <label>外出充電</label>
                 <input type="number" />
-                <label class="special-label">kWh / 週</label>
+                <label class="special-label">kWh/週</label>
               </div>
             </div>
           </div>
@@ -615,7 +661,7 @@
       <button class="nav-btn next-btn" onclick="goToNextScene()">›</button>
     </section>
     <!-- Scene 2: 燃料 & 計算方法（機車） -->
-    <section id="scene-daily-2-2" class="scene">
+    <section id="scene-daily-2-2" class="scene scene-2">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>機車使用情況</h1>
@@ -659,14 +705,14 @@
               <div class="input-group">
                 <label>每週加油</label>
                 <input type="number" />
-                <label class="special-label">元 / 週</label>
+                <label class="special-label">元/週</label>
               </div>
             </div>
             <div id="electric-left4" class="fuel-group hidden">
               <div class="input-group">
                 <label>行駛里程</label>
                 <input type="number" />
-                <label class="special-label">公里 / 週</label>
+                <label class="special-label">公里/週</label>
               </div>
             </div>
           </div>
@@ -676,14 +722,14 @@
               <div class="input-group">
                 <label>每週行駛</label>
                 <input type="number" />
-                <label class="special-label">公里 / 週</label>
+                <label class="special-label">公里/週</label>
               </div>
             </div>
             <div id="electric-right4" class="fuel-group hidden">
               <div class="input-group">
                 <label>外出充電</label>
                 <input type="number" />
-                <label class="special-label">kWh / 週</label>
+                <label class="special-label">kWh/週</label>
               </div>
             </div>
           </div>
@@ -696,18 +742,20 @@
     <!-- 玻璃卡片 -->
 
     <!-- Scene 3: 公車使用情況 -->
-    <section id="scene-daily-2-3" class="scene">
+    <section id="scene-daily-2-3" class="scene scene-2">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>公車使用情況</h1>
         <div class="page-indicator">
           <div class="bar-container dynamic-bar-container"></div>
         </div>
-        <div class="template-wrapper">
-          <div class="input-group-MRT">
-            <label for="busCount">每周搭乘</label>
-            <input id="busCount" type="number" min="0" />
-            <label style="color: #6c808f">公里</label>
+        <div class="daily-card">
+          <div class="template-wrapper">
+            <div class="input-group-MRT">
+              <label for="busCount" style="font-size: 1rem;">每周搭乘</label>
+              <input id="busCount" type="number" min="0" />
+              <label style="font-family: GenSenRounded2TW-L, sans-serif; font-size: 1rem ;color: #6c808f">公里</label>
+            </div>
           </div>
         </div>
       </div>
@@ -716,7 +764,7 @@
     </section>
 
     <!-- Scene 4: 捷運使用情況 -->
-    <section id="scene-daily-2-4" class="scene">
+    <section id="scene-daily-2-4" class="scene scene-2">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>捷運使用情況</h1>
@@ -754,7 +802,7 @@
     </section>
 
     <!-- Scene 5: 火車使用情況 -->
-    <section id="scene-daily-2-5" class="scene">
+    <section id="scene-daily-2-5" class="scene scene-2">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>火車使用情況</h1>
@@ -790,7 +838,7 @@
     </section>
 
     <!-- Scene 6: 高鐵使用情況 -->
-    <section id="scene-daily-2-6" class="scene">
+    <section id="scene-daily-2-6" class="scene scene-2">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>高鐵使用情況</h1>
