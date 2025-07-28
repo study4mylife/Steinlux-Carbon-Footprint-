@@ -115,7 +115,7 @@
                 <button type="button" class="btn-decrement">
                   <span class="decrement">-</span>
                 </button>
-                <input type="number" value="0" min="0" />
+                <input id="fast-fashion-value" type="number" value="0" min="0" />
                 <button type="button" class="btn-increment">
                   <span class="increment">+</span>
                 </button>
@@ -131,7 +131,7 @@
                 <button type="button" class="btn-decrement">
                   <span class="decrement">-</span>
                 </button>
-                <input type="number" value="0" min="0" />
+                <input id="luxury-fashion-value" type="number" value="0" min="0" />
                 <button type="button" class="btn-increment">
                   <span class="increment">+</span>
                 </button>
@@ -150,6 +150,29 @@
       </button>
     </section>
   <script src="./js/all.js"></script>
+  <script type="module">
+  import { saveSectionData, loadSectionData } from './js/firebase.js';
+
+  window.addEventListener('DOMContentLoaded', async () => {
+    const data = await loadSectionData('fashion');
+    if (data) {
+      document.getElementById("fast-fashion-value").value = data.fastFashion ?? 0;
+      document.getElementById("luxury-fashion-value").value = data.luxuryFashion ?? 0;
+    }
+  });
+
+  async function handleNext() {
+    const data = {
+      fastFashion: parseFloat(document.getElementById("fast-fashion-value").value) || 0,
+      luxuryFashion: parseFloat(document.getElementById("luxury-fashion-value").value) || 0,
+    };
+    await saveSectionData('fashion', data);
+    window.location.href = 'entertainment.html';
+  }
+
+  document.querySelector(".next-btn").addEventListener("click", handleNext);
+
+</script>
   <script>
         const messages = [
         {
