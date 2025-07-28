@@ -197,7 +197,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input id="home-member-value" type="number" value="0" min="0" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -210,7 +210,7 @@
                 <button type="button" class="btn-decrement">
                   <span class="decrement">-</span>
                 </button>
-                <input type="number" value="0" min="0" />
+                <input id="home-electricity-value" type="number" value="0" min="0" />
                 <button type="button" class="btn-increment">
                   <span class="increment">+</span>
                 </button>
@@ -218,7 +218,7 @@
               <div class="toggle-row">
                 <span class="nowrap-text">度 Kwh​</span>
                 <label class="toggle-switch">
-                  <input type="checkbox" id="fuelToggle" />
+                  <input type="checkbox" id="electricity-unit-toggle" />
                   <span class="slider"></span>
                 </label>
                 <span class="nowrap-text">元(NTD)​</span>
@@ -230,7 +230,7 @@
                 <button type="button" class="btn-decrement">
                   <span class="decrement">-</span>
                 </button>
-                <input type="number" value="0" min="0" />
+                <input id="home-water-value" type="number" value="0" min="0" />
                 <button type="button" class="btn-increment">
                   <span class="increment">+</span>
                 </button>
@@ -238,7 +238,7 @@
               <div class="toggle-row">
                 <span class="nowrap-text">度 Kwh​</span>
                 <label class="toggle-switch">
-                  <input type="checkbox" id="fuelToggle" />
+                  <input type="checkbox" id="water-unit-toggle" />
                   <span class="slider"></span>
                 </label>
                 <span class="nowrap-text">元(NTD)​</span>
@@ -250,7 +250,7 @@
                 <button type="button" class="btn-decrement">
                   <span class="decrement">-</span>
                 </button>
-                <input type="number" value="0" min="0" />
+                <input id="home-gas-value" type="number" value="0" min="0" />
                 <button type="button" class="btn-increment">
                   <span class="increment">+</span>
                 </button>
@@ -258,7 +258,7 @@
               <div class="toggle-row">
                 <span class="nowrap-text">度 Kwh​</span>
                 <label class="toggle-switch">
-                  <input type="checkbox" id="fuelToggle" />
+                  <input type="checkbox" id="gas-unit-toggle" />
                   <span class="slider"></span>
                 </label>
                 <span class="nowrap-text">元(NTD)​</span>
@@ -327,6 +327,105 @@
     </section>
 
     <script src="./js/all.js"></script>
+    <script type="module">
+      import { saveSectionData, loadSectionData } from './js/firebase.js';
+      // 頁面載入時回填
+      window.addEventListener('DOMContentLoaded', async () => {
+        const data = await loadSectionData('home');
+        if (data) {
+          document.getElementById("home-member-value").value = data.homeMember ?? 0;
+
+          // 電
+          document.getElementById("home-electricity-value").value = data.homeElectricityValue ?? 0;
+          document.getElementById("electricity-unit-toggle").checked = data.homeElectricityToggle ?? false;
+
+          // 水
+          document.getElementById("home-water-value").value = data.homeWaterValue ?? 0;
+          document.getElementById("water-unit-toggle").checked = data.homeWaterToggle ?? false;
+
+          // 瓦斯
+          document.getElementById("home-gas-value").value = data.homeGasValue ?? 0;
+          document.getElementById("gas-unit-toggle").checked = data.homeGasToggle ?? false;
+        }
+      });
+
+      // 更新「度 kWh」標籤顯示 (可以根據切換變化調整)
+      function updateUnitLabel(inputId, toggleId) {
+        const input = document.getElementById(inputId);
+        const toggle = document.getElementById(toggleId);
+        const container = input.closest('.input-container');
+        const unitLabels = container.querySelectorAll('.unit-label');
+
+        if (toggle.checked) {
+          // 如果切換到「元(NTD)」，就修改第一個 label（原本是度 kWh）
+          unitLabels[0].textContent = '元(NTD)';
+        } else {
+          unitLabels[0].textContent = '度 Kwh';
+        }
+      }
+
+      // 綁定切換事件，動態切換標籤
+      ["electricity", "water", "gas"].forEach(type => {
+        const toggle = document.getElementById(`${type}-unit-toggle`);
+        toggle.addEventListener('change', () => {
+          updateUnitLabel(`home-${type}-value`, `${type}-unit-toggle`);
+        });
+      });
+
+    function getCircularValues() {
+      const circularRanges = document.querySelectorAll('.circular-range');
+
+      let trashBagCapacity = 0;
+      let trashFrequency = 0;
+
+      circularRanges.forEach((el) => {
+        const unit = el.dataset.unit;
+        const valueText = el.querySelector('.circular-value')?.textContent;
+        if (!valueText) return;
+
+        const value = parseInt(valueText);
+        if (unit === 'L') {
+          trashBagCapacity = value;
+        } else if (unit === '次') {
+          trashFrequency = value;
+        }
+      });
+
+      return {
+        trashBagCapacity,
+        trashFrequency
+      };
+    }
+
+    async function handleNext() {
+      const { trashBagCapacity, trashFrequency } = getCircularValues();
+
+      const data = {
+        homeMember: parseFloat(document.getElementById("home-member-value").value) || 0,
+
+        // 用電
+        homeElectricityValue: parseFloat(document.getElementById("home-electricity-value").value) || 0,
+        homeElectricityToggle: document.getElementById("electricity-unit-toggle").checked,
+
+        // 用水
+        homeWaterValue: parseFloat(document.getElementById("home-water-value").value) || 0,
+        homeWaterToggle: document.getElementById("water-unit-toggle").checked,
+
+        // 瓦斯
+        homeGasValue: parseFloat(document.getElementById("home-gas-value").value) || 0,
+        homeGasToggle: document.getElementById("gas-unit-toggle").checked,
+
+        // 垃圾資料
+        homeTrashBagCapacity: trashBagCapacity,
+        homeTrashFrequency: trashFrequency
+      };
+
+        await saveSectionData('home', data);
+        window.location.href = 'entertainment.html';
+      }
+
+      document.querySelector(".next-btn").addEventListener("click", handleNext);
+    </script>
     <script>
         const messages = [
         {

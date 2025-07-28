@@ -160,18 +160,18 @@
         height: auto;
       }
 
-      /*—— 色塊容器 ——*/
       .color-block {
         position: fixed;
-        right: -100%;
-        top: 152.5%;
-        transform: translate(-50%, -50%);
-        width: 100vw;
-        aspect-ratio: 1/1;
-        background: linear-gradient(45deg, #84551F 0%,#686868 55%, #2F6E77 100%);
-        border-radius: 100%;
-        box-shadow: 0 0 48px 48pt#F0E6D107;
+        right: 0;
+        bottom: 0;
+        width: 65vw;
+        aspect-ratio: 1 / 1;
+        background: linear-gradient(45deg, #84551F 0%, #686868 55%, #2F6E77 100%);
+        border-radius: 50%;
+        transform: translate(55%, 60%);
+        box-shadow: 0 0 48px 48pt #F0E6D107;
         z-index: 1;
+        pointer-events: none;
       }
 
       /*—— 標題 ——*/
@@ -213,7 +213,7 @@
 
       .scene-1 .flying-cat {
         display: block;
-        min-width: 180px;
+        min-width: 120px;
         width: 18vw;
         height: auto;
         position: relative;
@@ -223,9 +223,16 @@
 
       .scene-1 .spaceship-container {
         position: absolute;
-        left: -180px;
+        left: -50%;
         bottom: 60px;
         z-index: 4;
+      }
+
+      .scene-1 .spaceship {
+        display: block;
+        min-width: 80px;
+        width: 12vw;
+        height: auto;
       }
 
       .scene-1 .cloud-container img {
@@ -351,6 +358,7 @@
       transform: translate(-50%, -50%);
       opacity: 1;
       cursor: pointer;
+      z-index: 5;
      }
 
      .mouse {
@@ -408,7 +416,7 @@
 
           <div class="cat-container">
             <div class="spaceship-container">
-              <img src="images/太空火箭.png" alt="太空火箭" />
+              <img src="images/太空火箭.png" alt="太空火箭" class="spaceship"/>
             </div>
             <img src="images/太空服貓.png" alt="太空貓" class="flying-cat" />
           </div>
@@ -548,10 +556,8 @@ document.addEventListener("DOMContentLoaded", () => {
         gsap.to(
           ".color-block",
           { 
-            width: "270%",
-            right: "-220%",
-            top: "372.5%",
-            transform: "translate(-50%, -50%)",
+            right: 0,
+            bottom: 0,
             duration: 2,
           },
         );
@@ -639,10 +645,9 @@ document.addEventListener("DOMContentLoaded", () => {
           gsap.to(
             ".color-block",
             { 
-              width: "270%",
-              right: "-220%",
-              top: "372.5%",
-              transform: "translate(-50%, -50%)",
+              x: "-26%",
+              y: "232.5%",
+              scale: 4,
               duration: 2,
             },
           );
@@ -713,9 +718,11 @@ document.addEventListener("DOMContentLoaded", () => {
               ease: "power2.out",
             });
             gsap.to(".color-block", {
-              width: "100%",
-              right: "-100%",
-              top: "152.5%",
+              right: 0,
+              bottom: 0,
+              x: "55%",
+              y: "60%",
+              scale: 1,
               duration: 2,
               ease: "power2.out",
             });
