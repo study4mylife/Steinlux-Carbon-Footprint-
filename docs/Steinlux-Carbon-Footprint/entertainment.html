@@ -695,387 +695,375 @@
     </section>
 
     <script src="./js/all.js"></script>
-        <script type="module">
-      import { saveSectionData, loadSectionData } from './js/firebase.js';
-      // 頁面載入時回填
-      window.addEventListener('DOMContentLoaded', async () => {
-        const data = await loadSectionData('entertainment');
-        if (data) {
-          // KTV
-          document.getElementById("entertainment-KTB-value").value = data.entertainmentKTV ?? 0;
-          document.getElementById("KTV-unit-toggle").checked = data.entertainmentKTVToggle ?? false;
+<script type="module">
+  import { saveSectionData, loadSectionData } from './js/firebase.js';
 
-          // 電影
-          document.getElementById("entertainment-cinema-value").value = data.entertainmentCinemaValue ?? 0;
-          document.getElementById("cinema-unit-toggle").checked = data.entertainmentCinemaToggle ?? false;
-
-          // 健身房
-          document.getElementById("entertainment-gym-value").value = data.entertainmentGymValue ?? 0;
-          document.getElementById("gym-unit-toggle").checked = data.entertainmentGymToggle ?? false;
-
-          // 旅遊住宿
-          document.getElementById("entertainment-hotel-value").value = data.entertainmentHotelValue ?? 0;
-          document.getElementById("hotel-unit-toggle").checked = data.entertainmentHotelToggle ?? false;
-
-          // 影音串流
-          document.getElementById("entertainment-internet-value").value = data.entertainmentInternetValue ?? 0;
-          document.getElementById("entertainment-streaming-value").value = data.entertainmentStreamingValue ?? 0;
-          document.getElementById("streaming-unit-toggle").checked = data.entertainmentStreamingToggle ?? false;
-
-          // 宗教信仰
-          document.getElementById("entertainment-religion-value").value = data.entertainmentReligionValue ?? 0;
-          document.getElementById("religion-unit-toggle").checked = data.entertainmentReligionToggle ?? false;
-        }
-      });
-
-      // 更新「度 kWh」標籤顯示 (可以根據切換變化調整)
-      function updateUnitLabel(inputId, toggleId) {
-        const input = document.getElementById(inputId);
-        const toggle = document.getElementById(toggleId);
-        const container = input.closest('.input-container');
-        const unitLabels = container.querySelectorAll('.unit-label');
-
-        if (toggle.checked) {
-          // 如果切換到「元(NTD)」，就修改第一個 label（原本是度 kWh）
-          unitLabels[0].textContent = '元(NTD)';
-        } else {
-          unitLabels[0].textContent = '度 Kwh';
-        }
-      }
-
-      // 綁定切換事件，動態切換標籤
-      ["Cinema", "Gym", "Hotel"].forEach(type => {
-        const toggle = document.getElementById(`${type}-unit-toggle`);
-        toggle.addEventListener('change', () => {
-          updateUnitLabel(`entertainment-${type}-value`, `${type}-unit-toggle`);
-        });
-      });
-
-    async function handleNext() {
-      const { trashBagCapacity, trashFrequency } = getCircularValues();
-
-      const data = {
+  // 頁面載入時回填
+  window.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const data = await loadSectionData('entertainment');
+      if (data) {
         // KTV
-        entertainmentKTV: parseFloat(document.getElementById("entertainment-KTV-value").value) || 0,
-        entertainmentKTVToggle: document.getElementById("KTV-unit-toggle").checked,
+        document.getElementById("entertainment-KTV-value").value = data.entertainmentKTV ?? 0;
+        document.getElementById("KTV-unit-toggle").checked = data.entertainmentKTVToggle ?? false;
 
         // 電影
-        entertainmentCinemaValue: parseFloat(document.getElementById("entertainment-Cinema-value").value) || 0,
-        entertainmentCinemaToggle: document.getElementById("Cinema-unit-toggle").checked,
+        document.getElementById("entertainment-cinema-value").value = data.entertainmentCinemaValue ?? 0;
+        document.getElementById("cinema-unit-toggle").checked = data.entertainmentCinemaToggle ?? false;
 
         // 健身房
-        entertainmentGymValue: parseFloat(document.getElementById("entertainment-Gym-value").value) || 0,
-        entertainmentGymToggle: document.getElementById("Gym-unit-toggle").checked,
+        document.getElementById("entertainment-gym-value").value = data.entertainmentGymValue ?? 0;
+        document.getElementById("gym-unit-toggle").checked = data.entertainmentGymToggle ?? false;
 
         // 旅遊住宿
-        entertainmentHotelValue: parseFloat(document.getElementById("entertainment-hotel-value").value) || 0,
-        entertainmentHotelToggle: document.getElementById("hotel-unit-toggle").checked,
+        document.getElementById("entertainment-hotel-value").value = data.entertainmentHotelValue ?? 0;
+        document.getElementById("hotel-unit-toggle").checked = data.entertainmentHotelToggle ?? false;
 
         // 影音串流
-        entertainmentInternetValue: parseFloat(document.getElementById("entertainment-internet-value").value) || 0,
-        entertainmentStreamingValue: parseFloat(document.getElementById("entertainment-streaming-value").value) || 0,
-        entertainmentStreamingToggle: document.getElementById("streaming-unit-toggle").checked,
+        document.getElementById("entertainment-internet-value").value = data.entertainmentInternetValue ?? 0;
+        document.getElementById("entertainment-streaming-value").value = data.entertainmentStreamingValue ?? 0;
+        document.getElementById("streaming-unit-toggle").checked = data.entertainmentStreamingToggle ?? false;
 
-        //宗教信仰
-        entertainmentReligionValue: parseFloat(document.getElementById("entertainment-religion-value").value) || 0,
-        entertainmentReligionToggle: document.getElementById("religion-unit-toggle").checked
-      };
+        // 宗教信仰
+        document.getElementById("entertainment-religion-value").value = data.entertainmentReligionValue ?? 0;
+        document.getElementById("religion-unit-toggle").checked = data.entertainmentReligionToggle ?? false;
+      }
+    } catch (err) {
+      console.error("載入資料失敗：", err);
+    }
+  });
 
-        await saveSectionData('entertainment', data);
-        window.location.href = 'entertainment.html';
+  // 儲存資料並跳轉
+  async function handleNext() {
+    const data = {
+      // KTV
+      entertainmentKTV: parseFloat(document.getElementById("entertainment-KTV-value").value) || 0,
+      entertainmentKTVToggle: document.getElementById("KTV-unit-toggle").checked,
+
+      // 電影
+      entertainmentCinemaValue: parseFloat(document.getElementById("entertainment-cinema-value").value) || 0,
+      entertainmentCinemaToggle: document.getElementById("cinema-unit-toggle").checked,
+
+      // 健身房
+      entertainmentGymValue: parseFloat(document.getElementById("entertainment-gym-value").value) || 0,
+      entertainmentGymToggle: document.getElementById("gym-unit-toggle").checked,
+
+      // 旅遊住宿
+      entertainmentHotelValue: parseFloat(document.getElementById("entertainment-hotel-value").value) || 0,
+      entertainmentHotelToggle: document.getElementById("hotel-unit-toggle").checked,
+
+      // 影音串流
+      entertainmentInternetValue: parseFloat(document.getElementById("entertainment-internet-value").value) || 0,
+      entertainmentStreamingValue: parseFloat(document.getElementById("entertainment-streaming-value").value) || 0,
+      entertainmentStreamingToggle: document.getElementById("streaming-unit-toggle").checked,
+
+      // 宗教信仰
+      entertainmentReligionValue: parseFloat(document.getElementById("entertainment-religion-value").value) || 0,
+      entertainmentReligionToggle: document.getElementById("religion-unit-toggle").checked
+    };
+
+    try {
+      await saveSectionData('entertainment', data);
+    } catch (err) {
+      console.error("儲存資料失敗：", err);
+      alert("資料儲存失敗，請稍後再試。");
+    }
+  }
+
+    document.querySelectorAll(".next-btn").forEach((btn) => {
+      btn.addEventListener("click", handleNext);
+    });
+</script>
+
+  <script>
+
+    /* 切換頁面 */
+
+    let currentScene = "scene-entertain-1";
+
+    function goToNextScene() {
+      // 取得目前場景在使用者選取活動中的位置
+      const currentIndex = selectedActivities.findIndex(
+        (activity) => activityScenes[activity] === currentScene
+      );
+
+      // 是最後一個場景 → 導向結果頁
+      if (currentIndex === selectedActivities.length - 1) {
+        window.location.href = "analysis.html";
+        return;
       }
 
-      document.querySelector(".next-btn").addEventListener("click", handleNext);
-    </script>
-    <script>
-
-      /* 切換頁面 */
-
-      let currentScene = "scene-entertain-1";
-
-      function goToNextScene() {
-        // 取得目前場景在使用者選取活動中的位置
-        const currentIndex = selectedActivities.findIndex(
-          (activity) => activityScenes[activity] === currentScene
-        );
-
-        // 是最後一個場景 → 導向結果頁
-        if (currentIndex === selectedActivities.length - 1) {
-          window.location.href = "analysis.html";
-          return;
-        }
-
-        // 還有下一頁 → 取得下一個活動的 sceneId，跳轉
-        const nextActivity = selectedActivities[currentIndex + 1];
-        const nextSceneId = activityScenes[nextActivity];
-        if (nextSceneId) {
-          goToScene(nextSceneId);
-        }
+      // 還有下一頁 → 取得下一個活動的 sceneId，跳轉
+      const nextActivity = selectedActivities[currentIndex + 1];
+      const nextSceneId = activityScenes[nextActivity];
+      if (nextSceneId) {
+        goToScene(nextSceneId);
       }
+    }
 
-      function goToPrevScene() {
-        const currentIndex = selectedActivities.findIndex(
-          (activity) => activityScenes[activity] === currentScene
-        );
+    function goToPrevScene() {
+      const currentIndex = selectedActivities.findIndex(
+        (activity) => activityScenes[activity] === currentScene
+      );
 
-        // 是第一個選擇的活動 → 回到 scene-entertain-1
-        if (currentIndex === 0) {
-          goToScene("scene-entertain-1");
-          return;
-        }
-
-        // 還有上一頁 → 跳到上一個活動頁面
-        const prevActivity = selectedActivities[currentIndex - 1];
-        const prevSceneId = activityScenes[prevActivity];
-        if (prevSceneId) {
-          goToScene(prevSceneId);
-        }
-      }
-
-      // 資訊按鈕 
-
-      const infoBtn = document.getElementById("info-btn");
-      const modal = document.getElementById("modal");
-      const closeX = document.getElementById("modal-close");
-
-      infoBtn.addEventListener("click", () => {
-        if (modal.style.display === "flex") {
-          modal.style.display = "none";
-        } else {
-          modal.style.display = "flex";
-        }
-      });
-
-      closeX.addEventListener("click", () => {
-        modal.style.display = "none";
-      });
-
-      // 單位切換
-
-      document.querySelectorAll(".entertain-card").forEach((card) => {
-        const toggle = card.querySelector(
-          '.toggle-switch input[type="checkbox"]'
-        );
-        const titles = card.querySelectorAll(".question-title[data-template]");
-
-        if (!toggle || titles.length === 0) return;
-
-        const leftLabel = card
-          .querySelector(".toggle-row span:nth-child(1)")
-          ?.textContent.trim();
-        const rightLabel = card
-          .querySelector(".toggle-row span:nth-child(3)")
-          ?.textContent.trim();
-
-        function updateTitle() {
-          const selectedUnit = toggle.checked ? rightLabel : leftLabel;
-          titles.forEach((title) => {
-            const template = title.dataset.template;
-            title.textContent = template.replace("{unit}", selectedUnit);
-          });
-        }
-
-        updateTitle();
-        toggle.addEventListener("change", updateTitle);
-      });
-
-      const messages = [
-            {
-                type: "time",
-                text: "上午 9:30",
-                time: 1000,
-            },
-            {
-                text: "登入中...歡迎進入AI智慧雲端生活！你現在的生活是24小時上網、AI推薦吃穿用、手機一天充三次電的超人類時代！",
-                from: "cat",
-                time: 2000,
-                typingTime: 1500,
-            },
-            {
-                text: "這裡是...現在的我們對吧？",
-                from: "user",
-                time: 1500,
-                typingTime: 800,
-            },
-            {
-                text: "沒錯，這正是我們的「碳生活」主場。從你打開一支reels、追一場Netflix、用AI生成一張貓貓圖，背後都是巨大的雲端伺服器在運轉。",
-                from: "cat",
-                time: 2500,
-                typingTime: 2000,
-            },
-            {
-                text: "資料中心需要全年無休和冷卻、高頻計算、高能耗伺服器，而智慧生活帶來的便利，也帶來前所未有的能源需求。說白了，現在我們不用出門也能...碳排爆表！",
-                from: "cat",
-                time: 3000,
-                typingTime: 2500,
-            },
-            {
-                text: "確實！我們根本無法拒絕便利！但，這不就是人類推動科技進步的目的嗎...",
-                from: "user",
-                time: 2000,
-                typingTime: 1200,
-            },
-        ];
-
-      // 選擇娛樂活動
-
-      function handleFirstSceneNext() {
-        // 固定順序
-        const fullOrder = [
-          "KTV",
-          "電影",
-          "健身房",
-          "旅遊住宿",
-          "影音串流",
-          "宗教信仰",
-        ];
-
-        // 過濾選取的項目並依照固定順序排序
-        const sortedActivities = fullOrder.filter((activity) =>
-          selectedActivities.includes(activity)
-        );
-
-        // 更新陣列
-        selectedActivities.length = 0;
-        selectedActivities.push(...sortedActivities);
-
-        if (selectedActivities.length === 0) {
-          alert("請至少選擇一個娛樂活動！");
-          return;
-        }
-
-        const firstScene = activityScenes[selectedActivities[0]];
-        goToScene(firstScene);
-      }
-
-      const selectedActivities = []; // 儲存選取的項目
-      const activityScenes = {
-        KTV: "scene-entertain-2-1",
-        電影: "scene-entertain-2-2",
-        健身房: "scene-entertain-2-3",
-        旅遊住宿: "scene-entertain-2-4",
-        影音串流: "scene-entertain-2-5",
-        宗教信仰: "scene-entertain-2-6",
-      };
-
-      function toggleActivity(card, activity) {
-        const index = selectedActivities.indexOf(activity);
-
-        if (index === -1) {
-          selectedActivities.push(activity);
-          card.classList.add("selected");
-        } else {
-          selectedActivities.splice(index, 1);
-          card.classList.remove("selected");
-        }
-
-        updatePageIndicators();
-      }
-
-      // bar跳轉頁面
-
-      function goToScene(targetId) {
-        document.getElementById(currentScene).classList.remove("active");
-        document.getElementById(targetId).classList.add("active");
-        currentScene = targetId;
-        updatePageIndicators();
-        updateNavButtonsVisibility();
-      }
-
-    function updatePageIndicators() {
-      const scene = document.getElementById(currentScene);
-      const container = scene.querySelector(".dynamic-bar-container");
-
-      if (!container) return;
-      container.innerHTML = "";
-
-      // 👉 1. 先加上「選擇頁」的 bar（永遠是第一個）
-      const selectHitArea = document.createElement("div");
-      selectHitArea.classList.add("bar-hit-area");
-
-      const selectBar = document.createElement("span");
-      selectBar.classList.add("bar");
-
-      // 如果現在頁面是 scene-entertain-1，設定 active 狀態
-      if (currentScene === "scene-entertain-1") {
-        selectBar.classList.add("active");
-      }
-
-      selectHitArea.appendChild(selectBar);
-      selectHitArea.onclick = () => {
+      // 是第一個選擇的活動 → 回到 scene-entertain-1
+      if (currentIndex === 0) {
         goToScene("scene-entertain-1");
-        updateBarActive(0); // 第一個 bar 是 index 0
-      };
-      container.appendChild(selectHitArea);
+        return;
+      }
 
-      // 👉 2. 依據選到的 activity 加上對應 bar
-      selectedActivities.forEach((activity, idx) => {
-        const sceneId = activityScenes[activity];
-        if (!sceneId) return;
-
-        const hitArea = document.createElement("div");
-        hitArea.classList.add("bar-hit-area");
-
-        const bar = document.createElement("span");
-        bar.classList.add("bar");
-
-        // 注意：因為第一個 bar 是選擇頁，這邊是 idx+1
-        if (currentScene === sceneId) {
-          bar.classList.add("active");
-        }
-
-        hitArea.appendChild(bar);
-
-        hitArea.onclick = () => {
-          goToScene(sceneId);
-          updateBarActive(idx + 1);
-        };
-
-        container.appendChild(hitArea);
-      });
+      // 還有上一頁 → 跳到上一個活動頁面
+      const prevActivity = selectedActivities[currentIndex - 1];
+      const prevSceneId = activityScenes[prevActivity];
+      if (prevSceneId) {
+        goToScene(prevSceneId);
+      }
     }
 
+    // 資訊按鈕 
 
-    function updateNavButtonsVisibility() {
-      const sceneEl = document.getElementById(currentScene);
+    const infoBtn = document.getElementById("info-btn");
+    const modal = document.getElementById("modal");
+    const closeX = document.getElementById("modal-close");
 
-      // 取得按鈕（用 querySelector 找當前 scene 裡的按鈕）
-      const prevBtn = sceneEl.querySelector(".prev-btn");
-      const nextBtn = sceneEl.querySelector(".next-btn");
-
-      // 全部先隱藏
-      document.querySelectorAll(".prev-btn, .next-btn").forEach(btn => {
-        btn.style.display = "none";
-      });
-
-      // 這個 scene 有的才顯示
-      if (prevBtn) prevBtn.style.display = "block";
-      if (nextBtn) nextBtn.style.display = "block";
-    }
-
-
-    function updateBarActive(activeIndex) {
-      const scene = document.getElementById(currentScene);
-      const container = scene.querySelector(".dynamic-bar-container");
-      if (!container) return;
-
-      const bars = container.querySelectorAll(".bar-hit-area .bar");
-      bars.forEach((bar, idx) => {
-        if (idx === activeIndex) {
-          bar.classList.add("active");
-        } else {
-          bar.classList.remove("active");
-        }
-      });
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      currentScene = "scene-entertain-1";
-      updatePageIndicators();   // ← 加上這個
-      updateNavButtonsVisibility(); // ← 如果需要按鈕也加上
+    infoBtn.addEventListener("click", () => {
+      if (modal.style.display === "flex") {
+        modal.style.display = "none";
+      } else {
+        modal.style.display = "flex";
+      }
     });
 
-    </script>
+    closeX.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    // 單位切換
+
+    document.querySelectorAll(".entertain-card").forEach((card) => {
+      const toggle = card.querySelector(
+        '.toggle-switch input[type="checkbox"]'
+      );
+      const titles = card.querySelectorAll(".question-title[data-template]");
+
+      if (!toggle || titles.length === 0) return;
+
+      const leftLabel = card
+        .querySelector(".toggle-row span:nth-child(1)")
+        ?.textContent.trim();
+      const rightLabel = card
+        .querySelector(".toggle-row span:nth-child(3)")
+        ?.textContent.trim();
+
+      function updateTitle() {
+        const selectedUnit = toggle.checked ? rightLabel : leftLabel;
+        titles.forEach((title) => {
+          const template = title.dataset.template;
+          title.textContent = template.replace("{unit}", selectedUnit);
+        });
+      }
+
+      updateTitle();
+      toggle.addEventListener("change", updateTitle);
+    });
+
+    const messages = [
+          {
+              type: "time",
+              text: "上午 9:30",
+              time: 1000,
+          },
+          {
+              text: "登入中...歡迎進入AI智慧雲端生活！你現在的生活是24小時上網、AI推薦吃穿用、手機一天充三次電的超人類時代！",
+              from: "cat",
+              time: 2000,
+              typingTime: 1500,
+          },
+          {
+              text: "這裡是...現在的我們對吧？",
+              from: "user",
+              time: 1500,
+              typingTime: 800,
+          },
+          {
+              text: "沒錯，這正是我們的「碳生活」主場。從你打開一支reels、追一場Netflix、用AI生成一張貓貓圖，背後都是巨大的雲端伺服器在運轉。",
+              from: "cat",
+              time: 2500,
+              typingTime: 2000,
+          },
+          {
+              text: "資料中心需要全年無休和冷卻、高頻計算、高能耗伺服器，而智慧生活帶來的便利，也帶來前所未有的能源需求。說白了，現在我們不用出門也能...碳排爆表！",
+              from: "cat",
+              time: 3000,
+              typingTime: 2500,
+          },
+          {
+              text: "確實！我們根本無法拒絕便利！但，這不就是人類推動科技進步的目的嗎...",
+              from: "user",
+              time: 2000,
+              typingTime: 1200,
+          },
+      ];
+
+    // 選擇娛樂活動
+
+    function handleFirstSceneNext() {
+      // 固定順序
+      const fullOrder = [
+        "KTV",
+        "電影",
+        "健身房",
+        "旅遊住宿",
+        "影音串流",
+        "宗教信仰",
+      ];
+
+      // 過濾選取的項目並依照固定順序排序
+      const sortedActivities = fullOrder.filter((activity) =>
+        selectedActivities.includes(activity)
+      );
+
+      // 更新陣列
+      selectedActivities.length = 0;
+      selectedActivities.push(...sortedActivities);
+
+      if (selectedActivities.length === 0) {
+        alert("請至少選擇一個娛樂活動！");
+        return;
+      }
+
+      const firstScene = activityScenes[selectedActivities[0]];
+      goToScene(firstScene);
+    }
+
+    const selectedActivities = []; // 儲存選取的項目
+    const activityScenes = {
+      KTV: "scene-entertain-2-1",
+      電影: "scene-entertain-2-2",
+      健身房: "scene-entertain-2-3",
+      旅遊住宿: "scene-entertain-2-4",
+      影音串流: "scene-entertain-2-5",
+      宗教信仰: "scene-entertain-2-6",
+    };
+
+    function toggleActivity(card, activity) {
+      const index = selectedActivities.indexOf(activity);
+
+      if (index === -1) {
+        selectedActivities.push(activity);
+        card.classList.add("selected");
+      } else {
+        selectedActivities.splice(index, 1);
+        card.classList.remove("selected");
+      }
+
+      updatePageIndicators();
+    }
+
+    // bar跳轉頁面
+
+    function goToScene(targetId) {
+      document.getElementById(currentScene).classList.remove("active");
+      document.getElementById(targetId).classList.add("active");
+      currentScene = targetId;
+      updatePageIndicators();
+      updateNavButtonsVisibility();
+    }
+
+  function updatePageIndicators() {
+    const scene = document.getElementById(currentScene);
+    const container = scene.querySelector(".dynamic-bar-container");
+
+    if (!container) return;
+    container.innerHTML = "";
+
+    // 👉 1. 先加上「選擇頁」的 bar（永遠是第一個）
+    const selectHitArea = document.createElement("div");
+    selectHitArea.classList.add("bar-hit-area");
+
+    const selectBar = document.createElement("span");
+    selectBar.classList.add("bar");
+
+    // 如果現在頁面是 scene-entertain-1，設定 active 狀態
+    if (currentScene === "scene-entertain-1") {
+      selectBar.classList.add("active");
+    }
+
+    selectHitArea.appendChild(selectBar);
+    selectHitArea.onclick = () => {
+      goToScene("scene-entertain-1");
+      updateBarActive(0); // 第一個 bar 是 index 0
+    };
+    container.appendChild(selectHitArea);
+
+    // 👉 2. 依據選到的 activity 加上對應 bar
+    selectedActivities.forEach((activity, idx) => {
+      const sceneId = activityScenes[activity];
+      if (!sceneId) return;
+
+      const hitArea = document.createElement("div");
+      hitArea.classList.add("bar-hit-area");
+
+      const bar = document.createElement("span");
+      bar.classList.add("bar");
+
+      // 注意：因為第一個 bar 是選擇頁，這邊是 idx+1
+      if (currentScene === sceneId) {
+        bar.classList.add("active");
+      }
+
+      hitArea.appendChild(bar);
+
+      hitArea.onclick = () => {
+        goToScene(sceneId);
+        updateBarActive(idx + 1);
+      };
+
+      container.appendChild(hitArea);
+    });
+  }
+
+
+  function updateNavButtonsVisibility() {
+    const sceneEl = document.getElementById(currentScene);
+
+    // 取得按鈕（用 querySelector 找當前 scene 裡的按鈕）
+    const prevBtn = sceneEl.querySelector(".prev-btn");
+    const nextBtn = sceneEl.querySelector(".next-btn");
+
+    // 全部先隱藏
+    document.querySelectorAll(".prev-btn, .next-btn").forEach(btn => {
+      btn.style.display = "none";
+    });
+
+    // 這個 scene 有的才顯示
+    if (prevBtn) prevBtn.style.display = "block";
+    if (nextBtn) nextBtn.style.display = "block";
+  }
+
+
+  function updateBarActive(activeIndex) {
+    const scene = document.getElementById(currentScene);
+    const container = scene.querySelector(".dynamic-bar-container");
+    if (!container) return;
+
+    const bars = container.querySelectorAll(".bar-hit-area .bar");
+    bars.forEach((bar, idx) => {
+      if (idx === activeIndex) {
+        bar.classList.add("active");
+      } else {
+        bar.classList.remove("active");
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    currentScene = "scene-entertain-1";
+    updatePageIndicators();   // ← 加上這個
+    updateNavButtonsVisibility(); // ← 如果需要按鈕也加上
+  });
+
+  </script>
   </body>
 </html>
 

@@ -518,7 +518,7 @@
               <span class="bar active" onclick="goToScene(1)"></span>
             </div>
             <div class="bar-hit-area">
-              <span class="bar" onclick="goToScene(3)"></span>
+              <span class="bar" onclick="goToScene(7)"></span>
             </div>
             <div class="bar-hit-area">
               <span class="bar" onclick="goToScene(8)"></span>
@@ -587,6 +587,9 @@
           <div class="bar-hit-area">
             <span class="bar active" onclick="goToScene(3)"></span>
           </div>
+          <div class="bar-hit-area">
+            <span class="bar" onclick="goToScene(8)"></span>
+          </div>
         </div>
       </div>
         <div class="food-grid">
@@ -600,7 +603,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-dumplings-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -616,7 +619,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-beefNoodle-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -632,7 +635,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-porkBento-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -648,7 +651,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-chickenBento-value"/>
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -664,7 +667,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-beefBowl-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -680,7 +683,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-curryPorkRice-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -696,7 +699,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-hamburger-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -712,7 +715,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-hotpot-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -745,7 +748,7 @@
                 <button type="button" class="btn-decrement">
                   <span class="decrement">-</span>
                 </button>
-                <input type="number" value="0" min="0" />
+                <input type="number" value="0" min="0" id="food-modal-rice-value" />
                 <button type="button" class="btn-increment">
                   <span class="increment">+</span>
                 </button>
@@ -761,7 +764,7 @@
                 <button type="button" class="btn-decrement">
                   <span class="decrement">-</span>
                 </button>
-                <input type="number" value="0" min="0" />
+                <input type="number" value="0" min="0" id="food-modal-vegetable-value" />
                 <button type="button" class="btn-increment">
                   <span class="increment">+</span>
                 </button>
@@ -777,7 +780,7 @@
                 <button type="button" class="btn-decrement">
                   <span class="decrement">-</span>
                 </button>
-                <input type="number" value="0" min="0" />
+                <input type="number" value="0" min="0" id="food-modal-milk-value" />
                 <button type="button" class="btn-increment">
                   <span class="increment">+</span>
                 </button>
@@ -793,7 +796,7 @@
                 <button type="button" class="btn-decrement">
                   <span class="decrement">-</span>
                 </button>
-                <input type="number" value="0" min="0" />
+                <input type="number" value="0" min="0" id="food-modal-lamb-value" />
                 <button type="button" class="btn-increment">
                   <span class="increment">+</span>
                 </button>
@@ -809,7 +812,7 @@
                 <button type="button" class="btn-decrement">
                   <span class="decrement">-</span>
                 </button>
-                <input type="number" value="0" min="0" />
+                <input type="number" value="0" min="0" id="food-modal-pork-value" />
                 <button type="button" class="btn-increment">
                   <span class="increment">+</span>
                 </button>
@@ -825,7 +828,7 @@
                 <button type="button" class="btn-decrement">
                   <span class="decrement">-</span>
                 </button>
-                <input type="number" value="0" min="0" />
+                <input type="number" value="0" min="0" id="food-modal-chicken-value" />
                 <button type="button" class="btn-increment">
                   <span class="increment">+</span>
                 </button>
@@ -841,7 +844,7 @@
                 <button type="button" class="btn-decrement">
                   <span class="decrement">-</span>
                 </button>
-                <input type="number" value="0" min="0" />
+                <input type="number" value="0" min="0" id="food-modal-egg-value" />
                 <button type="button" class="btn-increment">
                   <span class="increment">+</span>
                 </button>
@@ -857,7 +860,7 @@
                 <button type="button" class="btn-decrement">
                   <span class="decrement">-</span>
                 </button>
-                <input type="number" value="0" min="0" />
+                <input type="number" value="0" min="0" id="food-modal-shrimp-value" />
                 <button type="button" class="btn-increment">
                   <span class="increment">+</span>
                 </button>
@@ -873,7 +876,7 @@
                 <button type="button" class="btn-decrement">
                   <span class="decrement">-</span>
                 </button>
-                <input type="number" value="0" min="0" />
+                <input type="number" value="0" min="0" id="food-modal-fish-value" />
                 <button type="button" class="btn-increment">
                   <span class="increment">+</span>
                 </button>
@@ -889,7 +892,7 @@
                 <button type="button" class="btn-decrement">
                   <span class="decrement">-</span>
                 </button>
-                <input type="number" value="0" min="0" />
+                <input type="number" value="0" min="0" id="food-modal-noodle-value" />
                 <button type="button" class="btn-increment">
                   <span class="increment">+</span>
                 </button>
@@ -927,7 +930,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-pescatarian-rice-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -943,7 +946,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-pescatarian-vegetable-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -959,7 +962,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-pescatarian-tofu-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -975,7 +978,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-pescatarian-milk-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -991,7 +994,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-pescatarian-noodle-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1007,7 +1010,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-pescatarian-ham-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1023,7 +1026,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-pescatarian-egg-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1039,7 +1042,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-pescatarian-shrimp-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1055,7 +1058,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-pescatarian-fish-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1071,7 +1074,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-pescatarian-mushroom-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1111,7 +1114,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-ovo-lacto-rice-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1127,7 +1130,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-ovo-lacto-vegetable-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1143,7 +1146,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-ovo-lacto-tofu-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1159,7 +1162,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-ovo-lacto-milk-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1175,7 +1178,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-ovo-lacto-noodle-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1191,7 +1194,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-ovo-lacto-ham-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1207,7 +1210,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-ovo-lacto-egg-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1223,7 +1226,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-ovo-lacto-mushroom-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1264,7 +1267,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-vegan-rice-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1280,7 +1283,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-vegan-vegetable-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1296,7 +1299,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-vegan-tofu-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1312,7 +1315,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-vegan-noodle-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1328,7 +1331,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-vegan-ham-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1344,7 +1347,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-vegan-mushroom-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1368,10 +1371,13 @@
               <span class="bar" onclick="goToScene(1)"></span>
             </div>
             <div class="bar-hit-area">
-              <span class="bar" onclick="getPreviousScene()"></span>
+              <span class="bar" onclick="getPreviousScene(3)"></span>
             </div>
             <div class="bar-hit-area">
               <span class="bar active" onclick="goToScene(7)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(8)"></span>
             </div>
           </div>
         </div>
@@ -1386,7 +1392,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-snack-chickenSteak-bubbleMilkTea-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1402,7 +1408,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-snack-instantNoodle-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1418,7 +1424,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-snack-beer-value"/>
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1434,7 +1440,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-snack-frenchFries-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1450,7 +1456,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-snack-teaegg-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1466,7 +1472,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-snack-soymilk-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1482,7 +1488,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-snack-blackCoffee-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1498,7 +1504,7 @@
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
               </button>
-              <input type="number" value="0" min="0" />
+              <input type="number" value="0" min="0" id="food-snack-milk-value" />
               <button type="button" class="btn-increment">
                 <span class="increment">+</span>
               </button>
@@ -1523,7 +1529,7 @@
               <span class="bar" onclick="goToScene(7)"></span>
             </div>
             <div class="bar-hit-area">
-              <span class="bar" onclick="goToScene(8)"></span>
+              <span class="bar active" onclick="goToScene(8)"></span>
             </div>
           </div>
         </div>
@@ -1580,10 +1586,143 @@
       </div>
 
       <button class="nav-btn prev-btn" onclick="goToScene(7)">‹</button>
-      <button class="nav-btn next-btn" onclick="window.location.href='fashion.html'">›</button>
+      <button class="nav-btn next-btn last-btn" onclick="window.location.href='fashion.html'">›</button>
     </section>
 
     <script src="./js/all.js"></script>
+        <script type="module">
+      import { saveSectionData, loadSectionData } from './js/firebase.js';
+
+      // 頁面載入時回填
+      window.addEventListener('DOMContentLoaded', async () => {
+        try {
+          const data = await loadSectionData('food');
+          if (data) {
+            // 日常飲食
+            document.getElementById("food-dumplings-value").value = data.foodDumplingsValue ?? 0;
+            document.getElementById("food-beefNoodle-value").value = data.foodBeefNoodleValue ?? 0;
+            document.getElementById("food-porkBento-value").value = data.foodPorkBentoValue ?? 0;
+            document.getElementById("food-chickenBento-value").value = data.foodChickenBentoValue ?? 0;
+            document.getElementById("food-beefBowl-value").value = data.foodBeefBowlValue ?? 0;
+            document.getElementById("food-curryPorkRice-value").value = data.foodCurryPorkRiceValue ?? 0;
+            document.getElementById("food-hamburger-value").value = data.foodHamburgerValue ?? 0;
+            document.getElementById("food-hotpot-value").value = data.foodHotpotValue ?? 0;
+
+            // 點心
+            document.getElementById("food-snack-chickenSteak-bubbleMilkTea-value").value = data.foodSnackChickenBeefBubbleMilkTeaValue ?? 0;
+            document.getElementById("food-snack-instantNoodle-value").value = data.foodSnackInstantNoodleValue ?? 0;
+            document.getElementById("food-snack-beer-value").value = data.foodSnackBeerValue ?? 0;
+            document.getElementById("food-snack-frenchFries-value").value = data.foodSnackFrenchfriesValue ?? 0;
+            document.getElementById("food-snack-teaegg-value").value = data.foodSnackTeaEggValue ?? 0; 
+            document.getElementById("food-snack-soymilk-value").value = data.foodSnackSoyMilkValue ?? 0;
+            document.getElementById("food-snack-blackCoffee-value").value = data.foodSnackBlackCoffeeValue ?? 0;
+            document.getElementById("food-snack-milk-value").value = data.foodSnackMilkValue ?? 0;
+
+            // 海鮮素
+            document.getElementById("food-pescatarian-rice-value").value = data.foodPescatarianRiceValue ?? 0;
+            document.getElementById("food-pescatarian-vegetable-value").value = data.foodPescatarianVegetableValue ?? 0;
+            document.getElementById("food-pescatarian-tofu-value").value = data.foodPescatarianTofuValue ?? 0;
+            document.getElementById("food-pescatarian-milk-value").value = data.foodPescatarianMilkValue ?? 0;
+            document.getElementById("food-pescatarian-noodle-value").value = data.foodPescatarianNoodleValue ?? 0;
+            document.getElementById("food-pescatarian-ham-value").value = data.foodPescatarianHamValue ?? 0;
+            document.getElementById("food-pescatarian-egg-value").value = data.foodPescatarianEggValue ?? 0;
+            document.getElementById("food-pescatarian-shrimp-value").value = data.foodPescatarianShrimpValue ?? 0;
+            document.getElementById("food-pescatarian-fish-value").value = data.foodPescatarianFishValue ?? 0;
+            document.getElementById("food-pescatarian-mushroom-value").value = data.foodPescatarianMushroomValue ?? 0;
+
+            // 蛋奶素
+            document.getElementById("food-ovo-lacto-rice-value").value = data.foodOvoLactoRiceValue ?? 0;
+            document.getElementById("food-ovo-lacto-vegetable-value").value = data.foodOvoLactoVegetableValue ?? 0;
+            document.getElementById("food-ovo-lacto-tofu-value").value = data.foodOvoLactoTofuValue ?? 0;
+            document.getElementById("food-ovo-lacto-milk-value").value = data.foodOvoLactoMilkValue ?? 0;
+            document.getElementById("food-ovo-lacto-noodle-value").value = data.foodOvoLactoNoodleValue ?? 0;
+            document.getElementById("food-ovo-lacto-ham-value").value = data.foodOvoLactoHamValue ?? 0;
+            document.getElementById("food-ovo-lacto-egg-value").value = data.foodOvoLactoEggValue ?? 0;
+            document.getElementById("food-ovo-lacto-mushroom-value").value = data.foodOvoLactoMushroomValue ?? 0;
+
+            // 全素
+            document.getElementById("food-vegan-rice-value").value = data.foodVeganRiceValue ?? 0;
+            document.getElementById("food-vegan-vegetable-value").value = data.foodVeganVegetableValue ?? 0;
+            document.getElementById("food-vegan-tofu-value").value = data.foodVeganTofuValue ?? 0;
+            document.getElementById("food-vegan-noodle-value").value = data.foodVeganNoodleValue ?? 0;
+            document.getElementById("food-vegan-ham-value").value = data.foodVeganHamValue ?? 0;
+            document.getElementById("food-vegan-mushroom-value").value = data.foodVeganMushroomValue ?? 0;
+
+            // 剩食
+            document.getElementById("waste-slider").value = data.foodWasteSliderValue ?? 0;
+          }
+        } catch (err) {
+          console.error("載入資料失敗：", err);
+        }
+      });
+
+      // 儲存資料並跳轉
+      async function handleNext() {
+        const data = {
+          // 日常飲食
+          foodDumplingsValue: document.getElementById("food-dumplings-value").value || 0,
+          foodBeefNoodleValue: document.getElementById("food-beefNoodle-value").value || 0,
+          foodPorkBentoValue: document.getElementById("food-porkBento-value").value || 0,
+          foodChickenBentoValue: document.getElementById("food-chickenBento-value").value || 0,
+          foodBeefBowlValue: document.getElementById("food-beefBowl-value").value || 0,
+          foodCurryPorkRiceValue: document.getElementById("food-curryPorkRice-value").value || 0,
+          foodHamburgerValue: document.getElementById("food-hamburger-value").value || 0,
+          foodHotpotValue: document.getElementById("food-hotpot-value").value || 0,
+
+          // 點心
+          foodSnackChickenBeefBubbleMilkTeaValue: document.getElementById("food-snack-chickenSteak-bubbleMilkTea-value").value || 0,
+          foodSnackInstantNoodleValue: document.getElementById("food-snack-instantNoodle-value").value || 0,
+          foodSnackBeerValue: document.getElementById("food-snack-beer-value").value || 0,
+          foodSnackFrenchfriesValue: document.getElementById("food-snack-frenchFries-value").value || 0,
+          foodSnackTeaEggValue: document.getElementById("food-snack-teaegg-value").value || 0,
+          foodSnackSoyMilkValue: document.getElementById("food-snack-soymilk-value").value || 0,
+          foodSnackBlackCoffeeValue: document.getElementById("food-snack-blackCoffee-value").value || 0,
+          foodSnackMilkValue: document.getElementById("food-snack-milk-value").value || 0,
+
+          // 海鮮素
+          foodPescatarianRiceValue: document.getElementById("food-pescatarian-rice-value").value || 0,
+          foodPescatarianVegetableValue: document.getElementById("food-pescatarian-vegetable-value").value || 0,
+          foodPescatarianTofuValue: document.getElementById("food-pescatarian-tofu-value").value || 0,
+          foodPescatarianMilkValue: document.getElementById("food-pescatarian-milk-value").value || 0,
+          foodPescatarianNoodleValue: document.getElementById("food-pescatarian-noodle-value").value || 0,
+          foodPescatarianHamValue: document.getElementById("food-pescatarian-ham-value").value || 0,
+          foodPescatarianEggValue: document.getElementById("food-pescatarian-egg-value").value || 0,
+          foodPescatarianShrimpValue: document.getElementById("food-pescatarian-shrimp-value").value || 0,
+          foodPescatarianFishValue: document.getElementById("food-pescatarian-fish-value").value || 0,
+          foodPescatarianMushroomValue: document.getElementById("food-pescatarian-mushroom-value").value || 0,
+
+          // 蛋奶素
+          foodOvoLactoRiceValue: document.getElementById("food-ovo-lacto-rice-value").value || 0,
+          foodOvoLactoVegetableValue: document.getElementById("food-ovo-lacto-vegetable-value").value || 0,
+          foodOvoLactoTofuValue: document.getElementById("food-ovo-lacto-tofu-value").value || 0,
+          foodOvoLactoMilkValue: document.getElementById("food-ovo-lacto-milk-value").value || 0,
+          foodOvoLactoNoodleValue: document.getElementById("food-ovo-lacto-noodle-value").value || 0,
+          foodOvoLactoHamValue: document.getElementById("food-ovo-lacto-ham-value").value || 0,
+          foodOvoLactoEggValue: document.getElementById("food-ovo-lacto-egg-value").value || 0,
+          foodOvoLactoMushroomValue: document.getElementById("food-ovo-lacto-mushroom-value").value || 0,
+
+          // 全素
+          foodVeganRiceValue: document.getElementById("food-vegan-rice-value").value || 0,
+          foodVeganVegetableValue: document.getElementById("food-vegan-vegetable-value").value || 0,
+          foodVeganTofuValue: document.getElementById("food-vegan-tofu-value").value || 0,
+          foodVeganNoodleValue: document.getElementById("food-vegan-noodle-value").value || 0,
+          foodVeganHamValue: document.getElementById("food-vegan-ham-value").value || 0,
+          foodVeganMushroomValue: document.getElementById("food-vegan-mushroom-value").value || 0,
+
+          //剩食
+          foodWasteSliderValue: document.getElementById("waste-slider").value || 0,
+        };
+
+        try {
+          await saveSectionData('food', data);
+        } catch (err) {
+          console.error("儲存資料失敗：", err);
+          alert("資料儲存失敗，請稍後再試。");
+        }
+      }
+
+      document.querySelector(".last-btn").addEventListener("click", handleNext);
+    </script>
     <script>
       // 星際聊天室
 
@@ -1638,7 +1777,7 @@
 
     // 第 1 幕 下一頁
     function handleDietNext() {
-      if (!selectedDiet) {
+      if (!selectedDiet ) {
         alert("請先選擇您是葷食者或素食者");
         return;
       }
