@@ -145,19 +145,23 @@
       <button class="nav-btn prev-btn" onclick="window.location.href='food.html'">
         ‹
       </button>
-      <button class="nav-btn next-btn" onclick="window.location.href='entertainment.html'">
+      <button class="nav-btn next-btn last-btn" onclick="window.location.href='entertainment.html'">
         ›
       </button>
     </section>
   <script src="./js/all.js"></script>
-  <script type="module">
+<script type="module">
   import { saveSectionData, loadSectionData } from './js/firebase.js';
 
   window.addEventListener('DOMContentLoaded', async () => {
-    const data = await loadSectionData('fashion');
-    if (data) {
-      document.getElementById("fast-fashion-value").value = data.fastFashion ?? 0;
-      document.getElementById("luxury-fashion-value").value = data.luxuryFashion ?? 0;
+    try {
+      const data = await loadSectionData('fashion');
+      if (data) {
+        document.getElementById("fast-fashion-value").value = data.fastFashion ?? 0;
+        document.getElementById("luxury-fashion-value").value = data.luxuryFashion ?? 0;
+      }
+    } catch (err) {
+      console.error("載入 Realtime Database 資料失敗：", err);
     }
   });
 
@@ -166,12 +170,15 @@
       fastFashion: parseFloat(document.getElementById("fast-fashion-value").value) || 0,
       luxuryFashion: parseFloat(document.getElementById("luxury-fashion-value").value) || 0,
     };
-    await saveSectionData('fashion', data);
-    window.location.href = 'entertainment.html';
+    try {
+      await saveSectionData('fashion', data);
+    } catch (err) {
+      console.error("儲存資料到 Realtime Database 失敗：", err);
+      alert("儲存失敗，請稍後再試！");
+    }
   }
 
-  document.querySelector(".next-btn").addEventListener("click", handleNext);
-
+  document.querySelector(".last-btn").addEventListener("click", handleNext);
 </script>
   <script>
         const messages = [

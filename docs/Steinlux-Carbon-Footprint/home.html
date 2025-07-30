@@ -320,7 +320,7 @@
         <button class="nav-btn prev-btn" onclick="goToScene('scene-home-1')">
           ‹
         </button>
-        <button class="nav-btn next-btn" onclick="window.location.href='traffic-travel.html'">
+        <button class="nav-btn next-btn last-btn" onclick="window.location.href='traffic-travel.html'">
           ›
         </button>
       </div>
@@ -331,8 +331,9 @@
       import { saveSectionData, loadSectionData } from './js/firebase.js';
       // 頁面載入時回填
       window.addEventListener('DOMContentLoaded', async () => {
-        const data = await loadSectionData('home');
-        if (data) {
+        try {
+          const data = await loadSectionData('traffic-daily');
+          if (data) {
           document.getElementById("home-member-value").value = data.homeMember ?? 0;
 
           // 電
@@ -347,29 +348,9 @@
           document.getElementById("home-gas-value").value = data.homeGasValue ?? 0;
           document.getElementById("gas-unit-toggle").checked = data.homeGasToggle ?? false;
         }
-      });
-
-      // 更新「度 kWh」標籤顯示 (可以根據切換變化調整)
-      function updateUnitLabel(inputId, toggleId) {
-        const input = document.getElementById(inputId);
-        const toggle = document.getElementById(toggleId);
-        const container = input.closest('.input-container');
-        const unitLabels = container.querySelectorAll('.unit-label');
-
-        if (toggle.checked) {
-          // 如果切換到「元(NTD)」，就修改第一個 label（原本是度 kWh）
-          unitLabels[0].textContent = '元(NTD)';
-        } else {
-          unitLabels[0].textContent = '度 Kwh';
+        } catch (err) {
+          console.error("載入資料失敗：", err);
         }
-      }
-
-      // 綁定切換事件，動態切換標籤
-      ["electricity", "water", "gas"].forEach(type => {
-        const toggle = document.getElementById(`${type}-unit-toggle`);
-        toggle.addEventListener('change', () => {
-          updateUnitLabel(`home-${type}-value`, `${type}-unit-toggle`);
-        });
       });
 
     function getCircularValues() {
@@ -419,12 +400,15 @@
         homeTrashBagCapacity: trashBagCapacity,
         homeTrashFrequency: trashFrequency
       };
+    try {
+      await saveSectionData('home', data);
+    } catch (err) {
+      console.error("儲存資料失敗：", err);
+      alert("資料儲存失敗，請稍後再試。");
+    }
+  }
 
-        await saveSectionData('home', data);
-        window.location.href = 'entertainment.html';
-      }
-
-      document.querySelector(".next-btn").addEventListener("click", handleNext);
+      document.querySelector(".last-btn").addEventListener("click", handleNext);
     </script>
     <script>
         const messages = [

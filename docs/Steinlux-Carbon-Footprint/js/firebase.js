@@ -1,11 +1,6 @@
-// firebase.js
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import {
-  getFirestore,
-  doc,
-  setDoc,
-  getDoc
-} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBm2oNcPhQ5nbQbLrvQUnlQ31LoxX3JThM",
@@ -18,39 +13,30 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-// 用 localStorage 模擬 uid
-let uid = localStorage.getItem("uid");
-if (!uid) {
-  uid = "user_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8);
-  localStorage.setItem("uid", uid);
-}
-
+const db = getDatabase(app);
 // 儲存資料
-export async function saveSectionData(section, data) {
-  const docRef = doc(db, "carbonFootprint-data", uid);
-  try {
-    await setDoc(docRef, { [section]: data }, { merge: true });
-    console.log(`✅ ${section} 資料儲存成功`, data);
-  } catch (e) {
-    console.error(`❌ 儲存 ${section} 資料失敗`, e);
-  }
+export async function saveSectionData(sectionName, data) {
+  const userId = getUserId();
+  await set(ref(db, `responses/${userId}/${sectionName}`), data);
 }
 
 // 讀取資料
-export async function loadSectionData(section) {
-  const docRef = doc(db, "steinlux-data", uid);
-  try {
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      return docSnap.data()[section] || null;
-    }
-    return null;
-  } catch (e) {
-    console.error(`❌ 讀取 ${section} 資料失敗`, e);
-    return null;
-  }
+export async function loadSectionData(sectionName) {
+  const userId = getUserId();
+  const snapshot = await get(child(ref(db), `responses/${userId}/${sectionName}`));
+  return snapshot.exists() ? snapshot.val() : null;
 }
 
-export { db };
+// 簡單產生/記錄 userId
+function getUserId() {
+  let userId = localStorage.getItem("userId");
+  if (!userId) {
+    userId = `user_${Date.now()}`;
+    localStorage.setItem("userId", userId);
+  }
+  return userId;
+}
+
+
+export { db, ref, set, get, child };
+

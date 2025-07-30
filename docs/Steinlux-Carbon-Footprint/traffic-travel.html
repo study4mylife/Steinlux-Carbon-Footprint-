@@ -637,7 +637,7 @@
             <div class="toggle-row">
               <span class="nowrap-text">油車</span>
               <label class="toggle-switch">
-                <input type="checkbox" id="fuelToggle" />
+                <input type="checkbox" id="travel-car-fuel-type-toggle" />
                 <span class="slider"></span>
               </label>
               <span class="nowrap-text">電車</span>
@@ -649,7 +649,7 @@
             <div class="toggle-row">
               <span class="nowrap-text">距離</span>
               <label class="toggle-switch">
-                <input type="checkbox" id="methodToggle" />
+                <input type="checkbox" id="travel-car-method-toggle" />
                 <span class="slider"></span>
               </label>
               <span class="nowrap-text">油量</span>
@@ -660,19 +660,19 @@
             <div id="oil-left" class="fuel-group">
               <div class="input-group">
                 <label>選擇<br />汽油類型</label>
-                <input list="car-oilList" id="oilInput" />
+                <input list="car-oilList" id="travel-car-fuel-type-value" />
                 <datalist id="car-oilList"></datalist>
               </div>
               <div class="input-group">
                 <label>每週加油</label>
-                <input type="number" />
+                <input type="number" min="0" id="travel-car-oil-value" />
                 <label class="special-label">元/週</label>
               </div>
             </div>
             <div id="electric-left" class="fuel-group hidden">
               <div class="input-group">
                 <label>行駛里程</label>
-                <input type="number" />
+                <input type="number" min="0" id="travel-oilcar-distance-value" />
                 <label class="special-label">公里/週</label>
               </div>
             </div>
@@ -682,19 +682,19 @@
             <div id="oil-right" class="fuel-group">
               <div class="input-group">
                 <label>選擇<br />汽車類型</label>
-                <input list="carList" id="carInput" />
+                <input list="carList" id="travel-car-type-value" />
                 <datalist id="carList"></datalist>
               </div>
               <div class="input-group">
                 <label>每週行駛</label>
-                <input type="number" />
+                <input type="number" min="0" id="travel-EV-distance-value" />
                 <label class="special-label">公里/週</label>
               </div>
             </div>
             <div id="electric-right" class="fuel-group hidden">
               <div class="input-group">
                 <label>外出充電</label>
-                <input type="number" />
+                <input type="number" min="0" id="travel-EV-charge-value"/>
                 <label class="special-label">kWh/週</label>
               </div>
             </div>
@@ -717,20 +717,20 @@
         <div class="travel-card">
           <div class="template-wrapper add-trip-wrapper">
             <div class="input-group-MRT">
-              <label for="cruiseDays">航行天數</label>
-              <input id="cruiseDays" type="number" min="0"/>
+              <label for="travel-cruise-day-value">航行天數</label>
+              <input id="travel-cruise-day-value" type="number" min="0"/>
               <label>天</label>
             </div>
             <div class="input-group-MRT">
-              <label for="stayDays">停留天數</label>
-              <input id="stayDays" type="number" min="0"/>
+              <label for="travel-cruise-stayday-value">停留天數</label>
+              <input id="travel-cruise-stayday-value" type="number" min="0"/>
               <label>天</label>
             </div>
             <button id="addCruiseBtn" class="mrt-btn">新增行程</button>
           </div>
 
           <div class="template-wrapper mrt-trip-list-wrapper" id="cruiseTripDisplay">
-            <div class="trip-list"><!-- 這裡會塞 trip-item --></div>
+            <div class="trip-list"></div>
             <button id="removeCruiseBtn" class="mrt-btn">刪除行程</button>
           </div>
         </div>
@@ -755,7 +755,7 @@
           <div class="toggle-row">
             <span class="nowrap-text">時間</span>
             <label class="toggle-switch">
-              <input type="checkbox" id="flightModeToggle" />
+              <input type="checkbox" id="travel-flight-method-toggle" />
               <span class="slider"></span>
             </label>
             <span class="nowrap-text">站點</span>
@@ -764,7 +764,7 @@
         <div class="toggle-card flight-level">
           <div class="input-group">
             <label>選擇<br/>艙等</label>
-            <input list="flightList" id="flightInput" />
+            <input list="flightList" id="travel-flight-level-value" />
             <datalist id="flightList"></datalist>
           </div>
         </div>
@@ -772,8 +772,8 @@
         <!-- 時間模式：一整塊板子 -->
         <div id="flight-time-wrapper" class="template-wrapper flight-time">
           <div class="input-group-MRT">
-            <label for="flightTime" style="font-size: 1rem;">輸入年度總飛行時數</label>
-            <input id="flightTime" type="number" min="0" />
+            <label for="travel-flight-time-value" style="font-size: 1rem;">輸入年度總飛行時數</label>
+            <input id="travel-flight-time-value" type="number" min="0" />
             <label class="special-label" style="font-size: 1rem;">小時</label>
           </div>
         </div>
@@ -880,8 +880,8 @@
             </div>
             <button class="mrt-btn">新增行程</button>
           </div>
-          <div class="template-wrapper mrt-trip-list-wrapper">
-            <div class="trip-list" id="trainTripList"></div>
+          <div class="template-wrapper mrt-trip-list-wrapper" id="trainTripList">
+            <div class="trip-list" ></div>
             <button class="mrt-btn">刪除行程</button>
           </div>
         </div>
@@ -916,8 +916,8 @@
             </div>
             <button class="mrt-btn">新增行程</button>
           </div>
-          <div class="template-wrapper mrt-trip-list-wrapper">
-            <div class="trip-list" id="hsrTripList"></div>
+          <div class="template-wrapper mrt-trip-list-wrapper" id="hsrTripList">
+            <div class="trip-list"></div>
             <button class="mrt-btn">刪除行程</button>
           </div>
         </div>
@@ -927,9 +927,97 @@
     </section>
 
     <script src="./js/all.js"></script>
-    <script>
-            // 星際聊天室
+    <script type="module">
+      import { saveSectionData, loadSectionData } from './js/firebase.js';
 
+      // 頁面載入時回填
+      window.addEventListener('DOMContentLoaded', async () => {
+        try {
+          const data = await loadSectionData('traffic-travel');
+          if (data) {
+            // 汽車
+            document.getElementById("travel-car-fuel-type-toggle").checked = data.travelCarFuelTypeToggle ?? false;
+            document.getElementById("travel-car-method-toggle").checked = data.travelCarMethodToggle ?? false;
+
+            // 油車
+            document.getElementById("travel-car-fuel-type-value").value = data.travelCarFuelTypeValue ?? 0;
+            document.getElementById("travel-car-oil-value").value = data.travelCarOilValue ?? 0;
+            document.getElementById("travel-oilcar-distance-value").value = data.travelOilcarDistanceValue ?? 0;
+            document.getElementById("travel-car-type-value").value = data.travelCarTypeValue ?? 0;
+
+            // 電車 
+            document.getElementById("travel-EV-distance-value").value = data.travelEVDistanceValue ?? 0;
+            document.getElementById("travel-EV-charge-value").value = data.travelEVChargeValue ?? 0;
+
+            // 郵輪 
+            document.getElementById("travel-cruise-day-value").value = data.travelCruiseDayValue ?? 0;
+            document.getElementById("travel-cruise-stayday-value").value = data.travelCruiseStaydayValue ?? 0;
+
+            // 飛機
+            document.getElementById("travel-flight-method-toggle").value = data.travelFlightMethodToggle ?? 0;
+            document.getElementById("travel-flight-time-value").value = data.travelFlightTimeValue ?? 0;
+            document.getElementById("travel-flight-level-value").value = data.travelFlightLevelValue ?? 0;
+          }
+        } catch (err) {
+          console.error("載入資料失敗：", err);
+        }
+      });
+
+      // 儲存資料並跳轉
+      async function handleNext() {
+        const mrtDistanceSum = sumTripDistance(mrtDistanceMap, "#mrtTripDisplay", "pair");
+        const trainDistanceSum = sumTripDistance(trDistanceMap, "#trainTripList", "single");
+        const hsrDistanceSum = sumTripDistance(hsrDistanceMap, "#hsrTripList", "pair");
+        const flightDistanceSum = sumFlightDistance();
+        const { sailTotal, stayTotal } = sumCruiseDays();
+
+        console.log("捷運總距離:", mrtDistanceSum);
+        console.log("火車總距離:", trainDistanceSum);
+        console.log("高鐵總距離:", hsrDistanceSum);
+        console.log("飛機總距離:", flightDistanceSum);
+        console.log("郵輪航行天數:", sailTotal);
+        console.log("郵輪停留天數:", stayTotal);
+
+        const data = {
+          // 汽車
+          travelCarFuelTypeToggle: document.getElementById("travel-car-fuel-type-toggle").checked,
+          travelCarMethodToggle: document.getElementById("travel-car-method-toggle").checked,
+          
+          // 油車
+          travelCarFuelTypeValue: document.getElementById("travel-car-fuel-type-value").value || 0,
+          travelCarOilValue: document.getElementById("travel-car-oil-value").value || 0,
+          travelOilcarDistanceValue: document.getElementById("travel-oilcar-distance-value").value || 0,
+          travelCarTypeValue: document.getElementById("travel-car-type-value").value || 0,
+
+          // 電車 
+          travelEVDistanceValue: document.getElementById("travel-EV-distance-value").value || 0,
+          travelEVChargeValue: document.getElementById("travel-EV-charge-value").value || 0,
+
+          // 飛機
+          travelFlightMethodToggle: document.getElementById("travel-flight-method-toggle").checked,
+          travelFlightTimeValue: document.getElementById("travel-flight-time-value").value || 0,
+          travelFlightLevelValue: document.getElementById("travel-flight-level-value").value || 0,
+
+          travelMRTDistanceTotal: mrtDistanceSum,
+          travelTrainDistanceTotal: trainDistanceSum,
+          travelHSRDistanceTotal: hsrDistanceSum,
+          travelFlightDistanceTotal:flightDistanceSum
+        };
+
+        try {
+          await saveSectionData('traffic-travel', data);
+        } catch (err) {
+          console.error("儲存資料失敗：", err);
+          alert("資料儲存失敗，請稍後再試。");
+        }
+      }
+
+  document.querySelectorAll(".next-btn").forEach((btn) => {
+    btn.addEventListener("click", handleNext);
+  });
+    </script>
+    <script>
+    // 星際聊天室
       const messages = [
         {
           type: "time",
@@ -1290,7 +1378,7 @@ let airportCoords = {}, mrtDistanceMap = {}, trDistanceMap = {}, hsrDistanceMap 
 
 document.addEventListener("DOMContentLoaded", () => {
   // 設置汽車的切換功能
-  setupToggle("fuelToggle", "methodToggle", "oil-left", "oil-right", "electric-left", "electric-right", "pane-left", "pane-right");
+  setupToggle("travel-car-fuel-type-toggle", "travel-car-method-toggle", "oil-left", "oil-right", "electric-left", "electric-right", "pane-left", "pane-right");
 
 //汽油選項
 
@@ -1402,7 +1490,7 @@ for (let key in flightData) {
   }).catch(err => console.log("HSR data not loaded:", err));
 
   // 4. 飛機模式切換
-  const modeToggle = document.getElementById("flightModeToggle");
+  const modeToggle = document.getElementById("travel-flight-method-toggle");
   const timeWrap = document.getElementById("flight-time-wrapper");
   const stationWrap = document.getElementById("flight-station-wrapper");
   
@@ -1499,179 +1587,132 @@ function makeSelectable(item) {
   return item;
 }
 
-// ===== 通用新增行程函數 =====
-function addTrip(map, startId, endId, countId, displaySelector) {
+// ===== 通用行程新增函數 =====
+function addTrip({ map, startId, endId, countId, displaySelector, distanceType = "pair" }) {
   const s = document.getElementById(startId).value.trim();
   const e = document.getElementById(endId).value.trim();
   const c = parseInt(document.getElementById(countId).value, 10) || 0;
-  
-  if (!s || !e || c <= 0) {
-    return alert("請填寫完整的起訖點並輸入趟數");
+
+  if (!s || !e || c <= 0) return alert("請填寫完整的起訖點並輸入趟數");
+
+  let dist;
+
+  if (distanceType === "pair") {
+    // 用 "A_B" 或 "B_A" 查找距離
+    dist = map[`${s}_${e}`] ?? map[`${e}_${s}`];
+  } else if (distanceType === "difference") {
+    if (map[s] === undefined || map[e] === undefined) {
+      const notFound = [s, e].filter(x => map[x] === undefined).join("、");
+      return alert(`找不到車站: ${notFound}`);
+    }
+    dist = Math.abs(map[s] - map[e]);
   }
-  
-  const dist = map[`${s}_${e}`];
-  if (dist === undefined) return alert("請選擇正確的起訖點並輸入趟數");
+
+  if (dist === undefined) return alert("無法找到此起訖點的距離");
 
   const item = document.createElement("div");
+  item.className = "trip-item";
+  item.dataset.start = s;
+  item.dataset.end = e;
+  item.dataset.count = c;
+  item.dataset.dist = dist;
+
   item.innerHTML = `<span class="trip-item-text">${s} → ${e} ${c}趟</span>`;
   makeSelectable(item);
-  
-  const listContainer = document.querySelector(`${displaySelector} .trip-list`);
-  if (listContainer) {
-    listContainer.appendChild(item);
-  }
+
+  const list = document.querySelector(`${displaySelector} .trip-list`);
+  list.appendChild(item);
+
+  // 清空欄位
+  document.getElementById(startId).value = "";
+  document.getElementById(endId).value = "";
+  document.getElementById(countId).value = "";
 }
 
-// ===== 通用刪除行程函數 =====
+// ===== 通用刪除函數 =====
 function deleteTrip(displaySelector) {
-  const list = document.querySelector(`${displaySelector} .trip-list`) || document.querySelector(displaySelector);
+  const list = document.querySelector(`${displaySelector} .trip-list`);
   if (!list) return alert("找不到行程列表");
-  
-  const selectedItems = list.querySelectorAll(".trip-item.selected");
-  
-  if (selectedItems.length > 0) {
-    // 刪除所有選中的項目
-    selectedItems.forEach(item => item.remove());
-  } else if (list.lastElementChild && list.lastElementChild.classList.contains("trip-item")) {
-    // 如果沒有選中項目，刪除最後一個
-    list.lastElementChild.remove();
+
+  const selected = list.querySelectorAll(".trip-item.selected");
+  if (selected.length > 0) {
+    selected.forEach(item => item.remove());
   } else {
-    alert("沒有行程可刪除");
+    const last = list.querySelector(".trip-item:last-child");
+    if (last) last.remove();
+    else alert("沒有行程可刪除");
   }
 }
 
-// ===== 郵輪行程功能 =====
-function addCruiseTrip() {
-  const sail = parseInt(document.getElementById("cruiseDays").value, 10) || 0;
-  const stay = parseInt(document.getElementById("stayDays").value, 10) || 0;
-  if (sail < 0 || stay < 0) return alert("天數不能是負數");
-  if (sail === 0 && stay === 0) return alert("請輸入航行天數或停留天數");
-  
-  const item = document.createElement("div");
-  item.innerHTML = `<span class="trip-item-text">航行${sail}天, 停留${stay}天 (共${sail + stay}天)</span>`;
-  makeSelectable(item);
-  
-  const listContainer = document.querySelector("#cruiseTripDisplay .trip-list");
-  listContainer.appendChild(item);
-  
-  document.getElementById("cruiseDays").value = "";
-  document.getElementById("stayDays").value = "";
-}
-
-function removeCruiseTrip() {
-  deleteTrip("#cruiseTripDisplay");
-}
-
-// ===== 捷運行程功能 =====
+// ===== 捷運功能 =====
 function addMRTTrip() {
-  addTrip(mrtDistanceMap, "mrtStart", "mrtEnd", "mrtCount", "#mrtTripDisplay");
-  
-  document.getElementById("mrtStart").value = "";
-  document.getElementById("mrtEnd").value = "";
-  document.getElementById("mrtCount").value = "";
+  addTrip({
+    map: mrtDistanceMap,
+    startId: "mrtStart",
+    endId: "mrtEnd",
+    countId: "mrtCount",
+    displaySelector: "#mrtTripDisplay",
+    distanceType: "pair"
+  });
 }
-
 function removeMRTTrip() {
   deleteTrip("#mrtTripDisplay");
 }
 
-// ===== 火車行程功能 =====
+// ===== 火車功能 =====
 function addTrainTrip() {
-  const s = document.getElementById("trainStart").value.trim();
-  const e = document.getElementById("trainEnd").value.trim();
-  const c = parseInt(document.getElementById("trainCount").value, 10) || 0;
-  
-  if (!s || !e || c <= 0) {
-    return alert("請填寫完整的起訖點並輸入趟數");
-  }
-  
-  if (trDistanceMap[s] === undefined) {
-    const availableStations = Object.keys(trDistanceMap).filter(station => 
-      station.toLowerCase().includes(s.toLowerCase()) || 
-      s.toLowerCase().includes(station.toLowerCase())
-    );
-    return alert(`找不到車站 "${s}"。\n可能的車站名稱: ${availableStations.slice(0, 5).join(', ')}${availableStations.length > 5 ? '...' : ''}`);
-  }
-  
-  if (trDistanceMap[e] === undefined) {
-    const availableStations = Object.keys(trDistanceMap).filter(station => 
-      station.toLowerCase().includes(e.toLowerCase()) || 
-      e.toLowerCase().includes(station.toLowerCase())
-    );
-    return alert(`找不到車站 "${e}"。\n可能的車站名稱: ${availableStations.slice(0, 5).join(', ')}${availableStations.length > 5 ? '...' : ''}`);
-  }
-  
-  const startKm = trDistanceMap[s];
-  const endKm = trDistanceMap[e];
-  const dist = Math.abs(endKm - startKm).toFixed(1);
-
-  const item = document.createElement("div");
-  item.innerHTML = `<span class="trip-item-text">${s} → ${e} ${c}趟</span>`;
-  makeSelectable(item);
-  
-  const listContainer = document.getElementById("trainTripList");
-  listContainer.appendChild(item);
-  
-  document.getElementById("trainStart").value = "";
-  document.getElementById("trainEnd").value = "";
-  document.getElementById("trainCount").value = "";
+  addTrip({
+    map: trDistanceMap,
+    startId: "trainStart",
+    endId: "trainEnd",
+    countId: "trainCount",
+    displaySelector: "#trainTripList",
+    distanceType: "difference"
+  });
 }
-
 function removeTrainTrip() {
-  const list = document.getElementById("trainTripList");
-  if (!list) return alert("找不到行程列表");
-  
-  const selectedItems = list.querySelectorAll(".trip-item.selected");
-  
-  if (selectedItems.length > 0) {
-    selectedItems.forEach(item => item.remove());
-  } else if (list.lastElementChild && list.lastElementChild.classList.contains("trip-item")) {
-    list.lastElementChild.remove();
-  } else {
-    alert("沒有行程可刪除");
-  }
+  deleteTrip("#trainTripList");
 }
 
-// ===== 高鐵行程功能 =====
+// ===== 高鐵功能 =====
 function addHsrTrip() {
-  const s = document.getElementById("hsrStart").value.trim();
-  const e = document.getElementById("hsrEnd").value.trim();
-  const c = parseInt(document.getElementById("hsrCount").value, 10) || 0;
-  
-  if (!s || !e || c <= 0) {
-    return alert("請填寫完整的起訖點並輸入趟數");
-  }
-  
-  const dist = hsrDistanceMap[`${s}_${e}`] || hsrDistanceMap[`${e}_${s}`];
-  if (dist === undefined) return alert("請選擇正確的起訖點並輸入趟數");
+  addTrip({
+    map: hsrDistanceMap,
+    startId: "hsrStart",
+    endId: "hsrEnd",
+    countId: "hsrCount",
+    displaySelector: "#hsrTripList",
+    distanceType: "pair"
+  });
+}
+function removeHsrTrip() {
+  deleteTrip("#hsrTripList");
+}
+
+// ===== 郵輪功能（航行天數＋停留天數） =====
+function addCruiseTrip() {
+  const sail = parseInt(document.getElementById("travel-cruise-day-value").value, 10) || 0;
+  const stay = parseInt(document.getElementById("travel-cruise-stayday-value").value, 10) || 0;
+  if (sail < 0 || stay < 0) return alert("天數不能是負數");
+  if (sail === 0 && stay === 0) return alert("請輸入航行天數或停留天數");
 
   const item = document.createElement("div");
-  item.innerHTML = `<span class="trip-item-text">${s} → ${e} ${c}趟</span>`;
-  makeSelectable(item);
-  
-  const listContainer = document.getElementById("hsrTripList");
-  listContainer.appendChild(item);
-  
-  document.getElementById("hsrStart").value = "";
-  document.getElementById("hsrEnd").value = "";
-  document.getElementById("hsrCount").value = "";
-}
+  item.className = "trip-item";
+  item.dataset.count = 1;
+  item.dataset.sail = sail;
+  item.dataset.stay = stay;
 
-function removeHsrTrip() {
-  const list = document.getElementById("hsrTripList");
-  if (!list) return alert("找不到行程列表");
-  
-  const selectedItems = list.querySelectorAll(".trip-item.selected");
-  
-  if (selectedItems.length > 0) {
-    selectedItems.forEach(item => item.remove());
-    updateSelectionInfo(list);
-  } else if (list.lastElementChild && list.lastElementChild.classList.contains("trip-item")) {
-    list.lastElementChild.remove();
-    updateSelectionInfo(list);
-  } else {
-    alert("沒有行程可刪除");
-  }
+  item.innerHTML = `<span class="trip-item-text">航行${sail}天，停留${stay}天（共${sail + stay}天）</span>`;
+  makeSelectable(item);
+
+  const list = document.querySelector("#cruiseTripDisplay .trip-list");
+  list.appendChild(item);
+
+  document.getElementById("travel-cruise-day-value").value = "";
+  document.getElementById("travel-cruise-stayday-value").value = "";
+}
+function removeCruiseTrip() {
+  deleteTrip("#cruiseTripDisplay");
 }
 
 // ===== 飛機行程功能 =====
@@ -1681,7 +1722,7 @@ function addFlightTrip() {
   
   const item = document.createElement("div");
   
-  if (document.getElementById("flightModeToggle").checked) {
+  if (document.getElementById("travel-flight-method-toggle").checked) {
     // 站點模式
     const s = document.getElementById("flightStart").value.trim();
     const e = document.getElementById("flightEnd").value.trim();
@@ -1702,12 +1743,12 @@ function addFlightTrip() {
     document.getElementById("flightCount").value = "";
   } else {
     // 時間模式
-    const h = parseFloat(document.getElementById("flightTime").value) || 0;
+    const h = parseFloat(document.getElementById("travel-flight-time-value").value) || 0;
     if (h <= 0) return alert("請輸入有效飛行時數");
     
     item.innerHTML = `<span class="trip-item-text">飛行時數：${h} 小時</span>`;
     
-    document.getElementById("flightTime").value = "";
+    document.getElementById("travel-flight-time-value").value = "";
   }
   
   makeSelectable(item);
@@ -1718,7 +1759,118 @@ function addFlightTrip() {
 function removeFlightTrip() {
   deleteTrip("#flightTripDisplay");
 }
-  </script>
+
+  function sumTripDistance(map, containerSelector, type = "pair") {
+    const container = document.querySelector(containerSelector);
+    if (!container) {
+      console.warn(`找不到容器: ${containerSelector}`);
+      return 0;
+    }
+
+    const list = container.querySelector(".trip-list");
+    if (!list) {
+      console.warn(`找不到 .trip-list 於 ${containerSelector}`);
+      return 0;
+    }
+
+    let total = 0;
+
+    list.querySelectorAll(".trip-item").forEach(item => {
+      const text = item.innerText;
+      const match = text.match(/^(.+?) → (.+?) (\d+)趟$/);
+      if (!match) return;
+
+      const [_, start, end, countStr] = match;
+      const count = parseInt(countStr);
+
+      if (type === "pair") {
+        const key = `${start}_${end}`;
+        const reverseKey = `${end}_${start}`;
+        const dist = map[key] ?? map[reverseKey];
+
+        if (dist != null) {
+          total += dist * count;
+        } else {
+          console.warn(`找不到配對距離: ${key}`);
+        }
+
+      } else if (type === "single") {
+        const startDist = map[start];
+        const endDist = map[end];
+
+        if (startDist != null && endDist != null) {
+          const segmentDistance = Math.abs(endDist - startDist);
+          total += segmentDistance * count;
+        } else {
+          console.warn(`找不到單站距離: ${start} 或 ${end}`);
+        }
+      }
+    });
+
+    return total;
+  }
+
+  function sumFlightDistance() {
+  const container = document.querySelector("#flightTripDisplay");
+  if (!container) {
+    console.warn("找不到 flightTripDisplay 容器");
+    return 0;
+  }
+
+  const list = container.querySelector(".trip-list");
+  if (!list) {
+    console.warn("找不到 .trip-list 於 #flightTripDisplay");
+    return 0;
+  }
+
+  let total = 0;
+
+  list.querySelectorAll(".trip-item").forEach(item => {
+    const text = item.innerText;
+
+    // 飛行時數模式：飛行時數：5 小時
+    const timeMatch = text.match(/^飛行時數：(\d+(?:\.\d+)?) 小時$/);
+    if (timeMatch) {
+      const hours = parseFloat(timeMatch[1]);
+      // 平均每小時飛行距離：約 900 公里（視航空機型而異）
+      total += hours * 900;
+      return;
+    }
+
+    // 站點模式：TPE → LAX 2趟 來回
+    const pairMatch = text.match(/^(.+?) → (.+?) (\d+)趟 (來回|單程)$/);
+    if (pairMatch) {
+      const [_, start, end, countStr, type] = pairMatch;
+      const count = parseInt(countStr);
+      const coordStart = airportCoords[start];
+      const coordEnd = airportCoords[end];
+
+      if (!coordStart || !coordEnd) {
+        console.warn(`找不到座標：${start} 或 ${end}`);
+        return;
+      }
+
+      let distance = haversine(coordStart, coordEnd); // 單程距離
+      if (type === "來回") distance *= 2;
+
+      total += distance * count;
+    }
+  });
+
+  return parseFloat(total.toFixed(2));
+}
+
+function sumCruiseDays() {
+  let sailTotal = 0;
+  let stayTotal = 0;
+  document.querySelectorAll("#cruiseTripDisplay .trip-item").forEach(item => {
+    sailTotal += parseInt(item.dataset.sail || 0, 10);
+    stayTotal += parseInt(item.dataset.stay || 0, 10);
+  });
+  return { sailTotal, stayTotal };
+}
+
+</script>
 
   </body>
 </html>
