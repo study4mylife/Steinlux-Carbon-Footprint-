@@ -12,6 +12,12 @@
     <link rel="stylesheet" href="css/story.css" />
     <style>
 
+      input[list="trDistanceMap"]:valid,
+      input[list="hsrStationList"]:valid,
+      input[list="mrtStationList"]:valid {
+          background-color: white !important;
+      }
+
       #pane-left, #pane-right {
         animation: none;
       }
@@ -74,13 +80,13 @@
       inset 7.5px 4.75px 1px -6.5px rgb(255, 255, 255),
       inset -1.75px -7.5px 1px -6.75px rgb(255, 255, 255), 
       inset 1.75px 7.5px 1px -6.75px rgb(255, 255, 255),
-      2px 4px 16px 0px rgba(110, 110, 110, 0.275);
+      2px 2px 8px 0px rgba(110, 110, 110, 0.275);
       box-shadow:
       inset -7px -4.75px 1px -6.5px rgb(255, 255, 255), 
       inset 7px 4.75px 1px -6.5px rgb(255, 255, 255),
       inset -1.75px -7px 1px -6.75px rgb(255, 255, 255), 
       inset 1.75px 7px 1px -6.75px rgb(255, 255, 255),
-      2px 4px 16px 0px rgba(110, 110, 110, 0.275);
+      2px 2px 8px 0px rgba(110, 110, 110, 0.275);
       }
 
       /* ---------------------------------------
@@ -459,6 +465,8 @@
     
     .trip-item-text {
       flex: 1;
+      display: flex;
+      justify-content: space-between;
     }
 
     .selection-info {
@@ -647,12 +655,12 @@
           <div class="toggle-card">
             <span class="label">選擇<br />計算方法</span>
             <div class="toggle-row">
-              <span class="nowrap-text">距離</span>
+              <span class="nowrap-text">油量</span>
               <label class="toggle-switch">
                 <input type="checkbox" id="travel-car-method-toggle" />
                 <span class="slider"></span>
               </label>
-              <span class="nowrap-text">油量</span>
+              <span class="nowrap-text">距離</span>
             </div>
           </div>
 
@@ -660,19 +668,19 @@
             <div id="oil-left" class="fuel-group">
               <div class="input-group">
                 <label>選擇<br />汽油類型</label>
-                <input list="car-oilList" id="travel-car-fuel-type-value" />
+                <input list="car-oilList" id="travel-car-fuel-type-value" placeholder="92無鉛"/>
                 <datalist id="car-oilList"></datalist>
               </div>
               <div class="input-group">
                 <label>每週加油</label>
-                <input type="number" min="0" id="travel-car-oil-value" />
+                <input type="number" min="0" id="travel-car-oil-value" value="0" />
                 <label class="special-label">元/週</label>
               </div>
             </div>
             <div id="electric-left" class="fuel-group hidden">
               <div class="input-group">
                 <label>行駛里程</label>
-                <input type="number" min="0" id="travel-oilcar-distance-value" />
+                <input type="number" min="0" id="travel-oilcar-distance-value" value="0"/>
                 <label class="special-label">公里/週</label>
               </div>
             </div>
@@ -682,19 +690,19 @@
             <div id="oil-right" class="fuel-group">
               <div class="input-group">
                 <label>選擇<br />汽車類型</label>
-                <input list="carList" id="travel-car-type-value" />
+                <input list="carList" id="travel-car-type-value" placeholder="小型房車"/>
                 <datalist id="carList"></datalist>
               </div>
               <div class="input-group">
                 <label>每週行駛</label>
-                <input type="number" min="0" id="travel-EV-distance-value" />
+                <input type="number" min="0" id="travel-EV-distance-value" value="0" />
                 <label class="special-label">公里/週</label>
               </div>
             </div>
             <div id="electric-right" class="fuel-group hidden">
               <div class="input-group">
                 <label>外出充電</label>
-                <input type="number" min="0" id="travel-EV-charge-value"/>
+                <input type="number" min="0" id="travel-EV-charge-value" value="0"/>
                 <label class="special-label">kWh/週</label>
               </div>
             </div>
@@ -718,7 +726,7 @@
           <div class="template-wrapper add-trip-wrapper">
             <div class="input-group-MRT">
               <label for="travel-cruise-day-value">航行天數</label>
-              <input id="travel-cruise-day-value" type="number" min="0"/>
+              <input id="travel-cruise-day-value" type="number" min="1"/>
               <label>天</label>
             </div>
             <div class="input-group-MRT">
@@ -764,7 +772,7 @@
         <div class="toggle-card flight-level">
           <div class="input-group">
             <label>選擇<br/>艙等</label>
-            <input list="flightList" id="travel-flight-level-value" />
+            <input list="flightList" id="travel-flight-level-value" placeholder="經濟艙" />
             <datalist id="flightList"></datalist>
           </div>
         </div>
@@ -940,10 +948,10 @@
             document.getElementById("travel-car-method-toggle").checked = data.travelCarMethodToggle ?? false;
 
             // 油車
-            document.getElementById("travel-car-fuel-type-value").value = data.travelCarFuelTypeValue ?? 0;
+            document.getElementById("travel-car-fuel-type-value").value = data.travelCarFuelTypeValue ?? "92無鉛";
             document.getElementById("travel-car-oil-value").value = data.travelCarOilValue ?? 0;
             document.getElementById("travel-oilcar-distance-value").value = data.travelOilcarDistanceValue ?? 0;
-            document.getElementById("travel-car-type-value").value = data.travelCarTypeValue ?? 0;
+            document.getElementById("travel-car-type-value").value = data.travelCarTypeValue ?? "小型房車";
 
             // 電車 
             document.getElementById("travel-EV-distance-value").value = data.travelEVDistanceValue ?? 0;
@@ -956,7 +964,7 @@
             // 飛機
             document.getElementById("travel-flight-method-toggle").value = data.travelFlightMethodToggle ?? 0;
             document.getElementById("travel-flight-time-value").value = data.travelFlightTimeValue ?? 0;
-            document.getElementById("travel-flight-level-value").value = data.travelFlightLevelValue ?? 0;
+            document.getElementById("travel-flight-level-value").value = data.travelFlightLevelValue ?? "經濟艙";
           }
         } catch (err) {
           console.error("載入資料失敗：", err);
@@ -984,10 +992,10 @@
           travelCarMethodToggle: document.getElementById("travel-car-method-toggle").checked,
           
           // 油車
-          travelCarFuelTypeValue: document.getElementById("travel-car-fuel-type-value").value || 0,
+          travelCarFuelTypeValue: document.getElementById("travel-car-fuel-type-value").value || "92無鉛",
           travelCarOilValue: document.getElementById("travel-car-oil-value").value || 0,
           travelOilcarDistanceValue: document.getElementById("travel-oilcar-distance-value").value || 0,
-          travelCarTypeValue: document.getElementById("travel-car-type-value").value || 0,
+          travelCarTypeValue: document.getElementById("travel-car-type-value").value || "小型房車",
 
           // 電車 
           travelEVDistanceValue: document.getElementById("travel-EV-distance-value").value || 0,
@@ -996,12 +1004,14 @@
           // 飛機
           travelFlightMethodToggle: document.getElementById("travel-flight-method-toggle").checked,
           travelFlightTimeValue: document.getElementById("travel-flight-time-value").value || 0,
-          travelFlightLevelValue: document.getElementById("travel-flight-level-value").value || 0,
+          travelFlightLevelValue: document.getElementById("travel-flight-level-value").value || "經濟艙",
 
           travelMRTDistanceTotal: mrtDistanceSum,
           travelTrainDistanceTotal: trainDistanceSum,
           travelHSRDistanceTotal: hsrDistanceSum,
-          travelFlightDistanceTotal:flightDistanceSum
+          travelFlightDistanceTotal:flightDistanceSum,
+          travelSailDayTotal: sailTotal, 
+          travelstayDayTotal: stayTotal,
         };
 
         try {
@@ -1418,9 +1428,9 @@ for (let key in carData) {
 
 //飛機艙等選項
 let flightData = {
-  "小型房車": "小型房車", 
-  "中型房車": "中型房車", 
-  "大型房車": "大型房車", 
+  "經濟艙": "經濟艙", 
+  "豪華經濟艙": "豪華經濟艙", 
+  "商務艙": "商務艙", 
 }
 
 const flightList = document.getElementById("flightList");
@@ -1431,63 +1441,258 @@ for (let key in flightData) {
   flightList.appendChild(option);
 }
 
-  // 載入各地圖資料
-  fetch("./data/AirportDistanceMap.json").then(r => r.json()).then(data => {
-    const dl = document.getElementById("airportStationList");
-    if (dl) {
-      data.forEach(({ iata_code, latitude_deg, longitude_deg }) => {
-        airportCoords[iata_code] = { lat: latitude_deg, lng: longitude_deg };
-        const o = document.createElement("option");
-        o.value = iata_code;
+
+let flightStationArray = [];
+
+fetch("./data/AirportDistanceMap.json")
+  .then(r => r.json())
+  .then(data => {
+    // 載入座標數據（這個很重要，您的原代碼缺少這部分）
+    data.forEach(({ iata_code, latitude_deg, longitude_deg }) => {
+      if (iata_code) {
+        airportCoords[iata_code.toUpperCase()] = { 
+          lat: latitude_deg, 
+          lng: longitude_deg 
+        };
+      }
+    });
+
+    // 用 Set 收集所有 iata_code，避免重複且轉大寫
+    const airportSet = new Set();
+    data.forEach(item => {
+      if (item.iata_code) {
+        airportSet.add(item.iata_code.toUpperCase());
+      }
+    });
+
+    flightStationArray = Array.from(airportSet);
+
+    // 更新選項的函數
+    function updateFlightOptions(searchTerm = '') {
+      const dl = document.getElementById("airportStationList");
+      if (!dl) return;
+      
+      dl.innerHTML = '';
+      const query = searchTerm.toUpperCase();
+
+      let filteredAirports;
+      
+      if (query.length === 0) {
+        // 沒有輸入時，顯示所有機場按字母順序
+        filteredAirports = [...flightStationArray].sort((a, b) => a.localeCompare(b));
+      } else {
+        // 有輸入時，進行智能排序
+        filteredAirports = flightStationArray
+          .filter(code => code.includes(query))
+          .sort((a, b) => {
+            // 1. 代碼完全匹配
+            if (a === query) return -1;
+            if (b === query) return 1;
+
+            // 2. 代碼開頭匹配
+            const aStarts = a.startsWith(query);
+            const bStarts = b.startsWith(query);
+            if (aStarts && !bStarts) return -1;
+            if (!aStarts && bStarts) return 1;
+
+            // 3. 如果都是開頭匹配，按字母順序排列
+            if (aStarts && bStarts) return a.localeCompare(b);
+
+            // 4. 其他情況按包含位置排序
+            const aIndex = a.indexOf(query);
+            const bIndex = b.indexOf(query);
+            if (aIndex !== bIndex) return aIndex - bIndex;
+
+            // 5. 最後按字母順序
+            return a.localeCompare(b);
+          })
+          .slice(0, 15); // 搜尋時限制數量
+      }
+
+      filteredAirports.forEach(code => {
+        const o = document.createElement('option');
+        o.value = code;
         dl.appendChild(o);
       });
     }
-  }).catch(err => console.log("Airport data not loaded:", err));
 
-  fetch("./data/mrtDistanceMap.json").then(r => r.json()).then(data => {
+    // 綁定輸入事件
+    const flightStartInput = document.getElementById("flightStart");
+    const flightEndInput = document.getElementById("flightEnd");
+    
+    if (flightStartInput) {
+      flightStartInput.addEventListener('input', function() {
+        updateFlightOptions(this.value);
+      });
+      
+      flightStartInput.addEventListener('focus', function() {
+        updateFlightOptions(this.value);
+      });
+    }
+    
+    if (flightEndInput) {
+      flightEndInput.addEventListener('input', function() {
+        updateFlightOptions(this.value);
+      });
+      
+      flightEndInput.addEventListener('focus', function() {
+        updateFlightOptions(this.value);
+      });
+    }
+
+    // 初始載入所有選項
+    updateFlightOptions();
+  })
+  .catch(err => console.log("Flight data not loaded:", err));
+
+// 優化的捷運、火車、高鐵站名搜索功能
+
+// 捷運數據載入與搜索功能
+fetch("./data/mrtDistanceMap.json").then(r => r.json()).then(data => {
     mrtDistanceMap = data;
     const dl = document.getElementById("mrtStationList");
     if (dl) {
-      new Set(Object.keys(data).flatMap(k => k.split("_"))).forEach(st => {
-        const o = document.createElement("option");
-        o.value = st;
-        dl.appendChild(o);
-      });
-    }
-  }).catch(err => console.log("MRT data not loaded:", err));
+        // 收集所有捷運站名
+        const allStations = new Set(Object.keys(data).flatMap(k => k.split("_")));
+        const stationsArray = Array.from(allStations);
+        
+        // 創建優化的選項顯示函數
+        function updateMrtOptions(searchTerm = '') {
+            // 清空現有選項
+            dl.innerHTML = '';
+            
+            let matchingStations = stationsArray;
+            
+            if (searchTerm) {
+                // 分類匹配的站名
+                const startsWithMatch = [];
+                const containsMatch = [];
+                
+                stationsArray.forEach(station => {
+                    if (station.startsWith(searchTerm)) {
+                        startsWithMatch.push(station);
+                    } else if (station.includes(searchTerm)) {
+                        containsMatch.push(station);
+                    }
+                });
+                
+                // 合併結果：優先顯示開頭匹配的
+                matchingStations = [...startsWithMatch.sort(), ...containsMatch.sort()];
+            }
+            
+            matchingStations.forEach(st => {
+              const o = document.createElement("option");
+              o.value = st;
+              dl.appendChild(o);
+            });
+        }
+        
+        // 初始載入所有選項
+        updateMrtOptions();
 
-  fetch("./data/trDistanceMap.json").then(r => r.json()).then(data => {
+    }
+}).catch(err => console.log("MRT data not loaded:", err));
+
+// 火車數據載入與搜索功能
+fetch("./data/trDistanceMap.json").then(r => r.json()).then(data => {
     trDistanceMap = data;
     const dl = document.getElementById("trDistanceMap");
     if (dl) {
-      const stations = new Set();
-      if (typeof data === 'object') {
-        Object.keys(data).forEach(key => {
-          stations.add(key);
-          if (typeof data[key] === 'object') {
-            Object.keys(data[key]).forEach(subKey => stations.add(subKey));
-          }
-        });
-      }
-      stations.forEach(st => {
-        const o = document.createElement("option");
-        o.value = st;
-        dl.appendChild(o);
-      });
+        // 收集所有火車站名
+        const stations = new Set();
+        if (typeof data === 'object') {
+            Object.keys(data).forEach(key => {
+                stations.add(key);
+                if (typeof data[key] === 'object') {
+                    Object.keys(data[key]).forEach(subKey => stations.add(subKey));
+                }
+            });
+        }
+        
+        const stationsArray = Array.from(stations);
+        
+        // 創建優化的選項顯示函數
+        function updateTrOptions(searchTerm = '') {
+            // 清空現有選項
+            dl.innerHTML = '';
+            
+            let matchingStations = stationsArray;
+            
+            if (searchTerm) {
+                // 分類匹配的站名
+                const startsWithMatch = [];
+                const containsMatch = [];
+                
+                stationsArray.forEach(station => {
+                    if (station.startsWith(searchTerm)) {
+                        startsWithMatch.push(station);
+                    } else if (station.includes(searchTerm)) {
+                        containsMatch.push(station);
+                    }
+                });
+                
+                // 合併結果：優先顯示開頭匹配的
+                matchingStations = [...startsWithMatch.sort(), ...containsMatch.sort()];
+            }
+            
+            matchingStations.forEach(st => {
+              const o = document.createElement("option");
+              o.value = st;
+              dl.appendChild(o);
+            });
+        }
+        
+        // 初始載入所有選項
+        updateTrOptions();
+        
     }
-  }).catch(err => console.log("Train data not loaded:", err));
+}).catch(err => console.log("Train data not loaded:", err));
 
-  fetch("./data/hsrDistanceMap.json").then(r => r.json()).then(data => {
+// 高鐵數據載入與搜索功能
+fetch("./data/hsrDistanceMap.json").then(r => r.json()).then(data => {
     hsrDistanceMap = data;
     const dl = document.getElementById("hsrStationList");
     if (dl) {
-      new Set(Object.keys(data).flatMap(k => k.split("_"))).forEach(st => {
-        const o = document.createElement("option");
-        o.value = st;
-        dl.appendChild(o);
-      });
+        // 收集所有高鐵站名
+        const allStations = new Set(Object.keys(data).flatMap(k => k.split("_")));
+        const stationsArray = Array.from(allStations);
+        
+        // 創建優化的選項顯示函數
+        function updateHsrOptions(searchTerm = '') {
+            // 清空現有選項
+            dl.innerHTML = '';
+            
+            let matchingStations = stationsArray;
+            
+            if (searchTerm) {
+                // 分類匹配的站名
+                const startsWithMatch = [];
+                const containsMatch = [];
+                
+                stationsArray.forEach(station => {
+                    if (station.startsWith(searchTerm)) {
+                        startsWithMatch.push(station);
+                    } else if (station.includes(searchTerm)) {
+                        containsMatch.push(station);
+                    }
+                });
+                
+                // 合併結果：優先顯示開頭匹配的
+                matchingStations = [...startsWithMatch.sort(), ...containsMatch.sort()];
+            }
+            matchingStations.forEach(st => {
+              const o = document.createElement("option");
+              o.value = st;
+              dl.appendChild(o);
+            });
+        }
+        
+        // 初始載入所有選項
+        updateHsrOptions();
+        
+
     }
-  }).catch(err => console.log("HSR data not loaded:", err));
+}).catch(err => console.log("HSR data not loaded:", err));
 
   // 4. 飛機模式切換
   const modeToggle = document.getElementById("travel-flight-method-toggle");
@@ -1593,7 +1798,7 @@ function addTrip({ map, startId, endId, countId, displaySelector, distanceType =
   const e = document.getElementById(endId).value.trim();
   const c = parseInt(document.getElementById(countId).value, 10) || 0;
 
-  if (!s || !e || c <= 0) return alert("請填寫完整的起訖點並輸入趟數");
+  if (!s || !e || c <= 0 || s == e) return alert("請填寫完整的起訖點並輸入趟數");
 
   let dist;
 
@@ -1617,7 +1822,7 @@ function addTrip({ map, startId, endId, countId, displaySelector, distanceType =
   item.dataset.count = c;
   item.dataset.dist = dist;
 
-  item.innerHTML = `<span class="trip-item-text">${s} → ${e} ${c}趟</span>`;
+  item.innerHTML = `<span class="trip-item-text"><span class="trip-item-text-left">${s} → ${e}</span> <span class="trip-item-text-right">${c}趟</span></span>`;
   makeSelectable(item);
 
   const list = document.querySelector(`${displaySelector} .trip-list`);
@@ -1727,7 +1932,9 @@ function addFlightTrip() {
     const s = document.getElementById("flightStart").value.trim();
     const e = document.getElementById("flightEnd").value.trim();
     const c = parseInt(document.getElementById("flightCount").value, 10) || 0;
-    
+    if (s == e) {
+      return alert("請輸入正確起訖點")
+    }
     if (!airportCoords[s] || !airportCoords[e] || c <= 0) {
       return alert("請選完整正確的 IATA 代碼並輸入趟數");
     }
@@ -1736,7 +1943,7 @@ function addFlightTrip() {
     const isRound = document.getElementById("roundTripToggle").checked;
     const type = isRound ? "來回" : "單程";
     
-    item.innerHTML = `<span class="trip-item-text">${s} → ${e} ${c}趟 ${type}</span>`;
+    item.innerHTML = `<span class="trip-item-text"><span class="trip-item-text-left">${s} → ${e}</span> <span class="trip-item-text-right">${c}趟 ${type}</span></span>`;
     
     document.getElementById("flightStart").value = "";
     document.getElementById("flightEnd").value = "";
@@ -1870,7 +2077,37 @@ function sumCruiseDays() {
   return { sailTotal, stayTotal };
 }
 
-</script>
+const allInputs = document.querySelectorAll('input');
+
+allInputs.forEach(input => {
+  input.addEventListener('focus', () => {
+    input.placeholder = '';
+    input.value = '';
+
+    // 延遲 100 毫秒再執行查詢
+    setTimeout(() => {
+      const listId = input.getAttribute('list');
+      if (listId === 'mrtStationList') {
+        updateMrtOptions('');
+      } else if (listId === 'trDistanceMap') {
+        updateTrOptions('');
+      } else if (listId === 'hsrStationList') {
+        updateHsrOptions('');
+      }
+      else if (listId === 'airportStationList') {
+        updateFlightOptions('');
+      }
+    }, 100);
+  });
+
+    input.addEventListener('change', () => {
+    input.blur(); // 自動失焦
+  });
+});
+
+
+
+    </script>
 
   </body>
 </html>
