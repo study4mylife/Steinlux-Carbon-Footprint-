@@ -220,7 +220,7 @@
         grid-template-rows: repeat(5, auto);
         gap: 2rem;
         background: rgba(255, 255, 255, 0.05);
-        overflow-y: auto;
+        overflow: auto;
       }
       .modal-body .input-group {
         display: flex;
@@ -280,10 +280,10 @@
         color: #6c808f;
       }
 
-      .food-card .custom-number-input input[type="number"], .input-group .custom-number-input input[type="number"]{
+      .food-card .custom-number-input input[type="number"], .input-group .custom-number-input input[type="number"], .modal-body .input-group input[type="number"] {
         text-align: center;
         min-width: 2.5rem;
-        max-width: 4rem;
+        max-width: 3rem;
       }
 
       #scene4 .input-group,
@@ -394,31 +394,40 @@
 
         /* 填充覆蓋層 */
         .slider-fill {
-            position: absolute;
-            top: 8px;
-            left: 0;
-            height: 8px;
-            border-radius: 5px;
-            background: linear-gradient(90deg, #c8b757, #c0981e);
-            transition: width 0.2s ease;
-            pointer-events: none;
-            width: 0%;
-            z-index: -1;
+          position: absolute;
+          top: 8px;
+          left: 0;
+          height: 8px;
+          border-radius: 5px;
+          background: linear-gradient(90deg, #c8b757, #c0981e);
+          transition: width 0.2s ease;
+          pointer-events: none;
+          width: 0%;
+          z-index: -1;
         }
 
         .slider-ticks {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 8px;
-            position: relative;
+          width: 100%;
+          display: flex;
+          margin-top: 8px;
+          position: relative;
         }
 
         .tick {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
+        position: absolute;
+        transform: translateX(-50%);
         }
+
+        .tick:nth-child(1) { left: 3%; }
+        .tick:nth-child(2) { left: 13.7%; }
+        .tick:nth-child(3) { left: 24.4%; }
+        .tick:nth-child(4) { left: 35.1%; }
+        .tick:nth-child(5) { left: 45.8%; }
+        .tick:nth-child(6) { left: 56.5%; }
+        .tick:nth-child(7) { left: 67.2%; }
+        .tick:nth-child(8) { left: 77.9%; }
+        .tick:nth-child(9) { left: 88.6%; }
+        .tick:nth-child(10) { left: 100%; }
 
         .tick::before {
             content: "";

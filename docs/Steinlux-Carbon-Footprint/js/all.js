@@ -54,6 +54,7 @@ function StartQuestionnaire() {
     document.querySelector(".story-body").style.display = "none";
     document.querySelector("body").style.display = "flex";
     document.querySelector(".scene-1").classList.add("active");
+    document.documentElement.style.backgroundImage = `url('images/圖片\ 1.png')`;
 }
 
 sendButton.addEventListener("click", () => {

@@ -22,9 +22,19 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url("../images/圖片\ 1.png") no-repeat center center fixed;
+  background: url("../images/首頁背景星空.png") no-repeat center center fixed;
   background-size: cover;
   font-family: "SweiXDPearlCJKtc-DemiLight", sans-serif;
+}
+
+input,
+textarea,
+select {
+  font-size: 16px;
+}
+
+::placeholder {
+  color: #4a4a4a;
 }
 
 @media (min-width: 1440px) {
@@ -63,6 +73,12 @@ body {
   overflow-y: auto;
 }
 
+@media (max-width: 600px) {
+  body {
+    padding: 4rem 0;
+  }
+}
+
 .scene {
   position: relative;
   display: none;
@@ -70,7 +86,7 @@ body {
   align-items: center;
   width: 900px;
   max-width: 90%;
-  min-height: 500px;
+  min-height: 27.8rem;
   padding: 20px;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 72px;
@@ -155,7 +171,7 @@ h1 {
 
 /* 切換開關 */
 .chapter-bar {
-  display: none;
+  display: flex;
   position: relative;
   width: fit-content;
   height: fit-content;
@@ -230,10 +246,24 @@ h1 {
   margin-top: 2px;
 }
 
-@media (min-width: 901px) {
-  .chapter-bar.show {
-    display: flex;
+@media (max-width: 600px) {
+  .chapter-button {
+    padding: 0.15rem 1.25rem;
   }
+
+  .chapter-icon {
+  font-size: 0.8rem;
+}
+}
+
+@media (max-width: 480px) {
+  .chapter-button {
+    padding: 0.15rem 0.5rem;
+  }
+
+  .chapter-icon {
+  font-size: 0.8rem;
+}
 }
 
 /* 碳排圓環 */
@@ -380,27 +410,17 @@ h1 {
 }
 
 .prev-btn {
+  padding: 0 3px 5px 0 ;
   left: -100px;
 }
 .next-btn {
+  padding: 0 0 5px 3px;
   right: -100px;
 }
 
 @media (max-width: 1200px) {
   .nav-btn {
     scale: 0.9;
-  }
-  .prev-btn {
-    left: 8px;
-  }
-  .next-btn {
-    right: 8px;
-  }
-}
-
-@media (max-width: 900px) {
-  .nav-btn {
-    scale: 0.8;
   }
   .prev-btn {
     left: 4px;
@@ -412,13 +432,21 @@ h1 {
 
 @media (max-width: 600px) {
   .nav-btn {
-    scale: 0.5;
+    scale: 0.75;
+    top: unset;
   }
   .prev-btn {
-    left: -12px;
+    padding: 0 3px 8px 0 ;
+    left: unset;
+    top: -4.5rem;
+    transform: rotate(90deg);
   }
   .next-btn {
-    right: -12px;
+    padding: 0 0 8px 3px;
+    right: unset;
+    bottom: -4.5rem;
+    transform: rotate(90deg);
+
   }
 }
 
@@ -507,6 +535,7 @@ h1 {
   box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
 }
 
+
 .toggle-switch input:checked + .slider {
   background: #d0d2d6;
 }
@@ -522,16 +551,15 @@ h1 {
 
 /* input 框樣式 */
 .custom-number-input input[type="number"],
-.modal-body .input-group input[type="number"],
 .toggle-card input[type="number"],
 .fashion-box input[type="number"] {
   padding: 4px 8px;
   background: #fff;
   color: #4a4a4a;
   text-align: center;
-  min-width: 40px;
-  max-width: 80px;
-  height: 24px;
+  min-width: 2.5rem;
+  max-width: 3rem;
+  height: 20px;
   border: 0.25pt solid #b5c1c623;
   border-radius: 16px;
   box-shadow: inset 1pt 1pt 4pt #6d808f70;
@@ -562,7 +590,7 @@ h1 {
   box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
   width: 1rem;
   height: 1rem;
-  padding: 12px;
+  padding: 10px;
   font-size: 1rem;
   color: #b5c1c6;
   font-weight: 600;

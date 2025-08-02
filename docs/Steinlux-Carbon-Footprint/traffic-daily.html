@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="css/all.css" />
     <link rel="stylesheet" href="css/story.css" />
     <style>
+      input[list="trDistanceMap"]:valid,
+      input[list="hsrStationList"]:valid,
+      input[list="mrtStationList"]:valid {
+          background-color: white !important;
+      }
 
       #pane-left, #pane-right, #pane-left4, #pane-right4 {
         animation: none;
@@ -38,6 +43,7 @@
         max-width: 700px;
         margin: 0 auto;
       }
+
       .transport-card {
         display: flex;
         flex-direction: column;
@@ -48,6 +54,7 @@
         cursor: pointer;
         transition: transform 0.2s, border-color 0.2s;
       }
+      
       .transport-card img {
         width: 120px;
         height: 120px;
@@ -74,13 +81,13 @@
       inset 7.5px 4.75px 1px -6.5px rgb(255, 255, 255),
       inset -1.75px -7.5px 1px -6.75px rgb(255, 255, 255), 
       inset 1.75px 7.5px 1px -6.75px rgb(255, 255, 255),
-      2px 4px 16px 0px rgba(110, 110, 110, 0.275);
+      2px 2px 8px 0px rgba(110, 110, 110, 0.275);
       box-shadow:
       inset -7px -4.75px 1px -6.5px rgb(255, 255, 255), 
       inset 7px 4.75px 1px -6.5px rgb(255, 255, 255),
       inset -1.75px -7px 1px -6.75px rgb(255, 255, 255), 
       inset 1.75px 7px 1px -6.75px rgb(255, 255, 255),
-      2px 4px 16px 0px rgba(110, 110, 110, 0.275);
+      2px 2px 8px 0px rgba(110, 110, 110, 0.275);
       }
       
       /* ---------------------------------------
@@ -444,6 +451,8 @@
     
     .trip-item-text {
       flex: 1;
+      display: flex;
+      justify-content: space-between;
     }
 
     .selection-info {
@@ -601,12 +610,12 @@
           <div class="toggle-card">
             <span class="label">選擇<br />計算方法</span>
             <div class="toggle-row">
-              <span class="nowrap-text">距離</span>
+              <span class="nowrap-text">油量</span>
               <label class="toggle-switch">
                 <input type="checkbox" id="daily-car-method-toggle" />
                 <span class="slider"></span>
               </label>
-              <span class="nowrap-text">油量</span>
+              <span class="nowrap-text">距離</span>
             </div>
           </div>
 
@@ -614,19 +623,19 @@
             <div id="oil-left" class="fuel-group">
               <div class="input-group">
                 <label>選擇<br />汽油類型</label>
-                <input list="car-oilList" id="daily-car-fuel-type-value" />
+                <input list="car-oilList" id="daily-car-fuel-type-value" placeholder="92無鉛" />
                 <datalist id="car-oilList"></datalist>
               </div>
               <div class="input-group">
                 <label>每週加油</label>
-                <input type="number" min="0" id="daily-car-oil-value" />
+                <input type="number" min="0" id="daily-car-oil-value" value="0" />
                 <label class="special-label">元/週</label>
               </div>
             </div>
             <div id="electric-left" class="fuel-group hidden">
               <div class="input-group">
                 <label>行駛里程</label>
-                <input type="number" min="0" id="daily-oilcar-distance-value"/>
+                <input type="number" min="0" id="daily-oilcar-distance-value" value="0"/>
                 <label class="special-label">公里/週</label>
               </div>
             </div>
@@ -636,19 +645,19 @@
             <div id="oil-right" class="fuel-group">
               <div class="input-group">
                 <label>選擇<br />汽車類型</label>
-                <input list="carList" id="daily-car-type-value" />
+                <input list="carList" id="daily-car-type-value" placeholder="小型房車" />
                 <datalist id="carList"></datalist>
               </div>
               <div class="input-group">
                 <label>每週行駛</label>
-                <input type="number" min="0" id="daily-EV-distance-value"/>
+                <input type="number" min="0" id="daily-EV-distance-value" value="0"/>
                 <label class="special-label">公里/週</label>
               </div>
             </div>
             <div id="electric-right" class="fuel-group hidden">
               <div class="input-group">
                 <label>外出充電</label>
-                <input type="number" min="0" id="daily-EV-charge-value"/>
+                <input type="number" min="0" id="daily-EV-charge-value" value="0"/>
                 <label class="special-label">kWh/週</label>
               </div>
             </div>
@@ -686,12 +695,12 @@
           <div class="toggle-card">
             <span class="label">選擇<br />計算方法</span>
             <div class="toggle-row">
-              <span class="nowrap-text">距離</span>
+              <span class="nowrap-text">油量</span>
               <label class="toggle-switch">
                 <input type="checkbox" id="daily-motorcycle-method-toggle" />
                 <span class="slider"></span>
               </label>
-              <span class="nowrap-text">油量</span>
+              <span class="nowrap-text">距離</span>
             </div>
           </div>
 
@@ -699,19 +708,19 @@
             <div id="oil-left4" class="fuel-group">
               <div class="input-group">
                 <label>選擇<br />汽油類型</label>
-                <input list="motorcycle-oilList" id="daily-motorcycle-fuel-type-value" />
+                <input list="motorcycle-oilList" id="daily-motorcycle-fuel-type-value" placeholder="92無鉛" />
                 <datalist id="motorcycle-oilList"></datalist>
               </div>
               <div class="input-group">
                 <label>每週加油</label>
-                <input type="number" min="0" id="daily-motorcycle-oil-value"/>
+                <input type="number" min="0" id="daily-motorcycle-oil-value" value="0"/>
                 <label class="special-label">元/週</label>
               </div>
             </div>
             <div id="electric-left4" class="fuel-group hidden">
               <div class="input-group">
                 <label>行駛里程</label>
-                <input type="number" min="0" id="daily-oilmotorcycle-distance-value"/>
+                <input type="number" min="0" id="daily-oilmotorcycle-distance-value" value="0"/>
                 <label class="special-label">公里/週</label>
               </div>
             </div>
@@ -721,14 +730,14 @@
             <div id="oil-right4" class="fuel-group">
               <div class="input-group">
                 <label>每週行駛</label>
-                <input type="number" min="0" id="daily-electricmotorcycle-distance-value"/>
+                <input type="number" min="0" id="daily-electricmotorcycle-distance-value" value="0"/>
                 <label class="special-label">公里/週</label>
               </div>
             </div>
             <div id="electric-right4" class="fuel-group hidden">
               <div class="input-group">
                 <label>外出充電</label>
-                <input type="number" min="0" id="daily-electricmotorcycle-charge-value"/>
+                <input type="number" min="0" id="daily-electricmotorcycle-charge-value" value="0"/>
                 <label class="special-label">kWh/週</label>
               </div>
             </div>
@@ -753,7 +762,7 @@
           <div class="template-wrapper">
             <div class="input-group-MRT">
               <label for="daily-bus-distance-value" style="font-size: 1rem;">每周搭乘</label>
-              <input id="daily-bus-distance-value" type="number" min="0" />
+              <input id="daily-bus-distance-value" type="number" min="0" value="0"/>
               <label style="font-family: GenSenRounded2TW-L, sans-serif; font-size: 1rem ;color: #6c808f">公里</label>
             </div>
           </div>
@@ -887,10 +896,10 @@
             document.getElementById("daily-car-method-toggle").checked = data.dailyCarMethodToggle ?? false;
 
             // 油車
-            document.getElementById("daily-car-fuel-type-value").value = data.dailyCarFuelTypeValue ?? 0;
+            document.getElementById("daily-car-fuel-type-value").value = data.dailyCarFuelTypeValue ?? "92無鉛";
             document.getElementById("daily-car-oil-value").value = data.dailyCarOilValue ?? 0;
             document.getElementById("daily-oilcar-distance-value").value = data.dailyOilcarDistanceValue ?? 0;
-            document.getElementById("daily-car-type-value").value = data.dailyCarTypeValue ?? 0;
+            document.getElementById("daily-car-type-value").value = data.dailyCarTypeValue ?? "小型房車";
 
             // 電車 
             document.getElementById("daily-EV-distance-value").value = data.dailyEVDistanceValue ?? 0;
@@ -901,7 +910,7 @@
             document.getElementById("daily-motorcycle-method-toggle").checked = data.dailyMotorcycleMethodToggle ?? false;
 
             // 汽油機車
-            document.getElementById("daily-motorcycle-fuel-type-value").value = data.dailyMotorcycleFuelTypeValue ?? 0;
+            document.getElementById("daily-motorcycle-fuel-type-value").value = data.dailyMotorcycleFuelTypeValue ?? "92無鉛";
             document.getElementById("daily-motorcycle-oil-value").value = data.dailyMotorcycleOilValue ?? 0;
             document.getElementById("daily-oilmotorcycle-distance-value").value = data.dailyOilmotorcycleDistanceValue ?? 0;
 
@@ -938,7 +947,7 @@
           dailyCarMethodToggle: document.getElementById("daily-car-method-toggle")?.checked ?? false,
           
           // 油車
-          dailyCarFuelTypeValue: document.getElementById("daily-car-fuel-type-value")?.value ?? "",
+          dailyCarFuelTypeValue: document.getElementById("daily-car-fuel-type-value")?.value ?? "92無鉛",
           dailyCarOilValue: parseFloat(document.getElementById("daily-car-oil-value")?.value || 0),
           dailyOilcarDistanceValue: parseFloat(document.getElementById("daily-oilcar-distance-value")?.value || 0),
           dailyCarTypeValue: document.getElementById("daily-car-type-value")?.value ?? "",
@@ -1387,54 +1396,156 @@ for (let key in carData) {
   carList.appendChild(option);
 }
 
-// 將 JSON 資料分開讀取
+// 優化的捷運、火車、高鐵站名搜索功能
 
-  fetch("./data/mrtDistanceMap.json").then(r => r.json()).then(data => {
+// 捷運數據載入與搜索功能
+fetch("./data/mrtDistanceMap.json").then(r => r.json()).then(data => {
     mrtDistanceMap = data;
     const dl = document.getElementById("mrtStationList");
     if (dl) {
-      new Set(Object.keys(data).flatMap(k => k.split("_"))).forEach(st => {
-        const o = document.createElement("option");
-        o.value = st;
-        dl.appendChild(o);
-      });
-    }
-  }).catch(err => console.log("MRT data not loaded:", err));
+        // 收集所有捷運站名
+        const allStations = new Set(Object.keys(data).flatMap(k => k.split("_")));
+        const stationsArray = Array.from(allStations);
+        
+        // 創建優化的選項顯示函數
+        function updateMrtOptions(searchTerm = '') {
+            // 清空現有選項
+            dl.innerHTML = '';
+            
+            let matchingStations = stationsArray;
+            
+            if (searchTerm) {
+                // 分類匹配的站名
+                const startsWithMatch = [];
+                const containsMatch = [];
+                
+                stationsArray.forEach(station => {
+                    if (station.startsWith(searchTerm)) {
+                        startsWithMatch.push(station);
+                    } else if (station.includes(searchTerm)) {
+                        containsMatch.push(station);
+                    }
+                });
+                
+                // 合併結果：優先顯示開頭匹配的
+                matchingStations = [...startsWithMatch.sort(), ...containsMatch.sort()];
+            }
+            
+            matchingStations.forEach(st => {
+              const o = document.createElement("option");
+              o.value = st;
+              dl.appendChild(o);
+            });
+        }
+        
+        // 初始載入所有選項
+        updateMrtOptions();
 
-  fetch("./data/trDistanceMap.json").then(r => r.json()).then(data => {
+    }
+}).catch(err => console.log("MRT data not loaded:", err));
+
+// 火車數據載入與搜索功能
+fetch("./data/trDistanceMap.json").then(r => r.json()).then(data => {
     trDistanceMap = data;
     const dl = document.getElementById("trDistanceMap");
     if (dl) {
-      const stations = new Set();
-      if (typeof data === 'object') {
-        Object.keys(data).forEach(key => {
-          stations.add(key);
-          if (typeof data[key] === 'object') {
-            Object.keys(data[key]).forEach(subKey => stations.add(subKey));
-          }
-        });
-      }
-      stations.forEach(st => {
-        const o = document.createElement("option");
-        o.value = st;
-        dl.appendChild(o);
-      });
+        // 收集所有火車站名
+        const stations = new Set();
+        if (typeof data === 'object') {
+            Object.keys(data).forEach(key => {
+                stations.add(key);
+                if (typeof data[key] === 'object') {
+                    Object.keys(data[key]).forEach(subKey => stations.add(subKey));
+                }
+            });
+        }
+        
+        const stationsArray = Array.from(stations);
+        
+        // 創建優化的選項顯示函數
+        function updateTrOptions(searchTerm = '') {
+            // 清空現有選項
+            dl.innerHTML = '';
+            
+            let matchingStations = stationsArray;
+            
+            if (searchTerm) {
+                // 分類匹配的站名
+                const startsWithMatch = [];
+                const containsMatch = [];
+                
+                stationsArray.forEach(station => {
+                    if (station.startsWith(searchTerm)) {
+                        startsWithMatch.push(station);
+                    } else if (station.includes(searchTerm)) {
+                        containsMatch.push(station);
+                    }
+                });
+                
+                // 合併結果：優先顯示開頭匹配的
+                matchingStations = [...startsWithMatch.sort(), ...containsMatch.sort()];
+            }
+            
+            matchingStations.forEach(st => {
+              const o = document.createElement("option");
+              o.value = st;
+              dl.appendChild(o);
+            });
+        }
+        
+        // 初始載入所有選項
+        updateTrOptions();
+        
     }
-  }).catch(err => console.log("Train data not loaded:", err));
+}).catch(err => console.log("Train data not loaded:", err));
 
-  fetch("./data/hsrDistanceMap.json").then(r => r.json()).then(data => {
+// 高鐵數據載入與搜索功能
+fetch("./data/hsrDistanceMap.json").then(r => r.json()).then(data => {
     hsrDistanceMap = data;
     const dl = document.getElementById("hsrStationList");
     if (dl) {
-      new Set(Object.keys(data).flatMap(k => k.split("_"))).forEach(st => {
-        const o = document.createElement("option");
-        o.value = st;
-        dl.appendChild(o);
-      });
-    }
-  }).catch(err => console.log("HSR data not loaded:", err));
+        // 收集所有高鐵站名
+        const allStations = new Set(Object.keys(data).flatMap(k => k.split("_")));
+        const stationsArray = Array.from(allStations);
+        
+        // 創建優化的選項顯示函數
+        function updateHsrOptions(searchTerm = '') {
+            // 清空現有選項
+            dl.innerHTML = '';
+            
+            let matchingStations = stationsArray;
+            
+            if (searchTerm) {
+                // 分類匹配的站名
+                const startsWithMatch = [];
+                const containsMatch = [];
+                
+                stationsArray.forEach(station => {
+                    if (station.startsWith(searchTerm)) {
+                        startsWithMatch.push(station);
+                    } else if (station.includes(searchTerm)) {
+                        containsMatch.push(station);
+                    }
+                });
+                
+                // 合併結果：優先顯示開頭匹配的
+                matchingStations = [...startsWithMatch.sort(), ...containsMatch.sort()];
+            }
+            matchingStations.forEach(st => {
+              const o = document.createElement("option");
+              o.value = st;
+              dl.appendChild(o);
+            });
+        }
+        
+        // 初始載入所有選項
+        updateHsrOptions();
+        
 
-  setupTripListSelection();
+    }
+}).catch(err => console.log("HSR data not loaded:", err));
+
+setupTripListSelection();
 });
 
 // ===== 更新選取資訊 =====
@@ -1516,7 +1627,7 @@ function addTrip(map, startId, endId, countId, displaySelector, type = "pair") {
 
   const item = document.createElement("div");
   item.classList.add("trip-item");
-  item.innerHTML = `<span class="trip-item-text">${s} → ${e} ${c}趟</span>`;
+  item.innerHTML = `<span class="trip-item-text"><span class="trip-item-text-left">${s} → ${e}</span> <span class="trip-item-text-right">${c}趟 </span></span>`;
   makeSelectable(item);
 
   const listContainer = document.querySelector(`${displaySelector} .trip-list`);
@@ -1625,6 +1736,33 @@ function sumTripDistance(map, containerSelector, type = "pair") {
 
   return total;
 }
+
+const allInputs = document.querySelectorAll('input');
+
+allInputs.forEach(input => {
+  input.addEventListener('focus', () => {
+    input.placeholder = '';
+    input.value = '';
+
+    // 延遲 100 毫秒再執行查詢
+    setTimeout(() => {
+      const listId = input.getAttribute('list');
+      if (listId === 'mrtStationList') {
+        updateMrtOptions('');
+      } else if (listId === 'trDistanceMap') {
+        updateTrOptions('');
+      } else if (listId === 'hsrStationList') {
+        updateHsrOptions('');
+      }else if (listId === 'airportStationList') {
+        updateFlightOptions('');
+      }
+    }, 50);
+  });
+
+    input.addEventListener('change', () => {
+    input.blur(); // 自動失焦
+  });
+});
     </script>
   </body>
 </html>
