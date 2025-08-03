@@ -62,12 +62,12 @@
       }
 
       .scene-1 {
-        background: url("images/分析頁背景.png") no-repeat 0 0;
+        background: url("images/分析頁背景.webp") no-repeat 0 0;
         background-size: 100% 200%;
       }
 
       .scene-2 {
-        background: url("images/分析頁背景.png") no-repeat 0 -100vh;
+        background: url("images/分析頁背景.webp") no-repeat 0 -100vh;
         background-size: 100% 200%;
       }
 
@@ -167,6 +167,18 @@ const observer = new IntersectionObserver(
 );
 
 observer.observe(document.querySelector(".scene-2"));
+
+    function isMobile() {
+    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+
+    function preventTouchScroll(e) {
+      e.preventDefault();
+    }
+
+    if (isMobile()) {
+      document.body.addEventListener("touchmove", preventTouchScroll, { passive: false });
+    }
 
     // 函數：暫時禁止滾動
     function disableScroll() {

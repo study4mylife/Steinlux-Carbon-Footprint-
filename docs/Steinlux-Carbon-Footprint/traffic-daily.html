@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>日常交通</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
@@ -100,6 +101,22 @@
         gap: 0.6rem;
       }
 
+      .input-group-MRT .toggle-row input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .add-trip-wrapper .input-group-MRT label {
+        margin: 0;
+      }
+
+      .add-trip-wrapper .input-group-MRT .toggle-row {
+      gap: 4px;
+      font-size: 0.85rem;
+      }
+
+
       .daily-card {
         display: flex;
         justify-content: center;
@@ -167,7 +184,7 @@
       width: 40%;
       background: rgba(255, 255, 255, 0.1);
       border-radius: 32px;
-      padding: 1.25rem;
+      padding: 0.5rem 1.25rem;
       gap: 1rem;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
@@ -224,7 +241,7 @@
         border-radius: 8px;
         box-shadow: inset 2pt 2pt 7pt #6d808f70;
         background: #fff;
-        font-size: 14px;
+        font-size: 16px;
         color: #4a4a4a;
         letter-spacing: 3px;
       }
@@ -283,10 +300,10 @@
         padding: 8px 30px 8px 12px;
         border: 1px solid rgba(208, 210, 214, 0.6);
         border-radius: 6px;
-        background: #fff url("images/下拉式箭頭.png") no-repeat right center;
+        background: #fff url("images/下拉式箭頭.webp") no-repeat right center;
         background-size: 30px;
         box-shadow: inset 2pt 2pt 7pt #6d808f70;
-        font-size: 14px;
+        font-size: 16px;
         color: #4a4a4a;
         outline: none;
       }
@@ -297,7 +314,7 @@
         border: 0.25pt solid #b5c1c623;
         border-radius: 6px;
         background: #fff;
-        font-size: 14px;
+        font-size: 16px;
         color: #4a4a4a;
         box-shadow: inset 2pt 2pt 7pt #6d808f70;
         font-family: "GenSenRounded2TW-L", sans-serif;
@@ -357,6 +374,7 @@
       }
       
       .trip-item {
+        font-family: "GenSenRounded2TW-L", sans-serif;
         display: flex;
         justify-content: center;
         text-align: left;
@@ -554,27 +572,27 @@
         </div>
         <div class="transport-grid">
           <div class="transport-card" onclick="toggleActivity(this,'汽車')">
-            <img src="images/汽車.png" alt="汽車" />
+            <img src="images/汽車.webp" alt="汽車" />
             <span class="label">汽車</span>
           </div>
           <div class="transport-card" onclick="toggleActivity(this,'機車')">
-            <img src="images/機車.png" alt="機車" />
+            <img src="images/機車.webp" alt="機車" />
             <span class="label">機車</span>
           </div>
           <div class="transport-card" onclick="toggleActivity(this,'公車')">
-            <img src="images/公車.png" alt="公車" />
+            <img src="images/公車.webp" alt="公車" />
             <span class="label">公車</span>
           </div>
           <div class="transport-card" onclick="toggleActivity(this,'捷運')">
-            <img src="images/捷運.png" alt="捷運" />
+            <img src="images/捷運.webp" alt="捷運" />
             <span class="label">捷運</span>
           </div>
           <div class="transport-card" onclick="toggleActivity(this,'火車')">
-            <img src="images/火車.png" alt="火車" />
+            <img src="images/火車.webp" alt="火車" />
             <span class="label">火車</span>
           </div>
           <div class="transport-card" onclick="toggleActivity(this,'高鐵')">
-            <img src="images/高鐵.png" alt="高鐵" />
+            <img src="images/高鐵.webp" alt="高鐵" />
             <span class="label">高鐵</span>
           </div>
         </div>
@@ -792,9 +810,16 @@
               <datalist id="mrtStationList"></datalist>
             </div>
             <div class="input-group-MRT">
-              <label for="mrtCount">每月搭乘</label>
+              <label for="mrtCount">每月趟數</label>
               <input id="mrtCount" type="number" min="1" />
-              <label class="special-label">趟</label>
+              <div class="toggle-row">
+                <span class="nowrap-text">單程</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="dailyMrtRoundTripToggle" />
+                  <span class="slider"></span>
+                </label>
+                <span class="nowrap-text">來回</span>
+              </div>
             </div>
             <button class="mrt-btn" onclick="addMRTTrip()">新增行程</button>
           </div>
@@ -830,9 +855,16 @@
               <datalist id="trDistanceMap"></datalist>
             </div>
             <div class="input-group-MRT">
-              <label for="trainCount">每月搭乘</label>
+              <label for="trainCount">每月趟數</label>
               <input id="trainCount" type="number" min="1" />
-              <label class="special-label">趟</label>
+              <div class="toggle-row">
+                <span class="nowrap-text">單程</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="dailyTrainRoundTripToggle" />
+                  <span class="slider"></span>
+                </label>
+                <span class="nowrap-text">來回</span>
+              </div>
             </div>
             <button class="mrt-btn" onclick="addTrainTrip()">新增行程</button>
           </div>
@@ -866,9 +898,16 @@
               <datalist id="hsrStationList"></datalist>
             </div>
             <div class="input-group-MRT">
-              <label for="hsrCount">每月搭乘</label>
+              <label for="hsrCount">每月趟數</label>
               <input id="hsrCount" type="number" min="1" />
-              <label class="special-label">趟</label>
+              <div class="toggle-row">
+                <span class="nowrap-text">單程</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="dailyHsrRoundTripToggle" />
+                  <span class="slider"></span>
+                </label>
+                <span class="nowrap-text">來回</span>
+              </div>
             </div>
             <button class="mrt-btn" onclick="addHsrTrip()">新增行程</button>
           </div>
@@ -1592,96 +1631,111 @@ function makeSelectable(item) {
   return item;
 }
 
-// ===== 通用新增行程函數 =====
-function addTrip(map, startId, endId, countId, displaySelector, type = "pair") {
+// ===== 通用行程新增函數 =====
+function addTrip({ map, startId, endId, countId, displaySelector, distanceType = "pair", roundTripToggleId = null }) {
   const s = document.getElementById(startId).value.trim();
   const e = document.getElementById(endId).value.trim();
   const c = parseInt(document.getElementById(countId).value, 10) || 0;
 
-  if (!s || !e || c <= 0) {
-    return alert("請填寫完整的起訖點並輸入趟數");
-  }
+  if (!s || !e || c <= 0 || s == e) return alert("請填寫完整的起訖點並輸入趟數");
 
   let dist;
 
-  if (type === "pair") {
-    const key = `${s}_${e}`;
-    const reverseKey = `${e}_${s}`;
-    dist = map[key] ?? map[reverseKey];
-    if (dist === undefined) {
-      return alert(`找不到距離資料 (${key} 或 ${reverseKey})，請確認車站名稱`);
+  if (distanceType === "pair") {
+    // 用 "A_B" 或 "B_A" 查找距離
+    dist = map[`${s}_${e}`] ?? map[`${e}_${s}`];
+  } else if (distanceType === "difference") {
+    if (map[s] === undefined || map[e] === undefined) {
+      const notFound = [s, e].filter(x => map[x] === undefined).join("、");
+      return alert(`找不到車站: ${notFound}`);
     }
-  } else if (type === "single") {
-    const startDist = map[s];
-    const endDist = map[e];
-    if (startDist === undefined || endDist === undefined) {
-      const missing = [];
-      if (startDist === undefined) missing.push(`起點 "${s}"`);
-      if (endDist === undefined) missing.push(`訖點 "${e}"`);
-      return alert(`找不到 ${missing.join("、")} 的距離資料`);
-    }
-    dist = Math.abs(endDist - startDist);
-  } else {
-    return alert("未知的距離類型");
+    dist = Math.abs(map[s] - map[e]);
   }
 
+  if (dist === undefined) return alert("無法找到此起訖點的距離");
+
+  // 檢查是否為來回行程
+  const isRound = roundTripToggleId ? document.getElementById(roundTripToggleId).checked : false;
+  const type = isRound ? "來回" : "單程";
+  
   const item = document.createElement("div");
-  item.classList.add("trip-item");
-  item.innerHTML = `<span class="trip-item-text"><span class="trip-item-text-left">${s} → ${e}</span> <span class="trip-item-text-right">${c}趟 </span></span>`;
+  item.className = "trip-item";
+  item.dataset.start = s;
+  item.dataset.end = e;
+  item.dataset.count = c;
+  item.dataset.dist = dist;
+  item.dataset.isRound = isRound;
+
+  item.innerHTML = `<span class="trip-item-text"><span class="trip-item-text-left">${s} → ${e}</span> <span class="trip-item-text-right">${c}趟 ${type}</span></span>`;
   makeSelectable(item);
 
-  const listContainer = document.querySelector(`${displaySelector} .trip-list`);
-  if (!listContainer) {
-    return alert("找不到行程顯示容器");
-  }
-
-  listContainer.appendChild(item);
+  const list = document.querySelector(`${displaySelector} .trip-list`);
+  list.appendChild(item);
 
   // 清空欄位
   document.getElementById(startId).value = "";
   document.getElementById(endId).value = "";
   document.getElementById(countId).value = "";
-
-  console.log(`新增行程: ${s} → ${e} ${c}趟`);
 }
 
-
-// ===== 通用刪除行程函數 =====
+// ===== 通用刪除函數 =====
 function deleteTrip(displaySelector) {
-  const list = document.querySelector(`${displaySelector} .trip-list`) || document.querySelector(displaySelector);
+  const list = document.querySelector(`${displaySelector} .trip-list`);
   if (!list) return alert("找不到行程列表");
 
-  const selectedItems = list.querySelectorAll(".trip-item.selected");
-
-  if (selectedItems.length > 0) {
-    selectedItems.forEach(item => item.remove());
-  } else if (list.lastElementChild && list.lastElementChild.classList.contains("trip-item")) {
-    list.lastElementChild.remove();
+  const selected = list.querySelectorAll(".trip-item.selected");
+  if (selected.length > 0) {
+    selected.forEach(item => item.remove());
   } else {
-    alert("沒有行程可刪除");
+    const last = list.querySelector(".trip-item:last-child");
+    if (last) last.remove();
+    else alert("沒有行程可刪除");
   }
 }
 
-
-// 捷運 (pair)
+// ===== 捷運功能 =====
 function addMRTTrip() {
-  addTrip(mrtDistanceMap, "mrtStart", "mrtEnd", "mrtCount", "#mrtTripDisplay", "pair");
+  addTrip({
+    map: mrtDistanceMap,
+    startId: "mrtStart",
+    endId: "mrtEnd",
+    countId: "mrtCount",
+    displaySelector: "#mrtTripDisplay",
+    distanceType: "pair",
+    roundTripToggleId: "dailyMrtRoundTripToggle"
+  });
 }
 function removeMRTTrip() {
   deleteTrip("#mrtTripDisplay");
 }
 
-// 火車 (single)
+// ===== 火車功能 =====
 function addTrainTrip() {
-  addTrip(trDistanceMap, "trainStart", "trainEnd", "trainCount", "#trainTripList", "single");
+  addTrip({
+    map: trDistanceMap,
+    startId: "trainStart",
+    endId: "trainEnd",
+    countId: "trainCount",
+    displaySelector: "#trainTripList",
+    distanceType: "difference",
+    roundTripToggleId: "dailyTrainRoundTripToggle"
+  });
 }
 function removeTrainTrip() {
   deleteTrip("#trainTripList");
 }
 
-// 高鐵 (pair)
+// ===== 高鐵功能 =====
 function addHsrTrip() {
-  addTrip(hsrDistanceMap, "hsrStart", "hsrEnd", "hsrCount", "#hsrTripList", "pair");
+  addTrip({
+    map: hsrDistanceMap,
+    startId: "hsrStart",
+    endId: "hsrEnd",
+    countId: "hsrCount",
+    displaySelector: "#hsrTripList",
+    distanceType: "pair",
+    roundTripToggleId: "dailyHsrRoundTripToggle"
+  });
 }
 function removeHsrTrip() {
   deleteTrip("#hsrTripList");
@@ -1703,7 +1757,7 @@ function sumTripDistance(map, containerSelector, type = "pair") {
   let total = 0;
 
   list.querySelectorAll(".trip-item").forEach(item => {
-    const text = item.innerText;
+    const text = item.innerText.replace(/\s+/g, ' ').trim();
     const match = text.match(/^(.+?) → (.+?) (\d+)趟$/);
     if (!match) return;
 
@@ -1743,20 +1797,6 @@ allInputs.forEach(input => {
   input.addEventListener('focus', () => {
     input.placeholder = '';
     input.value = '';
-
-    // 延遲 100 毫秒再執行查詢
-    setTimeout(() => {
-      const listId = input.getAttribute('list');
-      if (listId === 'mrtStationList') {
-        updateMrtOptions('');
-      } else if (listId === 'trDistanceMap') {
-        updateTrOptions('');
-      } else if (listId === 'hsrStationList') {
-        updateHsrOptions('');
-      }else if (listId === 'airportStationList') {
-        updateFlightOptions('');
-      }
-    }, 50);
   });
 
     input.addEventListener('change', () => {

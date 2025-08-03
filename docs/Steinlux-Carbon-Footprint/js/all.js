@@ -4,6 +4,7 @@
 connectedCallback() {
     this.innerHTML = `
     <div class="story-body">
+    <div id="radial-overlay"></div>
         <div class="story-container">
             <header class="story-header">
                 <div class="story-header-title">
@@ -54,11 +55,22 @@ function StartQuestionnaire() {
     document.querySelector(".story-body").style.display = "none";
     document.querySelector("body").style.display = "flex";
     document.querySelector(".scene-1").classList.add("active");
-    document.documentElement.style.backgroundImage = `url('images/圖片\ 1.png')`;
+    document.documentElement.style.backgroundImage = `url('images/圖片1.webp')`;
 }
 
 sendButton.addEventListener("click", () => {
-    StartQuestionnaire();
+    const overlay = document.getElementById('radial-overlay');
+    overlay.style.opacity = '1';
+    gsap.to(overlay, {
+      duration: 1.75,
+      width: '300vw',
+      height: '300vw',
+      ease: "power2.out",
+      onComplete: () => {
+        // 動畫結束跳轉頁面
+        StartQuestionnaire();
+      }
+    });
 });
 
 playIntroMessages()
