@@ -22,7 +22,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url("../images/首頁背景星空.png") no-repeat center center fixed;
+  background: url("../images/首頁背景星空.webp") no-repeat center center fixed;
   background-size: cover;
   font-family: "SweiXDPearlCJKtc-DemiLight", sans-serif;
 }
@@ -71,6 +71,20 @@ body {
   letter-spacing: 6px;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+#radial-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(173, 184, 234) 0%, rgba(0, 35, 123) 40%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999; /* 確保蓋在最上層 */
+  opacity: 0;
 }
 
 @media (max-width: 600px) {

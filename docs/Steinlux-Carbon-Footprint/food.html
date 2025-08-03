@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>食物</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
@@ -536,11 +537,11 @@
         </div>
         <div class="diet-grid">
           <div class="diet-card" onclick="selectDiet('omnivore', this)">
-            <img src="./images/葷食代表.png" alt="葷食者" />
+            <img src="./images/葷食代表.webp" alt="葷食者" />
             <span class="label">葷食者</span>
           </div>
           <div class="diet-card" onclick="selectDiet('vegetarian', this)">
-            <img src="./images/素食代表.png" alt="素食者" />
+            <img src="./images/素食代表.webp" alt="素食者" />
             <span class="label">素食者</span>
           </div>
         </div>
@@ -566,15 +567,15 @@
       </div>
       <div class="diet-grid">
         <div class="diet-card" onclick="selectSubDiet('seafood', this)">
-          <img src="./images/海鮮素.png" alt="海鮮素" />
+          <img src="./images/海鮮素.webp" alt="海鮮素" />
           <span class="label">海鮮素</span>
         </div>
         <div class="diet-card" onclick="selectSubDiet('eggmilk', this)">
-          <img src="./images/蛋奶素.png" alt="蛋奶素" />
+          <img src="./images/蛋奶素.webp" alt="蛋奶素" />
           <span class="label">蛋奶素</span>
         </div>
         <div class="diet-card" onclick="selectSubDiet('vegan', this)">
-          <img src="./images/全素.png" alt="全素" />
+          <img src="./images/全素.webp" alt="全素" />
           <span class="label">全素</span>
         </div>
       </div>
@@ -606,7 +607,7 @@
             class="food-card"
             data-type="水餃/鍋貼"
           >
-            <img src="./images/水餃.png" alt="水餃/鍋貼" />
+            <img src="./images/水餃.webp" alt="水餃/鍋貼" />
             <span class="label">水餃/鍋貼</span>
             <div class="custom-number-input">
               <button type="button" class="btn-decrement">
@@ -622,7 +623,7 @@
             class="food-card"
             data-type="牛肉麵"
           >
-            <img src="./images/牛肉麵.png" alt="牛肉麵" />
+            <img src="./images/牛肉麵.webp" alt="牛肉麵" />
             <span class="label">牛肉麵</span>
             <div class="custom-number-input">
               <button type="button" class="btn-decrement">
@@ -638,7 +639,7 @@
             class="food-card"
             data-type="排骨便當"
           >
-            <img src="./images/排骨便當.png" alt="排骨便當" />
+            <img src="./images/排骨便當.webp" alt="排骨便當" />
             <span class="label">排骨便當</span>
             <div class="custom-number-input">
               <button type="button" class="btn-decrement">
@@ -654,7 +655,7 @@
             class="food-card"
             data-type="雞腿便當"
           >
-            <img src="./images/雞腿便當.png" alt="雞腿便當" />
+            <img src="./images/雞腿便當.webp" alt="雞腿便當" />
             <span class="label">雞腿便當</span>
             <div class="custom-number-input">
               <button type="button" class="btn-decrement">
@@ -670,7 +671,7 @@
             class="food-card"
             data-type="牛丼"
           >
-            <img src="./images/牛丼.png" alt="牛丼" />
+            <img src="./images/牛丼.webp" alt="牛丼" />
             <span class="label">牛丼</span>
             <div class="custom-number-input">
               <button type="button" class="btn-decrement">
@@ -686,7 +687,7 @@
             class="food-card"
             data-type="咖哩豬排飯"
           >
-            <img src="./images/咖哩豬排飯.png" alt="咖哩豬排飯" />
+            <img src="./images/咖哩豬排飯.webp" alt="咖哩豬排飯" />
             <span class="label">咖哩豬排飯</span>
             <div class="custom-number-input">
               <button type="button" class="btn-decrement">
@@ -702,7 +703,7 @@
             class="food-card"
             data-type="漢堡"
           >
-            <img src="./images/漢堡.png" alt="漢堡" />
+            <img src="./images/漢堡.webp" alt="漢堡" />
             <span class="label">漢堡</span>
             <div class="custom-number-input">
               <button type="button" class="btn-decrement">
@@ -718,7 +719,7 @@
             class="food-card"
             data-type="火鍋"
           >
-            <img src="./images/火鍋.png" alt="火鍋" />
+            <img src="./images/火鍋.webp" alt="火鍋" />
             <span class="label">火鍋</span>
             <div class="custom-number-input">
               <button type="button" class="btn-decrement">
@@ -735,7 +736,7 @@
 
         <!-- Info 按鈕 -->
         <button id="info-btn" class="info-btn">
-          <img src="./images/info.png" alt="!" />
+          <img src="./images/info.webp" alt="!" />
         </button>
 
       <!-- 導覽按鈕 -->
@@ -750,7 +751,7 @@
           <div class="modal-body">
             <div class="input-group">
               <label class="main-label">
-                <img class="icon" src="./images/icon_rice.png" alt="白飯" />
+                <img class="icon" src="./images/icon_rice.webp" alt="白飯" />
                 白飯
               </label>
               <div class="custom-number-input">
@@ -766,7 +767,7 @@
             </div>
             <div class="input-group">
               <label class="main-label">
-                <img class="icon" src="./images/icon_rice.png" alt="蔬菜" />
+                <img class="icon" src="./images/icon_rice.webp" alt="蔬菜" />
                 蔬菜
               </label>
               <div class="custom-number-input">
@@ -782,7 +783,7 @@
             </div>
             <div class="input-group">
               <label class="main-label">
-                <img class="icon" src="./images/icon_rice.png" alt="牛奶" />
+                <img class="icon" src="./images/icon_rice.webp" alt="牛奶" />
                 牛奶
               </label>
               <div class="custom-number-input">
@@ -798,7 +799,7 @@
             </div>
             <div class="input-group">
               <label class="main-label">
-                <img class="icon" src="./images/icon_rice.png" alt="羊肉" />
+                <img class="icon" src="./images/icon_rice.webp" alt="羊肉" />
                 羊肉
               </label>
               <div class="custom-number-input">
@@ -814,7 +815,7 @@
             </div>
             <div class="input-group">
               <label class="main-label">
-                <img class="icon" src="./images/icon_rice.png" alt="豬肉" />
+                <img class="icon" src="./images/icon_rice.webp" alt="豬肉" />
                 豬肉
               </label>
               <div class="custom-number-input">
@@ -830,7 +831,7 @@
             </div>
             <div class="input-group">
               <label class="main-label">
-                <img class="icon" src="./images/icon_rice.png" alt="雞肉" />
+                <img class="icon" src="./images/icon_rice.webp" alt="雞肉" />
                 雞肉
               </label>
               <div class="custom-number-input">
@@ -846,7 +847,7 @@
             </div>
             <div class="input-group">
               <label class="main-label">
-                <img class="icon" src="./images/icon_rice.png" alt="雞蛋" />
+                <img class="icon" src="./images/icon_rice.webp" alt="雞蛋" />
                 雞蛋
               </label>
               <div class="custom-number-input">
@@ -862,7 +863,7 @@
             </div>
             <div class="input-group">
               <label class="main-label">
-                <img class="icon" src="./images/icon_rice.png" alt="白蝦" />
+                <img class="icon" src="./images/icon_rice.webp" alt="白蝦" />
                 白蝦
               </label>
               <div class="custom-number-input">
@@ -878,7 +879,7 @@
             </div>
             <div class="input-group">
               <label class="main-label">
-                <img class="icon" src="./images/icon_rice.png" alt="魚肉" />
+                <img class="icon" src="./images/icon_rice.webp" alt="魚肉" />
                 魚肉
               </label>
               <div class="custom-number-input">
@@ -894,7 +895,7 @@
             </div>
             <div class="input-group">
               <label class="main-label">
-                <img class="icon" src="./images/icon_rice.png" alt="麵條" />
+                <img class="icon" src="./images/icon_rice.webp" alt="麵條" />
                 麵條
               </label>
               <div class="custom-number-input">
@@ -932,7 +933,7 @@
         <div class="template-wrapper">
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="白飯" />
+              <img class="icon" src="./images/icon_rice.webp" alt="白飯" />
               白飯
             </label>
             <div class="custom-number-input">
@@ -948,7 +949,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="蔬菜" />
+              <img class="icon" src="./images/icon_rice.webp" alt="蔬菜" />
               蔬菜
             </label>
             <div class="custom-number-input">
@@ -964,7 +965,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="豆腐" />
+              <img class="icon" src="./images/icon_rice.webp" alt="豆腐" />
               豆腐
             </label>
             <div class="custom-number-input">
@@ -980,7 +981,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="牛奶" />
+              <img class="icon" src="./images/icon_rice.webp" alt="牛奶" />
               牛奶
             </label>
             <div class="custom-number-input">
@@ -996,7 +997,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="麵條" />
+              <img class="icon" src="./images/icon_rice.webp" alt="麵條" />
               麵條
             </label>
             <div class="custom-number-input">
@@ -1012,7 +1013,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="素火腿" />
+              <img class="icon" src="./images/icon_rice.webp" alt="素火腿" />
               素火腿
             </label>
             <div class="custom-number-input">
@@ -1028,7 +1029,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="雞蛋" />
+              <img class="icon" src="./images/icon_rice.webp" alt="雞蛋" />
               雞蛋
             </label>
             <div class="custom-number-input">
@@ -1044,7 +1045,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="白蝦" />
+              <img class="icon" src="./images/icon_rice.webp" alt="白蝦" />
               白蝦
             </label>
             <div class="custom-number-input">
@@ -1060,7 +1061,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="魚肉" />
+              <img class="icon" src="./images/icon_rice.webp" alt="魚肉" />
               魚肉
             </label>
             <div class="custom-number-input">
@@ -1076,7 +1077,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="菇類" />
+              <img class="icon" src="./images/icon_rice.webp" alt="菇類" />
               菇類
             </label>
             <div class="custom-number-input">
@@ -1116,7 +1117,7 @@
         <div class="template-wrapper">
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="白飯" />
+              <img class="icon" src="./images/icon_rice.webp" alt="白飯" />
               白飯
             </label>
             <div class="custom-number-input">
@@ -1132,7 +1133,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="蔬菜" />
+              <img class="icon" src="./images/icon_rice.webp" alt="蔬菜" />
               蔬菜
             </label>
             <div class="custom-number-input">
@@ -1148,7 +1149,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="豆腐" />
+              <img class="icon" src="./images/icon_rice.webp" alt="豆腐" />
               豆腐
             </label>
             <div class="custom-number-input">
@@ -1164,7 +1165,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="牛奶" />
+              <img class="icon" src="./images/icon_rice.webp" alt="牛奶" />
               牛奶
             </label>
             <div class="custom-number-input">
@@ -1180,7 +1181,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="麵條" />
+              <img class="icon" src="./images/icon_rice.webp" alt="麵條" />
               麵條
             </label>
             <div class="custom-number-input">
@@ -1196,7 +1197,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="素火腿" />
+              <img class="icon" src="./images/icon_rice.webp" alt="素火腿" />
               素火腿
             </label>
             <div class="custom-number-input">
@@ -1212,7 +1213,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="雞蛋" />
+              <img class="icon" src="./images/icon_rice.webp" alt="雞蛋" />
               雞蛋
             </label>
             <div class="custom-number-input">
@@ -1228,7 +1229,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="菇類" />
+              <img class="icon" src="./images/icon_rice.webp" alt="菇類" />
               菇類
             </label>
             <div class="custom-number-input">
@@ -1269,7 +1270,7 @@
         <div class="template-wrapper">
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="白飯" />
+              <img class="icon" src="./images/icon_rice.webp" alt="白飯" />
               白飯
             </label>
             <div class="custom-number-input">
@@ -1285,7 +1286,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="蔬菜" />
+              <img class="icon" src="./images/icon_rice.webp" alt="蔬菜" />
               蔬菜
             </label>
             <div class="custom-number-input">
@@ -1301,7 +1302,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="豆腐" />
+              <img class="icon" src="./images/icon_rice.webp" alt="豆腐" />
               豆腐
             </label>
             <div class="custom-number-input">
@@ -1317,7 +1318,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="麵條" />
+              <img class="icon" src="./images/icon_rice.webp" alt="麵條" />
               麵條
             </label>
             <div class="custom-number-input">
@@ -1333,7 +1334,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="素火腿" />
+              <img class="icon" src="./images/icon_rice.webp" alt="素火腿" />
               素火腿
             </label>
             <div class="custom-number-input">
@@ -1349,7 +1350,7 @@
           </div>
           <div class="input-group">
             <label class="main-label">
-              <img class="icon" src="./images/icon_rice.png" alt="菇類" />
+              <img class="icon" src="./images/icon_rice.webp" alt="菇類" />
               菇類
             </label>
             <div class="custom-number-input">
@@ -1395,7 +1396,7 @@
             class="food-card"
             data-type="雞排加珍奶"
           >
-            <img src="./images/水餃.png" alt="雞排加珍奶" />
+            <img src="./images/水餃.webp" alt="雞排加珍奶" />
             <span class="label">雞排加珍奶</span>
             <div class="custom-number-input">
               <button type="button" class="btn-decrement">
@@ -1411,7 +1412,7 @@
             class="food-card"
             data-type="泡麵"
           >
-            <img src="./images/牛肉麵.png" alt="泡麵" />
+            <img src="./images/牛肉麵.webp" alt="泡麵" />
             <span class="label">泡麵</span>
             <div class="custom-number-input">
               <button type="button" class="btn-decrement">
@@ -1427,7 +1428,7 @@
             class="food-card"
             data-type="啤酒"
           >
-            <img src="./images/排骨便當.png" alt="啤酒" />
+            <img src="./images/排骨便當.webp" alt="啤酒" />
             <span class="label">啤酒</span>
             <div class="custom-number-input">
               <button type="button" class="btn-decrement">
@@ -1443,7 +1444,7 @@
             class="food-card"
             data-type="薯條"
           >
-            <img src="./images/雞腿便當.png" alt="薯條" />
+            <img src="./images/雞腿便當.webp" alt="薯條" />
             <span class="label">薯條</span>
             <div class="custom-number-input">
               <button type="button" class="btn-decrement">
@@ -1459,7 +1460,7 @@
             class="food-card"
             data-type="茶葉蛋"
           >
-            <img src="./images/牛丼.png" alt="茶葉蛋" />
+            <img src="./images/牛丼.webp" alt="茶葉蛋" />
             <span class="label">牛茶葉蛋</span>
             <div class="custom-number-input">
               <button type="button" class="btn-decrement">
@@ -1475,7 +1476,7 @@
             class="food-card"
             data-type="無糖豆漿"
           >
-            <img src="./images/咖哩豬排飯.png" alt="無糖豆漿" />
+            <img src="./images/咖哩豬排飯.webp" alt="無糖豆漿" />
             <span class="label">無糖豆漿</span>
             <div class="custom-number-input">
               <button type="button" class="btn-decrement">
@@ -1491,7 +1492,7 @@
             class="food-card"
             data-type="黑咖啡"
           >
-            <img src="./images/漢堡.png" alt="黑咖啡" />
+            <img src="./images/漢堡.webp" alt="黑咖啡" />
             <span class="label">黑咖啡</span>
             <div class="custom-number-input">
               <button type="button" class="btn-decrement">
@@ -1507,7 +1508,7 @@
             class="food-card"
             data-type="牛奶"
           >
-            <img src="./images/火鍋.png" alt="牛奶" />
+            <img src="./images/火鍋.webp" alt="牛奶" />
             <span class="label">牛奶</span>
             <div class="custom-number-input">
               <button type="button" class="btn-decrement">

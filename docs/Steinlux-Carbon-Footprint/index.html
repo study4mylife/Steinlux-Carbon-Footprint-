@@ -42,8 +42,22 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      background: url("images/首頁背景星空.png") no-repeat fixed center center;
+      background: url("images/首頁背景星空.webp") no-repeat fixed center center;
       background-size: cover;
+    }
+
+    #radial-overlay {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(173, 184, 234) 0%, rgba(0, 35, 123) 70%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999; /* 確保蓋在最上層 */
+      opacity: 0;
     }
 
     .scroll-container {
@@ -72,7 +86,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: url("images/首頁背景星星.png") no-repeat 0 0;
+      background: url("images/首頁背景星星.webp") no-repeat 0 0;
       background-size: cover;
       opacity: 0.3;
       pointer-events: none;
@@ -265,6 +279,7 @@
         word-break: break-all;
         text-align: justify;
         width: 100%;
+        height: 80vh;
       }
 
       /*第二幕*/
@@ -321,6 +336,7 @@
         word-break: break-all;
         text-align: justify;
         width: 100%;
+        height: 30vh;
       }
 
       .scene-2 .button-box {
@@ -414,20 +430,22 @@
     </style>
   </head>
   <body>
+    
     <div class="scroll-container">
+      <div id="radial-overlay"></div>
       <section class="scene scene-1">
           <div class="stars-bg"></div>
           <div class="moon-container">
-            <img src="images/月球.png" alt="月球" />
+            <img src="images/月球.webp" alt="月球" />
           </div>
 
           <div class="color-block"></div>
 
           <div class="cat-container">
             <div class="spaceship-container">
-              <img src="images/太空火箭.png" alt="太空火箭" class="spaceship"/>
+              <img src="images/太空火箭.webp" alt="太空火箭" class="spaceship"/>
             </div>
-            <img src="images/太空服貓.png" alt="太空貓" class="flying-cat" />
+            <img src="images/太空服貓.webp" alt="太空貓" class="flying-cat" />
           </div>
           <div class="text-container">
             <div class="speech-box">
@@ -451,16 +469,16 @@
       <section class="scene scene-2">
         <div class="stars-bg"></div>
         <div class="moon-container">
-          <img src="images/月球.png" alt="地球" />
+          <img src="images/月球.webp" alt="地球" />
         </div>
 
         <div class="color-block"></div>
 
         <div class="cat-container">
           <div class="cloud-container">
-            <img src="images/雲.png" alt="雲朵" />
+            <img src="images/雲.webp" alt="雲朵" />
           </div>
-          <img src="images/火箭貓.png" alt="太空貓" class="flying-cat" />
+          <img src="images/火箭貓.webp" alt="太空貓" class="flying-cat" />
         </div>
 
         <div class="text-container">
@@ -476,7 +494,8 @@
         </div>
 
         <div class="button-box">
-          <button onclick="window.location.href='traffic-daily.html'">進入調查</button>
+          <button id="enter-btn">進入調查</button>
+
         </div>
       </section>
     </div>
@@ -530,6 +549,18 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
   observer.observe(document.querySelector(".scene-2"));
+
+    function isMobile() {
+  return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  }
+
+  function preventTouchScroll(e) {
+    e.preventDefault();
+  }
+
+  if (isMobile()) {
+    document.body.addEventListener("touchmove", preventTouchScroll, { passive: false });
+  }
 
   // 函數：暫時禁止滾動
   function disableScroll() {
@@ -848,6 +879,21 @@ document.addEventListener("DOMContentLoaded", () => {
               { passive: false }
             );
 });
+
+  document.getElementById('enter-btn').addEventListener('click', () => {
+    const overlay = document.getElementById('radial-overlay');
+    overlay.style.opacity = '1';
+    gsap.to(overlay, {
+      duration: 2,
+      width: '300vw',
+      height: '300vw',
+      ease: "power2.out",
+      onComplete: () => {
+        // 動畫結束跳轉頁面
+        window.location.href = 'traffic-daily.html';
+      }
+    });
+  });
 </script>
 
   </body>

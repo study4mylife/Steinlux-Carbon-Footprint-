@@ -27,7 +27,7 @@
     flex-direction: column;
     align-items: center;
     width: 900px;
-    height: 28rem;
+    height: 27.8rem;
     max-height: 90vh;
     padding: 20px;
     background: rgba(255, 255, 255, 0.05);
@@ -79,7 +79,7 @@
     .story-header-profile-photo {
     width: 2.5rem;
     height: 2.5rem;
-    background-image: url('../images/火箭貓.png');
+    background-image: url('../images/火箭貓.webp');
     background-size: 6.5rem auto;
     background-position: -1.55rem -0.75rem;
     background-repeat: no-repeat;

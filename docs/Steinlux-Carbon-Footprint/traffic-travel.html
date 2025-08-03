@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>旅遊交通</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
@@ -188,7 +189,7 @@
       width: 40%;
       background: rgba(255, 255, 255, 0.1);
       border-radius: 32px;
-      padding: 1.25rem;
+      padding: 0.5rem 1.25rem;
       gap: 1rem;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
@@ -254,7 +255,7 @@
         border-radius: 8px;
         box-shadow: inset 2pt 2pt 7pt #6d808f70;
         background: #fff;
-        font-size: 14px;
+        font-size: 16px;
         color: #4a4a4a;
         letter-spacing: 3px;
         outline: none;
@@ -266,7 +267,7 @@
         border: 0.25pt solid #b5c1c623;
         border-radius: 6px;
         background: #fff;
-        font-size: 14px;
+        font-size: 16px;
         color: #4a4a4a;
         box-shadow: inset 2pt 2pt 7pt #6d808f70;
         font-family: "GenSenRounded2TW-L", sans-serif;
@@ -320,10 +321,10 @@
         padding: 8px 30px 8px 12px;
         border: 1px solid rgba(208, 210, 214, 0.6);
         border-radius: 6px;
-        background: #fff url("images/下拉式箭頭.png") no-repeat right center;
+        background: #fff url("images/下拉式箭頭.webp") no-repeat right center;
         background-size: 30px;
         box-shadow: inset 2pt 2pt 7pt #6d808f70;
-        font-size: 14px;
+        font-size: 16px;
         color: #4a4a4a;
       }
 
@@ -343,10 +344,6 @@
         align-items: center;
         overflow-y: auto;
         padding: 1rem;
-      }
-
-      #flight-station-wrapper .template-wrapper {
-        padding: 0.5rem 24px;
       }
 
       .mrt-trip-list-wrapper {
@@ -371,6 +368,7 @@
       
       /* trip-list */
       .trip-item {
+        font-family: "GenSenRounded2TW-L", sans-serif;
         display: flex;
         justify-content: center;
         text-align: left;
@@ -593,27 +591,27 @@
         </div>
         <div class="transport-grid">
           <div class="transport-card" onclick="toggleActivity(this,'汽車')">
-            <img src="images/汽車.png" alt="汽車" />
+            <img src="images/汽車.webp" alt="汽車" />
             <span class="label">汽車</span>
           </div>
           <div class="transport-card" onclick="toggleActivity(this,'郵輪')">
-            <img src="images/郵輪.png" alt="郵輪" />
+            <img src="images/郵輪.webp" alt="郵輪" />
             <span class="label">郵輪</span>
           </div>
           <div class="transport-card" onclick="toggleActivity(this,'飛機')">
-            <img src="images/飛機.png" alt="飛機" />
+            <img src="images/飛機.webp" alt="飛機" />
             <span class="label">飛機</span>
           </div>
           <div class="transport-card" onclick="toggleActivity(this,'捷運')">
-            <img src="images/捷運.png" alt="捷運" />
+            <img src="images/捷運.webp" alt="捷運" />
             <span class="label">捷運</span>
           </div>
           <div class="transport-card" onclick="toggleActivity(this,'火車')">
-            <img src="images/火車.png" alt="火車" />
+            <img src="images/火車.webp" alt="火車" />
             <span class="label">火車</span>
           </div>
           <div class="transport-card" onclick="toggleActivity(this,'高鐵')">
-            <img src="images/高鐵.png" alt="高鐵" />
+            <img src="images/高鐵.webp" alt="高鐵" />
             <span class="label">高鐵</span>
           </div>
         </div>
@@ -804,7 +802,7 @@
               <div class="toggle-row">
                 <span class="nowrap-text">單程</span>
                 <label class="toggle-switch">
-                  <input type="checkbox" id="roundTripToggle" />
+                  <input type="checkbox" id="travelFlightRoundTripToggle" />
                   <span class="slider"></span>
                 </label>
                 <span class="nowrap-text">來回</span>
@@ -844,9 +842,16 @@
               <datalist id="mrtStationList"></datalist>
             </div>
             <div class="input-group-MRT">
-              <label for="mrtCount">每月搭乘</label>
+              <label for="mrtCount">每月趟數</label>
               <input id="mrtCount" type="number" min="1" />
-              <label class="special-label">趟</label>
+              <div class="toggle-row">
+                <span class="nowrap-text">單程</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="travelMrtRoundTripToggle" />
+                  <span class="slider"></span>
+                </label>
+                <span class="nowrap-text">來回</span>
+              </div>
             </div>
             <button class="mrt-btn" >新增行程</button>
           </div>
@@ -882,9 +887,16 @@
               <datalist id="trDistanceMap"></datalist>
             </div>
             <div class="input-group-MRT">
-              <label for="trainCount">每月搭乘</label>
+              <label for="trainCount">每月趟數</label>
               <input id="trainCount" type="number" min="1" />
-              <label class="special-label">趟</label>
+              <div class="toggle-row">
+                <span class="nowrap-text">單程</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="travelTrainRoundTripToggle" />
+                  <span class="slider"></span>
+                </label>
+                <span class="nowrap-text">來回</span>
+              </div>
             </div>
             <button class="mrt-btn">新增行程</button>
           </div>
@@ -918,9 +930,16 @@
               <datalist id="hsrStationList"></datalist>
             </div>
             <div class="input-group-MRT">
-              <label for="hsrCount">每月搭乘</label>
+              <label for="hsrCount">每月趟數</label>
               <input id="hsrCount" type="number" min="1" />
-              <label class="special-label">趟</label>
+              <div class="toggle-row">
+                <span class="nowrap-text">單程</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="travelHsrRoundTripToggle" />
+                  <span class="slider"></span>
+                </label>
+                <span class="nowrap-text">來回</span>
+              </div>
             </div>
             <button class="mrt-btn">新增行程</button>
           </div>
@@ -1793,7 +1812,7 @@ function makeSelectable(item) {
 }
 
 // ===== 通用行程新增函數 =====
-function addTrip({ map, startId, endId, countId, displaySelector, distanceType = "pair" }) {
+function addTrip({ map, startId, endId, countId, displaySelector, distanceType = "pair", roundTripToggleId = null }) {
   const s = document.getElementById(startId).value.trim();
   const e = document.getElementById(endId).value.trim();
   const c = parseInt(document.getElementById(countId).value, 10) || 0;
@@ -1815,14 +1834,19 @@ function addTrip({ map, startId, endId, countId, displaySelector, distanceType =
 
   if (dist === undefined) return alert("無法找到此起訖點的距離");
 
+  // 檢查是否為來回行程
+  const isRound = roundTripToggleId ? document.getElementById(roundTripToggleId).checked : false;
+  const type = isRound ? "來回" : "單程";
+  
   const item = document.createElement("div");
   item.className = "trip-item";
   item.dataset.start = s;
   item.dataset.end = e;
   item.dataset.count = c;
   item.dataset.dist = dist;
+  item.dataset.isRound = isRound;
 
-  item.innerHTML = `<span class="trip-item-text"><span class="trip-item-text-left">${s} → ${e}</span> <span class="trip-item-text-right">${c}趟</span></span>`;
+  item.innerHTML = `<span class="trip-item-text"><span class="trip-item-text-left">${s} → ${e}</span> <span class="trip-item-text-right">${c}趟 ${type}</span></span>`;
   makeSelectable(item);
 
   const list = document.querySelector(`${displaySelector} .trip-list`);
@@ -1857,7 +1881,8 @@ function addMRTTrip() {
     endId: "mrtEnd",
     countId: "mrtCount",
     displaySelector: "#mrtTripDisplay",
-    distanceType: "pair"
+    distanceType: "pair",
+    roundTripToggleId: "travelMrtRoundTripToggle"
   });
 }
 function removeMRTTrip() {
@@ -1872,7 +1897,8 @@ function addTrainTrip() {
     endId: "trainEnd",
     countId: "trainCount",
     displaySelector: "#trainTripList",
-    distanceType: "difference"
+    distanceType: "difference",
+    roundTripToggleId: "travelTrainRoundTripToggle"
   });
 }
 function removeTrainTrip() {
@@ -1887,7 +1913,8 @@ function addHsrTrip() {
     endId: "hsrEnd",
     countId: "hsrCount",
     displaySelector: "#hsrTripList",
-    distanceType: "pair"
+    distanceType: "pair",
+    roundTripToggleId: "travelHsrRoundTripToggle"
   });
 }
 function removeHsrTrip() {
@@ -1940,7 +1967,7 @@ function addFlightTrip() {
     }
     
     const dist = parseFloat(haversine(airportCoords[s], airportCoords[e]).toFixed(2));
-    const isRound = document.getElementById("roundTripToggle").checked;
+    const isRound = document.getElementById("travelFlightRoundTripToggle").checked;
     const type = isRound ? "來回" : "單程";
     
     item.innerHTML = `<span class="trip-item-text"><span class="trip-item-text-left">${s} → ${e}</span> <span class="trip-item-text-right">${c}趟 ${type}</span></span>`;
@@ -1967,57 +1994,68 @@ function removeFlightTrip() {
   deleteTrip("#flightTripDisplay");
 }
 
-  function sumTripDistance(map, containerSelector, type = "pair") {
-    const container = document.querySelector(containerSelector);
-    if (!container) {
-      console.warn(`找不到容器: ${containerSelector}`);
-      return 0;
-    }
-
-    const list = container.querySelector(".trip-list");
-    if (!list) {
-      console.warn(`找不到 .trip-list 於 ${containerSelector}`);
-      return 0;
-    }
-
-    let total = 0;
-
-    list.querySelectorAll(".trip-item").forEach(item => {
-      const text = item.innerText;
-      const match = text.match(/^(.+?) → (.+?) (\d+)趟$/);
-      if (!match) return;
-
-      const [_, start, end, countStr] = match;
-      const count = parseInt(countStr);
-
-      if (type === "pair") {
-        const key = `${start}_${end}`;
-        const reverseKey = `${end}_${start}`;
-        const dist = map[key] ?? map[reverseKey];
-
-        if (dist != null) {
-          total += dist * count;
-        } else {
-          console.warn(`找不到配對距離: ${key}`);
-        }
-
-      } else if (type === "single") {
-        const startDist = map[start];
-        const endDist = map[end];
-
-        if (startDist != null && endDist != null) {
-          const segmentDistance = Math.abs(endDist - startDist);
-          total += segmentDistance * count;
-        } else {
-          console.warn(`找不到單站距離: ${start} 或 ${end}`);
-        }
-      }
-    });
-
-    return total;
+// ===== 更新距離計算函數以支援單程/來回 =====
+function sumTripDistance(map, containerSelector, type = "pair") {
+  const container = document.querySelector(containerSelector);
+  if (!container) {
+    console.warn(`找不到容器: ${containerSelector}`);
+    return 0;
   }
 
-  function sumFlightDistance() {
+  const list = container.querySelector(".trip-list");
+  if (!list) {
+    console.warn(`找不到 .trip-list 於 ${containerSelector}`);
+    return 0;
+  }
+
+  let total = 0;
+
+  list.querySelectorAll(".trip-item").forEach(item => {
+    const text = item.innerText.replace(/\s+/g, ' ').trim();
+    // 更新正則表達式以匹配單程/來回
+    const match = text.match(/^(.+?) → (.+?) (\d+)趟 (來回|單程)$/);
+    if (!match) return;
+
+    const [_, start, end, countStr, tripType] = match;
+    const count = parseInt(countStr);
+
+    if (type === "pair") {
+      const key = `${start}_${end}`;
+      const reverseKey = `${end}_${start}`;
+      const dist = map[key] ?? map[reverseKey];
+
+      if (dist != null) {
+        let distance = dist * count;
+        // 如果是來回，距離要乘以2
+        if (tripType === "來回") {
+          distance *= 2;
+        }
+        total += distance;
+      } else {
+        console.warn(`找不到配對距離: ${key}`);
+      }
+
+    } else if (type === "single") {
+      const startDist = map[start];
+      const endDist = map[end];
+
+      if (startDist != null && endDist != null) {
+        let segmentDistance = Math.abs(endDist - startDist) * count;
+        // 如果是來回，距離要乘以2
+        if (tripType === "來回") {
+          segmentDistance *= 2;
+        }
+        total += segmentDistance;
+      } else {
+        console.warn(`找不到單站距離: ${start} 或 ${end}`);
+      }
+    }
+  });
+
+  return total;
+}
+
+function sumFlightDistance() {
   const container = document.querySelector("#flightTripDisplay");
   if (!container) {
     console.warn("找不到 flightTripDisplay 容器");
@@ -2033,7 +2071,7 @@ function removeFlightTrip() {
   let total = 0;
 
   list.querySelectorAll(".trip-item").forEach(item => {
-    const text = item.innerText;
+    const text = item.innerText.replace(/\s+/g, ' ').trim();
 
     // 飛行時數模式：飛行時數：5 小時
     const timeMatch = text.match(/^飛行時數：(\d+(?:\.\d+)?) 小時$/);
@@ -2083,31 +2121,13 @@ allInputs.forEach(input => {
   input.addEventListener('focus', () => {
     input.placeholder = '';
     input.value = '';
-
-    // 延遲 100 毫秒再執行查詢
-    setTimeout(() => {
-      const listId = input.getAttribute('list');
-      if (listId === 'mrtStationList') {
-        updateMrtOptions('');
-      } else if (listId === 'trDistanceMap') {
-        updateTrOptions('');
-      } else if (listId === 'hsrStationList') {
-        updateHsrOptions('');
-      }
-      else if (listId === 'airportStationList') {
-        updateFlightOptions('');
-      }
-    }, 100);
   });
 
     input.addEventListener('change', () => {
     input.blur(); // 自動失焦
   });
 });
-
-
-
-    </script>
+  </script>
 
   </body>
 </html>
