@@ -217,12 +217,12 @@
                 </button>
               </div>
               <div class="toggle-row">
-                <span class="nowrap-text">度 Kwh​</span>
-                <label class="toggle-switch">
+                <label class="apple-toggle-switch">
+                  <span class="nowrap-text">度 Kwh​</span>
                   <input type="checkbox" id="electricity-unit-toggle" />
                   <span class="slider"></span>
+                  <span class="nowrap-text">元 NTD​</span>
                 </label>
-                <span class="nowrap-text">元(NTD)​</span>
               </div>
             </div>
             <div class="input-container">
@@ -237,12 +237,12 @@
                 </button>
               </div>
               <div class="toggle-row">
-                <span class="nowrap-text">度 Kwh​</span>
-                <label class="toggle-switch">
+                <label class="apple-toggle-switch">
+                  <span class="nowrap-text">度 Kwh​</span>
                   <input type="checkbox" id="water-unit-toggle" />
                   <span class="slider"></span>
+                  <span class="nowrap-text">元 NTD​</span>
                 </label>
-                <span class="nowrap-text">元(NTD)​</span>
               </div>
             </div>
             <div class="input-container">
@@ -257,12 +257,12 @@
                 </button>
               </div>
               <div class="toggle-row">
-                <span class="nowrap-text">度 Kwh​</span>
-                <label class="toggle-switch">
+                <label class="apple-toggle-switch">
+                  <span class="nowrap-text">度 Kwh​</span>
                   <input type="checkbox" id="gas-unit-toggle" />
                   <span class="slider"></span>
+                  <span class="nowrap-text">元 NTD​</span>
                 </label>
-                <span class="nowrap-text">元(NTD)​</span>
               </div>
             </div>
           </div>
@@ -321,7 +321,7 @@
         <button class="nav-btn prev-btn" onclick="goToScene('scene-home-1')">
           ‹
         </button>
-        <button class="nav-btn next-btn last-btn" onclick="window.location.href='traffic-travel.html'">
+        <button class="nav-btn next-btn" onclick="window.location.href='traffic-travel.html'">
           ›
         </button>
       </div>
@@ -409,7 +409,15 @@
     }
   }
 
-      document.querySelector(".last-btn").addEventListener("click", handleNext);
+    document.querySelectorAll(".next-btn").forEach((btn) => {
+      btn.addEventListener("click", handleNext);
+    });
+    document.querySelectorAll(".prev-btn").forEach((btn) => {
+      btn.addEventListener("click", handleNext);
+    });
+    document.querySelectorAll(".chapter-button").forEach((btn) => {
+      btn.addEventListener("click", handleNext);
+    });
     </script>
     <script>
         const messages = [

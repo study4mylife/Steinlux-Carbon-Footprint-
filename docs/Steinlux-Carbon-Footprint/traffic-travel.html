@@ -1041,9 +1041,15 @@
         }
       }
 
-  document.querySelectorAll(".next-btn").forEach((btn) => {
-    btn.addEventListener("click", handleNext);
-  });
+    document.querySelectorAll(".next-btn").forEach((btn) => {
+      btn.addEventListener("click", handleNext);
+    });
+    document.querySelectorAll(".prev-btn").forEach((btn) => {
+      btn.addEventListener("click", handleNext);
+    });
+    document.querySelectorAll(".chapter-button").forEach((btn) => {
+      btn.addEventListener("click", handleNext);
+    });
     </script>
     <script>
     // 星際聊天室
@@ -1360,37 +1366,61 @@
       });
 
 
-// 汽車 & 機車：燃料切換 & 方法切換
-     function setupToggle(fuelId, methodId, oilLeftId, oilRightId, elecLeftId, elecRightId, paneLeftId, paneRightId) {
-            const fuelToggle   = document.getElementById(fuelId);
-            const methodToggle = document.getElementById(methodId);
-            const oilLeft      = document.getElementById(oilLeftId);
-            const oilRight     = document.getElementById(oilRightId);
-            const elecLeft     = document.getElementById(elecLeftId);
-            const elecRight    = document.getElementById(elecRightId);
-            const paneLeft     = document.getElementById(paneLeftId);
-            const paneRight    = document.getElementById(paneRightId);
+// 修改原有的 setupToggle 函數，加入動態文字更新功能
+function setupToggle(fuelId, methodId, oilLeftId, oilRightId, elecLeftId, elecRightId, paneLeftId, paneRightId) {
+    const fuelToggle   = document.getElementById(fuelId);
+    const methodToggle = document.getElementById(methodId);
+    const oilLeft      = document.getElementById(oilLeftId);
+    const oilRight     = document.getElementById(oilRightId);
+    const elecLeft     = document.getElementById(elecLeftId);
+    const elecRight    = document.getElementById(elecRightId);
+    const paneLeft     = document.getElementById(paneLeftId);
+    const paneRight    = document.getElementById(paneRightId);
 
-            function updateFuel() {
-                const isElec = fuelToggle.checked;
-                oilLeft.classList.toggle("hidden", isElec);
-                oilRight.classList.toggle("hidden", isElec);
-                elecLeft.classList.toggle("hidden", !isElec);
-                elecRight.classList.toggle("hidden", !isElec);
-            }
-            
-            function updateMethod() {
-                const isVol = methodToggle.checked;
-                paneLeft.classList.toggle("inactive", isVol);
-                paneRight.classList.toggle("inactive", !isVol);
-            }
-            
-            fuelToggle.addEventListener("change", () => { updateFuel(); updateMethod(); });
-            methodToggle.addEventListener("change", updateMethod);
-            updateFuel();
-            updateMethod();
+    // 新增：找到計算方法文字元素
+    let methodLeftSpan = null;
+    if (methodToggle) {
+        const methodToggleCard = methodToggle.closest('.toggle-card');
+        if (methodToggleCard) {
+            methodLeftSpan = methodToggleCard.querySelector('.toggle-row .nowrap-text:first-child');
         }
+    }
 
+    function updateFuel() {
+        const isElec = fuelToggle.checked;
+        
+        // 原有的燃料切換邏輯
+        if (oilLeft) oilLeft.classList.toggle("hidden", isElec);
+        if (oilRight) oilRight.classList.toggle("hidden", isElec);
+        if (elecLeft) elecLeft.classList.toggle("hidden", !isElec);
+        if (elecRight) elecRight.classList.toggle("hidden", !isElec);
+        
+        // 新增：更新計算方法文字
+        if (methodLeftSpan) {
+            methodLeftSpan.textContent = isElec ? '電量' : '油量';
+        }
+    }
+    
+    function updateMethod() {
+        const isVol = methodToggle.checked;
+        
+        // 原有的方法切換邏輯
+        if (paneLeft) paneLeft.classList.toggle("inactive", isVol);
+        if (paneRight) paneRight.classList.toggle("inactive", !isVol);
+    }
+    
+    if (fuelToggle && methodToggle) {
+        fuelToggle.addEventListener("change", () => { 
+            updateFuel(); 
+            updateMethod(); 
+        });
+        methodToggle.addEventListener("change", updateMethod);
+        
+        // 初始化
+        updateFuel();
+        updateMethod();
+    }
+}
 // ===== 距離計算函數 =====
 function haversine(a, b) {
   const toRad = x => x * Math.PI / 180;

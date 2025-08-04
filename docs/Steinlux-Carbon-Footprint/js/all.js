@@ -175,27 +175,27 @@ class ChapterBar extends HTMLElement {
 connectedCallback() {
     this.innerHTML = `
     <div class="chapter-bar show">
-        <div class="chapter-button" onclick="window.location.href='traffic-daily.html'">
+        <div class="chapter-button animate__animated" onclick="window.location.href='traffic-daily.html'">
             <div class="chapter-icon"><i class="fa-solid fa-car-side"></i></div>
             <div class="chapter-label">日常</div>
         </div>
-        <div class="chapter-button" onclick="window.location.href='home.html'">
+        <div class="chapter-button animate__animated" onclick="window.location.href='home.html'">
             <div class="chapter-icon"><i class="fa-solid fa-house-chimney"></i></div>
             <div class="chapter-label">居住</div>
         </div>
-        <div class="chapter-button" onclick="window.location.href='traffic-travel.html'">
+        <div class="chapter-button animate__animated" onclick="window.location.href='traffic-travel.html'">
             <div class="chapter-icon"><i class="fa-solid fa-plane-departure"></i></div>
             <div class="chapter-label">旅遊</div>
         </div>
-        <div class="chapter-button" onclick="window.location.href='food.html'">
+        <div class="chapter-button animate__animated" onclick="window.location.href='food.html'">
             <div class="chapter-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
             <div class="chapter-label">飲食</div>
         </div>
-        <div class="chapter-button" onclick="window.location.href='fashion.html'">
+        <div class="chapter-button animate__animated" onclick="window.location.href='fashion.html'">
             <div class="chapter-icon"><i class="fa-solid fa-shirt"></i></div>
             <div class="chapter-label">時尚</div>
         </div>
-        <div class="chapter-button" onclick="window.location.href='entertainment.html'">
+        <div class="chapter-button animate__animated" onclick="window.location.href='entertainment.html'">
             <div class="chapter-icon"><i class="fa-solid fa-wifi"></i></div>
             <div class="chapter-label">娛樂</div>
         </div>
@@ -213,6 +213,15 @@ if (href && currentPage === href) {
     button.classList.add('active');
 }
 });
+
+document.querySelectorAll('.chapter-button').forEach(button => {
+    button.addEventListener('mouseover', () => {
+        button.classList.add('animate__rubberBand')
+    })
+    button.addEventListener('mouseout', () => {
+        button.classList.remove('animate__rubberBand')
+    })
+})
 
 //增減按鈕
 

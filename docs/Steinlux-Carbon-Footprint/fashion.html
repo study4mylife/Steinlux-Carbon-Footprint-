@@ -146,7 +146,7 @@
       <button class="nav-btn prev-btn" onclick="window.location.href='food.html'">
         ‹
       </button>
-      <button class="nav-btn next-btn last-btn" onclick="window.location.href='entertainment.html'">
+      <button class="nav-btn next-btn" onclick="window.location.href='entertainment.html'">
         ›
       </button>
     </section>
@@ -179,7 +179,15 @@
     }
   }
 
-  document.querySelector(".last-btn").addEventListener("click", handleNext);
+    document.querySelectorAll(".next-btn").forEach((btn) => {
+      btn.addEventListener("click", handleNext);
+    });
+    document.querySelectorAll(".prev-btn").forEach((btn) => {
+      btn.addEventListener("click", handleNext);
+    });
+    document.querySelectorAll(".chapter-button").forEach((btn) => {
+      btn.addEventListener("click", handleNext);
+    });
 </script>
   <script>
         const messages = [

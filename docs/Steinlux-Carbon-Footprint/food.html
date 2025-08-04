@@ -598,6 +598,9 @@
             <span class="bar active" onclick="goToScene(3)"></span>
           </div>
           <div class="bar-hit-area">
+            <span class="bar" onclick="goToScene(7)"></span>
+          </div>
+          <div class="bar-hit-area">
             <span class="bar" onclick="goToScene(8)"></span>
           </div>
         </div>
@@ -1596,7 +1599,7 @@
       </div>
 
       <button class="nav-btn prev-btn" onclick="goToScene(7)">‹</button>
-      <button class="nav-btn next-btn last-btn" onclick="window.location.href='fashion.html'">›</button>
+      <button class="nav-btn next-btn" onclick="window.location.href='fashion.html'">›</button>
     </section>
 
     <script src="./js/all.js"></script>
@@ -1731,7 +1734,15 @@
         }
       }
 
-      document.querySelector(".last-btn").addEventListener("click", handleNext);
+    document.querySelectorAll(".next-btn").forEach((btn) => {
+      btn.addEventListener("click", handleNext);
+    });
+    document.querySelectorAll(".prev-btn").forEach((btn) => {
+      btn.addEventListener("click", handleNext);
+    });
+    document.querySelectorAll(".chapter-button").forEach((btn) => {
+      btn.addEventListener("click", handleNext);
+    });
     </script>
     <script>
       // 星際聊天室
