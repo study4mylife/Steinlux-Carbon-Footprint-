@@ -193,8 +193,7 @@
         display: inline-flex;
         gap: 10px;
         font-size: 6rem;
-        opacity: 0;
-        animation: fadeIn 0.5s ease-out 0.5s forwards;
+        opacity: 1;
         z-index: 2;
       }
       .floating-title span {
@@ -209,7 +208,7 @@
       .scene-1 .text-container {
         display: flex;
         flex-direction: column;
-        position: fixed;
+        position: absolute;
         min-width: max-content;
         top: 5%;
         left: 5%;
@@ -265,7 +264,7 @@
         overflow-y: scroll;
         scrollbar-width: none;
         opacity: 0;
-        animation: growWidth 0.8s ease-out 0.5s forwards;
+        animation: growWidth ease-out 0.1s forwards;
         z-index: 2;
       }
 
@@ -279,7 +278,7 @@
         word-break: break-all;
         text-align: justify;
         width: 100%;
-        height: 80vh;
+        height: max-content
       }
 
       /*第二幕*/
@@ -304,7 +303,7 @@
       .scene-2 .text-container {
         display: flex;
         flex-direction: column;
-        position: fixed;
+        position: absolute;
         min-width: max-content;
         top: 35%;
         left: 60%;
@@ -322,7 +321,7 @@
         overflow-y: scroll;
         scrollbar-width: none;
         opacity: 0;
-        animation: growWidth 0.8s ease-out 0.5s forwards;
+        animation: growWidth ease-out 0.1s forwards;
         z-index: 2;
       }
 
@@ -574,7 +573,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const container = document.querySelector(".scroll-container");
   let isScrolling = false;
-  const cooldownTime = 1500;
+  const cooldownTime = 3000;
   let lastScrollTime = 0;
 
   // 小老鼠點擊滑動到第二幕的函數
@@ -650,12 +649,12 @@ document.addEventListener("DOMContentLoaded", () => {
       ".scene-1 .text-container",
       {
         opacity: 0,
-        duration: 1
+        duration: 0.25
       });
       gsap.to(
       ".scene-2 .text-container",
       {
-        delay: 1,
+        delay: 1.25,
         opacity: 1,
         duration: 1.5
       });
@@ -765,12 +764,12 @@ document.addEventListener("DOMContentLoaded", () => {
           ".scene-1 .text-container",
           {
             opacity: 0,
-            duration: 1
+            duration: 0.5
           });
           gsap.to(
           ".scene-2 .text-container",
           {
-            delay: 1,
+            delay: 1.25,
             opacity: 1,
             duration: 1.5
           });
@@ -866,7 +865,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ".scene-2 .text-container",
           {
             opacity: 0,
-            duration: 1
+            duration: 0.25
           });
           },
           onComplete: () => {
