@@ -6,6 +6,10 @@
     <title>旅遊交通</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+    <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
     />
@@ -235,7 +239,7 @@
       .fuel-group .input-group, .toggle-card .add-trip-wrapper .input-group, .flight-time .input-group{
         display: flex;
         align-items: center;
-        padding: 1.25rem 0.75rem;
+        padding: 1.25rem 0;
         gap: 0.5rem;
       }
 
@@ -249,7 +253,7 @@
 
       .fuel-group .input-group input, .toggle-card .add-trip-wrapper .input-group input, .flight-level .input-group input, .flight-time .input-group input{
         font-family: "GenSenRounded2TW-L", sans-serif;
-        width: 100px;
+        width: 90px;
         padding: 0.5rem 0.5rem 0.5rem 0.75rem;
         border: 0.25pt solid #b5c1c623;
         border-radius: 8px;
@@ -259,6 +263,15 @@
         color: #4a4a4a;
         letter-spacing: 3px;
         outline: none;
+      }
+
+      #travel-car-type-value {
+        width: 120px;
+      }
+
+      
+      .fuel-group .input-group input[type='checkbox'] {
+        width: 0;
       }
 
       .input-group-MRT input {
@@ -672,7 +685,14 @@
               <div class="input-group">
                 <label>每週加油</label>
                 <input type="number" min="0" id="travel-car-oil-value" value="0" />
-                <label class="special-label">元/週</label>
+                <div class="toggle-row">
+                  <label class="apple-toggle-switch">
+                    <span class="nowrap-text">公升</span>
+                    <input type="checkbox" id="water-unit-toggle" />
+                    <span class="slider"></span>
+                    <span class="nowrap-text">元&nbsp;</span>
+                  </label>
+                </div>
               </div>
             </div>
             <div id="electric-left" class="fuel-group hidden">
@@ -720,7 +740,7 @@
         <div class="page-indicator">
           <div class="bar-container dynamic-bar-container"></div>
         </div>
-        <div class="travel-card">
+        <div class="travel-card" data-type="cruise">
           <div class="template-wrapper add-trip-wrapper">
             <div class="input-group-MRT">
               <label for="travel-cruise-day-value">航行天數</label>
@@ -755,7 +775,7 @@
         <div class="bar-container dynamic-bar-container"></div>
       </div>
     <!-- 切換開關 -->
-      <div class="travel-card">
+      <div class="travel-card" data-type="flight">
         <div class="toggle-card">
           <span class="label">選擇<br/>計算方式</span>
           <div class="toggle-row">
@@ -785,7 +805,7 @@
         </div>
 
         <!-- 站點模式：保留原本的左右兩塊 + 列表 -->
-        <div id="flight-station-wrapper" class="travel-card hidden">
+        <div id="flight-station-wrapper" class="travel-card hidden" data-type="flight">
           <div class="template-wrapper add-trip-wrapper">
             <div class="input-group-MRT">
               <label for="flightStart">起點</label>
@@ -800,12 +820,12 @@
               <label for="flightCount">趟數</label>
               <input id="flightCount" type="number" min="1" />
               <div class="toggle-row">
-                <span class="nowrap-text">單程</span>
-                <label class="toggle-switch">
+                <label class="apple-toggle-switch">
+                  <span class="nowrap-text">單程</span>
                   <input type="checkbox" id="travelFlightRoundTripToggle" />
                   <span class="slider"></span>
+                  <span class="nowrap-text">來回</span>
                 </label>
-                <span class="nowrap-text">來回</span>
               </div>
             </div>
             <button class="mrt-btn" id="addFlightBtn">新增航班</button>
@@ -830,7 +850,7 @@
         <div class="page-indicator">
           <div class="bar-container dynamic-bar-container"></div>
         </div>
-        <div class="travel-card">
+        <div class="travel-card" data-type="mrt">
           <div class="template-wrapper add-trip-wrapper">
             <div class="input-group-MRT">
               <label for="mrtStart">選擇起點</label>
@@ -845,12 +865,12 @@
               <label for="mrtCount">每月趟數</label>
               <input id="mrtCount" type="number" min="1" />
               <div class="toggle-row">
-                <span class="nowrap-text">單程</span>
-                <label class="toggle-switch">
+                <label class="apple-toggle-switch">
+                  <span class="nowrap-text">單程</span>
                   <input type="checkbox" id="travelMrtRoundTripToggle" />
                   <span class="slider"></span>
+                  <span class="nowrap-text">來回</span>
                 </label>
-                <span class="nowrap-text">來回</span>
               </div>
             </div>
             <button class="mrt-btn" >新增行程</button>
@@ -875,7 +895,7 @@
         <div class="page-indicator">
           <div class="bar-container dynamic-bar-container"></div>
         </div>
-        <div class="travel-card">
+        <div class="travel-card" data-type="train">
           <div class="template-wrapper add-trip-wrapper">
             <div class="input-group-MRT">
               <label for="trainStart">選擇起點</label>
@@ -890,12 +910,12 @@
               <label for="trainCount">每月趟數</label>
               <input id="trainCount" type="number" min="1" />
               <div class="toggle-row">
-                <span class="nowrap-text">單程</span>
-                <label class="toggle-switch">
+                <label class="apple-toggle-switch">
+                  <span class="nowrap-text">單程</span>
                   <input type="checkbox" id="travelTrainRoundTripToggle" />
                   <span class="slider"></span>
+                  <span class="nowrap-text">來回</span>
                 </label>
-                <span class="nowrap-text">來回</span>
               </div>
             </div>
             <button class="mrt-btn">新增行程</button>
@@ -918,7 +938,7 @@
         <div class="page-indicator">
           <div class="bar-container dynamic-bar-container"></div>
         </div>
-        <div class="travel-card">
+        <div class="travel-card" data-type="hsr">
           <div class="template-wrapper add-trip-wrapper">
             <div class="input-group-MRT">
               <label for="hsrStart">選擇起點</label>
@@ -933,12 +953,12 @@
               <label for="hsrCount">每月趟數</label>
               <input id="hsrCount" type="number" min="1" />
               <div class="toggle-row">
-                <span class="nowrap-text">單程</span>
-                <label class="toggle-switch">
+                <label class="apple-toggle-switch">
+                  <span class="nowrap-text">單程</span>
                   <input type="checkbox" id="travelHsrRoundTripToggle" />
                   <span class="slider"></span>
+                  <span class="nowrap-text">來回</span>
                 </label>
-                <span class="nowrap-text">來回</span>
               </div>
             </div>
             <button class="mrt-btn">新增行程</button>
@@ -1847,8 +1867,6 @@ function addTrip({ map, startId, endId, countId, displaySelector, distanceType =
   const e = document.getElementById(endId).value.trim();
   const c = parseInt(document.getElementById(countId).value, 10) || 0;
 
-  if (!s || !e || c <= 0 || s == e) return alert("請填寫完整的起訖點並輸入趟數");
-
   let dist;
 
   if (distanceType === "pair") {
@@ -1989,13 +2007,7 @@ function addFlightTrip() {
     const s = document.getElementById("flightStart").value.trim();
     const e = document.getElementById("flightEnd").value.trim();
     const c = parseInt(document.getElementById("flightCount").value, 10) || 0;
-    if (s == e) {
-      return alert("請輸入正確起訖點")
-    }
-    if (!airportCoords[s] || !airportCoords[e] || c <= 0) {
-      return alert("請選完整正確的 IATA 代碼並輸入趟數");
-    }
-    
+
     const dist = parseFloat(haversine(airportCoords[s], airportCoords[e]).toFixed(2));
     const isRound = document.getElementById("travelFlightRoundTripToggle").checked;
     const type = isRound ? "來回" : "單程";
@@ -2155,6 +2167,27 @@ allInputs.forEach(input => {
 
     input.addEventListener('change', () => {
     input.blur(); // 自動失焦
+  });
+});
+
+document.querySelectorAll(".travel-card").forEach(card => {
+  const type = card.dataset.type;
+
+  card.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (type === "mrt") {
+        addMRTTrip();
+      } else if (type === "train") {
+        addTrainTrip();
+      } else if (type === "hsr") {
+        addHSRTrip();
+      } else if (type === "flight") {
+        addFlightTrip();
+      } else if (type === "cruise") {
+        addCruiseTrip();
+      }
+    }
   });
 });
   </script>

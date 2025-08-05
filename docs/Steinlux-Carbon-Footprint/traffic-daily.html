@@ -225,7 +225,7 @@
       .fuel-group .input-group {
         display: flex;
         align-items: center;
-        padding: 1.25rem 0.75rem;
+        padding: 1.25rem 0;
         gap: 0.5rem;
       }
       
@@ -239,7 +239,7 @@
 
       .fuel-group .input-group input {
         font-family: "GenSenRounded2TW-L", sans-serif;
-        width: 100px;
+        width: 90px;
         padding: 0.5rem 0.5rem 0.5rem 0.75rem;
         border: 0.25pt solid #b5c1c623;
         border-radius: 8px;
@@ -248,6 +248,15 @@
         font-size: 16px;
         color: #4a4a4a;
         letter-spacing: 3px;
+        outline: none;
+      }
+
+      #daily-car-type-value {
+        width: 120px;
+      }
+
+      .fuel-group .input-group input[type='checkbox'] {
+        width: 0;
       }
 
       .fuel-group .input-group input[type="number"]::-webkit-outer-spin-button,
@@ -651,7 +660,14 @@
               <div class="input-group">
                 <label>每週加油</label>
                 <input type="number" min="0" id="daily-car-oil-value" value="0" />
-                <label class="special-label">元/週</label>
+                <div class="toggle-row">
+                  <label class="apple-toggle-switch">
+                    <span class="nowrap-text">公升​</span>
+                    <input type="checkbox" id="water-unit-toggle" />
+                    <span class="slider"></span>
+                    <span class="nowrap-text">元&nbsp;​</span>
+                  </label>
+                </div>
               </div>
             </div>
             <div id="electric-left" class="fuel-group hidden">
@@ -736,7 +752,14 @@
               <div class="input-group">
                 <label>每週加油</label>
                 <input type="number" min="0" id="daily-motorcycle-oil-value" value="0"/>
-                <label class="special-label">元/週</label>
+                <div class="toggle-row">
+                  <label class="apple-toggle-switch">
+                    <span class="nowrap-text">公升​</span>
+                    <input type="checkbox" id="water-unit-toggle" />
+                    <span class="slider"></span>
+                    <span class="nowrap-text">元&nbsp;​</span>
+                  </label>
+                </div>
               </div>
             </div>
             <div id="electric-left4" class="fuel-group hidden">
@@ -801,7 +824,7 @@
         <div class="page-indicator">
           <div class="bar-container dynamic-bar-container"></div>
         </div>
-        <div class="daily-card">
+        <div class="daily-card" data-type="mrt">
           <div class="template-wrapper add-trip-wrapper">
             <div class="input-group-MRT">
               <label for="mrtStart">選擇起點</label>
@@ -816,12 +839,12 @@
               <label for="mrtCount">每月趟數</label>
               <input id="mrtCount" type="number" min="1" />
               <div class="toggle-row">
-                <span class="nowrap-text">單程</span>
-                <label class="toggle-switch">
+                <label class="apple-toggle-switch">
+                  <span class="nowrap-text">單程</span>
                   <input type="checkbox" id="dailyMrtRoundTripToggle" />
                   <span class="slider"></span>
+                  <span class="nowrap-text">來回</span>
                 </label>
-                <span class="nowrap-text">來回</span>
               </div>
             </div>
             <button class="mrt-btn" onclick="addMRTTrip()">新增行程</button>
@@ -846,7 +869,7 @@
         <div class="page-indicator">
           <div class="bar-container dynamic-bar-container"></div>
         </div>
-        <div class="daily-card">
+        <div class="daily-card" data-type="train">
           <div class="template-wrapper add-trip-wrapper">
             <div class="input-group-MRT">
               <label for="trainStart">選擇起點</label>
@@ -861,12 +884,12 @@
               <label for="trainCount">每月趟數</label>
               <input id="trainCount" type="number" min="1" />
               <div class="toggle-row">
-                <span class="nowrap-text">單程</span>
-                <label class="toggle-switch">
+                <label class="apple-toggle-switch">
+                  <span class="nowrap-text">單程</span>
                   <input type="checkbox" id="dailyTrainRoundTripToggle" />
                   <span class="slider"></span>
+                  <span class="nowrap-text">來回</span>
                 </label>
-                <span class="nowrap-text">來回</span>
               </div>
             </div>
             <button class="mrt-btn" onclick="addTrainTrip()">新增行程</button>
@@ -889,7 +912,7 @@
         <div class="page-indicator">
           <div class="bar-container dynamic-bar-container"></div>
         </div>
-        <div class="daily-card">
+        <div class="daily-card" data-type="hsr">
           <div class="template-wrapper add-trip-wrapper">
             <div class="input-group-MRT">
               <label for="hsrStart">選擇起點</label>
@@ -904,12 +927,12 @@
               <label for="hsrCount">每月趟數</label>
               <input id="hsrCount" type="number" min="1" />
               <div class="toggle-row">
-                <span class="nowrap-text">單程</span>
-                <label class="toggle-switch">
+                <label class="apple-toggle-switch">
+                  <span class="nowrap-text">單程</span>
                   <input type="checkbox" id="dailyHsrRoundTripToggle" />
                   <span class="slider"></span>
+                  <span class="nowrap-text">來回</span>
                 </label>
-                <span class="nowrap-text">來回</span>
               </div>
             </div>
             <button class="mrt-btn" onclick="addHsrTrip()">新增行程</button>
@@ -1837,6 +1860,23 @@ allInputs.forEach(input => {
 
     input.addEventListener('change', () => {
     input.blur(); // 自動失焦
+  });
+})
+
+document.querySelectorAll(".daily-card").forEach(card => {
+  const type = card.dataset.type;
+
+  card.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (type === "mrt") {
+        addMRTTrip();
+      } else if (type === "train") {
+        addTrainTrip();
+      } else if (type === "hsr") {
+        addHsrTrip();
+      }
+    }
   });
 });
     </script>

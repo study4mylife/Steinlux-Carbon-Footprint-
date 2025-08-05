@@ -223,6 +223,15 @@ document.querySelectorAll('.chapter-button').forEach(button => {
     })
 })
 
+document.querySelectorAll('.slider:before').forEach(button => {
+    button.addEventListener('mouseover', () => {
+        button.classList.add('animate__rubberBand')
+    })
+    button.addEventListener('mouseout', () => {
+        button.classList.remove('animate__rubberBand')
+    })
+})
+
 //增減按鈕
 
 const containers = document.querySelectorAll(".custom-number-input");
