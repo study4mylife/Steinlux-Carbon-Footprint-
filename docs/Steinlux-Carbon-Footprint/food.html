@@ -120,43 +120,79 @@
         box-shadow: inset 2pt 2pt 7pt #6d808f70;
       }
 
-      /* Info 按鈕 */
-      .info-btn {
+      .info-btn-wrapper {
         position: absolute;
-        bottom: 48px;
+        top: 96px;
         right: 32px;
         width: 32px;
         height: 32px;
+      }
+
+      .pulse-ring {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 150%;
+        height: 150%;
         border-radius: 50%;
-        background: radial-gradient(
-          circle at 30% 30%,
-          rgba(255, 255, 255, 0.9) 0%,
-          rgba(236, 240, 245, 1) 100%
-        );
-        -webkit-box-shadow:
-        inset -0.185rem -0.235rem 0.315rem -0.295rem rgba(255, 255, 255), 
-        inset 0.185rem 0.25rem 0.315rem -0.295rem rgba(255, 255, 255),
-        -0.06rem -0.03rem 0 0 rgba(255, 255, 255), 
-        0.03rem 0.03rem 0 0 rgba(255, 255, 255);
+        background: #6c808f;
+        opacity: 0;
+        z-index: 1;
+        pointer-events: none;
+        animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        animation-delay: 3s;
+      }
+
+      .info-btn {
+        position: relative; /* 改為 relative */
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: #fff;
         box-shadow:
-        inset -0.285rem -0.235rem 0.1rem -0.295rem rgba(255, 255, 255), 
-        inset 0.285rem 0.235rem 0.1rem -0.295rem rgba(255, 255, 255),
-        -0.03rem -0.025rem 0 0 rgba(255, 255, 255), 
-        0.025rem 0.025rem 0 0 rgba(255, 255, 255),
-        4px 8px 16px 0 rgba(110, 110, 110, 0.15);
+          inset -0.285rem -0.235rem 0.1rem -0.295rem rgba(255, 255, 255), 
+          inset 0.285rem 0.235rem 0.1rem -0.295rem rgba(255, 255, 255),
+          -0.03rem -0.025rem 0 0 rgba(255, 255, 255), 
+          0.025rem 0.025rem 0 0 rgba(255, 255, 255),
+          4px 8px 16px 0 rgba(110, 110, 110, 0.15);
         display: flex;
         align-items: center;
         justify-content: center;
         border: none;
         cursor: pointer;
-        z-index: 10;
+        z-index: 2; /* 確保在波紋上面 */
       }
 
       .info-btn img {
         width: 20px;
         height: 20px;
         object-fit: contain;
+        position: relative;
+        z-index: 1;
       }
+      @keyframes pulse-ring {
+        0% {
+            transform: translate(-50%, -50%) scale(.5);
+            opacity: 0.8;
+        }
+        80%, 100% {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+    }
+
+    @keyframes pulse-button {
+        0% {
+            transform: scale(.95);
+        }
+        50% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale(.95);
+        }
+    }
 
       /* Modal */
       .modal {
@@ -506,9 +542,10 @@
           object-fit: cover;
         }
 
-        .info-btn {
+        .info-btn-wrapper {
           position: absolute;
-          top: 64px;
+          right: 16px;
+          top: 108px;
         }
       }
     </style>
@@ -517,15 +554,18 @@
     <!-- 故事劇情 -->
     <story-chatroom></story-chatroom>
 
-    <!-- Scene 1: 葷素選擇 -->
+<!-- Scene 1: 葷素選擇 -->
     <section id="scene1" class="scene scene-1">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>請問您是葷食者還是素食者？</h1>
         <div class="page-indicator">
-          <div class="bar-container dynamic-bar-container">
+          <div class="bar-container dynamic-bar-container" id="progress-bar-1">
             <div class="bar-hit-area">
               <span class="bar active" onclick="goToScene(1)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(3)"></span>
             </div>
             <div class="bar-hit-area">
               <span class="bar" onclick="goToScene(7)"></span>
@@ -556,12 +596,21 @@
     <div class="slideContainer">
       <h1>請問您吃哪種素食？</h1>
       <div class="page-indicator">
-        <div class="bar-container dynamic-bar-container">
+        <div class="bar-container dynamic-bar-container" id="progress-bar-2">
           <div class="bar-hit-area">
             <span class="bar" onclick="goToScene(1)"></span>
           </div>
           <div class="bar-hit-area">
             <span class="bar active" onclick="goToScene(2)"></span>
+          </div>
+          <div class="bar-hit-area">
+            <span class="bar" onclick="getSubDietScene()"></span>
+          </div>
+          <div class="bar-hit-area">
+            <span class="bar" onclick="goToScene(7)"></span>
+          </div>
+          <div class="bar-hit-area">
+            <span class="bar" onclick="goToScene(8)"></span>
           </div>
         </div>
       </div>
@@ -590,7 +639,7 @@
     <div class="slideContainer">
       <h1>請問您日常會選擇吃哪些食物？</h1>
       <div class="page-indicator">
-        <div class="bar-container dynamic-bar-container">
+        <div class="bar-container dynamic-bar-container" id="progress-bar-3">
           <div class="bar-hit-area">
             <span class="bar" onclick="goToScene(1)"></span>
           </div>
@@ -738,9 +787,12 @@
         <!-- Scene 3: 日常食物 -->
 
         <!-- Info 按鈕 -->
-        <button id="info-btn" class="info-btn">
-          <img src="./images/info.webp" alt="!" />
-        </button>
+    <div class="info-btn-wrapper">
+      <div class="pulse-ring"></div>
+      <button id="info-btn" class="info-btn">
+        <img src="./images/info.webp" alt="!" />
+      </button>
+    </div>
 
       <!-- 導覽按鈕 -->
     <button class="nav-btn prev-btn" onclick="goToScene(1)">‹</button>
@@ -915,13 +967,14 @@
           </div>
         </div>
       </div>
+
     <!-- Scene 4: 海鮮素 -->
     <section id="scene4" class="scene">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>海鮮素</h1>
         <div class="page-indicator">
-          <div class="bar-container dynamic-bar-container">
+          <div class="bar-container dynamic-bar-container" id="progress-bar-4">
             <div class="bar-hit-area">
               <span class="bar" onclick="goToScene(1)"></span>
             </div>
@@ -930,6 +983,12 @@
             </div>
             <div class="bar-hit-area">
               <span class="bar active" onclick="goToScene(4)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(7)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(8)"></span>
             </div>
           </div>
         </div>
@@ -1099,13 +1158,14 @@
     <button class="nav-btn prev-btn" onclick="goToScene(2)">‹</button>
     <button class="nav-btn next-btn" onclick="goToScene(7)">›</button>
     </section>
+
     <!-- Scene 5: 蛋奶素 -->
     <section id="scene5" class="scene">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>蛋奶素</h1>
         <div class="page-indicator">
-          <div class="bar-container dynamic-bar-container">
+          <div class="bar-container dynamic-bar-container" id="progress-bar-5">
             <div class="bar-hit-area">
               <span class="bar" onclick="goToScene(1)"></span>
             </div>
@@ -1114,6 +1174,12 @@
             </div>
             <div class="bar-hit-area">
               <span class="bar active" onclick="goToScene(5)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(7)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(8)"></span>
             </div>
           </div>
         </div>
@@ -1258,7 +1324,7 @@
       <div class="slideContainer">
         <h1>全素</h1>
         <div class="page-indicator">
-          <div class="bar-container dynamic-bar-container">
+          <div class="bar-container dynamic-bar-container" id="progress-bar-6">
             <div class="bar-hit-area">
               <span class="bar" onclick="goToScene(1)"></span>
             </div>
@@ -1267,6 +1333,12 @@
             </div>
             <div class="bar-hit-area">
               <span class="bar active" onclick="goToScene(6)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(7)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(8)"></span>
             </div>
           </div>
         </div>
@@ -1379,12 +1451,12 @@
       <div class="slideContainer">
         <h1>請問您日常會選擇吃哪些點心？</h1>
         <div class="page-indicator">
-          <div class="bar-container dynamic-bar-container">
+          <div class="bar-container dynamic-bar-container" id="progress-bar-7">
             <div class="bar-hit-area">
               <span class="bar" onclick="goToScene(1)"></span>
             </div>
             <div class="bar-hit-area">
-              <span class="bar" onclick="getPreviousScene(3)"></span>
+              <span class="bar" onclick="getPreviousScene()"></span>
             </div>
             <div class="bar-hit-area">
               <span class="bar active" onclick="goToScene(7)"></span>
@@ -1464,7 +1536,7 @@
             data-type="茶葉蛋"
           >
             <img src="./images/牛丼.webp" alt="茶葉蛋" />
-            <span class="label">牛茶葉蛋</span>
+            <span class="label">茶葉蛋</span>
             <div class="custom-number-input">
               <button type="button" class="btn-decrement">
                 <span class="decrement">-</span>
@@ -1528,15 +1600,19 @@
       <button class="nav-btn prev-btn" onclick="getPreviousScene()">‹</button>
       <button class="nav-btn next-btn" onclick="goToScene(8)">›</button>
     </section>
+
     <!-- Scene 8: 剩食 -->
     <section id="scene8" class="scene">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>平常會有多少剩食？</h1>
         <div class="page-indicator">
-          <div class="bar-container dynamic-bar-container">
+          <div class="bar-container dynamic-bar-container" id="progress-bar-8">
             <div class="bar-hit-area">
               <span class="bar" onclick="goToScene(1)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="getPreviousScene()"></span>
             </div>
             <div class="bar-hit-area">
               <span class="bar" onclick="goToScene(7)"></span>
@@ -1611,6 +1687,19 @@
         try {
           const data = await loadSectionData('food');
           if (data) {
+            // 恢復飲食選擇狀態
+            if (data.selectedDiet) {
+              selectedDiet = data.selectedDiet;
+              const dietCard = document.querySelector(`[onclick="selectDiet('${selectedDiet}', this)"]`);
+              if (dietCard) dietCard.classList.add('selected');
+            }
+            
+            if (data.selectedSubDiet) {
+              selectedSubDiet = data.selectedSubDiet;
+              const subDietCard = document.querySelector(`[onclick="selectSubDiet('${selectedSubDiet}', this)"]`);
+              if (subDietCard) subDietCard.classList.add('selected');
+            }
+
             // 日常飲食
             document.getElementById("food-dumplings-value").value = data.foodDumplingsValue ?? 0;
             document.getElementById("food-beefNoodle-value").value = data.foodBeefNoodleValue ?? 0;
@@ -1662,7 +1751,10 @@
             document.getElementById("food-vegan-mushroom-value").value = data.foodVeganMushroomValue ?? 0;
 
             // 剩食
-            document.getElementById("waste-slider").value = data.foodWasteSliderValue ?? 0;
+            document.getElementById("waste-slider").value = data.foodWasteSliderValue ?? 10;
+            
+            // 更新進度條
+            updateProgressBars();
           }
         } catch (err) {
           console.error("載入資料失敗：", err);
@@ -1672,6 +1764,10 @@
       // 儲存資料並跳轉
       async function handleNext() {
         const data = {
+          // 保存選擇狀態
+          selectedDiet: selectedDiet,
+          selectedSubDiet: selectedSubDiet,
+          
           // 日常飲食
           foodDumplingsValue: document.getElementById("food-dumplings-value").value || 0,
           foodBeefNoodleValue: document.getElementById("food-beefNoodle-value").value || 0,
@@ -1723,7 +1819,7 @@
           foodVeganMushroomValue: document.getElementById("food-vegan-mushroom-value").value || 0,
 
           //剩食
-          foodWasteSliderValue: document.getElementById("waste-slider").value || 0,
+          foodWasteSliderValue: document.getElementById("waste-slider").value || 10,
         };
 
         try {
@@ -1746,7 +1842,6 @@
     </script>
     <script>
       // 星際聊天室
-
       const messages = [
         {
           type: "time",
@@ -1783,6 +1878,7 @@
     function goToScene(n) {
       document.querySelector(".scene.active").classList.remove("active");
       document.getElementById(`scene${n}`).classList.add("active");
+      updateProgressBars();
     }
 
     // 3. 第 1 幕：選葷／素
@@ -1794,6 +1890,8 @@
       card.classList.add("selected");
       // 紀錄
       selectedDiet = diet;
+      // 更新進度條
+      updateProgressBars();
     }
 
     // 第 1 幕 下一頁
@@ -1821,6 +1919,8 @@
       card.classList.add("selected");
       // 紀錄選擇
       selectedSubDiet = diet;
+      // 更新進度條
+      updateProgressBars();
     }
 
     // 第 2 幕 下一頁
@@ -1864,6 +1964,112 @@
         }
       }
     }
+
+    // 獲取根據素食類型選擇的場景
+    function getSubDietScene() {
+      switch (selectedSubDiet) {
+        case 'seafood':
+          goToScene(4);
+          break;
+        case 'eggmilk':
+          goToScene(5);
+          break;
+        case 'vegan':
+          goToScene(6);
+          break;
+        default:
+          goToScene(2);
+      }
+    }
+
+    // 更新進度條顯示
+    function updateProgressBars() {
+      // 獲取當前活躍場景
+      const activeScene = document.querySelector('.scene.active');
+      if (!activeScene) return;
+      
+      const sceneId = activeScene.id;
+      const progressBar = activeScene.querySelector('.bar-container');
+      if (!progressBar) return;
+
+      // 清空現有進度條
+      progressBar.innerHTML = '';
+
+      let bars = [];
+      
+      if (selectedDiet === 'omnivore') {
+        // 葷食者流程: 1 -> 3 -> 7 -> 8
+        bars = [
+          { scene: 1, label: '選擇飲食' },
+          { scene: 3, label: '日常食物' },
+          { scene: 7, label: '點心' },
+          { scene: 8, label: '剩食' }
+        ];
+      } else if (selectedDiet === 'vegetarian') {
+        // 素食者流程: 1 -> 2 -> (4/5/6) -> 7 -> 8
+        let subDietScene = 2;
+        let subDietLabel = '素食類型';
+        
+        if (selectedSubDiet) {
+          switch (selectedSubDiet) {
+            case 'seafood':
+              subDietScene = 4;
+              subDietLabel = '海鮮素';
+              break;
+            case 'eggmilk':
+              subDietScene = 5;
+              subDietLabel = '蛋奶素';
+              break;
+            case 'vegan':
+              subDietScene = 6;
+              subDietLabel = '全素';
+              break;
+          }
+        }
+        
+        bars = [
+          { scene: 1, label: '選擇飲食' },
+          { scene: 2, label: '素食類型' },
+          { scene: subDietScene, label: subDietLabel },
+          { scene: 7, label: '點心' },
+          { scene: 8, label: '剩食' }
+        ];
+      } else {
+        // 默認顯示 (還沒選擇飲食類型時)
+        bars = [
+          { scene: 1, label: '選擇飲食' },
+          { scene: 3, label: '日常食物' },
+          { scene: 7, label: '點心' },
+          { scene: 8, label: '剩食' }
+        ];
+      }
+
+      // 創建進度條
+      bars.forEach((bar, index) => {
+        const barHitArea = document.createElement('div');
+        barHitArea.className = 'bar-hit-area';
+        
+        const barSpan = document.createElement('span');
+        barSpan.className = 'bar';
+        
+        // 判斷是否為當前頁面
+        const currentSceneNum = parseInt(sceneId.replace('scene', ''));
+        if (bar.scene === currentSceneNum) {
+          barSpan.classList.add('active');
+        }
+        
+        // 添加點擊事件
+        barSpan.onclick = () => goToScene(bar.scene);
+        
+        barHitArea.appendChild(barSpan);
+        progressBar.appendChild(barHitArea);
+      });
+    }
+
+    // 初始化時更新進度條
+    document.addEventListener('DOMContentLoaded', () => {
+      updateProgressBars();
+    });
 
     // 6. Modal 彈窗 - 帶隱藏scene功能
     const infoBtn = document.getElementById("info-btn");

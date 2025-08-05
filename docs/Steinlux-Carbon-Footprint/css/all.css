@@ -513,49 +513,61 @@ h1 {
 @keyframes appleSwitchOn {
   0% {
     transform: translateX(0%);
+    scale: 1;
   }
   20% {
     transform: translateX(100%);
+    scale: 0.9;
   }
   40% {
     transform: translateX(85%);
+    scale: 1.1;
   }
   60% {
     transform: translateX(95%);
+    scale: 0.95;
   }
   80% {
     transform: translateX(87%);
+    scale: 0.9l
   }
   100% {
     transform: translateX(90%);
     box-shadow: #ffffff 0;
+    scale: 1;
   }
 }
 
-@keyframes switchOff {
+@keyframes appleswitchOff {
   0% {
     transform: translateX(90%);
+    scale: 1;
   }
   20% {
     transform: translateX(10%);
+    scale: 0.9;
   }
   40% {
     transform: translateX(-5%);
+    scale: 1.1;
   }
   60% {
     transform: translateX(10%);
+    scale: 0.95;
   }
   80% {
     transform: translateX(2%);
+    scale: 1.05;
   }
   100% {
     transform: translateX(0%);
+    scale: 1;
   }
 }
 
 .toggle-switch {
   position: relative;
-  min-width: 80px;
+  min-width: 40px;
   min-height: 20px;
   margin: 2px;
 }
@@ -606,30 +618,32 @@ h1 {
   animation: switchOff 0.75s linear forwards;
 }
 
-.apple-toggle-switch {
+.toggle-row .apple-toggle-switch {
   display: inline-flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   position: relative;
-  min-width: 120px;
+  max-width: 120px;
   min-height: 30px;
   margin: 2px;
 }
 
-.apple-toggle-switch .nowrap-text {
+.toggle-row .apple-toggle-switch .nowrap-text {
   position: relative;
   cursor: pointer;
   z-index: 0;
   margin: 4px 8px;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
 }
 
-.apple-toggle-switch input {
+.toggle-row .apple-toggle-switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-.apple-toggle-switch .slider {
+.toggle-row .apple-toggle-switch .slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -644,12 +658,12 @@ h1 {
   z-index: -1;
 }
 
-.apple-toggle-switch .slider:before {
+.toggle-row .apple-toggle-switch .slider:before {
   position: absolute;
   content: "";
   height: 80%;
   width: 50%;
-  left: 4px;
+  left: 2px;
   bottom: 3px;
   border-radius: 20px;
   transition: 0.3s;
@@ -668,12 +682,12 @@ h1 {
   z-index: 0;
 }
 
-.apple-toggle-switch input:checked + .slider:before {
-  animation: appleSwitchOn .5s linear forwards;
+.toggle-row .apple-toggle-switch input:checked + .slider:before {
+  animation: appleSwitchOn 0.5s linear forwards;
 }
 
-.apple-toggle-switch input:not(:checked) + .slider:before {
-  animation: switchOff 0.5s linear forwards;
+.toggle-row .apple-toggle-switch input:not(:checked) + .slider:before {
+  animation: appleswitchOff 0.5s linear forwards;
 }
 
 
