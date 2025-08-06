@@ -58,13 +58,6 @@
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
       z-index: 1;
-      transition: all 2.5s ease
-    }
-
-    .scroll-container.awakening {
-      filter: blur(12px) brightness(1.8);
-      transform: scale(1.1);
-      pointer-events: none;
     }
 
     /*—— 場景容器 ——*/
@@ -261,7 +254,7 @@
         scrollbar-width: none;
         opacity: 0;
         animation: growWidth ease-out 0.1s forwards;
-        z-index: 3;
+        z-index: 2;
       }
 
       .scene-1 .speech-box p {
@@ -306,7 +299,7 @@
         left: 60%;
         transform: translate(-50%, -50%); ;
         opacity: 0;
-        z-index: 3;
+        z-index: 2;
       }
 
       .scene-2 .speech-box {
@@ -318,7 +311,7 @@
         scrollbar-width: none;
         opacity: 0;
         animation: growWidth ease-out 0.1s forwards;
-        z-index: 3;
+        z-index: 2;
       }
 
       .scene-2 .speech-box p {
@@ -363,7 +356,7 @@
       }
 
      /* 提示滑鼠 */
-     .scroll-mouse {
+    .scene-1 .scroll-mouse {
       position: fixed;
       bottom: 5%;
       left: 50%;
@@ -371,6 +364,18 @@
       z-index: 5;
       width: 18px;
       height: 26px;
+      cursor: pointer;
+    }
+
+    .scene-2 .scroll-mouse {
+      position: fixed;
+      top: 5%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      width: 18px;
+      height: 26px;
+      opacity: 0;
       cursor: pointer;
     }
 
@@ -427,6 +432,7 @@
   <body>
     
     <div class="scroll-container">
+      <div id="radial-overlay"></div>
       <section class="scene scene-1">
           <div class="stars-bg"></div>
           <div class="moon-container">
@@ -488,9 +494,17 @@
         </div>
 
         <div class="button-box">
-          <button id="enter-btn">進入調查</button>
-
+          <button id="enter-btn" onclick="window.location.href='traffic-daily.html'">進入調查</button>
         </div>
+          <div class="scroll-mouse">
+            <svg class="mouse-svg" viewBox="0 0 18 26" xmlns="http://www.w3.org/2000/svg">
+              <!-- 白色底框 -->
+              <rect x="1" y="1" width="16" height="24" rx="8" stroke="#cccccc" stroke-width="1" fill="none" />
+              <!-- 動畫邊框 -->
+              <rect class="border-anim" x="1" y="1" width="16" height="24" rx="8" stroke="#ffffff" stroke-width="1" fill="none" />
+            </svg>
+            <div class="mouse-line"></div>
+          </div>
       </section>
     </div>
 
@@ -640,16 +654,22 @@ document.addEventListener("DOMContentLoaded", () => {
         opacity: 0,
         duration: 2
       });
+            gsap.to(
+      ".scene-2 .scroll-mouse",
+      {
+        opacity: 1,
+        duration: 2
+      });
       gsap.to(
       ".scene-1 .text-container",
       {
         opacity: 0,
-        duration: 0.25
+        duration: 0.5
       });
       gsap.to(
       ".scene-2 .text-container",
       {
-        delay: 1.25,
+        delay: 0.5,
         opacity: 1,
         duration: 1.5
       });
@@ -662,9 +682,105 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 添加小老鼠點擊事件監聽器
-  const scrollMouse = document.querySelector('.scroll-mouse');
-  if (scrollMouse) {
-    scrollMouse.addEventListener('click', goToSecondScene);
+  const scrollMouse2 = document.querySelector('.scene-2 .scroll-mouse');
+  if (scrollMouse2) {
+    scrollMouse2.addEventListener('click', goToFirstScene);
+  }
+
+  function goToFirstScene() {
+  const vh = window.innerHeight;
+  isScrolling = true;
+  lastScrollTime = Date.now();
+  disableScroll();
+
+  gsap.to(container, {
+    scrollTo: { y: 0 },
+    duration: 2,
+    ease: "power2.out",
+    onStart: () => {
+    gsap.to(".stars-bg", {
+      rotate: 0,
+      scale: 1,
+      duration: 2,
+      ease: "power2.out",
+    });
+    gsap.to(".color-block", {
+      right: 0,
+      bottom: 0,
+      x: "45%",
+      y: "65%",
+      scale: 1,
+      duration: 2,
+      ease: "power2.out",
+    });
+    gsap.to(
+    ".moon-container",
+    { 
+      top: "-10%",
+      right: "-5%",
+      rotate: "-90deg",
+      scale: 1,
+      duration: 2
+    });
+    gsap.to(
+    ".scene-1 .cat-container",
+    {
+      left: "15%",
+      bottom: "3%",
+      scale: 1,
+      duration: 2
+    });
+    gsap.to(
+    ".scene-2 .cat-container",
+    {
+      left: "-30%",
+      bottom: 0,
+      scale: 0.25,
+      duration: 1.5
+    });
+    gsap.to(
+    ".scene-2 .button-box",
+    {
+      bottom: "-20%",
+      duration: 1
+    });
+    gsap.to(
+  ".scene-1 .scroll-mouse",
+  {
+    opacity: 1,
+    duration: 2
+  });
+  gsap.to(
+  ".scene-2 .scroll-mouse",
+  {
+    opacity: 0,
+    duration: 2
+  });
+  gsap.to(
+  ".scene-1 .text-container",
+  {
+    delay: 1,
+    opacity: 1,
+    duration: 1.5
+  });
+    gsap.to(
+  ".scene-2 .text-container",
+  {
+    opacity: 0,
+    duration: 1
+  });
+    },
+    onComplete: () => {
+      isScrolling = false;
+      enableScroll();
+    },
+  });
+}
+
+  // 添加小老鼠點擊事件監聽器
+  const scrollMouse1 = document.querySelector('.scene-1 .scroll-mouse');
+  if (scrollMouse1) {
+    scrollMouse1.addEventListener('click', goToSecondScene);
   }
 
   // 也讓函數在全域可用（如果你想保留HTML中的onclick）
@@ -752,7 +868,7 @@ document.addEventListener("DOMContentLoaded", () => {
           gsap.to(
           ".scene-2 .scroll-mouse",
           {
-            opacity: 0,
+            opacity: 1,
             duration: 2
           });
           gsap.to(
@@ -846,7 +962,7 @@ document.addEventListener("DOMContentLoaded", () => {
           gsap.to(
           ".scene-2 .scroll-mouse",
           {
-            opacity: 1,
+            opacity: 0,
             duration: 2
           });
           gsap.to(
@@ -868,23 +984,12 @@ document.addEventListener("DOMContentLoaded", () => {
             enableScroll();
           },
         });
-                }
-              },
-              { passive: false }
-            );
+      }
+    },
+    { passive: false }
+  );
 });
-document.querySelector("#enter-btn").addEventListener("click", () => {
-  const scrollContainer = document.querySelector(".scroll-container");
-  scrollContainer.classList.add("awakening");
 
-  // 動畫 1.2 秒後再切換頁面
-  setTimeout(() => {
-    // 這裡你可以放跳轉場景的程式碼
-    scrollContainer.classList.remove("awakening");
-    window.location.href = "traffic-daily.html";
-
-  }, 1800);
-});
 </script>
 
   </body>

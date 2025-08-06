@@ -34,7 +34,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url("images/圖片\ 1.webp") no-repeat center center fixed;
+    background: url("images/1-2.png") no-repeat center center fixed;
     background-size: cover;
     font-family: "SweiXDPearlCJKtc-DemiLight", sans-serif;
     }
@@ -1182,56 +1182,18 @@
   </head>
 
   <body>
-    <!-- 故事劇情 -->
-    <div class="story-body">
-      <div class="story-container">
-        <header class="story-header">
-          <div class="story-header-title">
-            <div class="story-header-title-lt">
-              <div class="story-header-profile-photo"></div>
-              <h1>Neo(2)</h1>
-              <i class="fa-solid fa-volume-low" style="color: #6c808f;"></i>
-            </div>
-            <div class="story-header-title-rt">
-              <i class="fa-solid fa-phone"></i>
-              <i class="fa-solid fa-ellipsis-vertical"></i>
-            </div>
-          </div>
-        </header>
-
-        <div class="story-chat-container" id="chatContainer"></div>
-
-        <div class="input-container">
-          <div class="input-wrapper">
-            <input
-              type="text"
-              class="message-input"
-              placeholder="請輸入訊息..."
-              aria-label="Message input"
-            />
-            <div class="action-buttons">
-              <button id="send-button" class="send-button">
-                <span>出發</span>
-                <i class="fa-regular fa-font-awesome"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Scene 1: 選車種 -->
-    <section id="scene-daily-1" class="scene scene-1">
+    <section id="scene-daily-1" class="scene scene-1 active">
 <div class="chapter-bar show">
-  <div class="chapter-button" onclick="changeBackground('images/圖片\ 1.webp')">
+  <div class="chapter-button" onclick="changeBackground('images/1-2.png')">
     <div class="chapter-icon"><i class="fa-solid fa-car-side"></i></div>
     <div class="chapter-label">圖一</div>
   </div>
-    <div class="chapter-button" onclick="changeBackground('images/background.webp')">
+    <div class="chapter-button" onclick="changeBackground('images/1-3.png')">
     <div class="chapter-icon"><i class="fa-solid fa-house-chimney"></i></div>
     <div class="chapter-label">圖二</div>
   </div>
-  <div class="chapter-button" onclick="changeBackground('images/bg1.webp')">
+  <div class="chapter-button" onclick="changeBackground('images/1-4.png')">
     <div class="chapter-icon"><i class="fa-solid fa-plane-departure"></i></div>
     <div class="chapter-label">圖三</div>
   </div>
