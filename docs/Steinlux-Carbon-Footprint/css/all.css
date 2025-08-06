@@ -24,7 +24,35 @@ html {
   justify-content: center;
   background: url("../images/首頁背景星空.webp") no-repeat center center fixed;
   background-size: cover;
-  font-family: "SweiXDPearlCJKtc-DemiLight", sans-serif;
+  font-family: "GenSenRounded2TW-R", sans-serif;
+}
+
+@keyframes rubberBand {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    transform: scale3d(1.15, 0.85, 1);
+  }
+  40% {
+    transform: scale3d(0.85, 1.15, 1);
+  }
+  50% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  65% {
+    transform: scale3d(0.975, 1.02, 1);
+  }
+  75% {
+    transform: scale3d(1.025, 0.975, 1);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.rubberBand {
+  animation: rubberBand 0.75s ease;
 }
 
 input,
@@ -74,22 +102,12 @@ body {
   overflow-y: auto;
 }
 
-#radial-overlay {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-  background: radial-gradient(circle, rgba(173, 184, 234) 0%, rgba(0, 35, 123) 40%);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 9999; /* 確保蓋在最上層 */
-  opacity: 0;
-}
-
 @media (max-width: 600px) {
   body {
+    margin: 4rem 0;
+  }
+
+  .scene {
     margin: 4rem 0;
   }
 }
@@ -196,9 +214,7 @@ h1 {
   border-radius: 32px;
   justify-content: space-around;
   align-items: center;
-  filter: drop-shadow(-8px -10px 46px #00000010);
-  -webkit-backdrop-filter:brightness(1.05) blur(2px) url(#displacementFilter);;
-  backdrop-filter:brightness(1.05) blur(2px) url(#displacementFilter);;
+
   z-index: 0;
 }
 
@@ -624,7 +640,7 @@ h1 {
   align-items: center;
   position: relative;
   max-width: 120px;
-  min-height: 30px;
+  min-height: 20px;
   margin: 2px;
 }
 
@@ -632,6 +648,7 @@ h1 {
   position: relative;
   cursor: pointer;
   z-index: 0;
+  width: 50%;
   margin: 4px 8px;
   font-size: 0.9rem;
   letter-spacing: 2px;
@@ -650,9 +667,21 @@ h1 {
   left: 0;
   right: 0;
   bottom: 0;
-  background: #eff3f9;
-  border: none;
-  box-shadow: 2pt 2.5pt 3pt #6d808f50 inset;
+  background-color: rgba(255, 255, 255, 0.05);
+  -webkit-box-shadow:
+  inset -8.5px -2.25px 0 -7px rgb(255, 255, 255), 
+  inset 8.5px 2.25px 0 -7px rgb(255, 255, 255),
+  inset -2.75px -8.5px 0 -7.25px rgb(255, 255, 255), 
+  inset 2.75px 8.5px 0 -7.25px rgb(255, 255, 255),
+  2px 2px 12px 4px rgba(110, 110, 110, 0.15);
+  box-shadow:
+  inset -8.75px -4.5px 0 -7px rgb(255, 255, 255), 
+  inset 8.75px 4.5px 0 -7px rgb(255, 255, 255),
+  inset -2.75px -8.5px 0 -7.25px rgb(255, 255, 255), 
+  inset 2.75px 8.5px 0 -7.25px rgb(255, 255, 255),
+  2px 2px 12px 4px rgba(110, 110, 110, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 20px;
   transition: 0.75s;
   z-index: -1;
@@ -664,10 +693,12 @@ h1 {
   height: 80%;
   width: 50%;
   left: 2px;
-  bottom: 3px;
+  bottom: 2px;
+  background-color: rgba(255, 255, 255, 0.35);
+  border: solid 1.5px #dddddd80;
   border-radius: 20px;
   transition: 0.3s;
-    -webkit-box-shadow:
+  -webkit-box-shadow:
   inset -7px -5.25px 2px -6.5px rgba(255, 255, 255), 
   inset 7px 5.25px 2px -6.5px rgb(255, 255, 255),
   inset -2.25px -8px 2px -6.75px rgb(255, 255, 255), 

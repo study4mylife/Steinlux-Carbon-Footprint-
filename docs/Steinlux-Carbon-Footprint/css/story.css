@@ -1,3 +1,20 @@
+    /*—— 自訂字體 ——*/
+    @font-face {
+    font-family: "GenSenRounded2TW-R";
+    src: url("../font/GenSenRounded2TW-R.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    }
+
+    @font-face {
+    font-family: "GenSenRounded2TW-L";
+    src: url("../font/GenSenRounded2TW-L.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    }
+
 :root {
     --primary-gradient: #9c7a5c;
     --secondary-gradient: #6c808f;
@@ -13,51 +30,114 @@
     --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
     }
 
+    /* 從夢中醒來的初始狀態 */
     .story-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    transition: all 0.3s ease;
+        font-family: "GenSenRounded2TW-R", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        filter: blur(8px) brightness(0.3) contrast(0.8);
+        opacity: 0.6;
+        transform: scale(1.05);
+        transition: all 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        position: relative;
+        overflow-y: hidden;
     }
 
+    .story-body.awakening {
+        filter: blur(0px) brightness(1) contrast(1);
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* 夢境霧氣效果 */
+    .story-body::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, 
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(200, 220, 255, 0.15) 25%,
+            rgba(255, 255, 255, 0.05) 50%,
+            rgba(180, 200, 255, 0.1) 75%,
+            rgba(255, 255, 255, 0.08) 100%);
+        opacity: 1;
+        border-radius: 72px;
+        transition: opacity 2s ease-out;
+        pointer-events: none;
+        z-index: 5;
+        animation: dreamMist 2s ease-out;
+    }
+
+    .story-body.awakening::before {
+        opacity: 0;
+    }
+
+    @keyframes dreamMist {
+        0% {
+            opacity: 0.8;
+            background-size: 300% 300%;
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            opacity: 0;
+            background-size: 100% 100%;
+            background-position: 50% 50%;
+        }
+    }
+
+    /* 文字逐漸聚焦效果 */
     .story-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 900px;
-    height: 27.8rem;
-    max-height: 90vh;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 72px;
-    -webkit-backdrop-filter:blur(10px);
-    backdrop-filter:blur(10px);
-    scroll-behavior: smooth;
-    z-index: 1;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 900px;
+        height: 27.8rem;
+        max-height: 90vh;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 72px;
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        scroll-behavior: smooth;
+        z-index: 10;
+        transition: fliter 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) opacity 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .story-body:not(.awakening) .story-container {
+        filter: blur(2px);
+        opacity: 0.7;
     }
 
     .story-container::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    -webkit-box-shadow:
-    inset -7px -5.25px 2px -6.5px rgba(255, 255, 255), 
-    inset 7px 5.25px 2px -6.5px rgb(255, 255, 255),
-    inset -2.25px -8px 2px -6.75px rgb(255, 255, 255), 
-    inset 2.25px 8px 2px -6.75px rgb(255, 255, 255),
-    4px 8px 32px 0px rgba(110, 110, 110, 0.25);
-    box-shadow:
-    inset -7px -5.25px 2px -6.5px rgba(255, 255, 255), 
-    inset 7px 5.25px 2px -6.5px rgb(255, 255, 255),
-    inset -2.25px -8px 2px -6.75px rgb(255, 255, 255), 
-    inset 2.25px 8px 2px -6.75px rgb(255, 255, 255),
-    4px 8px 32px 0px rgba(110, 110, 110, 0.25);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    z-index: -1;
-    border-radius: 72px;
+        content: "";
+        position: absolute;
+        inset: 0;
+        -webkit-box-shadow:
+            inset -7px -5.25px 2px -6.5px rgba(255, 255, 255), 
+            inset 7px 5.25px 2px -6.5px rgb(255, 255, 255),
+            inset -2.25px -8px 2px -6.75px rgb(255, 255, 255), 
+            inset 2.25px 8px 2px -6.75px rgb(255, 255, 255),
+            4px 8px 32px 0px rgba(110, 110, 110, 0.25);
+        box-shadow:
+            inset -7px -5.25px 2px -6.5px rgba(255, 255, 255), 
+            inset 7px 5.25px 2px -6.5px rgb(255, 255, 255),
+            inset -2.25px -8px 2px -6.75px rgb(255, 255, 255), 
+            inset 2.25px 8px 2px -6.75px rgb(255, 255, 255),
+            4px 8px 32px 0px rgba(110, 110, 110, 0.25);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        z-index: -1;
+        border-radius: 72px;
     }
 
     .story-header {
@@ -117,6 +197,59 @@
     overflow-y: auto;
     padding: 1.25rem;
     scroll-behavior: smooth;
+    }
+
+    .skip-button {
+    position: absolute;
+    bottom: 5.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .skip-button:hover {
+        background: rgba(0, 0, 0, 0.9);
+        transform: translateX(-50%) scale(1.1);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .skip-button:active {
+        transform: translateX(-50%) scale(0.95);
+    }
+
+    .skip-button.hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .skip-button i {
+        animation: bounce 1.5s infinite;
+    }
+
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-5px);
+        }
+        60% {
+            transform: translateY(-3px);
+        }
     }
 
     .story-time-stamp {
@@ -203,6 +336,7 @@
 
     .story-body .input-container {
     width: 95%;
+    padding-top: 0.5rem;
     border-top: 1px solid var(--border-color);
     }
 
@@ -286,7 +420,7 @@
     }
 
     .send-button {
-    font-family: "SweiXDPearlCJKtc-DemiLight", sans-serif;
+    font-family: "GenSenRounded2TW-R", sans-serif;
     background: var(--primary-gradient);
     width: max-content;
     color: white;
@@ -303,8 +437,6 @@
     position: relative;
     overflow: visible;
     z-index: 1;
-    animation: pulse-button 1.25s cubic-bezier(0.455, 0.03, 0.515, 0.955) -.4s infinite;
-    animation-delay: 5s;
     }
 
     /* 按鈕的脈動外環效果 */
@@ -316,12 +448,20 @@
     transform: translate(-50%, -50%);
     width: 125%;
     height: 125%;
-    border-radius: 1.5rem;
+    border-radius: 2rem;
     background: var(--primary-gradient);
     opacity: 0;
     z-index: -1;
+    }
+
+    /* 按鈕本體動畫類別（脈動） */
+    .send-button.pulse {
+    animation: pulse-button 1.25s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+    }
+
+    /* 外環動畫類別（脈動擴散） */
+    .send-button.pulse::before {
     animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-    animation-delay: 5s;
     }
 
     @keyframes pulse-ring {
@@ -377,9 +517,9 @@
     }
 
     @media (max-width: 1024px) {
-
     .story-container {
         width: 90vw;
+        height: 60vh;
         max-width: 90%;
     }
     }

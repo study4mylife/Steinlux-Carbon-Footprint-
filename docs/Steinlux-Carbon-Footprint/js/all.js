@@ -4,7 +4,6 @@
 connectedCallback() {
     this.innerHTML = `
     <div class="story-body">
-    <div id="radial-overlay"></div>
         <div class="story-container">
             <header class="story-header">
                 <div class="story-header-title">
@@ -20,7 +19,11 @@ connectedCallback() {
                 </div>
             </header>
 
-            <div class="story-chat-container" id="chatContainer"></div>
+            <div class="story-chat-container" id="chatContainer">
+                <button id="skip-button" class="skip-button" title="快速完成對話">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+            </div>
 
             <div class="input-container">
                 <div class="input-wrapper">
@@ -41,7 +44,7 @@ connectedCallback() {
         </div>
     </div>
     `;
-    }
+}
 }
 
 customElements.define('story-chatroom', Story);
@@ -50,6 +53,9 @@ customElements.define('story-chatroom', Story);
 document.addEventListener("DOMContentLoaded", () => {
 const chatContainer = document.getElementById("chatContainer");
 const sendButton = document.getElementById("send-button");
+let skipButton;
+let isSkipping = false;
+let isPlayingMessages = false;
 
 function StartQuestionnaire() {
     document.querySelector(".story-body").style.display = "none";
@@ -59,22 +65,77 @@ function StartQuestionnaire() {
 }
 
 sendButton.addEventListener("click", () => {
-    const overlay = document.getElementById('radial-overlay');
-    overlay.style.opacity = '1';
-    gsap.to(overlay, {
-      duration: 1.75,
-      width: '300vw',
-      height: '300vw',
-      ease: "power2.out",
-      onComplete: () => {
-        // 動畫結束跳轉頁面
+    const storyBody = document.querySelector('.story-body');
+
+    // 啟動「從夢中醒來」動畫
+    storyBody.classList.remove("awakening");
+
+    // 2 秒後切換到問卷頁面
+    setTimeout(() => {
         StartQuestionnaire();
-      }
-    });
+    }, 2000);
 });
+setTimeout(() => {
+    skipButton = document.getElementById("skip-button");
+    
+    if (skipButton) {
+        skipButton.addEventListener("click", skipToEnd);
+    }
+    
+    // 啟動醒來動畫
+    startAwakeningAnimation();
+}, 100);
 
-playIntroMessages()
+function startAwakeningAnimation() {
+    const storyBody = document.querySelector('.story-body');
+    
+    // 延遲一點開始醒來效果
+    setTimeout(() => {
+        storyBody.classList.add('awakening');
+        
+        // 醒來動畫完成後開始播放對話
+        setTimeout(() => {
+            playIntroMessages();
+        }, 1500);
+    }, 500);
+}
 
+function skipToEnd() {
+    isSkipping = true;
+
+    const skipBtn = skipButton;
+    chatContainer.innerHTML = '';
+    chatContainer.appendChild(skipBtn);
+
+    messages.forEach(message => {
+        const messageEl = createMessageElement(message);
+        chatContainer.appendChild(messageEl);
+    });
+
+    scrollToBottom();
+
+    skipButton.classList.add("hidden");
+
+    setTimeout(() => {
+        sendButton.classList.add("pulse");
+        
+        // 5秒後移除pulse效果並暫停
+        setTimeout(() => {
+            sendButton.classList.remove("pulse");
+            
+            // 暫停3秒後再次開始播放
+            setTimeout(() => {
+                sendButton.classList.add("pulse");
+                
+                // 再播放5秒後停止
+                setTimeout(() => {
+                    sendButton.classList.remove("pulse");
+                }, 5000);
+            }, 3000); // 暫停3秒
+            
+        }, 5000); // 播放5秒
+    }, 500);
+}
 
 function createMessageElement(message) {
     if (message.type === "time") {
@@ -116,7 +177,7 @@ function createTypingIndicator(from) {
 
     const dotsContainer = document.createElement("div");
     dotsContainer.classList.add("typing-dots");
-    
+
     for (let i = 0; i < 3; i++) {
         const dot = document.createElement("div");
         dot.classList.add("typing-dot");
@@ -133,42 +194,68 @@ function scrollToBottom() {
 }
 
 async function playIntroMessages() {
+    if (isSkipping) return;
+
+    isPlayingMessages = true;
+
     for (let i = 0; i < messages.length; i++) {
+        if (isSkipping) break;
+
         const message = messages[i];
-        
-        // 如果不是時間戳記且不是第一條訊息，顯示打字指示器
+
         if (message.type !== "time" && i > 0) {
             const typingIndicator = createTypingIndicator(message.from);
             chatContainer.appendChild(typingIndicator);
             scrollToBottom();
-            
-            // 等待打字時間
+
             await new Promise(resolve => setTimeout(resolve, message.typingTime || 1000));
-            
-            // 移除打字指示器
-            chatContainer.removeChild(typingIndicator);
+
+            if (isSkipping) break;
+
+            if (chatContainer.contains(typingIndicator)) {
+                chatContainer.removeChild(typingIndicator);
+            }
         }
-        
-        // 顯示訊息
+
+        if (isSkipping) break;
+
         const messageEl = createMessageElement(message);
         chatContainer.appendChild(messageEl);
         scrollToBottom();
-        
-        // 等待訊息顯示時間
+
         await new Promise(resolve => setTimeout(resolve, message.time || 1000));
     }
-    
-    // 對話結束後，讓出發按鈕開始晃動
-    setTimeout(() => {
-        sendButton.classList.add("shake-animation");
-        
-        // 5秒後停止晃動，避免過度干擾
-        setTimeout(() => {
-            sendButton.classList.remove("shake-animation");
-        }, 5000);
-    }, 500);
+
+    isPlayingMessages = false;
+
+// 無論是否跳過，都在聊天結束時執行音效播放
+if (skipButton) {
+    skipButton.classList.add("hidden");
 }
-})
+
+// 開始播放
+setTimeout(() => {
+    sendButton.classList.add("pulse");
+    
+    // 5秒後移除pulse效果並暫停
+    setTimeout(() => {
+        sendButton.classList.remove("pulse");
+        
+        // 暫停3秒後再次開始播放
+        setTimeout(() => {
+            sendButton.classList.add("pulse");
+            
+            // 再播放5秒後停止
+            setTimeout(() => {
+                sendButton.classList.remove("pulse");
+            }, 5000);
+        }, 3000); // 暫停3秒
+        
+    }, 5000); // 播放5秒
+}, 500);
+}
+});
+
 // chapter-bar 設定
 
 class ChapterBar extends HTMLElement {
@@ -215,22 +302,16 @@ if (href && currentPage === href) {
 });
 
 document.querySelectorAll('.chapter-button').forEach(button => {
-    button.addEventListener('mouseover', () => {
-        button.classList.add('animate__rubberBand')
-    })
-    button.addEventListener('mouseout', () => {
-        button.classList.remove('animate__rubberBand')
-    })
-})
+  button.addEventListener('mouseenter', () => {
+    button.classList.remove('rubberBand'); // 移除舊動畫
+    void button.offsetWidth; // 觸發重排，確保動畫能重新播放
+    button.classList.add('rubberBand');
+  });
 
-document.querySelectorAll('.slider:before').forEach(button => {
-    button.addEventListener('mouseover', () => {
-        button.classList.add('animate__rubberBand')
-    })
-    button.addEventListener('mouseout', () => {
-        button.classList.remove('animate__rubberBand')
-    })
-})
+  button.addEventListener('mouseleave', () => {
+    button.classList.remove('rubberBand'); // 滑出移除動畫
+  });
+});
 
 //增減按鈕
 
