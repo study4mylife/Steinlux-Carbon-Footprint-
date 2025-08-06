@@ -1575,7 +1575,6 @@ fetch("./data/AirportDistanceMap.json")
             // 5. 最後按字母順序
             return a.localeCompare(b);
           })
-          .slice(0, 15); // 搜尋時限制數量
       }
 
       filteredAirports.forEach(code => {

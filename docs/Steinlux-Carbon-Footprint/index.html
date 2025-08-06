@@ -9,15 +9,15 @@
     <style>
     /*—— 自訂字體 ——*/
     @font-face {
-      font-family: "SweiXDPearlCJKtc-Medium";
-      src: url("font/SweiXDPearlCJKtc-Medium.ttf") format("truetype");
+      font-family: "GenSenRounded2TW-R";
+      src: url("./font/GenSenRounded2TW-R.otf") format("opentype");
       font-weight: normal;
       font-style: normal;
       font-display: swap;
     }
     @font-face {
-      font-family: "SweiXDPearlCJKtc-DemiLight";
-      src: url("font/SweiXDPearlCJKtc-DemiLight.ttf") format("truetype");
+      font-family: "GenSenRounded2TW-L";
+      src: url("./font/GenSenRounded2TW-L.otf") format("opentype");
       font-weight: normal;
       font-style: normal;
       font-display: swap;
@@ -35,6 +35,10 @@
       }
     }
 
+    html {
+      font-family: "GenSenRounded2TW-R", sans-serif;
+    }
+
     /*—— 全域設定 ——*/
     body {
       margin: 0;
@@ -46,20 +50,6 @@
       background-size: cover;
     }
 
-    #radial-overlay {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      pointer-events: none;
-      background: radial-gradient(circle, rgba(173, 184, 234) 0%, rgba(0, 35, 123) 70%);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 9999; /* 確保蓋在最上層 */
-      opacity: 0;
-    }
-
     .scroll-container {
       position: fixed;
       height: 100vh;
@@ -68,6 +58,13 @@
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
       z-index: 1;
+      transition: all 2.5s ease
+    }
+
+    .scroll-container.awakening {
+      filter: blur(12px) brightness(1.8);
+      transform: scale(1.1);
+      pointer-events: none;
     }
 
     /*—— 場景容器 ——*/
@@ -197,7 +194,6 @@
         z-index: 2;
       }
       .floating-title span {
-        font-family: "SweiXDPearlCJKtc-Medium", serif;
         color: #ffffff;
       }
       .floating-title span:nth-child(3) {
@@ -265,12 +261,12 @@
         scrollbar-width: none;
         opacity: 0;
         animation: growWidth ease-out 0.1s forwards;
-        z-index: 2;
+        z-index: 3;
       }
 
       .scene-1 .speech-box p {
         margin: 0;
-        font-family: "SweiXDPearlCJKtc-DemiLight", sans-serif;
+        font-family: "GenSenRounded2TW-L", sans-serif;
         letter-spacing: 5px;
         color: #ffffff;
         line-height: 2rem;
@@ -310,7 +306,7 @@
         left: 60%;
         transform: translate(-50%, -50%); ;
         opacity: 0;
-        z-index: 2;
+        z-index: 3;
       }
 
       .scene-2 .speech-box {
@@ -322,12 +318,12 @@
         scrollbar-width: none;
         opacity: 0;
         animation: growWidth ease-out 0.1s forwards;
-        z-index: 2;
+        z-index: 3;
       }
 
       .scene-2 .speech-box p {
         margin: 0;
-        font-family: "SweiXDPearlCJKtc-DemiLight", sans-serif;
+        font-family: "GenSenRounded2TW-L", sans-serif;
         letter-spacing: 5px;
         color: #ffffff;
         line-height: 2.5rem;
@@ -351,7 +347,7 @@
       .scene-2 .button-box button {
         padding: 0.5rem 1.25rem;
         font-size: 24px;
-        font-family: "SweiXDPearlCJKtc-Medium", serif;
+        font-family: "GenSenRounded2TW-R", sans-serif;
         color: #ffffff;
         background-color: #F2AA84;
         border: none;
@@ -431,7 +427,6 @@
   <body>
     
     <div class="scroll-container">
-      <div id="radial-overlay"></div>
       <section class="scene scene-1">
           <div class="stars-bg"></div>
           <div class="moon-container">
@@ -878,21 +873,18 @@ document.addEventListener("DOMContentLoaded", () => {
               { passive: false }
             );
 });
+document.querySelector("#enter-btn").addEventListener("click", () => {
+  const scrollContainer = document.querySelector(".scroll-container");
+  scrollContainer.classList.add("awakening");
 
-  document.getElementById('enter-btn').addEventListener('click', () => {
-    const overlay = document.getElementById('radial-overlay');
-    overlay.style.opacity = '1';
-    gsap.to(overlay, {
-      duration: 2,
-      width: '300vw',
-      height: '300vw',
-      ease: "power2.out",
-      onComplete: () => {
-        // 動畫結束跳轉頁面
-        window.location.href = 'traffic-daily.html';
-      }
-    });
-  });
+  // 動畫 1.2 秒後再切換頁面
+  setTimeout(() => {
+    // 這裡你可以放跳轉場景的程式碼
+    scrollContainer.classList.remove("awakening");
+    window.location.href = "traffic-daily.html";
+
+  }, 1800);
+});
 </script>
 
   </body>
