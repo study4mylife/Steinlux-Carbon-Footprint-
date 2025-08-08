@@ -18,7 +18,7 @@ html {
   font-size: 16px;
   margin: 0;
   padding: 0;
-  min-height: 100vh;
+  min-height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -102,23 +102,13 @@ body {
   overflow-y: auto;
 }
 
-@media (max-width: 600px) {
-  body {
-    margin: 4rem 0;
-  }
-
-  .scene {
-    margin: 4rem 0;
-  }
-}
-
 .scene {
   position: relative;
   display: none;
   flex-direction: column;
   align-items: center;
   width: 900px;
-  max-width: 90%;
+  max-width: 90vw;
   min-height: 27.8rem;
   padding: 20px;
   background: rgba(255, 255, 255, 0.05);
@@ -639,8 +629,10 @@ h1 {
   justify-content: space-between;
   align-items: center;
   position: relative;
-  max-width: 120px;
+  min-width: 80px;
   min-height: 20px;
+  width: 100%;
+  padding: 4px 8px;
   margin: 2px;
 }
 
@@ -649,7 +641,6 @@ h1 {
   cursor: pointer;
   z-index: 0;
   width: 50%;
-  margin: 4px 8px;
   font-size: 0.9rem;
   letter-spacing: 2px;
 }
@@ -667,7 +658,8 @@ h1 {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.75);
+  border: solid 1.5px #dddddd80;
   -webkit-box-shadow:
   inset -8.5px -2.25px 0 -7px rgb(255, 255, 255), 
   inset 8.5px 2.25px 0 -7px rgb(255, 255, 255),
@@ -680,8 +672,6 @@ h1 {
   inset -2.75px -8.5px 0 -7.25px rgb(255, 255, 255), 
   inset 2.75px 8.5px 0 -7.25px rgb(255, 255, 255),
   2px 2px 12px 4px rgba(110, 110, 110, 0.15);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border-radius: 20px;
   transition: 0.75s;
   z-index: -1;
@@ -693,11 +683,10 @@ h1 {
   height: 80%;
   width: 50%;
   left: 2px;
-  bottom: 2px;
-  background-color: rgba(255, 255, 255, 0.35);
-  border: solid 1.5px #dddddd80;
+  bottom: 2.5px;;
   border-radius: 20px;
   transition: 0.3s;
+  z-index: 0;
   -webkit-box-shadow:
   inset -7px -5.25px 2px -6.5px rgba(255, 255, 255), 
   inset 7px 5.25px 2px -6.5px rgb(255, 255, 255),
@@ -710,7 +699,6 @@ h1 {
   inset -2.25px -8px 2px -6.75px rgb(255, 255, 255), 
   inset 2.25px 8px 2px -6.75px rgb(255, 255, 255),
   4px 8px 32px 0px rgba(110, 110, 110, 0.25);
-  z-index: 0;
 }
 
 .toggle-row .apple-toggle-switch input:checked + .slider:before {
@@ -786,4 +774,20 @@ h1 {
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+@media (max-width: 600px) {
+
+  .scene {
+    max-width: 85vw;
+    margin: 4rem 0;
+  }
+
+  .scene::before {
+    border-radius: 32px;
+  }
+
+  .toggle-row {
+    gap: 0.25rem;
+  }
 }

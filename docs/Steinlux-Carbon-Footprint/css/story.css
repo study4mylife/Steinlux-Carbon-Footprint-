@@ -40,6 +40,7 @@
         height: 100%;
         filter: blur(8px) brightness(0.3) contrast(0.8);
         opacity: 0.6;
+        border-radius: 72px;
         transform: scale(1.05);
         transition: all 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         position: relative;
@@ -140,6 +141,12 @@
         border-radius: 72px;
     }
 
+    @media (max-width: 600px) {
+    .story-container, .story-container::before, .story-body , .story-body::before {
+        border-radius: 32px;
+    }
+    }
+
     .story-header {
     display: flex;
     justify-content: start;
@@ -201,12 +208,12 @@
 
     .skip-button {
     position: absolute;
-    bottom: 5.5rem;
+    bottom: 6rem;
     left: 50%;
     transform: translateX(-50%);
-    width: 40px;
-    height: 40px;
-    background: rgba(0, 0, 0, 0.7);
+    width: 32px;
+    height: 32px;
+    background: rgba(0, 0, 0, 0.2);
     border: none;
     border-radius: 50%;
     color: white;
@@ -214,11 +221,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
+    font-size: 12px;
     transition: all 0.3s ease;
     z-index: 100;
     backdrop-filter: blur(10px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow:
+    inset -0.185rem -0.235rem 0.315rem -0.295rem rgba(255, 255, 255), 
+    inset 0.185rem 0.25rem 0.315rem -0.295rem rgba(255, 255, 255),
+    -0.06rem -0.03rem 0 0 rgba(255, 255, 255), 
+    0.03rem 0.03rem 0 0 rgba(255, 255, 255);
+    box-shadow:
+    inset -0.285rem -0.235rem 0.1rem -0.295rem rgba(255, 255, 255), 
+    inset 0.285rem 0.235rem 0.1rem -0.295rem rgba(255, 255, 255),
+    -0.03rem -0.025rem 0 0 rgba(255, 255, 255), 
+    0.025rem 0.025rem 0 0 rgba(255, 255, 255),
+    4px 16px 48px 8px rgba(110, 110, 110, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     }
 
     .skip-button:hover {
@@ -393,7 +412,7 @@
 
     .message-input {
     flex: 1;
-    padding: 0.5rem 0.75rem;
+    padding: 0.5rem 0.25rem;
     border: none;
     background: none;
     color: var(--text-primary);
@@ -518,7 +537,7 @@
 
     @media (max-width: 1024px) {
     .story-container {
-        width: 90vw;
+        width: 80vw;
         height: 60vh;
         max-width: 90%;
     }
@@ -528,9 +547,6 @@
 
     .story-header-title h1 {
         font-size: 1rem;
-    }
-    .story-chat-container {
-        padding: 0.5rem;
     }
     .story-message-bubble {
         max-width: 85%;

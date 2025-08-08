@@ -690,7 +690,7 @@
                     <span class="nowrap-text">公升</span>
                     <input type="checkbox" id="water-unit-toggle" />
                     <span class="slider"></span>
-                    <span class="nowrap-text">元&nbsp;</span>
+                    <span class="nowrap-text">元</span>
                   </label>
                 </div>
               </div>
@@ -1578,7 +1578,7 @@ fetch("./data/AirportDistanceMap.json")
           })
       }
 
-      filteredAirports.forEach(code => {
+      filteredAirports.slice(0, 10).forEach(code => {
         const o = document.createElement('option');
         o.value = code;
         dl.appendChild(o);
