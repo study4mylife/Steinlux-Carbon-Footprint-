@@ -509,8 +509,6 @@
     </div>
 
 <script>
-// 完整的JavaScript代碼 - 替換你原來的script內容
-
 document.addEventListener("DOMContentLoaded", () => {
   function typeText(p, text, speed = 50) {
     let i = 0;
@@ -523,7 +521,7 @@ document.addEventListener("DOMContentLoaded", () => {
     type();
   }
 
-  // 第一幕直接開始
+  // 第一幕文字打字動畫
   const scene1P = document.querySelector(".scene-1 .speech-box p");
   const scene1Text = scene1P.getAttribute("data-text")?.replace(/\\n/g, "\n");
   scene1P.textContent = "";
@@ -533,7 +531,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 第二幕使用 IntersectionObserver 等進入畫面後才執行
+  // 第二幕文字打字動畫
   const scene2Box = document.querySelector(".scene-2 .speech-box");
   const scene2P = scene2Box.querySelector("p");
   const scene2Text = scene2P.getAttribute("data-text")?.replace(/\\n/g, "\n");
@@ -543,7 +541,6 @@ document.addEventListener("DOMContentLoaded", () => {
     (entries, observer) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          // 動畫時間是 1 秒，這裡延遲 1000ms 再打字
           setTimeout(() => {
             typeText(scene2P, scene2Text);
           }, 500);
@@ -551,31 +548,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     },
-    {
-      threshold: 0.6,
-    }
+    { threshold: 0.6 }
   );
-
   observer.observe(document.querySelector(".scene-2"));
 
-    function isMobile() {
-  return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  // 判斷是否為行動裝置
+  function isMobile() {
+    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   }
+  const isMobileLayout = window.innerWidth <= 768;
 
   function preventTouchScroll(e) {
     e.preventDefault();
   }
-
   if (isMobile()) {
     document.body.addEventListener("touchmove", preventTouchScroll, { passive: false });
   }
 
-  // 函數：暫時禁止滾動
   function disableScroll() {
     document.body.style.overflow = "hidden";
   }
-
-  // 函數：恢復滾動
   function enableScroll() {
     document.body.style.overflow = "";
   }
@@ -585,94 +577,39 @@ document.addEventListener("DOMContentLoaded", () => {
   const cooldownTime = 3000;
   let lastScrollTime = 0;
 
-  // 小老鼠點擊滑動到第二幕的函數
+  // 切到第二幕
   function goToSecondScene() {
-    // 防止重複點擊
     if (isScrolling) return;
-    
     const vh = window.innerHeight;
-    
     isScrolling = true;
     lastScrollTime = Date.now();
     disableScroll();
 
-    // 滑動到第二幕，使用與滾輪相同的動畫
     gsap.to(container, {
       scrollTo: { y: vh },
       duration: 2,
       ease: "power2.out",
       onStart: () => {
-      gsap.to(".stars-bg", {
-          rotate: 90,
-          scale: 1.25,
-          duration: 2,
-          ease: "power2.out",
+        gsap.to(".stars-bg", { rotate: 90, scale: 1.25, duration: 2, ease: "power2.out" });
+        gsap.to(".color-block", { x: "-22%", y: "285%", scale: 5, duration: 2 });
+        gsap.to(".moon-container", { top: "-8%", right: "-3%", rotate: "90deg", scale: 1.25, duration: 2 });
+        gsap.to(".scene-1 .cat-container", { left: "-25%", bottom: "3%", scale: 0.25, duration: 2 });
+        gsap.to(".scene-2 .cat-container", { 
+          left: "7%", 
+          bottom: isMobileLayout ? "10%" : "0%", 
+          scale: 1, 
+          duration: 1.5 
         });
-      gsap.to(
-        ".color-block",
-        { 
-          x: "-22%",
-          y: "285%",
-          scale: 5,
-          duration: 2,
-        },
-      );
-      gsap.to(
-        ".moon-container",
-        {
-          top: "-8%",
-          right: "-3%",
-          rotate: "90deg",
-          scale: 1.25,
-          duration: 2
+        gsap.to(".scene-2 .button-box", { bottom: "12.5vw", duration: 2 });
+        gsap.to(".scene-1 .scroll-mouse", { opacity: 0, duration: 2 });
+        gsap.to(".scene-2 .scroll-mouse", { opacity: 1, duration: 2 });
+        gsap.to(".scene-1 .text-container", { opacity: 0, duration: 0.5 });
+        gsap.to(".scene-2 .text-container", { 
+          delay: 0.5, 
+          opacity: 1, 
+          duration: 1.5, 
+          y: isMobileLayout ? "-10%" : "0%" 
         });
-      gsap.to(
-        ".scene-1 .cat-container",
-        {
-          left: "-25%",
-          bottom: "3%",
-          scale: 0.25,
-          duration: 2
-        });
-      gsap.to(
-        ".scene-2 .cat-container",
-        {
-          left: "7%",
-          bottom: 0,
-          scale: 1,
-          duration: 1.5
-        });
-      gsap.to(
-        ".scene-2 .button-box",
-        {
-          bottom: "12.5vw",
-          duration: 2
-        });
-      gsap.to(
-      ".scene-1 .scroll-mouse",
-      {
-        opacity: 0,
-        duration: 2
-      });
-            gsap.to(
-      ".scene-2 .scroll-mouse",
-      {
-        opacity: 1,
-        duration: 2
-      });
-      gsap.to(
-      ".scene-1 .text-container",
-      {
-        opacity: 0,
-        duration: 0.5
-      });
-      gsap.to(
-      ".scene-2 .text-container",
-      {
-        delay: 0.5,
-        opacity: 1,
-        duration: 1.5
-      });
       },
       onComplete: () => {
         isScrolling = false;
@@ -681,117 +618,55 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 添加小老鼠點擊事件監聽器
-  const scrollMouse2 = document.querySelector('.scene-2 .scroll-mouse');
-  if (scrollMouse2) {
-    scrollMouse2.addEventListener('click', goToFirstScene);
-  }
-
+  // 切回第一幕
   function goToFirstScene() {
-  const vh = window.innerHeight;
-  isScrolling = true;
-  lastScrollTime = Date.now();
-  disableScroll();
+    const vh = window.innerHeight;
+    isScrolling = true;
+    lastScrollTime = Date.now();
+    disableScroll();
 
-  gsap.to(container, {
-    scrollTo: { y: 0 },
-    duration: 2,
-    ease: "power2.out",
-    onStart: () => {
-    gsap.to(".stars-bg", {
-      rotate: 0,
-      scale: 1,
+    gsap.to(container, {
+      scrollTo: { y: 0 },
       duration: 2,
       ease: "power2.out",
+      onStart: () => {
+        gsap.to(".stars-bg", { rotate: 0, scale: 1, duration: 2, ease: "power2.out" });
+        gsap.to(".color-block", { right: 0, bottom: 0, x: "45%", y: "65%", scale: 1, duration: 2, ease: "power2.out" });
+        gsap.to(".moon-container", { top: "-10%", right: "-5%", rotate: "-90deg", scale: 1, duration: 2 });
+        gsap.to(".scene-1 .cat-container", { left: "15%", bottom: "3%", scale: 1, duration: 2 });
+        gsap.to(".scene-2 .cat-container", { 
+          left: "-30%", 
+          bottom: isMobileLayout ? "10%" : "0%", 
+          scale: 0.25, 
+          duration: 1.5 
+        });
+        gsap.to(".scene-2 .button-box", { bottom: "-20%", duration: 1 });
+        gsap.to(".scene-1 .scroll-mouse", { opacity: 1, duration: 2 });
+        gsap.to(".scene-2 .scroll-mouse", { opacity: 0, duration: 2 });
+        gsap.to(".scene-1 .text-container", { delay: 1, opacity: 1, duration: 1.5 });
+        gsap.to(".scene-2 .text-container", { opacity: 0, duration: 1, y: "0%" });
+      },
+      onComplete: () => {
+        isScrolling = false;
+        enableScroll();
+      },
     });
-    gsap.to(".color-block", {
-      right: 0,
-      bottom: 0,
-      x: "45%",
-      y: "65%",
-      scale: 1,
-      duration: 2,
-      ease: "power2.out",
-    });
-    gsap.to(
-    ".moon-container",
-    { 
-      top: "-10%",
-      right: "-5%",
-      rotate: "-90deg",
-      scale: 1,
-      duration: 2
-    });
-    gsap.to(
-    ".scene-1 .cat-container",
-    {
-      left: "15%",
-      bottom: "3%",
-      scale: 1,
-      duration: 2
-    });
-    gsap.to(
-    ".scene-2 .cat-container",
-    {
-      left: "-30%",
-      bottom: 0,
-      scale: 0.25,
-      duration: 1.5
-    });
-    gsap.to(
-    ".scene-2 .button-box",
-    {
-      bottom: "-20%",
-      duration: 1
-    });
-    gsap.to(
-  ".scene-1 .scroll-mouse",
-  {
-    opacity: 1,
-    duration: 2
-  });
-  gsap.to(
-  ".scene-2 .scroll-mouse",
-  {
-    opacity: 0,
-    duration: 2
-  });
-  gsap.to(
-  ".scene-1 .text-container",
-  {
-    delay: 1,
-    opacity: 1,
-    duration: 1.5
-  });
-    gsap.to(
-  ".scene-2 .text-container",
-  {
-    opacity: 0,
-    duration: 1
-  });
-    },
-    onComplete: () => {
-      isScrolling = false;
-      enableScroll();
-    },
-  });
-}
-
-  // 添加小老鼠點擊事件監聽器
-  const scrollMouse1 = document.querySelector('.scene-1 .scroll-mouse');
-  if (scrollMouse1) {
-    scrollMouse1.addEventListener('click', goToSecondScene);
   }
 
-  // 也讓函數在全域可用（如果你想保留HTML中的onclick）
+  // 點擊滑鼠圖示切換場景
+  const scrollMouse1 = document.querySelector(".scene-1 .scroll-mouse");
+  if (scrollMouse1) scrollMouse1.addEventListener("click", goToSecondScene);
+
+  const scrollMouse2 = document.querySelector(".scene-2 .scroll-mouse");
+  if (scrollMouse2) scrollMouse2.addEventListener("click", goToFirstScene);
+
   window.goToSecondScene = goToSecondScene;
 
+  // 滑鼠滾輪切換場景
   container.addEventListener(
     "wheel",
     (e) => {
       const now = Date.now();
-
-      // ✅ 冷卻中 or 動畫中：禁止預設行為，並跳出
       if (now - lastScrollTime < cooldownTime || isScrolling) {
         e.preventDefault();
         return;
@@ -801,196 +676,22 @@ document.addEventListener("DOMContentLoaded", () => {
       const scrollTop = container.scrollTop;
       const vh = window.innerHeight;
 
+      // 往下滾進入第二幕
       if (deltaY > 0 && scrollTop < vh / 2) {
         e.preventDefault();
-        isScrolling = true;
-        lastScrollTime = now;
-        disableScroll();
-
-        // 進入第二幕
-        gsap.to(container, {
-          scrollTo: { y: vh },
-          duration: 2,
-          ease: "power2.out",
-          onStart: () => {
-            gsap.to(".stars-bg", {
-              rotate: 90,
-              scale: 1.25,
-              duration: 2,
-              ease: "power2.out",
-            });
-          gsap.to(
-            ".color-block",
-            { 
-              x: "-22%",
-              y: "285%",
-              scale: 5,
-              duration: 2,
-            },
-          );
-          gsap.to(
-            ".moon-container",
-            {
-              top: "-8%",
-              right: "-3%",
-              rotate: "90deg",
-              scale: 1.25,
-              duration: 2
-            });
-          gsap.to(
-            ".scene-1 .cat-container",
-            {
-              left: "-25%",
-              bottom: "3%",
-              scale: 0.25,
-              duration: 2
-            });
-          gsap.to(
-            ".scene-2 .cat-container",
-            {
-              left: "7%",
-              bottom: 0,
-              scale: 1,
-              duration: 1.5
-            });
-          gsap.to(
-            ".scene-2 .button-box",
-            {
-              bottom: "12.5vw",
-              duration: 2
-            });
-          gsap.to(
-          ".scene-1 .scroll-mouse",
-          {
-            opacity: 0,
-            duration: 2
-          });
-          gsap.to(
-          ".scene-2 .scroll-mouse",
-          {
-            opacity: 1,
-            duration: 2
-          });
-          gsap.to(
-          ".scene-1 .text-container",
-          {
-            opacity: 0,
-            duration: 0.5
-          });
-          gsap.to(
-          ".scene-2 .text-container",
-          {
-            delay: 1.25,
-            opacity: 1,
-            duration: 1.5
-          });
-          },
-          onComplete: () => {
-            isScrolling = false;
-            enableScroll();
-          },
-        });
-        } 
-        else if (
-          deltaY < 0 &&
-          scrollTop > vh / 1.5 &&
-          scrollTop < vh * 1.5
-        ) {
-          e.preventDefault();
-          isScrolling = true;
-          lastScrollTime = now;
-          disableScroll();
-
-        // 回到第一幕
-        gsap.to(container, {
-          scrollTo: { y: 0 },
-          duration: 2,
-          ease: "power2.out",
-          onStart: () => {
-            gsap.to(".stars-bg", {
-              rotate: 0,
-              scale: 1,
-              duration: 2,
-              ease: "power2.out",
-            });
-            gsap.to(".color-block", {
-              right: 0,
-              bottom: 0,
-              x: "45%",
-              y: "65%",
-              scale: 1,
-              duration: 2,
-              ease: "power2.out",
-            });
-            gsap.to(
-            ".moon-container",
-            { 
-              top: "-10%",
-              right: "-5%",
-              rotate: "-90deg",
-              scale: 1,
-              duration: 2
-            });
-            gsap.to(
-            ".scene-1 .cat-container",
-            {
-              left: "15%",
-              bottom: "3%",
-              scale: 1,
-              duration: 2
-            });
-            gsap.to(
-            ".scene-2 .cat-container",
-            {
-              left: "-30%",
-              bottom: 0,
-              scale: 0.25,
-              duration: 1.5
-            });
-            gsap.to(
-            ".scene-2 .button-box",
-            {
-              bottom: "-20%",
-              duration: 1
-            });
-            gsap.to(
-          ".scene-1 .scroll-mouse",
-          {
-            opacity: 1,
-            duration: 2
-          });
-          gsap.to(
-          ".scene-2 .scroll-mouse",
-          {
-            opacity: 0,
-            duration: 2
-          });
-          gsap.to(
-          ".scene-1 .text-container",
-          {
-            delay: 1,
-            opacity: 1,
-            duration: 1.5
-          });
-            gsap.to(
-          ".scene-2 .text-container",
-          {
-            opacity: 0,
-            duration: 0.25
-          });
-          },
-          onComplete: () => {
-            isScrolling = false;
-            enableScroll();
-          },
-        });
+        goToSecondScene();
+      }
+      // 往上滾回到第一幕
+      else if (deltaY < 0 && scrollTop > vh / 1.5 && scrollTop < vh * 1.5) {
+        e.preventDefault();
+        goToFirstScene();
       }
     },
     { passive: false }
   );
 });
-
 </script>
+
 
   </body>
 </html>

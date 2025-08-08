@@ -2007,89 +2007,88 @@
       }
     }
 
-    // 更新進度條顯示
-    function updateProgressBars() {
-      // 獲取當前活躍場景
-      const activeScene = document.querySelector('.scene.active');
-      if (!activeScene) return;
-      
-      const sceneId = activeScene.id;
-      const progressBar = activeScene.querySelector('.bar-container');
-      if (!progressBar) return;
+      // 更新進度條顯示
+  function updateProgressBars() {
+    const activeScene = document.querySelector('.scene.active');
+    if (!activeScene) return;
+    
+    const sceneId = activeScene.id;
+    const progressBar = activeScene.querySelector('.bar-container');
+    if (!progressBar) return;
 
-      // 清空現有進度條
-      progressBar.innerHTML = '';
+    progressBar.innerHTML = ''; // 清空現有進度條
 
-      let bars = [];
-      
-      if (selectedDiet === 'omnivore') {
-        // 葷食者流程: 1 -> 3 -> 7 -> 8
-        bars = [
-          { scene: 1, label: '選擇飲食' },
-          { scene: 3, label: '日常食物' },
-          { scene: 7, label: '點心' },
-          { scene: 8, label: '剩食' }
-        ];
-      } else if (selectedDiet === 'vegetarian') {
-        // 素食者流程: 1 -> 2 -> (4/5/6) -> 7 -> 8
-        let subDietScene = 2;
-        let subDietLabel = '素食類型';
-        
-        if (selectedSubDiet) {
-          switch (selectedSubDiet) {
-            case 'seafood':
-              subDietScene = 4;
-              subDietLabel = '海鮮素';
-              break;
-            case 'eggmilk':
-              subDietScene = 5;
-              subDietLabel = '蛋奶素';
-              break;
-            case 'vegan':
-              subDietScene = 6;
-              subDietLabel = '全素';
-              break;
-          }
+    let bars = [];
+
+    if (selectedDiet === 'omnivore') {
+      // 葷食者流程: 1 -> 3 -> 7 -> 8
+      bars = [
+        { scene: 1, label: '選擇飲食' },
+        { scene: 3, label: '日常食物' },
+        { scene: 7, label: '點心' },
+        { scene: 8, label: '剩食' }
+      ];
+    } else if (selectedDiet === 'vegetarian') {
+      // 素食者流程
+      bars = [
+        { scene: 1, label: '選擇飲食' },
+        { scene: 2, label: '素食類型' }
+      ];
+
+      // 如果已選擇素食類型才加第三格
+      if (selectedSubDiet) {
+        let subDietScene, subDietLabel;
+        switch (selectedSubDiet) {
+          case 'seafood':
+            subDietScene = 4;
+            subDietLabel = '海鮮素';
+            break;
+          case 'eggmilk':
+            subDietScene = 5;
+            subDietLabel = '蛋奶素';
+            break;
+          case 'vegan':
+            subDietScene = 6;
+            subDietLabel = '全素';
+            break;
         }
-        
-        bars = [
-          { scene: 1, label: '選擇飲食' },
-          { scene: 2, label: '素食類型' },
-          { scene: subDietScene, label: subDietLabel },
-          { scene: 7, label: '點心' },
-          { scene: 8, label: '剩食' }
-        ];
-      } else {
-        // 默認顯示 (還沒選擇飲食類型時)
-        bars = [
-          { scene: 1, label: '選擇飲食' },
-          { scene: 3, label: '日常食物' },
-          { scene: 7, label: '點心' },
-          { scene: 8, label: '剩食' }
-        ];
+        bars.push({ scene: subDietScene, label: subDietLabel });
       }
 
-      // 創建進度條
-      bars.forEach((bar, index) => {
-        const barHitArea = document.createElement('div');
-        barHitArea.className = 'bar-hit-area';
-        
-        const barSpan = document.createElement('span');
-        barSpan.className = 'bar';
-        
-        // 判斷是否為當前頁面
-        const currentSceneNum = parseInt(sceneId.replace('scene', ''));
-        if (bar.scene === currentSceneNum) {
-          barSpan.classList.add('active');
-        }
-        
-        // 添加點擊事件
-        barSpan.onclick = () => goToScene(bar.scene);
-        
-        barHitArea.appendChild(barSpan);
-        progressBar.appendChild(barHitArea);
-      });
+      bars.push(
+        { scene: 7, label: '點心' },
+        { scene: 8, label: '剩食' }
+      );
+    } else {
+      // 默認顯示
+      bars = [
+        { scene: 1, label: '選擇飲食' },
+        { scene: 3, label: '日常食物' },
+        { scene: 7, label: '點心' },
+        { scene: 8, label: '剩食' }
+      ];
     }
+
+    // 建立進度條 DOM
+    const currentSceneNum = parseInt(sceneId.replace('scene', ''));
+    bars.forEach(bar => {
+      const barHitArea = document.createElement('div');
+      barHitArea.className = 'bar-hit-area';
+
+      const barSpan = document.createElement('span');
+      barSpan.className = 'bar';
+
+      if (bar.scene === currentSceneNum) {
+        barSpan.classList.add('active');
+      }
+
+      barSpan.onclick = () => goToScene(bar.scene);
+
+      barHitArea.appendChild(barSpan);
+      progressBar.appendChild(barHitArea);
+    });
+  }
+
 
     // 初始化時更新進度條
     document.addEventListener('DOMContentLoaded', () => {
