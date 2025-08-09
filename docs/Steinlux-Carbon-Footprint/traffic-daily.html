@@ -378,6 +378,7 @@
         width: 100%;
         max-width: 400px;
         font-size: 0.85rem;
+        letter-spacing: 0.1rem;
         color: #6c808f;
         margin: 0.1rem;
         padding: 0.35rem;
@@ -505,6 +506,31 @@
       }
       #scene7 .add-trip-wrapper {
         gap: 12px;
+      }
+
+      .input-wrapper {
+        position: relative;
+        display: inline-block;
+      }
+
+      .input-wrapper input::-webkit-calendar-picker-indicator {
+        opacity: 0;
+      }
+
+      .input-wrapper::after {
+        content: "";
+        position: absolute;
+        right: 0.4em;
+        top: 45%;
+        transform: translateY(-50%);
+        width: 24px;
+        height: 24px;
+        background-image: url("./images/下拉式箭頭.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        pointer-events: none;
+        filter: drop-shadow(2px 2px 2px rgb(195, 202, 219));
       }
 
       @media (min-width: 320px) and (max-width: 600px) {
@@ -638,7 +664,9 @@
             <div id="oil-left" class="fuel-group">
               <div class="input-group">
                 <label>選擇<br />汽油類型</label>
-                <input list="car-oilList" id="daily-car-fuel-type-value" placeholder="92無鉛" />
+                <div class="input-wrapper">
+                  <input list="car-oilList" id="daily-car-fuel-type-value" placeholder="92無鉛" />
+                </div>
                 <datalist id="car-oilList"></datalist>
               </div>
               <div class="input-group">
@@ -667,7 +695,9 @@
             <div id="oil-right" class="fuel-group">
               <div class="input-group">
                 <label>選擇<br />汽車類型</label>
-                <input list="carList" id="daily-car-type-value" placeholder="小型房車" />
+                <div class="input-wrapper">
+                  <input list="carList" id="daily-car-type-value" placeholder="小型房車" />
+                </div>
                 <datalist id="carList"></datalist>
               </div>
               <div class="input-group">
@@ -730,7 +760,9 @@
             <div id="oil-left4" class="fuel-group">
               <div class="input-group">
                 <label>選擇<br />汽油類型</label>
-                <input list="motorcycle-oilList" id="daily-motorcycle-fuel-type-value" placeholder="92無鉛" />
+                <div class="input-wrapper">
+                  <input list="motorcycle-oilList" id="daily-motorcycle-fuel-type-value" placeholder="92無鉛" />
+                </div>
                 <datalist id="motorcycle-oilList"></datalist>
               </div>
               <div class="input-group">
@@ -812,12 +844,17 @@
           <div class="template-wrapper add-trip-wrapper">
             <div class="input-group-MRT">
               <label for="mrtStart">選擇起點</label>
-              <input list="mrtStationList" id="mrtStart" />
+              <div class="input-wrapper">
+                <input list="mrtStationListStart" id="mrtStart" />
+              </div>
+              <datalist id="mrtStationListStart"></datalist>
             </div>
             <div class="input-group-MRT">
               <label for="mrtEnd">選擇訖點</label>
-              <input list="mrtStationList" id="mrtEnd" />
-              <datalist id="mrtStationList"></datalist>
+              <div class="input-wrapper">
+                <input list="mrtStationListEnd" id="mrtEnd" />
+              </div>
+              <datalist id="mrtStationListEnd"></datalist>
             </div>
             <div class="input-group-MRT">
               <label for="mrtCount">每月趟數</label>
@@ -856,13 +893,18 @@
         <div class="daily-card" data-type="train">
           <div class="template-wrapper add-trip-wrapper">
             <div class="input-group-MRT">
-              <label for="trainStart">選擇起點</label>
-              <input list="trDistanceMap" id="trainStart" />
+              <label for="trStart">選擇起點</label>
+              <div class="input-wrapper">
+                <input list="trStationListStart" id="trainStart" />       
+              </div>
+              <datalist id="trStationListStart"></datalist>
             </div>
             <div class="input-group-MRT">
-              <label for="trainEnd">選擇訖點</label>
-              <input list="trDistanceMap" id="trainEnd" />
-              <datalist id="trDistanceMap"></datalist>
+              <label for="trEnd">選擇訖點</label>
+              <div class="input-wrapper">
+                <input list="trStationListEnd" id="trainEnd" />
+              </div>
+              <datalist id="trStationListEnd"></datalist>
             </div>
             <div class="input-group-MRT">
               <label for="trainCount">每月趟數</label>
@@ -900,12 +942,17 @@
           <div class="template-wrapper add-trip-wrapper">
             <div class="input-group-MRT">
               <label for="hsrStart">選擇起點</label>
-              <input list="hsrStationList" id="hsrStart" />          
+              <div class="input-wrapper">
+                <input list="hsrStationListStart" id="hsrStart" />       
+              </div>
+              <datalist id="hsrStationListStart"></datalist>
             </div>
             <div class="input-group-MRT">
               <label for="hsrEnd">選擇訖點</label>
-              <input list="hsrStationList" id="hsrEnd" />
-              <datalist id="hsrStationList"></datalist>
+              <div class="input-wrapper">
+                <input list="hsrStationListEnd" id="hsrEnd" />
+              </div>
+              <datalist id="hsrStationListEnd"></datalist>
             </div>
             <div class="input-group-MRT">
               <label for="hsrCount">每月趟數</label>
@@ -1480,151 +1527,145 @@ for (let key in carData) {
 
 // 優化的捷運、火車、高鐵站名搜索功能
 
+// 通用的選項更新函數
+function updateOptionsForDatalist(stationsArray, datalistId, searchTerm = '') {
+    const dl = document.getElementById(datalistId);
+    if (!dl) return;
+    
+    // 清空現有選項
+    dl.innerHTML = '';
+    
+    let matchingStations = stationsArray;
+    
+    if (searchTerm.trim()) {
+        // 分類匹配的站名
+        const startsWithMatch = [];
+        const containsMatch = [];
+        
+        stationsArray.forEach(station => {
+            if (station.startsWith(searchTerm)) {
+                startsWithMatch.push(station);
+            } else if (station.includes(searchTerm)) {
+                containsMatch.push(station);
+            }
+        });
+        
+        // 合併結果：優先顯示開頭匹配的
+        matchingStations = [...startsWithMatch.sort(), ...containsMatch.sort()];
+    } else {
+        matchingStations = stationsArray.sort();
+    }
+    
+    matchingStations.forEach(st => {
+        const option = document.createElement("option");
+        option.value = st;
+        dl.appendChild(option);
+    });
+}
+
 // 捷運數據載入與搜索功能
 fetch("./data/mrtDistanceMap.json").then(r => r.json()).then(data => {
     mrtDistanceMap = data;
-    const dl = document.getElementById("mrtStationList");
-    if (dl) {
-        // 收集所有捷運站名
-        const allStations = new Set(Object.keys(data).flatMap(k => k.split("_")));
-        const stationsArray = Array.from(allStations);
+    
+    // 收集所有捷運站名
+    const allStations = new Set(Object.keys(data).flatMap(k => k.split("_")));
+    const stationsArray = Array.from(allStations);
+    
+    // 處理所有捷運相關的datalist
+    const mrtDatalistIds = ['mrtStationListStart', 'mrtStationListEnd'];
+    
+    // 初始載入所有選項到每個datalist
+    mrtDatalistIds.forEach(datalistId => {
+        updateOptionsForDatalist(stationsArray, datalistId);
         
-        // 創建優化的選項顯示函數
-        function updateMrtOptions(searchTerm = '') {
-            // 清空現有選項
-            dl.innerHTML = '';
+        // 找到對應的input並添加事件監聽器
+        const input = document.querySelector(`input[list="${datalistId}"]`);
+        if (input) {
+            input.addEventListener('input', (e) => {
+                updateOptionsForDatalist(stationsArray, datalistId, e.target.value);
+            });
             
-            let matchingStations = stationsArray;
-            
-            if (searchTerm) {
-                // 分類匹配的站名
-                const startsWithMatch = [];
-                const containsMatch = [];
-                
-                stationsArray.forEach(station => {
-                    if (station.startsWith(searchTerm)) {
-                        startsWithMatch.push(station);
-                    } else if (station.includes(searchTerm)) {
-                        containsMatch.push(station);
-                    }
-                });
-                
-                // 合併結果：優先顯示開頭匹配的
-                matchingStations = [...startsWithMatch.sort(), ...containsMatch.sort()];
-            }
-            
-            matchingStations.forEach(st => {
-              const o = document.createElement("option");
-              o.value = st;
-              dl.appendChild(o);
+            input.addEventListener('focus', (e) => {
+                if (!e.target.value.trim()) {
+                    updateOptionsForDatalist(stationsArray, datalistId);
+                }
             });
         }
-        
-        // 初始載入所有選項
-        updateMrtOptions();
-
-    }
+    });
+    
 }).catch(err => console.log("MRT data not loaded:", err));
 
 // 火車數據載入與搜索功能
 fetch("./data/trDistanceMap.json").then(r => r.json()).then(data => {
     trDistanceMap = data;
-    const dl = document.getElementById("trDistanceMap");
-    if (dl) {
-        // 收集所有火車站名
-        const stations = new Set();
-        if (typeof data === 'object') {
-            Object.keys(data).forEach(key => {
-                stations.add(key);
-                if (typeof data[key] === 'object') {
-                    Object.keys(data[key]).forEach(subKey => stations.add(subKey));
+    
+    // 收集所有火車站名
+    const stations = new Set();
+    if (typeof data === 'object') {
+        Object.keys(data).forEach(key => {
+            stations.add(key);
+            if (typeof data[key] === 'object') {
+                Object.keys(data[key]).forEach(subKey => stations.add(subKey));
+            }
+        });
+    }
+    
+    const stationsArray = Array.from(stations);
+    
+    // 處理所有火車相關的datalist  
+    const trDatalistIds = ['trStationListStart', 'trStationListEnd'];
+    
+    // 初始載入所有選項到每個datalist
+    trDatalistIds.forEach(datalistId => {
+        updateOptionsForDatalist(stationsArray, datalistId);
+        
+        // 找到對應的input並添加事件監聽器
+        const input = document.querySelector(`input[list="${datalistId}"]`);
+        if (input) {
+            input.addEventListener('input', (e) => {
+                updateOptionsForDatalist(stationsArray, datalistId, e.target.value);
+            });
+            
+            input.addEventListener('focus', (e) => {
+                if (!e.target.value.trim()) {
+                    updateOptionsForDatalist(stationsArray, datalistId);
                 }
             });
         }
-        
-        const stationsArray = Array.from(stations);
-        
-        // 創建優化的選項顯示函數
-        function updateTrOptions(searchTerm = '') {
-            // 清空現有選項
-            dl.innerHTML = '';
-            
-            let matchingStations = stationsArray;
-            
-            if (searchTerm) {
-                // 分類匹配的站名
-                const startsWithMatch = [];
-                const containsMatch = [];
-                
-                stationsArray.forEach(station => {
-                    if (station.startsWith(searchTerm)) {
-                        startsWithMatch.push(station);
-                    } else if (station.includes(searchTerm)) {
-                        containsMatch.push(station);
-                    }
-                });
-                
-                // 合併結果：優先顯示開頭匹配的
-                matchingStations = [...startsWithMatch.sort(), ...containsMatch.sort()];
-            }
-            
-            matchingStations.forEach(st => {
-              const o = document.createElement("option");
-              o.value = st;
-              dl.appendChild(o);
-            });
-        }
-        
-        // 初始載入所有選項
-        updateTrOptions();
-        
-    }
+    });
+    
 }).catch(err => console.log("Train data not loaded:", err));
 
 // 高鐵數據載入與搜索功能
 fetch("./data/hsrDistanceMap.json").then(r => r.json()).then(data => {
     hsrDistanceMap = data;
-    const dl = document.getElementById("hsrStationList");
-    if (dl) {
-        // 收集所有高鐵站名
-        const allStations = new Set(Object.keys(data).flatMap(k => k.split("_")));
-        const stationsArray = Array.from(allStations);
+    
+    // 收集所有高鐵站名
+    const allStations = new Set(Object.keys(data).flatMap(k => k.split("_")));
+    const stationsArray = Array.from(allStations);
+    
+    // 處理所有高鐵相關的datalist
+    const hsrDatalistIds = ['hsrStationListStart', 'hsrStationListEnd'];
+    
+    // 初始載入所有選項到每個datalist
+    hsrDatalistIds.forEach(datalistId => {
+        updateOptionsForDatalist(stationsArray, datalistId);
         
-        // 創建優化的選項顯示函數
-        function updateHsrOptions(searchTerm = '') {
-            // 清空現有選項
-            dl.innerHTML = '';
+        // 找到對應的input並添加事件監聽器
+        const input = document.querySelector(`input[list="${datalistId}"]`);
+        if (input) {
+            input.addEventListener('input', (e) => {
+                updateOptionsForDatalist(stationsArray, datalistId, e.target.value);
+            });
             
-            let matchingStations = stationsArray;
-            
-            if (searchTerm) {
-                // 分類匹配的站名
-                const startsWithMatch = [];
-                const containsMatch = [];
-                
-                stationsArray.forEach(station => {
-                    if (station.startsWith(searchTerm)) {
-                        startsWithMatch.push(station);
-                    } else if (station.includes(searchTerm)) {
-                        containsMatch.push(station);
-                    }
-                });
-                
-                // 合併結果：優先顯示開頭匹配的
-                matchingStations = [...startsWithMatch.sort(), ...containsMatch.sort()];
-            }
-            matchingStations.forEach(st => {
-              const o = document.createElement("option");
-              o.value = st;
-              dl.appendChild(o);
+            input.addEventListener('focus', (e) => {
+                if (!e.target.value.trim()) {
+                    updateOptionsForDatalist(stationsArray, datalistId);
+                }
             });
         }
-        
-        // 初始載入所有選項
-        updateHsrOptions();
-        
-
-    }
+    });
+    
 }).catch(err => console.log("HSR data not loaded:", err));
 
 setupTripListSelection();
@@ -1638,8 +1679,8 @@ function updateSelectionInfo(container) {
 function setupTripListSelection() {
   const tripContainers = [
     "#mrtTripDisplay .trip-list", 
-    "#trainTripList.trip-list",
-    "#hsrTripList.trip-list"
+    "#trainTripList",
+    "#hsrTripList"
   ];
 
   tripContainers.forEach(selector => {

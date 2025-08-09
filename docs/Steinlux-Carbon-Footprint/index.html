@@ -10,14 +10,19 @@
     /*—— 自訂字體 ——*/
     @font-face {
       font-family: "GenSenRounded2TW-R";
-      src: url("./font/GenSenRounded2TW-R.otf") format("opentype");
+      src: url("./font/GenSenRounded2TW-R.otf") format("opentype"),
+            url("./font/GenSenRounded2TW-R.woff2") format("woff2");
       font-weight: normal;
       font-style: normal;
       font-display: swap;
     }
+
+    /*—— 自訂字體 ——*/
     @font-face {
       font-family: "GenSenRounded2TW-L";
-      src: url("./font/GenSenRounded2TW-L.otf") format("opentype");
+      src: url("./font/GenSenRounded2TW-L.otf") format("opentype"), 
+      url("./font/GenSenRounded2TW-L.woff2") format("woff2");
+          
       font-weight: normal;
       font-style: normal;
       font-display: swap;
@@ -593,7 +598,11 @@ document.addEventListener("DOMContentLoaded", () => {
         gsap.to(".stars-bg", { rotate: 90, scale: 1.25, duration: 2, ease: "power2.out" });
         gsap.to(".color-block", { x: "-22%", y: "285%", scale: 5, duration: 2 });
         gsap.to(".moon-container", { top: "-8%", right: "-3%", rotate: "90deg", scale: 1.25, duration: 2 });
-        gsap.to(".scene-1 .cat-container", { left: "-25%", bottom: "3%", scale: 0.25, duration: 2 });
+        gsap.to(".scene-1 .cat-container", { 
+          left: "-25%", 
+          bottom: isMobileLayout ? "3%" : "10%", 
+          scale: 0.25, 
+          duration: 2 });
         gsap.to(".scene-2 .cat-container", { 
           left: "7%", 
           bottom: isMobileLayout ? "10%" : "0%", 
@@ -633,12 +642,16 @@ document.addEventListener("DOMContentLoaded", () => {
         gsap.to(".stars-bg", { rotate: 0, scale: 1, duration: 2, ease: "power2.out" });
         gsap.to(".color-block", { right: 0, bottom: 0, x: "45%", y: "65%", scale: 1, duration: 2, ease: "power2.out" });
         gsap.to(".moon-container", { top: "-10%", right: "-5%", rotate: "-90deg", scale: 1, duration: 2 });
-        gsap.to(".scene-1 .cat-container", { left: "15%", bottom: "3%", scale: 1, duration: 2 });
+        gsap.to(".scene-1 .cat-container", { 
+          left: "15%", 
+          bottom: isMobileLayout ? "3%" : "10%", 
+          scale: 1, 
+          duration: 1.5 });
         gsap.to(".scene-2 .cat-container", { 
           left: "-30%", 
           bottom: isMobileLayout ? "10%" : "0%", 
           scale: 0.25, 
-          duration: 1.5 
+          duration: 2
         });
         gsap.to(".scene-2 .button-box", { bottom: "-20%", duration: 1 });
         gsap.to(".scene-1 .scroll-mouse", { opacity: 1, duration: 2 });

@@ -401,7 +401,7 @@
         }
     }
 
-    .input-wrapper {
+    .input-container .input-wrapper {
     display: flex;
     gap: 1rem;
     background-color: var(--chat-bg);
