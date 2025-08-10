@@ -23,9 +23,6 @@ html {
   margin: 0;
   padding: 0;
   min-height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background: url("../images/首頁背景星空.webp") no-repeat center center fixed;
   background-size: cover;
   font-family: "GenSenRounded2TW-R", sans-serif;
@@ -93,17 +90,14 @@ select {
   }
 }
 
-/* 全局和版面 */
 body {
+  margin: 0;
+  min-height: 100vh;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  width: 100%;
-  min-height: 100%;
-  font-size: 1rem;
-  letter-spacing: 6px;
-  overflow-x: hidden;
-  overflow-y: auto;
+  align-items: center;
+  background: inherit; /* 讓 body 也有背景 */
 }
 
 .scene {
@@ -663,21 +657,9 @@ h1 {
   right: 0;
   bottom: 0;
   background-color: rgba(255, 255, 255, 0.75);
-  border: solid 1.5px #dddddd80;
-  -webkit-box-shadow:
-  inset -8.5px -2.25px 0 -7px rgb(255, 255, 255), 
-  inset 8.5px 2.25px 0 -7px rgb(255, 255, 255),
-  inset -2.75px -8.5px 0 -7.25px rgb(255, 255, 255), 
-  inset 2.75px 8.5px 0 -7.25px rgb(255, 255, 255),
-  2px 2px 12px 4px rgba(110, 110, 110, 0.15);
-  box-shadow:
-  inset -8.75px -4.5px 0 -7px rgb(255, 255, 255), 
-  inset 8.75px 4.5px 0 -7px rgb(255, 255, 255),
-  inset -2.75px -8.5px 0 -7.25px rgb(255, 255, 255), 
-  inset 2.75px 8.5px 0 -7.25px rgb(255, 255, 255),
-  2px 2px 12px 4px rgba(110, 110, 110, 0.15);
+  border: solid 2px #dddddd80;
   border-radius: 20px;
-  transition: 0.75s;
+  transition: translate 0.75s;
   z-index: -1;
 }
 
@@ -688,6 +670,7 @@ h1 {
   width: 50%;
   left: 2px;
   bottom: 2.5px;;
+  background-color:#fcf6e4;
   border-radius: 20px;
   transition: 0.3s;
   z-index: 0;
