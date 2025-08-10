@@ -51,7 +51,7 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      background: url("images/首頁背景星空.webp") no-repeat fixed center center;
+      background: url("./images/首頁背景星空.webp") no-repeat fixed center center;
       background-size: cover;
     }
 
@@ -611,7 +611,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         gsap.to(".scene-2 .button-box", { bottom: "12.5vw", duration: 2 });
         gsap.to(".scene-1 .scroll-mouse", { opacity: 0, duration: 2 });
-        gsap.to(".scene-2 .scroll-mouse", { opacity: 1, duration: 2 });
+        gsap.to(".scene-2 .scroll-mouse", { opacity: 0.5, duration: 2 });
         gsap.to(".scene-1 .text-container", { opacity: 0, duration: 0.5 });
         gsap.to(".scene-2 .text-container", { 
           delay: 0.5, 
