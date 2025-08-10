@@ -382,6 +382,12 @@
         max-height: 200px;
         overflow-x: hidden;
         overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      
+      .trip-list::-webkit-scrollbar {
+        display: none;
       }
       
       .trip-item {
@@ -1868,14 +1874,10 @@ const allInputs = document.querySelectorAll('input');
 
 allInputs.forEach(input => {
   input.addEventListener('focus', () => {
+    if(input.value !=="")
     input.placeholder = '';
-    input.value = '';
   });
-
-    input.addEventListener('change', () => {
-    input.blur(); // 自動失焦
-  });
-})
+});
 
 document.querySelectorAll(".daily-card").forEach(card => {
   const type = card.dataset.type;
