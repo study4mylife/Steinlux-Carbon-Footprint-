@@ -251,8 +251,22 @@
         outline: none;
       }
 
+      .fuel-group .input-group select {
+        font-family: "GenSenRounded2TW-L", sans-serif;
+        width: 110px;
+        padding: 0.5rem 0.5rem 0.5rem 0.75rem;
+        border: 0.25pt solid #b5c1c623;
+        border-radius: 8px;
+        box-shadow: inset 2pt 2pt 7pt #6d808f70;
+        background: #fff;
+        font-size: 16px;
+        color: #4a4a4a;
+        letter-spacing: 3px;
+        outline: none;
+      }
+
       #daily-car-type-value {
-        width: 120px;
+        width: 140px;
       }
 
       .fuel-group .input-group input[type='checkbox'] {
@@ -517,6 +531,12 @@
         opacity: 0;
       }
 
+      .input-wrapper select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+      }
+
       .input-wrapper::after {
         content: "";
         position: absolute;
@@ -665,9 +685,13 @@
               <div class="input-group">
                 <label>選擇<br />汽油類型</label>
                 <div class="input-wrapper">
-                  <input list="car-oilList" id="daily-car-fuel-type-value" placeholder="92無鉛" />
+                  <select id="daily-car-fuel-type-value">
+                    <option value="92無鉛">92無鉛</option>
+                    <option value="95無鉛">95無鉛</option>
+                    <option value="98無鉛">98無鉛</option>
+                    <option value="柴油">柴油</option>
+                  </select>
                 </div>
-                <datalist id="car-oilList"></datalist>
               </div>
               <div class="input-group">
                 <label>每週加油</label>
@@ -696,7 +720,14 @@
               <div class="input-group">
                 <label>選擇<br />汽車類型</label>
                 <div class="input-wrapper">
-                  <input list="carList" id="daily-car-type-value" placeholder="小型房車" />
+                  <select id="daily-car-type-value">
+                    <option value="小型房車">小型房車</option>
+                    <option value="中型房車">中型房車</option>
+                    <option value="大型房車">大型房車</option>
+                    <option value="小型休旅車">小型休旅車</option>
+                    <option value="中型休旅車">中型休旅車</option>
+                    <option value="大型休旅車">大型休旅車</option>
+                  </select>
                 </div>
                 <datalist id="carList"></datalist>
               </div>
@@ -761,9 +792,13 @@
               <div class="input-group">
                 <label>選擇<br />汽油類型</label>
                 <div class="input-wrapper">
-                  <input list="motorcycle-oilList" id="daily-motorcycle-fuel-type-value" placeholder="92無鉛" />
+                  <select id="daily-motorcycle-fuel-type-value">
+                    <option value="92無鉛">92無鉛</option>
+                    <option value="95無鉛">95無鉛</option>
+                    <option value="98無鉛">98無鉛</option>
+                    <option value="柴油">柴油</option>
+                  </select>
                 </div>
-                <datalist id="motorcycle-oilList"></datalist>
               </div>
               <div class="input-group">
                 <label>每週加油</label>
@@ -1478,52 +1513,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // 設定切換開關
   setupToggle("daily-car-fuel-type-toggle", "daily-car-method-toggle", "oil-left", "oil-right", "electric-left", "electric-right", "pane-left", "pane-right");
   setupToggle("daily-motorcycle-fuel-type-toggle", "daily-motorcycle-method-toggle", "oil-left4", "oil-right4", "electric-left4", "electric-right4", "pane-left4", "pane-right4");
-
-//汽車汽油選項
-
-let oilData = {
-  "92無鉛": "92無鉛",
-  "95無鉛": "95無鉛",
-  "98無鉛": "98無鉛",
-  "柴油": "柴油"
-};
-
-const carOilList = document.getElementById("car-oilList");
-
-for (let key in oilData) {
-  const option = document.createElement("option");
-  option.value = oilData[key];
-  carOilList.appendChild(option);
-}
-
-//機車汽油選項
-
-const motorcycleOilList = document.getElementById("motorcycle-oilList");
-
-for (let key in oilData) {
-  const option = document.createElement("option");
-  option.value = oilData[key];
-  motorcycleOilList.appendChild(option);
-}
-
-//汽車選項
-
-let carData = {
-  "小型房車": "小型房車", 
-  "中型房車": "中型房車", 
-  "大型房車": "大型房車", 
-  "小型休旅車": "小型休旅車", 
-  "中型休旅車": "中型休旅車", 
-  "大型休旅車": "大型休旅車"
-}
-
-const carList = document.getElementById("carList");
-
-for (let key in carData) {
-  const option = document.createElement("option");
-  option.value = carData[key];
-  carList.appendChild(option);
-}
 
 // 優化的捷運、火車、高鐵站名搜索功能
 

@@ -628,7 +628,7 @@ h1 {
   align-items: center;
   position: relative;
   min-width: 80px;
-  min-height: 20px;
+  min-height: 27px;
   width: 100%;
   padding: 4px 8px;
   margin: 2px;
@@ -657,7 +657,7 @@ h1 {
   right: 0;
   bottom: 0;
   background-color: rgba(255, 255, 255, 0.75);
-  border: solid 2px #dddddd80;
+  border: solid 1px #dddddd80;
   border-radius: 20px;
   transition: translate 0.75s;
   z-index: -1;
@@ -669,8 +669,8 @@ h1 {
   height: 80%;
   width: 50%;
   left: 2px;
-  bottom: 2.5px;;
-  background-color:#fcf6e4;
+  bottom: 3.5px;;
+  background-color:rgba(255, 255, 255, 0.05);
   border-radius: 20px;
   transition: 0.3s;
   z-index: 0;
@@ -768,6 +768,7 @@ h1 {
   .scene {
     max-width: 85vw;
     margin: 4rem 0;
+    border-radius: 32px;
   }
 
   .scene::before {
