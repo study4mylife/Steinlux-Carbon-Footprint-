@@ -61,7 +61,7 @@ function StartQuestionnaire() {
     document.querySelector(".story-body").style.display = "none";
     document.querySelector("body").style.display = "flex";
     document.querySelector(".scene-1").classList.add("active");
-    document.documentElement.style.backgroundImage = `url('images/圖片1.webp')`;
+    document.documentElement.style.backgroundImage = `url('images/1-4.webp')`;
 }
 
 sendButton.addEventListener("click", () => {
