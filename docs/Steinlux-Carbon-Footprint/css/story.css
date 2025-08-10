@@ -30,6 +30,20 @@
     --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
     }
 
+    .stars-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: url("../images/首頁背景星星.webp") no-repeat 0 0;
+        background-size: cover;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: 0;
+        transform-origin: center center;
+    }
+
     /* 從夢中醒來的初始狀態 */
     .story-body {
         font-family: "GenSenRounded2TW-R", sans-serif;
