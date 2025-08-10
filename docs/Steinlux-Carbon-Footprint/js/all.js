@@ -3,6 +3,7 @@
     class Story extends HTMLElement {
 connectedCallback() {
     this.innerHTML = `
+    <div class="stars-bg"></div>
     <div class="story-body">
         <div class="story-container">
             <header class="story-header">
