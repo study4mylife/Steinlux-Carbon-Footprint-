@@ -323,7 +323,6 @@
         align-items: center;
         flex-direction: row;
         gap: 0.5rem;
-        margin: 0.15rem 0;
       }
 
       .input-group-MRT label {
@@ -754,9 +753,9 @@
             </div>
             <div id="electric-left" class="fuel-group hidden">
               <div class="input-group">
-                <label>行駛里程</label>
-                <input type="number" min="0" id="travel-oilcar-distance-value" value="0"/>
-                <label class="special-label">公里/週</label>
+                <label>外出充電</label>
+                <input type="number" min="0" id="travel-EV-charge-value" value="0"/>
+                <label class="special-label">kWh/週</label>
               </div>
             </div>
           </div>
@@ -785,9 +784,9 @@
             </div>
             <div id="electric-right" class="fuel-group hidden">
               <div class="input-group">
-                <label>外出充電</label>
-                <input type="number" min="0" id="travel-EV-charge-value" value="0"/>
-                <label class="special-label">kWh/週</label>
+                <label>行駛里程</label>
+                <input type="number" min="0" id="travel-oilcar-distance-value" value="0"/>
+                <label class="special-label">公里/週</label>
               </div>
             </div>
           </div>
@@ -2045,7 +2044,7 @@ function addFlightTrip() {
     const isRound = document.getElementById("travelFlightRoundTripToggle").checked;
     const type = isRound ? "來回" : "單程";
     
-    item.innerHTML = `<span class="trip-item-text"><span class="trip-item-text-left">${s} → ${e}</span> <span class="trip-item-text-right">${c}趟 ${type}</span></span>`;
+    item.innerHTML = `<span class="trip-item-text"><span class="trip-item-text-left">${s.substring(0, 3)} → ${e.substring(0, 3)}</span> <span class="trip-item-text-right">${c}趟 ${type}</span></span>`;
     
     document.getElementById("flightStart").value = "";
     document.getElementById("flightEnd").value = "";
@@ -2219,6 +2218,38 @@ document.querySelectorAll(".travel-card").forEach(card => {
     }
   });
 });
+
+function bindNumberLimit(inputId) {
+  const el = document.getElementById(inputId);
+
+  el.addEventListener('input', () => {
+    let val = el.value;
+
+    // 移除非數字
+    val = val.replace(/\D/g, '');
+
+    // 限制最多 2 位數
+    if (val.length > 2) {
+      val = val.slice(0, 2);
+    }
+
+    // 如果是空的就先不處理
+    if (val === '') {
+      el.value = '';
+      return;
+    }
+
+    // 限制範圍 1 ~ 99
+    let num = parseInt(val, 10);
+    if (num < 1) num = 1;
+    if (num > 99) num = 99;
+
+    el.value = num;
+  });
+}
+
+// 綁定三個輸入框
+['mrtCount', 'trainCount', 'hsrCount', 'flightCount'].forEach(bindNumberLimit);
   </script>
 
   </body>

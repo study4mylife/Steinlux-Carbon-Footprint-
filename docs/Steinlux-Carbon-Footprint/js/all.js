@@ -62,7 +62,36 @@ function StartQuestionnaire() {
     document.querySelector(".story-body").style.display = "none";
     document.querySelector("body").style.display = "flex";
     document.querySelector(".scene-1").classList.add("active");
-    document.documentElement.style.backgroundImage = `url('images/1-4.webp')`;
+    // 取得目前檔案名稱
+    const fileName = window.location.pathname.split("/").pop();
+
+    // 預設背景
+    let bgImage = "images/default.webp";
+
+    // 根據不同檔案名稱設定背景
+    switch (fileName) {
+        case "traffic-daily.html":
+            bgImage = "./images/bg-traffic-daily.webp";
+            break;
+        case "home.html":
+            bgImage = "./images/bg-home.webp";
+            break;
+        case "traffic-travel.html":
+            bgImage = "./images/bg-traffic-travel.webp";
+            break;
+        case "food.html":
+            bgImage = "./images/bg-food.webp";
+            break;
+        case "fashion.html":
+            bgImage = "./images/bg-fashion.webp";
+            break;
+        case "entertainment.html":
+            bgImage = "./images/bg-entertainment.webp";
+            break;
+    }
+
+    // 套用背景
+    document.documentElement.style.backgroundImage = `url('${bgImage}')`;
 }
 
 sendButton.addEventListener("click", () => {
