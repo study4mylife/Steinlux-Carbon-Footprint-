@@ -445,7 +445,7 @@
         </div>
       </div>
       <button class="nav-btn prev-btn" onclick="goToPrevScene()">‹</button>
-      <button class="nav-btn next-btn" onclick="goToNextScene()">›</button>
+      <button id="calculate-btn" class="nav-btn next-btn" onclick="goToNextScene()">›</button>
     </section>
 
     <!-- Scene 2：電影院 -->
@@ -683,7 +683,7 @@
 
       <!-- Info 按鈕 -->
       <button id="info-btn" class="info-btn">
-        <img src="images/info.webp公車.webp" alt="!" />
+        <img src="images/info.webp" alt="!" />
       </button>
 
       <!-- 彈跳式視窗 -->
@@ -698,6 +698,7 @@
     <script src="./js/all.js"></script>
 <script type="module">
   import { saveSectionData, loadSectionData } from './js/firebase.js';
+  import { functions, httpsCallable } from './js/firebase.js';
 
   // 頁面載入時回填
   window.addEventListener('DOMContentLoaded', async () => {
@@ -733,6 +734,87 @@
       console.error("載入資料失敗：", err);
     }
   });
+
+function getUserId() {
+  let userId = localStorage.getItem("userId");
+  if (!userId) {
+    userId = `user_${Date.now()}`;
+    localStorage.setItem("userId", userId);
+  }
+  return userId;
+}
+
+async function calculate() {
+  const userId = getUserId();
+  console.log("userId:", userId);
+  console.log("userId 型別:", typeof userId);
+
+  // 檢查當前儲存的資料
+  try {
+    const currentData = await loadSectionData('entertainment');
+    console.log("當前儲存的資料:", currentData);
+  } catch (err) {
+    console.log("載入資料失敗:", err);
+  }
+
+  try {
+    console.log("開始呼叫 Cloud Function...");
+    
+    // 創建 callable function 實例
+    const calculateFunction = httpsCallable(functions, "calculateCarbonPage");
+    
+    const requestData = {
+      userId: userId,
+      pageName: "entertainment"
+    };
+    
+    console.log("準備傳送的資料:", requestData);
+    console.log("requestData 型別:", typeof requestData);
+    console.log("JSON.stringify(requestData):", JSON.stringify(requestData));
+    
+    // 呼叫 Cloud Function
+    const result = await calculateFunction(requestData);
+    
+    console.log("Cloud Function 回應:", result);
+    console.log("result.data:", result.data);
+    
+    // 顯示結果
+    if (result.data && result.data.total !== undefined) {
+      const total = result.data.total;
+      const message = `計算成功！\n碳排放量: ${total.toFixed(2)} kg CO2e\n頁面: ${result.data.pageName}`;
+      alert(message);
+      
+      // 你也可以把結果顯示在頁面上
+      const resultElement = document.getElementById("calculation-result");
+      if (resultElement) {
+        resultElement.innerHTML = `
+          <h3>計算結果</h3>
+          <p>碳排放量: <strong>${total.toFixed(2)} kg CO2e</strong></p>
+          <p>計算時間: ${new Date().toLocaleString()}</p>
+        `;
+      }
+    } else {
+      console.warn("回應格式異常:", result);
+      alert("計算完成，但回應格式異常");
+    }
+    
+  } catch (err) {
+    console.error("完整錯誤物件:", err);
+    console.error("錯誤訊息:", err.message);
+    console.error("錯誤代碼:", err.code);
+    console.error("錯誤詳細資訊:", err.details);
+    
+    let errorMessage = "計算失敗，請稍後再試";
+    if (err.message) {
+      errorMessage += `\n錯誤訊息: ${err.message}`;
+    }
+    
+    alert(errorMessage);
+  }
+}
+
+// 假設按鈕觸發
+document.getElementById("calculate-btn").addEventListener("click", calculate);
 
   // 儲存資料並跳轉
   async function handleNext() {

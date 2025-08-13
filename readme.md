@@ -21,7 +21,6 @@ EX: git push -u origin HOW<br>
 
 
 # 網頁預覽
-[背景測試](https://study4mylife.github.io/Steinlux-Carbon-Footprint-/Steinlux-Carbon-Footprint/testbg.html)
 
 [主頁](https://study4mylife.github.io/Steinlux-Carbon-Footprint-/Steinlux-Carbon-Footprint/index.html)
 

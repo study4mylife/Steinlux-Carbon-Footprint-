@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
+import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-functions.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBm2oNcPhQ5nbQbLrvQUnlQ31LoxX3JThM",
@@ -14,6 +14,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const functions = getFunctions(app);
+
 // 儲存資料
 export async function saveSectionData(sectionName, data) {
   const userId = getUserId();
@@ -38,5 +40,5 @@ function getUserId() {
 }
 
 
-export { db, ref, set, get, child };
+export { db, ref, set, get, child, functions, httpsCallable};
 
