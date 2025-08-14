@@ -1,18 +1,17 @@
 /*—— 自訂字體 ——*/
 @font-face {
   font-family: "GenSenRounded2TW-R";
-  src: url("../font/GenSenRounded2TW-R.woff2") format("woff2"),
-       url("../font/GenSenRounded2TW-R.otf") format("opentype");
+  src: url("../font/GenSenRounded2TW-R.otf") format("opentype"),
+       url("../font/GenSenRounded2TW-R.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
-/*—— 自訂字體 ——*/
 @font-face {
   font-family: "GenSenRounded2TW-L";
-  src: url("../font/GenSenRounded2TW-L.woff2") format("woff2"),
-       url("../font/GenSenRounded2TW-L.otf") format("opentype");
+  src: url("../font/GenSenRounded2TW-L.otf") format("opentype"),
+       url("../font/GenSenRounded2TW-L.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
