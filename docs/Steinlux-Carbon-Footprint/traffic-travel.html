@@ -744,7 +744,7 @@
                 <div class="toggle-row">
                   <label class="apple-toggle-switch">
                     <span class="nowrap-text">公升</span>
-                    <input type="checkbox" id="water-unit-toggle" />
+                    <input type="checkbox" id="oil-unit-toggle" />
                     <span class="slider"></span>
                     <span class="nowrap-text">元</span>
                   </label>
@@ -1124,6 +1124,7 @@
           // 油車
           travelCarFuelTypeValue: document.getElementById("travel-car-fuel-type-value").value || "92無鉛",
           travelCarOilValue: document.getElementById("travel-car-oil-value").value || 0,
+          oilUnitToggle: document.getElementById("oil-unit-toggle")?.checked ?? false,
           travelOilcarDistanceValue: document.getElementById("travel-oilcar-distance-value").value || 0,
           travelCarTypeValue: document.getElementById("travel-car-type-value").value || "小型房車",
 
@@ -2031,20 +2032,32 @@ function removeCruiseTrip() {
 function addFlightTrip() {
   const list = document.querySelector("#flightTripDisplay .trip-list");
   if (!list) return alert("找不到航班列表");
-  
+
   const item = document.createElement("div");
-  
+  item.classList.add("trip-item"); // 確保 sumFlightDistance 可以抓到
+
+  const cabinLevel = document.getElementById("travel-flight-level-value").value;
+  // 簡單使用數字表示艙等係數，經濟=1, 豪經=2, 商務=3, 頭等=4
+  const cabinCoeffs = {
+    "經濟艙": 1,
+    "豪經艙": 2,
+    "商務艙": 3,
+    "頭等艙": 4
+  };
+  const cabinFactor = cabinCoeffs[cabinLevel] || 1;
+
   if (document.getElementById("travel-flight-method-toggle").checked) {
     // 站點模式
     const s = document.getElementById("flightStart").value.trim();
     const e = document.getElementById("flightEnd").value.trim();
     const c = parseInt(document.getElementById("flightCount").value, 10) || 0;
 
-    const dist = parseFloat(haversine(airportCoords[s], airportCoords[e]).toFixed(2));
-    const isRound = document.getElementById("travelFlightRoundTripToggle").checked;
-    const type = isRound ? "來回" : "單程";
-    
-    item.innerHTML = `<span class="trip-item-text"><span class="trip-item-text-left">${s.substring(0, 3)} → ${e.substring(0, 3)}</span> <span class="trip-item-text-right">${c}趟 ${type}</span></span>`;
+    const type = document.getElementById("travelFlightRoundTripToggle").checked ? "來回" : "單程";
+
+    item.innerHTML = `<span class="trip-item-text">
+      <span class="trip-item-text-left">${s.substring(0,3)} → ${e.substring(0,3)}</span> 
+      <span class="trip-item-text-right">${c}趟 ${type} / ${cabinLevel}</span>
+    </span>`;
     
     document.getElementById("flightStart").value = "";
     document.getElementById("flightEnd").value = "";
@@ -2053,12 +2066,15 @@ function addFlightTrip() {
     // 時間模式
     const h = parseFloat(document.getElementById("travel-flight-time-value").value) || 0;
     if (h <= 0) return alert("請輸入有效飛行時數");
-    
-    item.innerHTML = `<span class="trip-item-text">飛行時數：${h} 小時</span>`;
-    
+
+    item.innerHTML = `<span class="trip-item-text">
+      飛行時數：${h} 小時 / ${cabinLevel}
+    </span>`;
+
     document.getElementById("travel-flight-time-value").value = "";
   }
-  
+
+  item.dataset.cabinFactor = cabinFactor; // 將艙等係數存到 dataset
   makeSelectable(item);
   list.appendChild(item);
   updateSelectionInfo(list);
@@ -2131,48 +2147,38 @@ function sumTripDistance(map, containerSelector, type = "pair") {
 
 function sumFlightDistance() {
   const container = document.querySelector("#flightTripDisplay");
-  if (!container) {
-    console.warn("找不到 flightTripDisplay 容器");
-    return 0;
-  }
+  if (!container) return 0;
 
   const list = container.querySelector(".trip-list");
-  if (!list) {
-    console.warn("找不到 .trip-list 於 #flightTripDisplay");
-    return 0;
-  }
+  if (!list) return 0;
 
   let total = 0;
 
   list.querySelectorAll(".trip-item").forEach(item => {
+    const factor = parseFloat(item.dataset.cabinFactor || 1);
     const text = item.innerText.replace(/\s+/g, ' ').trim();
 
-    // 飛行時數模式：飛行時數：5 小時
-    const timeMatch = text.match(/^飛行時數：(\d+(?:\.\d+)?) 小時$/);
+    // 時數模式
+    const timeMatch = text.match(/^飛行時數：(\d+(?:\.\d+)?) 小時/);
     if (timeMatch) {
       const hours = parseFloat(timeMatch[1]);
-      // 平均每小時飛行距離：約 900 公里（視航空機型而異）
-      total += hours * 900;
+      total += hours * 900 * factor;
       return;
     }
 
-    // 站點模式：TPE → LAX 2趟 來回
-    const pairMatch = text.match(/^(.+?) → (.+?) (\d+)趟 (來回|單程)$/);
+    // 站點模式
+    const pairMatch = text.match(/^(.+?) → (.+?) (\d+)趟 (來回|單程)/);
     if (pairMatch) {
       const [_, start, end, countStr, type] = pairMatch;
       const count = parseInt(countStr);
       const coordStart = airportCoords[start];
       const coordEnd = airportCoords[end];
+      if (!coordStart || !coordEnd) return;
 
-      if (!coordStart || !coordEnd) {
-        console.warn(`找不到座標：${start} 或 ${end}`);
-        return;
-      }
-
-      let distance = haversine(coordStart, coordEnd); // 單程距離
+      let distance = haversine(coordStart, coordEnd);
       if (type === "來回") distance *= 2;
 
-      total += distance * count;
+      total += distance * count * factor;
     }
   });
 

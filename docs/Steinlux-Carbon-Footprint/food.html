@@ -274,10 +274,10 @@
         display: grid;
         grid-template-columns: repeat(2, auto);
         grid-template-rows: repeat(5, auto);
-        gap: 2rem;
-        background: rgba(255, 255, 255, 0.05);
+        gap: 3rem;
         overflow: auto;
       }
+
       .modal-body .input-group {
         display: flex;
         justify-content: center;
@@ -549,10 +549,12 @@
           right: 16px;
           bottom: 16px;
         }
+        .modal-body {
+        gap: 2rem;
+      }
       }
 
       @media (max-width: 600px) {
-
         .waste-container {
           width: 90%;
         }
@@ -1745,6 +1747,18 @@
             document.getElementById("food-snack-blackCoffee-value").value = data.foodSnackBlackCoffeeValue ?? 0;
             document.getElementById("food-snack-milk-value").value = data.foodSnackMilkValue ?? 0;
 
+            //葷食
+            document.getElementById("food-modal-rice-value").value = data.foodModalRiceValue ?? 0;
+            document.getElementById("food-modal-vegetable-value").value = data.foodModalVegetableValue ?? 0;
+            document.getElementById("food-modal-milk-value").value = data.foodModalMilkValue ?? 0;
+            document.getElementById("food-modal-lamb-value").value = data.foodModalLambValue ?? 0;
+            document.getElementById("food-modal-pork-value").value = data.foodModalPorkValue ?? 0;
+            document.getElementById("food-modal-chicken-value").value = data.foodModalChickenValue ?? 0;
+            document.getElementById("food-modal-egg-value").value = data.foodModalEggValue ?? 0;
+            document.getElementById("food-modal-shrimp-value").value = data.foodModalShrimpValue ?? 0;
+            document.getElementById("food-modal-fish-value").value = data.foodModalFishValue ?? 0;
+            document.getElementById("food-modal-noodle-value").value = data.foodModalNoodleValue ?? 0;
+
             // 海鮮素
             document.getElementById("food-pescatarian-rice-value").value = data.foodPescatarianRiceValue ?? 0;
             document.getElementById("food-pescatarian-vegetable-value").value = data.foodPescatarianVegetableValue ?? 0;
@@ -1812,6 +1826,18 @@
           foodSnackSoyMilkValue: document.getElementById("food-snack-soymilk-value").value || 0,
           foodSnackBlackCoffeeValue: document.getElementById("food-snack-blackCoffee-value").value || 0,
           foodSnackMilkValue: document.getElementById("food-snack-milk-value").value || 0,
+
+          //葷食
+          foodModalRiceValue: document.getElementById("food-modal-rice-value").value ?? 0,
+          foodModalVegetableValue: document.getElementById("food-modal-vegetable-value").value ?? 0,
+          foodModalMilkValue: document.getElementById("food-modal-milk-value").value ?? 0,
+          foodModalLambValue: document.getElementById("food-modal-lamb-value").value ?? 0,
+          foodModalPorkValue: document.getElementById("food-modal-pork-value").value ?? 0,
+          foodModalChickenValue: document.getElementById("food-modal-chicken-value").value ?? 0,
+          foodModalEggValue: document.getElementById("food-modal-egg-value").value ?? 0,
+          foodModalShrimpValue: document.getElementById("food-modal-shrimp-value").value ?? 0,
+          foodModalFishValue: document.getElementById("food-modal-fish-value").value ?? 0,
+          foodModalNoodleValue: document.getElementById("food-modal-noodle-value").value ?? 0,
 
           // 海鮮素
           foodPescatarianRiceValue: document.getElementById("food-pescatarian-rice-value").value || 0,
@@ -1903,6 +1929,8 @@
     function goToScene(n) {
       document.querySelector(".scene.active").classList.remove("active");
       document.getElementById(`scene${n}`).classList.add("active");
+      console.log(selectedDiet);
+      console.log(selectedSubDiet);
       updateProgressBars();
     }
 

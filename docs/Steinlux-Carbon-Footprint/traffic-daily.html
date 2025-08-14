@@ -704,7 +704,7 @@
                 <div class="toggle-row">
                   <label class="apple-toggle-switch">
                     <span class="nowrap-text">公升​</span>
-                    <input type="checkbox" id="water-unit-toggle" />
+                    <input type="checkbox" id="oil-unit-toggle" />
                     <span class="slider"></span>
                     <span class="nowrap-text">元​</span>
                   </label>
@@ -738,14 +738,14 @@
               </div>
               <div class="input-group">
                 <label>每週行駛</label>
-                <input type="number" min="0" id="daily-EV-distance-value" value="0"/>
+                <input type="number" min="0" id="daily-oilcar-distance-value" value="0"/>
                 <label class="special-label">公里/週</label>
               </div>
             </div>
             <div id="electric-right" class="fuel-group hidden">
               <div class="input-group">
                 <label>行駛里程</label>
-                <input type="number" min="0" id="daily-oilcar-distance-value" value="0"/>
+                <input type="number" min="0" id="daily-EV-distance-value" value="0"/>
                 <label class="special-label">公里/週</label>
               </div>
             </div>
@@ -859,6 +859,19 @@
           <div class="bar-container dynamic-bar-container"></div>
         </div>
         <div class="daily-card">
+          <div class="template-wrapper">
+            <div class="input-group-MRT fuel-group">
+              <div class="input-group">
+                <label>選擇<br />汽油類型</label>
+                <div class="input-wrapper">
+                  <select id="daily-bus-fuel-type-value">
+                    <option value="燃油公車">燃油公車</option>
+                    <option value="電動公車">電動公車</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="template-wrapper">
             <div class="input-group-MRT">
               <label for="daily-bus-distance-value" style="font-size: 1rem;">每周搭乘</label>
@@ -1034,6 +1047,7 @@
             // 油車
             document.getElementById("daily-car-fuel-type-value").value = data.dailyCarFuelTypeValue ?? "92無鉛";
             document.getElementById("daily-car-oil-value").value = data.dailyCarOilValue ?? 0;
+            document.getElementById("oil-unit-toggle").checked = data.oilUnitToggle ?? false;
             document.getElementById("daily-oilcar-distance-value").value = data.dailyOilcarDistanceValue ?? 0;
             document.getElementById("daily-car-type-value").value = data.dailyCarTypeValue ?? "小型房車";
 
@@ -1055,6 +1069,7 @@
             document.getElementById("daily-electricmotorcycle-charge-value").value = data.dailyElectricmotorcycleChargeValue ?? 0
 
             // 公車
+            document.getElementById("daily-bus-fuel-type-value").value = data.dailyBusFuelTypeValue ?? "燃油公車"
             document.getElementById("daily-bus-distance-value").value = data.dailyBusDistanceValue ?? 0;
           }
         } catch (err) {
@@ -1085,8 +1100,9 @@
           // 油車
           dailyCarFuelTypeValue: document.getElementById("daily-car-fuel-type-value")?.value ?? "92無鉛",
           dailyCarOilValue: parseFloat(document.getElementById("daily-car-oil-value")?.value || 0),
+          oilUnitToggle: document.getElementById("oil-unit-toggle")?.checked ?? false,
           dailyOilcarDistanceValue: parseFloat(document.getElementById("daily-oilcar-distance-value")?.value || 0),
-          dailyCarTypeValue: document.getElementById("daily-car-type-value")?.value ?? "",
+          dailyCarTypeValue: document.getElementById("daily-car-type-value")?.value ?? "小型房車",
 
           // 電車 
           dailyEVDistanceValue: parseFloat(document.getElementById("daily-EV-distance-value")?.value || 0),
@@ -1107,6 +1123,9 @@
 
           // 公車
           dailyBusDistanceValue: parseFloat(document.getElementById("daily-bus-distance-value")?.value || 0),
+          dailyBusFuelTypeValue: document.getElementById("daily-bus-fuel-type-value")?.value ?? "燃油公車",
+
+          //捷運 火車 高鐵總距離
           dailyMRTDistanceTotal: mrtDistanceSum,
           dailyTrainDistanceTotal: trainDistanceSum,
           dailyHSRDistanceTotal: hsrDistanceSum,
