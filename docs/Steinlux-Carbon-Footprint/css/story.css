@@ -17,6 +17,10 @@
   font-display: swap;
 }
 
+html{
+    background-image: url('../images/首頁背景星空.jpg');
+}
+
 :root {
     --primary-gradient: #9c7a5c;
     --secondary-gradient: #6c808f;

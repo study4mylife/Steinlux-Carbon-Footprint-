@@ -10,7 +10,7 @@
     /*—— 自訂字體 ——*/
     @font-face {
       font-family: "GenSenRounded2TW-R";
-      src: url("../font/GenSenRounded2TW-R.otf") format("opentype");
+      src: url("./font/GenSenRounded2TW-R.otf") format("opentype");
       font-weight: normal;
       font-style: normal;
       font-display: swap;
@@ -18,7 +18,7 @@
 
     @font-face {
       font-family: "GenSenRounded2TW-L";
-      src: url("../font/GenSenRounded2TW-L.otf") format("opentype");
+      src: url("./font/GenSenRounded2TW-L.otf") format("opentype");
       font-weight: normal;
       font-style: normal;
       font-display: swap;
@@ -47,7 +47,7 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      background: url("./images/首頁背景星空.webp") no-repeat fixed center center;
+      background: url("./images/首頁背景星空.jpg") no-repeat fixed center center;
       background-size: cover;
     }
 
@@ -210,8 +210,6 @@
 
       .scene-1 .cat-container {
         position: absolute;
-        left: 15%;
-        bottom: 3%;
         scale: 1;
         z-index: 3;
       }
@@ -221,10 +219,30 @@
         min-width: 120px;
         width: 18vw;
         height: auto;
+        transform: rotate(39deg);
         position: relative;
         z-index: 3;
-        animation: floatCloud 2s ease-in-out infinite;
-      }
+        animation: fly 15s ease-out infinite;
+}
+
+@keyframes fly {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+    scale: 1;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    transform: scale(0.3);
+    opacity: 0;
+  }
+}
 
       .scene-1 .spaceship-container {
         position: absolute;
@@ -262,7 +280,7 @@
         margin: 0;
         font-family: "GenSenRounded2TW-L", sans-serif;
         font-size: 1rem;
-        letter-spacing: 5px;
+        letter-spacing: 2px;
         color: #ffffff;
         line-height: 2rem;
         white-space: pre-wrap;
@@ -444,15 +462,12 @@
           <div class="color-block"></div>
 
           <div class="cat-container">
-            <div class="spaceship-container">
-              <img src="images/太空火箭.webp" alt="太空火箭" class="spaceship"/>
-            </div>
-            <img src="images/太空服貓.webp" alt="太空貓" class="flying-cat" />
+            <img src="images/wqegeqg.png" alt="太空貓" class="flying-cat" />
           </div>
           <div class="text-container">
             <div class="speech-box">
               <p
-                data-text="宇宙靜默無聲，無數星系在無邊的黑暗中閃爍，[主角]駕駛著太空船，在這片寂靜之海飄流。\n\n某天，[主角]的偵測儀發出微弱的訊號，顯示前方一顆失落的藍色星球 - 根據古老的星際記錄，這裡曾是「地球」，一個擁有數十億生命的世界。"
+                data-text="宇宙靜默無聲，無數星系在無邊的黑暗中閃爍，Chrónôs駕駛著太空船，在這片寂靜之海飄流。\n\n某天，Chrónôs的偵測儀發出微弱的訊號，顯示前方一顆失落的藍色星球 - 根據古老的星際記錄，這裡曾是「Οἰκουμένη」，一個擁有數十億生命的世界。"
               ></p>
             </div>
           </div>
@@ -700,6 +715,16 @@ document.addEventListener("DOMContentLoaded", () => {
     { passive: false }
   );
 });
+
+function setPath() {
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  const path = `M ${0.1*w},${1.1*h} Q ${0.2*w},${0.5*h} ${1.2*w},${0.2*h}`;
+  document.querySelector('.flying-cat').style.offsetPath = `path("${path}")`;
+}
+
+window.addEventListener('resize', setPath);
+setPath();
 </script>
 
 
