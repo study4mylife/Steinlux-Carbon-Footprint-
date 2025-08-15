@@ -65,9 +65,6 @@ function StartQuestionnaire() {
     // 取得目前檔案名稱
     const fileName = window.location.pathname.split("/").pop();
 
-    // 預設背景
-    let bgImage = "images/default.webp";
-
     // 根據不同檔案名稱設定背景
     switch (fileName) {
         case "traffic-daily.html":
