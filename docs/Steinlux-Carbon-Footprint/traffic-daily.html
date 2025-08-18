@@ -188,7 +188,7 @@
       width: 40%;
       background: rgba(255, 255, 255, 0.1);
       border-radius: 32px;
-      padding: 0.5rem 1.25rem;
+      padding: 0.75rem 1.25rem 0.5rem 1.25rem;
       gap: 1rem;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
@@ -267,6 +267,10 @@
 
       #daily-car-type-value {
         width: 140px;
+      }
+
+      #daily-bus-fuel-type-value {
+        width: 120px;
       }
 
       .fuel-group .input-group input[type='checkbox'] {
@@ -350,7 +354,6 @@
         font-size: 0.85rem;
         font-weight: bold;
         color: rgba(0, 0, 0, 0.2);
-        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
         padding: 6px 12px;
         cursor: pointer;
         transition: background-color 0.2s, box-shadow 0.2s;
@@ -715,7 +718,7 @@
               <div class="input-group">
                 <label>外出充電</label>
                 <input type="number" min="0" id="daily-EV-charge-value" value="0"/>
-                <label class="special-label">kWh/週</label>
+                <label class="special-label">度/週</label>
               </div>
             </div>
           </div>
@@ -822,7 +825,7 @@
               <div class="input-group">
                 <label>外出充電</label>
                 <input type="number" min="0" id="daily-electricmotorcycle-charge-value" value="0"/>
-                <label class="special-label">kWh/週</label>
+                <label class="special-label">度/週</label>
               </div>
             </div>
           </div>
@@ -862,7 +865,7 @@
           <div class="template-wrapper">
             <div class="input-group-MRT fuel-group">
               <div class="input-group">
-                <label>選擇<br />汽油類型</label>
+                <label>選擇<br />能源類型</label>
                 <div class="input-wrapper">
                   <select id="daily-bus-fuel-type-value">
                     <option value="燃油公車">燃油公車</option>

@@ -473,7 +473,7 @@ h1 {
 
 @keyframes switchOn {
   0% {
-    transform: translateX(0%);
+    transform: translateX(20%);
   }
   20% {
     transform: translateX(127%);
@@ -489,7 +489,6 @@ h1 {
   }
   100% {
     transform: translateX(120%);
-    box-shadow: #ffffff 0;
   }
 }
 
@@ -498,19 +497,19 @@ h1 {
     transform: translateX(120%);
   }
   20% {
-    transform: translateX(0%);
+    transform: translateX(-2%);
   }
   40% {
-    transform: translateX(-17%);
+    transform: translateX(22%);
   }
   60% {
-    transform: translateX(13%);
+    transform: translateX(2%);
   }
   80% {
-    transform: translateX(-9%);
+    transform: translateX(8%);
   }
   100% {
-    transform: translateX(0%);
+    transform: translateX(5%);
   }
 }
 
@@ -537,7 +536,6 @@ h1 {
   }
   100% {
     transform: translateX(90%);
-    box-shadow: #ffffff 0;
     scale: 1;
   }
 }
@@ -602,11 +600,11 @@ h1 {
   height: 16px;
   width: 16px;
   left: 2px;
-  bottom: 2px;
+  bottom: 2.3px;
   background: #fff;
   border-radius: 50%;
   transition: 0.3s;
-  box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
+  box-shadow: 5pt 5pt 10pt #c3cadb76;
 }
 
 
@@ -735,7 +733,6 @@ h1 {
   border: none;
   border-radius: 100%;
   background: rgba(255, 255, 255);
-  box-shadow: -4pt -4pt 5pt #ffffff46, 5pt 5pt 10pt #c3cadb76;
   width: 1rem;
   height: 1rem;
   padding: 10px;

@@ -197,7 +197,7 @@ html{
     .story-header-title h1 {
     font-size: 1.2rem;
     font-weight: 600;
-    letter-spacing: 0.2rem;
+    letter-spacing: 2px;
     }
     
     .story-header-title i {
@@ -324,11 +324,14 @@ html{
     }
 
     .story-avatar {
-    min-width: 40px;
-    min-height: 40px;
-    border-radius: 12px;
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    border-radius: 50%;
     margin-right: 1rem;
-    background: var(--primary-gradient);
+        background-image: url('../images/火箭貓.webp');
+    background-size: 6.5rem auto;
+    background-position: -1.55rem -0.75rem;
+    background-repeat: no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;

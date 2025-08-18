@@ -246,17 +246,6 @@
         padding: 0.75rem;
         z-index: 1000;
       }
-      .modal-close {
-        position: absolute;
-        top: 0;
-        right: 4px;
-        color: #aaa;
-        cursor: pointer;
-        user-select: none;
-      }
-      .modal-close:hover {
-        color: #333;
-      }
 
       /* Modal 內容排版 */
       .modal-body {
@@ -688,7 +677,6 @@
 
       <!-- 彈跳式視窗 -->
       <div id="modal" class="modal">
-        <span id="modal-close" class="modal-close">&times;</span>
         <div class="modal-body">
           <span>金紙一份為500克</span>
         </div>
@@ -913,7 +901,6 @@ document.getElementById("calculate-btn").addEventListener("click", calculate);
 
     const infoBtn = document.getElementById("info-btn");
     const modal = document.getElementById("modal");
-    const closeX = document.getElementById("modal-close");
 
     infoBtn.addEventListener("click", () => {
       if (modal.style.display === "flex") {
@@ -921,10 +908,6 @@ document.getElementById("calculate-btn").addEventListener("click", calculate);
       } else {
         modal.style.display = "flex";
       }
-    });
-
-    closeX.addEventListener("click", () => {
-      modal.style.display = "none";
     });
 
     // 單位切換

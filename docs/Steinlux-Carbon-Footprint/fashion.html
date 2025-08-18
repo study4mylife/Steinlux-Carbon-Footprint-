@@ -77,6 +77,17 @@
         color: #6c808f;
       }
 
+      .fashion-box .fast-fashion-img, .fashion-box .luxury-fashion-img{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+
+      .fashion-box img {
+        width: 50%;
+      }
+
       .fashion-box .input-container {
         display: flex;
         align-items: center;
@@ -111,6 +122,9 @@
           <div class="fashion-box">
             <span class="question-title">快時尚</span>
             <label for="fastFashionInput">一年共花費</label>
+            <div class="fast-fashion-img">
+              <img src="./images/fast_fashion.png" alt="fast_fashion">
+            </div>
             <div class="input-container">
               <div class="custom-number-input">
                 <button type="button" class="btn-decrement">
@@ -127,6 +141,9 @@
           <div class="fashion-box">
             <span class="question-title">奢華時尚</span>
             <label for="luxuryFashionInput">一年共花費</label>
+            <div class="luxury-fashion-img">
+              <img src="./images/luxury_fashion.png" alt="luxury_fashion">
+            </div>
             <div class="input-container">
               <div class="custom-number-input">
                 <button type="button" class="btn-decrement">
