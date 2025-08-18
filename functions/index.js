@@ -88,39 +88,39 @@ const foodCoefficients = {
     porkBento: 0.269,
     chickenBento: 0.2994,
     beefBowl: 3.13,
-    curryPorkRice: 11111,
+    curryPorkRice: 0.45,
     hamburger: 0.956,
-    Hotpot: 1.332823529
+    Hotpot: 0.641156863
   },
   dessert: {
-    chickenBeefBubbleMilkTea: 11111,
-    InstantNoodle: 11111,
+    chickenBeefBubbleMilkTea: 0.7588,
+    InstantNoodle: 0.4,
     beer: 0.0587,
     frenchfries: 0.956,
-    teaEgg: 11111,
+    teaEgg: 0.24,
     soyMilk: 0.38,
     blackCoffee: 0.304,
-    milk: 11111,
+    milk: 1.1025,
   },
   "omnivore": {
     rice: 0.39216,
     vegetable: 0.025,
-    milk: 11111,
+    beef: 6,
     lamb: 2.4,
     pork: 0.66667,
     chicken: 0.987,
     egg: 0.105,
     shrimp: 1.3435,
     fish: 0.6815,
-    noodle: 11111
+    noodle: 0.15
   },
   "vegetarian": {
     "seafood": {
-      rice: 0.235294118,
+      rice: 0.39216,
       vegetable: 0.075,
       tofu: 0.158,
       milk: 1.1025,
-      noodle: 11111,
+      noodle: 0.15,
       ham: 0.144,
       egg: 0.105,
       shrimp: 1.3435,
@@ -128,20 +128,20 @@ const foodCoefficients = {
       mushroom: 0.04843,
     },
     "eggmilk": {
-      rice: 0.235294118,
+      rice: 0.39216,
       vegetable: 0.075,
       tofu: 0.158,
       milk: 1.1025,
-      noodle: 11111,
+      noodle: 0.15,
       ham: 0.144,
       egg: 0.105,
       mushroom: 0.04843,
     },
     "vegan": {
-      rice: 0.235294118,
+      rice: 0.39216,
       vegetable: 0.075,
       tofu: 0.158,
-      noodle: 11111,
+      noodle: 0.15,
       ham: 0.144,
       mushroom: 0.04843,
     }
@@ -425,7 +425,7 @@ if (pageName === "food") {
     // 葷食頁面
     foodTotal += (parseFloat(pageData.foodModalRiceValue) || 0) * (omnivore.rice || 0);
     foodTotal += (parseFloat(pageData.foodModalVegetableValue) || 0) * (omnivore.vegetable || 0);
-    foodTotal += (parseFloat(pageData.foodModalMilkValue) || 0) * (omnivore.milk || 0);
+    foodTotal += (parseFloat(pageData.foodModalBeefValue) || 0) * (omnivore.beef || 0);
     foodTotal += (parseFloat(pageData.foodModalLambValue) || 0) * (omnivore.lamb || 0);
     foodTotal += (parseFloat(pageData.foodModalPorkValue) || 0) * (omnivore.pork || 0);
     foodTotal += (parseFloat(pageData.foodModalChickenValue) || 0) * (omnivore.chicken || 0);

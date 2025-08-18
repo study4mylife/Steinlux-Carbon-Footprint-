@@ -87,112 +87,118 @@
       transition: transform 0.5s linear;
     }
 
-      /*—— 動畫定義 ——*/
+    /*—— 動畫定義 ——*/
 
-      @keyframes growWidth {
-        /*—— 文字框展開動畫 ——*/
-        from {
-          height: 0;
-          opacity: 0;
-        }
-        to {
-          height: max-content;
-          opacity: 1;
-        }
+    @keyframes growWidth {
+      /*—— 文字框展開動畫 ——*/
+      from {
+        height: 0;
+        opacity: 0;
       }
-
-      @keyframes fadeIn {
-        /*—— 淡入動畫 ——*/
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-
-      @keyframes floatCloud {
-        /*—— 雲朵動畫 ——*/
-        0%,
-        100% {
-          bottom: 0;
-        }
-        50% {
-          bottom: 30px;
-        }
-      }
-
-      @keyframes breath {
-        0% {
-          transform: scale(1.05); /* 初始大小 */
-          box-shadow: 0 0 20px #F2AA84;
-        }
-        50% {
-          transform: scale(1); /* 中间大小 */
-          box-shadow: 0 0 0px #F2AA84;
-        }
-        100% {
-          transform: scale(1.05); /* 结束大小 */
-          box-shadow: 0 0 20px #F2AA84;
-        }
-      }
-
-      /*——雲朵容器 ——*/
-      .cloud-container {
-        position: absolute;
-        left: -30px;
-        bottom: 15px;
-        z-index: 4;
-        animation: floatCloud 2s ease-in-out infinite;
-      }
-      .cloud-container img {
-        display: block;
-        width: 30vw;
-        height: auto;
-        opacity: 0.5;
-      }
-      /* —— 地球容器 —— */
-      .moon-container {
-        position: fixed;
-        top: -10%;
-        right: -5%;
-        z-index: 2;
-      }
-      .moon-container img {
-        display: block;
-        min-width: 100px;
-        width: 12vw;
-        height: auto;
-      }
-
-      .color-block {
-        position: fixed;
-        right: 0;
-        bottom: 0%;
-        width: 70vw;
-        aspect-ratio: 1 / 1;
-        background: linear-gradient(45deg, #84551F 0%, #686868 55%, #2F6E77 100%);
-        border-radius: 50%;
-        transform: translate(45%, 65%);
-        box-shadow: 0 0 48px 48pt #F0E6D107;
-        z-index: 1;
-        pointer-events: none;
-      }
-
-      /*—— 標題 ——*/
-      .floating-title {
-        display: inline-flex;
-        gap: 10px;
-        font-size: 6rem;
+      to {
+        height: max-content;
         opacity: 1;
-        z-index: 2;
       }
-      .floating-title span {
-        color: #ffffff;
+    }
+
+    @keyframes fadeIn {
+      /*—— 淡入動畫 ——*/
+      from {
+        opacity: 0;
       }
-      .floating-title span:nth-child(3) {
-        color: #f5d5a1;
+      to {
+        opacity: 1;
       }
+    }
+
+    @keyframes floatCloud {
+      /*—— 雲朵動畫 ——*/
+      0%,
+      100% {
+        bottom: 0;
+      }
+      50% {
+        bottom: 30px;
+      }
+    }
+
+    @keyframes breath {
+      0% {
+        transform: scale(1.05); /* 初始大小 */
+        box-shadow: 0 0 20px #F2AA84;
+      }
+      50% {
+        transform: scale(1); /* 中间大小 */
+        box-shadow: 0 0 0px #F2AA84;
+      }
+      100% {
+        transform: scale(1.05); /* 结束大小 */
+        box-shadow: 0 0 20px #F2AA84;
+      }
+    }
+
+    /*——雲朵容器 ——*/
+    .cloud-container {
+      position: absolute;
+      left: -30px;
+      bottom: 15px;
+      z-index: 4;
+      animation: floatCloud 2s ease-in-out infinite;
+    }
+    .cloud-container img {
+      display: block;
+      width: 30vw;
+      height: auto;
+      opacity: 0.5;
+    }
+
+    /* —— 月球容器 —— */
+    .moon-container {
+      position: fixed;
+      top: -10%;
+      right: -5%;
+      z-index: 2;
+    }
+    .moon-container img {
+      display: block;
+      min-width: 100px;
+      width: 12vw;
+      height: auto;
+    }
+
+    .color-block {
+      position: fixed;
+      right: 0;
+      bottom: 0%;
+      width: 70vw;
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(45deg, #84551F 0%, #686868 55%, #2F6E77 100%);
+      border-radius: 50%;
+      transform: translate(45%, 65%);
+      box-shadow: 0 0 48px 48pt #F0E6D107;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /*—— 標題 ——*/
+    .floating-title {
+      display: inline-flex;
+      gap: 10px;
+      font-size: 6rem;
+      opacity: 1;
+      z-index: 2;
+    }
+    .floating-title span {
+      color: #ffffff;
+    }
+    .floating-title span:nth-child(3) {
+      color: #f5d5a1;
+    }
+
+    .latin {
+      letter-spacing: 2px;
+    }
+
 
       /*第一幕*/
       .scene-1 .text-container {
@@ -212,6 +218,7 @@
         position: absolute;
         scale: 1;
         z-index: 3;
+        pointer-events: none;
       }
 
       .scene-1 .flying-cat {
@@ -280,7 +287,7 @@
         margin: 0;
         font-family: "GenSenRounded2TW-L", sans-serif;
         font-size: 1rem;
-        letter-spacing: 2px;
+        letter-spacing: 6px;
         color: #ffffff;
         line-height: 2rem;
         white-space: pre-wrap;
@@ -298,6 +305,7 @@
         bottom: 0px;
         scale: 0.5;
         z-index: 3;
+        pointer-events: none;
       }
 
       .scene-2 .flying-cat {
@@ -433,7 +441,7 @@
 
       @media (max-width: 1024px) {
         .scene-2 .text-container {
-          top: 50%;
+          top: 45%;
           left: 50%;
           transform: translate(-50%, -50%);
         }
@@ -443,7 +451,7 @@
         }
 
         .scene-2 .floating-title {
-        font-size: 5rem;
+        font-size: 4.5rem;
         }
       }
       
@@ -531,7 +539,15 @@ document.addEventListener("DOMContentLoaded", () => {
     let i = 0;
     function type() {
       if (i < text.length) {
-        p.textContent += text[i++];
+        const char = text[i++];
+        // 判斷是不是中文 (Unicode: \u4e00-\u9fff)
+        if (/[\u4e00-\u9fff]/.test(char)) {
+          p.innerHTML += char;
+        } else if (char === "\n") {
+          p.innerHTML += "<br>";
+        } else {
+          p.innerHTML += `<span class="latin">${char}</span>`;
+        }
         setTimeout(type, speed);
       }
     }
@@ -584,9 +600,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function disableScroll() {
     document.body.style.overflow = "hidden";
+    container.style.overflow = "hidden";
   }
+
   function enableScroll() {
     document.body.style.overflow = "";
+    container.style.overflow = "";
   }
 
   const container = document.querySelector(".scroll-container");
@@ -611,8 +630,6 @@ document.addEventListener("DOMContentLoaded", () => {
         gsap.to(".color-block", { x: "-22%", y: "285%", scale: 5, duration: 2 });
         gsap.to(".moon-container", { top: "-8%", right: "-3%", rotate: "90deg", scale: 1.25, duration: 2 });
         gsap.to(".scene-1 .cat-container", { 
-          left: "-25%", 
-          bottom: isMobileLayout ? "3%" : "10%", 
           scale: 0.25, 
           duration: 2 });
         gsap.to(".scene-2 .cat-container", { 
@@ -628,8 +645,7 @@ document.addEventListener("DOMContentLoaded", () => {
         gsap.to(".scene-2 .text-container", { 
           delay: 0.5, 
           opacity: 1, 
-          duration: 1.5, 
-          y: isMobileLayout ? "-10%" : "0%" 
+          duration: 1.5
         });
       },
       onComplete: () => {
@@ -655,8 +671,6 @@ document.addEventListener("DOMContentLoaded", () => {
         gsap.to(".color-block", { right: 0, bottom: 0, x: "45%", y: "65%", scale: 1, duration: 2, ease: "power2.out" });
         gsap.to(".moon-container", { top: "-10%", right: "-5%", rotate: "-90deg", scale: 1, duration: 2 });
         gsap.to(".scene-1 .cat-container", { 
-          left: "15%", 
-          bottom: isMobileLayout ? "3%" : "10%", 
           scale: 1, 
           duration: 1.5 });
         gsap.to(".scene-2 .cat-container", { 
@@ -669,7 +683,7 @@ document.addEventListener("DOMContentLoaded", () => {
         gsap.to(".scene-1 .scroll-mouse", { opacity: 1, duration: 2 });
         gsap.to(".scene-2 .scroll-mouse", { opacity: 0, duration: 2 });
         gsap.to(".scene-1 .text-container", { delay: 1, opacity: 1, duration: 1.5 });
-        gsap.to(".scene-2 .text-container", { opacity: 0, duration: 1, y: "0%" });
+        gsap.to(".scene-2 .text-container", { opacity: 0, duration: 1 });
       },
       onComplete: () => {
         isScrolling = false;

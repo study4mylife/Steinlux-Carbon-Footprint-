@@ -193,7 +193,7 @@
       width: 40%;
       background: rgba(255, 255, 255, 0.1);
       border-radius: 32px;
-      padding: 0.5rem 1.25rem;
+      padding: 0.75rem 1.25rem 0.5rem 1.25rem;
       gap: 1rem;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
@@ -1617,7 +1617,7 @@ fetch("./data/AirportDistanceMap.json")
           })
       }
 
-      filteredAirports.slice(0, 10).forEach(code => {
+      filteredAirports.forEach(code => {
         const o = document.createElement('option');
         o.value = code;
         dl.appendChild(o);
@@ -2034,36 +2034,38 @@ function addFlightTrip() {
   if (!list) return alert("找不到航班列表");
 
   const item = document.createElement("div");
-  item.classList.add("trip-item"); // 確保 sumFlightDistance 可以抓到
+  item.classList.add("trip-item");
 
   const cabinLevel = document.getElementById("travel-flight-level-value").value;
-  // 簡單使用數字表示艙等係數，經濟=1, 豪經=2, 商務=3, 頭等=4
   const cabinCoeffs = {
     "經濟艙": 1,
-    "豪經艙": 2,
-    "商務艙": 3,
-    "頭等艙": 4
+    "豪經艙": 1.5,
+    "商務艙": 4,
+    "頭等艙": 5
   };
   const cabinFactor = cabinCoeffs[cabinLevel] || 1;
 
   if (document.getElementById("travel-flight-method-toggle").checked) {
-    // 站點模式
+    // === 站點模式 ===
     const s = document.getElementById("flightStart").value.trim();
     const e = document.getElementById("flightEnd").value.trim();
     const c = parseInt(document.getElementById("flightCount").value, 10) || 0;
-
     const type = document.getElementById("travelFlightRoundTripToggle").checked ? "來回" : "單程";
+
+    if (!s || !e || !c) return alert("請輸入完整的航班資訊");
 
     item.innerHTML = `<span class="trip-item-text">
       <span class="trip-item-text-left">${s.substring(0,3)} → ${e.substring(0,3)}</span> 
       <span class="trip-item-text-right">${c}趟 ${type} / ${cabinLevel}</span>
     </span>`;
-    
-    document.getElementById("flightStart").value = "";
-    document.getElementById("flightEnd").value = "";
-    document.getElementById("flightCount").value = "";
+
+    // 存入 dataset 用於計算
+    item.dataset.start = s;
+    item.dataset.end = e;
+    item.dataset.count = c;
+    item.dataset.type = type;
   } else {
-    // 時間模式
+    // === 時數模式 ===
     const h = parseFloat(document.getElementById("travel-flight-time-value").value) || 0;
     if (h <= 0) return alert("請輸入有效飛行時數");
 
@@ -2071,10 +2073,10 @@ function addFlightTrip() {
       飛行時數：${h} 小時 / ${cabinLevel}
     </span>`;
 
-    document.getElementById("travel-flight-time-value").value = "";
+    item.dataset.hours = h;
   }
 
-  item.dataset.cabinFactor = cabinFactor; // 將艙等係數存到 dataset
+  item.dataset.cabinFactor = cabinFactor;
   makeSelectable(item);
   list.appendChild(item);
   updateSelectionInfo(list);
@@ -2156,21 +2158,18 @@ function sumFlightDistance() {
 
   list.querySelectorAll(".trip-item").forEach(item => {
     const factor = parseFloat(item.dataset.cabinFactor || 1);
-    const text = item.innerText.replace(/\s+/g, ' ').trim();
 
-    // 時數模式
-    const timeMatch = text.match(/^飛行時數：(\d+(?:\.\d+)?) 小時/);
-    if (timeMatch) {
-      const hours = parseFloat(timeMatch[1]);
+    if (item.dataset.hours) {
+      // 時數模式
+      const hours = parseFloat(item.dataset.hours);
       total += hours * 900 * factor;
-      return;
-    }
+    } else if (item.dataset.start && item.dataset.end) {
+      // 站點模式
+      const start = item.dataset.start;
+      const end = item.dataset.end;
+      const count = parseInt(item.dataset.count);
+      const type = item.dataset.type;
 
-    // 站點模式
-    const pairMatch = text.match(/^(.+?) → (.+?) (\d+)趟 (來回|單程)/);
-    if (pairMatch) {
-      const [_, start, end, countStr, type] = pairMatch;
-      const count = parseInt(countStr);
       const coordStart = airportCoords[start];
       const coordEnd = airportCoords[end];
       if (!coordStart || !coordEnd) return;
@@ -2184,7 +2183,6 @@ function sumFlightDistance() {
 
   return parseFloat(total.toFixed(2));
 }
-
 function sumCruiseDays() {
   let sailTotal = 0;
   let stayTotal = 0;

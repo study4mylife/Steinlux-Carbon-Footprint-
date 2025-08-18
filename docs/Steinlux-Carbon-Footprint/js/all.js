@@ -31,7 +31,7 @@ connectedCallback() {
                     <input
                         type="text"
                         class="message-input"
-                        placeholder="請輸入訊息..."
+                        placeholder="&nbsp&nbsp請輸入訊息..."
                         aria-label="Message input"
                     />
                     <div class="action-buttons">
@@ -180,7 +180,7 @@ function createMessageElement(message) {
 
     const avatar = document.createElement("div");
     avatar.classList.add("story-avatar");
-    avatar.textContent = message.from === "user" ? "U" : "A";
+    avatar.textContent = message.from === "user" ? "U" : "";
 
     const bubble = document.createElement("div");
     bubble.classList.add("story-message-bubble");
@@ -200,7 +200,7 @@ function createTypingIndicator(from) {
 
     const avatar = document.createElement("div");
     avatar.classList.add("story-avatar");
-    avatar.textContent = from === "user" ? "U" : "A";
+    avatar.textContent = from === "user" ? "U" : "";
 
     const dotsContainer = document.createElement("div");
     dotsContainer.classList.add("typing-dots");

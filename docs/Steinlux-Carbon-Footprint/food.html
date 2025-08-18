@@ -274,7 +274,7 @@
         display: grid;
         grid-template-columns: repeat(2, auto);
         grid-template-rows: repeat(5, auto);
-        gap: 3rem;
+        gap: 3rem 5rem;
         overflow: auto;
       }
 
@@ -288,9 +288,8 @@
       .modal-body .input-group label:first-child {
         display: flex;
         align-items: center;
-        width: 90px;
-        gap: 6px;
         font-size: 0.94rem;
+        margin-right: 1rem;
         color: #9c7a5c;
         white-space: nowrap;
         font-family: "GenSenRounded2TW-R", sans-serif;
@@ -302,6 +301,7 @@
         color: #6c808f;
         letter-spacing: 6px;
         white-space: nowrap;
+        width: 120px;
       }
 
       .template-wrapper {
@@ -318,9 +318,14 @@
 
       #scene5 .template-wrapper {
         grid-template-columns: repeat(2, auto);
+        grid-template-rows: repeat(5, auto);
+      }
+
+      #scene6 .template-wrapper {
+        grid-template-columns: repeat(2, auto);
         grid-template-rows: repeat(4, auto);
       }
-      #scene6 .template-wrapper {
+      #scene7 .template-wrapper {
         grid-template-columns: repeat(2, auto);
         grid-template-rows: repeat(3, auto);
       }
@@ -343,10 +348,10 @@
         min-width: 2.5rem;
         max-width: 3rem;
       }
-
       #scene4 .input-group,
       #scene5 .input-group,
-      #scene6 .input-group {
+      #scene6 .input-group,
+      #scene7 .input-group {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -552,6 +557,13 @@
         .modal-body {
         gap: 2rem;
       }
+
+      .modal-body .input-group label:first-child {
+        margin-right: unset;
+      }
+      .modal-body .input-group .special-label {
+        text-align: center;
+      }
       }
 
       @media (max-width: 600px) {
@@ -595,10 +607,13 @@
               <span class="bar" onclick="goToScene(3)"></span>
             </div>
             <div class="bar-hit-area">
-              <span class="bar" onclick="goToScene(7)"></span>
+              <span class="bar" onclick="goToScene(4)"></span>
             </div>
             <div class="bar-hit-area">
               <span class="bar" onclick="goToScene(8)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(9)"></span>
             </div>
           </div>
         </div>
@@ -634,10 +649,10 @@
             <span class="bar" onclick="getSubDietScene()"></span>
           </div>
           <div class="bar-hit-area">
-            <span class="bar" onclick="goToScene(7)"></span>
+            <span class="bar" onclick="goToScene(8)"></span>
           </div>
           <div class="bar-hit-area">
-            <span class="bar" onclick="goToScene(8)"></span>
+            <span class="bar" onclick="goToScene(9)"></span>
           </div>
         </div>
       </div>
@@ -674,10 +689,13 @@
             <span class="bar active" onclick="goToScene(3)"></span>
           </div>
           <div class="bar-hit-area">
-            <span class="bar" onclick="goToScene(7)"></span>
+            <span class="bar" onclick="goToScene(4)"></span>
           </div>
           <div class="bar-hit-area">
             <span class="bar" onclick="goToScene(8)"></span>
+          </div>
+          <div class="bar-hit-area">
+            <span class="bar" onclick="goToScene(9)"></span>
           </div>
         </div>
       </div>
@@ -816,187 +834,294 @@
         <!-- Info 按鈕 -->
     <div class="info-btn-wrapper">
       <div class="pulse-ring"></div>
-      <button id="info-btn" class="info-btn">
+      <button class="info-btn" data-target="#modal-1">
         <img src="./images/info.webp" alt="!" />
       </button>
     </div>
 
       <!-- 導覽按鈕 -->
     <button class="nav-btn prev-btn" onclick="goToScene(1)">‹</button>
-    <button class="nav-btn next-btn" onclick="goToScene(7)">›</button>
+    <button class="nav-btn next-btn" onclick="goToScene(4)">›</button>
     </section>
 
-    
-        <!-- 彈跳式視窗 -->
-        <div id="modal" class="modal">
-          <span id="modal-close" class="modal-close">&times;</span>
-          <div class="modal-body">
-            <div class="input-group">
-              <label class="main-label">
-                <img class="icon" src="./images/icon_rice.webp" alt="白飯" />
-                白飯
-              </label>
-              <div class="custom-number-input">
-                <button type="button" class="btn-decrement">
-                  <span class="decrement">-</span>
-                </button>
-                <input type="number" value="0" min="0" id="food-modal-rice-value" />
-                <button type="button" class="btn-increment">
-                  <span class="increment">+</span>
-                </button>
-              </div>
-              <label class="special-label">份</label>
+  <!-- Scene 4: 葷食詳細頁面 -->
+    <section id="scene4" class="scene">
+      <Chapter-Bar></Chapter-Bar>
+      <div class="slideContainer">
+        <h1>葷食詳細設定</h1>
+        <div class="page-indicator">
+          <div class="bar-container dynamic-bar-container" id="progress-bar-4">
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(1)"></span>
             </div>
-            <div class="input-group">
-              <label class="main-label">
-                <img class="icon" src="./images/icon_rice.webp" alt="蔬菜" />
-                蔬菜
-              </label>
-              <div class="custom-number-input">
-                <button type="button" class="btn-decrement">
-                  <span class="decrement">-</span>
-                </button>
-                <input type="number" value="0" min="0" id="food-modal-vegetable-value" />
-                <button type="button" class="btn-increment">
-                  <span class="increment">+</span>
-                </button>
-              </div>
-              <label class="special-label">份</label>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(3)"></span>
             </div>
-            <div class="input-group">
-              <label class="main-label">
-                <img class="icon" src="./images/icon_rice.webp" alt="牛奶" />
-                牛奶
-              </label>
-              <div class="custom-number-input">
-                <button type="button" class="btn-decrement">
-                  <span class="decrement">-</span>
-                </button>
-                <input type="number" value="0" min="0" id="food-modal-milk-value" />
-                <button type="button" class="btn-increment">
-                  <span class="increment">+</span>
-                </button>
-              </div>
-              <label class="special-label">份</label>
+            <div class="bar-hit-area">
+              <span class="bar active" onclick="goToScene(4)"></span>
             </div>
-            <div class="input-group">
-              <label class="main-label">
-                <img class="icon" src="./images/icon_rice.webp" alt="羊肉" />
-                羊肉
-              </label>
-              <div class="custom-number-input">
-                <button type="button" class="btn-decrement">
-                  <span class="decrement">-</span>
-                </button>
-                <input type="number" value="0" min="0" id="food-modal-lamb-value" />
-                <button type="button" class="btn-increment">
-                  <span class="increment">+</span>
-                </button>
-              </div>
-              <label class="special-label">份</label>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(8)"></span>
             </div>
-            <div class="input-group">
-              <label class="main-label">
-                <img class="icon" src="./images/icon_rice.webp" alt="豬肉" />
-                豬肉
-              </label>
-              <div class="custom-number-input">
-                <button type="button" class="btn-decrement">
-                  <span class="decrement">-</span>
-                </button>
-                <input type="number" value="0" min="0" id="food-modal-pork-value" />
-                <button type="button" class="btn-increment">
-                  <span class="increment">+</span>
-                </button>
-              </div>
-              <label class="special-label">份</label>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(9)"></span>
             </div>
-            <div class="input-group">
-              <label class="main-label">
-                <img class="icon" src="./images/icon_rice.webp" alt="雞肉" />
-                雞肉
-              </label>
-              <div class="custom-number-input">
-                <button type="button" class="btn-decrement">
-                  <span class="decrement">-</span>
-                </button>
-                <input type="number" value="0" min="0" id="food-modal-chicken-value" />
-                <button type="button" class="btn-increment">
-                  <span class="increment">+</span>
-                </button>
-              </div>
-              <label class="special-label">份</label>
+          </div>
+        </div>
+        <div class="template-wrapper">
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.webp" alt="白飯" />
+              白飯
+            </label>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" id="food-modal-rice-value" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
             </div>
-            <div class="input-group">
-              <label class="main-label">
-                <img class="icon" src="./images/icon_rice.webp" alt="雞蛋" />
-                雞蛋
-              </label>
-              <div class="custom-number-input">
-                <button type="button" class="btn-decrement">
-                  <span class="decrement">-</span>
-                </button>
-                <input type="number" value="0" min="0" id="food-modal-egg-value" />
-                <button type="button" class="btn-increment">
-                  <span class="increment">+</span>
-                </button>
-              </div>
-              <label class="special-label">顆</label>
+            <label class="special-label">份</label>
+          </div>
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.webp" alt="蔬菜" />
+              蔬菜
+            </label>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" id="food-modal-vegetable-value" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
             </div>
-            <div class="input-group">
-              <label class="main-label">
-                <img class="icon" src="./images/icon_rice.webp" alt="白蝦" />
-                白蝦
-              </label>
-              <div class="custom-number-input">
-                <button type="button" class="btn-decrement">
-                  <span class="decrement">-</span>
-                </button>
-                <input type="number" value="0" min="0" id="food-modal-shrimp-value" />
-                <button type="button" class="btn-increment">
-                  <span class="increment">+</span>
-                </button>
-              </div>
-              <label class="special-label">份</label>
+            <label class="special-label">份</label>
+          </div>
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.webp" alt="牛肉" />
+              牛肉
+            </label>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" id="food-modal-beef-value" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
             </div>
-            <div class="input-group">
-              <label class="main-label">
-                <img class="icon" src="./images/icon_rice.webp" alt="魚肉" />
-                魚肉
-              </label>
-              <div class="custom-number-input">
-                <button type="button" class="btn-decrement">
-                  <span class="decrement">-</span>
-                </button>
-                <input type="number" value="0" min="0" id="food-modal-fish-value" />
-                <button type="button" class="btn-increment">
-                  <span class="increment">+</span>
-                </button>
-              </div>
-              <label class="special-label">份</label>
+            <label class="special-label">份</label>
+          </div>
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.webp" alt="羊肉" />
+              羊肉
+            </label>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" id="food-modal-lamb-value" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
             </div>
-            <div class="input-group">
-              <label class="main-label">
-                <img class="icon" src="./images/icon_rice.webp" alt="麵條" />
-                麵條
-              </label>
-              <div class="custom-number-input">
-                <button type="button" class="btn-decrement">
-                  <span class="decrement">-</span>
-                </button>
-                <input type="number" value="0" min="0" id="food-modal-noodle-value" />
-                <button type="button" class="btn-increment">
-                  <span class="increment">+</span>
-                </button>
-              </div>
-              <label class="special-label">份</label>
+            <label class="special-label">份</label>
+          </div>
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.webp" alt="豬肉" />
+              豬肉
+            </label>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" id="food-modal-pork-value" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
             </div>
+            <label class="special-label">份</label>
+          </div>
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.webp" alt="雞肉" />
+              雞肉
+            </label>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" id="food-modal-chicken-value" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
+          </div>
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.webp" alt="雞蛋" />
+              雞蛋
+            </label>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" id="food-modal-egg-value" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">顆</label>
+          </div>
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.webp" alt="白蝦" />
+              白蝦
+            </label>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" id="food-modal-shrimp-value" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
+          </div>
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.webp" alt="魚肉" />
+              魚肉
+            </label>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" id="food-modal-fish-value" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
+          </div>
+          <div class="input-group">
+            <label class="main-label">
+              <img class="icon" src="./images/icon_rice.webp" alt="麵條" />
+              麵條
+            </label>
+            <div class="custom-number-input">
+              <button type="button" class="btn-decrement">
+                <span class="decrement">-</span>
+              </button>
+              <input type="number" value="0" min="0" id="food-modal-noodle-value" />
+              <button type="button" class="btn-increment">
+                <span class="increment">+</span>
+              </button>
+            </div>
+            <label class="special-label">份</label>
           </div>
         </div>
       </div>
 
-    <!-- Scene 4: 海鮮素 -->
-    <section id="scene4" class="scene">
+      <!-- Info 按鈕 -->
+      <div class="info-btn-wrapper">
+        <div class="pulse-ring"></div>
+        <button class="info-btn" data-target="#modal-1">
+          <img src="./images/info.webp" alt="!" />
+        </button>
+      </div>
+
+      <button class="nav-btn prev-btn" onclick="goToScene(3)">‹</button>
+      <button class="nav-btn next-btn" onclick="goToScene(8)">›</button>
+    </section>
+
+    <div id="modal-1" class="modal">
+      <span id="modal-close" class="modal-close">&times;</span>
+      <div class="modal-body">
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="白飯" />
+            白飯
+          </label>
+          <label class="special-label">一份300g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="蔬菜" />
+            蔬菜
+          </label>
+          <label class="special-label">一份100g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="牛肉" />
+            牛肉
+          </label>
+          <label class="special-label">一份100g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="羊肉" />
+            羊肉
+          </label>
+          <label class="special-label">一份100g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="豬肉" />
+            豬肉
+          </label>
+          <label class="special-label">一份100g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="雞肉" />
+            雞肉
+          </label>
+          <label class="special-label">一份100g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="雞蛋" />
+            雞蛋
+          </label>
+          <label class="special-label">一份1顆</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="白蝦" />
+            白蝦
+          </label>
+          <label class="special-label">一份50g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="魚肉" />
+            魚肉
+          </label>
+          <label class="special-label">一份100g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="麵條" />
+            麵條
+          </label>
+          <label class="special-label">一份300g</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scene 5: 海鮮素 -->
+    <section id="scene5" class="scene">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>海鮮素</h1>
@@ -1009,13 +1134,13 @@
               <span class="bar" onclick="goToScene(2)"></span>
             </div>
             <div class="bar-hit-area">
-              <span class="bar active" onclick="goToScene(4)"></span>
-            </div>
-            <div class="bar-hit-area">
-              <span class="bar" onclick="goToScene(7)"></span>
+              <span class="bar active" onclick="goToScene(5)"></span>
             </div>
             <div class="bar-hit-area">
               <span class="bar" onclick="goToScene(8)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(9)"></span>
             </div>
           </div>
         </div>
@@ -1182,12 +1307,97 @@
           </div>
         </div>
       </div>
+
+  <!-- Info 按鈕 -->
+    <div class="info-btn-wrapper">
+      <div class="pulse-ring"></div>
+      <button class="info-btn" data-target="#modal-2">
+        <img src="./images/info.webp" alt="!" />
+      </button>
+    </div>
+
     <button class="nav-btn prev-btn" onclick="goToScene(2)">‹</button>
-    <button class="nav-btn next-btn" onclick="goToScene(7)">›</button>
+    <button class="nav-btn next-btn" onclick="goToScene(8)">›</button>
     </section>
 
-    <!-- Scene 5: 蛋奶素 -->
-    <section id="scene5" class="scene">
+    <div id="modal-2" class="modal">
+      <span id="modal-close" class="modal-close">&times;</span>
+      <div class="modal-body">
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="白飯" />
+            白飯
+          </label>
+          <label class="special-label">一份300g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="蔬菜" />
+            蔬菜
+          </label>
+          <label class="special-label">一份100g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="牛肉" />
+            豆腐
+          </label>
+          <label class="special-label">一份50g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="羊肉" />
+            牛奶
+          </label>
+          <label class="special-label">一份350g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="豬肉" />
+            麵條
+          </label>
+          <label class="special-label">一份300g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="雞肉" />
+            素火腿
+          </label>
+          <label class="special-label">一份80g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="雞蛋" />
+            雞蛋
+          </label>
+          <label class="special-label">一份1顆</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="白蝦" />
+            白蝦
+          </label>
+          <label class="special-label">一份50g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="魚肉" />
+            魚肉
+          </label>
+          <label class="special-label">一份100g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="麵條" />
+            菇類
+          </label>
+          <label class="special-label">一份75g</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scene 6: 蛋奶素 -->
+    <section id="scene6" class="scene">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>蛋奶素</h1>
@@ -1200,13 +1410,13 @@
               <span class="bar" onclick="goToScene(2)"></span>
             </div>
             <div class="bar-hit-area">
-              <span class="bar active" onclick="goToScene(5)"></span>
-            </div>
-            <div class="bar-hit-area">
-              <span class="bar" onclick="goToScene(7)"></span>
+              <span class="bar active" onclick="goToScene(6)"></span>
             </div>
             <div class="bar-hit-area">
               <span class="bar" onclick="goToScene(8)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(9)"></span>
             </div>
           </div>
         </div>
@@ -1341,12 +1551,81 @@
           </div>
         </div>
       </div>
+
+    <div class="info-btn-wrapper">
+      <div class="pulse-ring"></div>
+      <button class="info-btn" data-target="#modal-3">
+        <img src="./images/info.webp" alt="!" />
+      </button>
+    </div>
     <button class="nav-btn prev-btn" onclick="goToScene(2)">‹</button>
-    <button class="nav-btn next-btn" onclick="goToScene(7)">›</button>
+    <button class="nav-btn next-btn" onclick="goToScene(8)">›</button>
     </section>
 
-    <!-- Scene 6: 全素 -->
-    <section id="scene6" class="scene">
+    <div id="modal-3" class="modal">
+      <span id="modal-close" class="modal-close">&times;</span>
+      <div class="modal-body">
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="白飯" />
+            白飯
+          </label>
+          <label class="special-label">一份300g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="蔬菜" />
+            蔬菜
+          </label>
+          <label class="special-label">一份100g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="牛肉" />
+            豆腐
+          </label>
+          <label class="special-label">一份50g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="羊肉" />
+            牛奶
+          </label>
+          <label class="special-label">一份350g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="豬肉" />
+            麵條
+          </label>
+          <label class="special-label">一份300g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="雞肉" />
+            素火腿
+          </label>
+          <label class="special-label">一份80g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="雞蛋" />
+            雞蛋
+          </label>
+          <label class="special-label">一份1顆</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="麵條" />
+            菇類
+          </label>
+          <label class="special-label">一份75g</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scene 7: 全素 -->
+    <section id="scene7" class="scene">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>全素</h1>
@@ -1359,13 +1638,13 @@
               <span class="bar" onclick="goToScene(2)"></span>
             </div>
             <div class="bar-hit-area">
-              <span class="bar active" onclick="goToScene(6)"></span>
-            </div>
-            <div class="bar-hit-area">
-              <span class="bar" onclick="goToScene(7)"></span>
+              <span class="bar active" onclick="goToScene(7)"></span>
             </div>
             <div class="bar-hit-area">
               <span class="bar" onclick="goToScene(8)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(9)"></span>
             </div>
           </div>
         </div>
@@ -1468,12 +1747,68 @@
           </div>
         </div>
       </div>
+
+    <div class="info-btn-wrapper">
+      <div class="pulse-ring"></div>
+      <button class="info-btn" data-target="#modal-4">
+        <img src="./images/info.webp" alt="!" />
+      </button>
+    </div>
+
       <button class="nav-btn prev-btn" onclick="goToScene(2)">‹</button>
-      <button class="nav-btn next-btn" onclick="goToScene(7)">›</button>
+      <button class="nav-btn next-btn" onclick="goToScene(8)">›</button>
     </section>
 
-    <!-- Scene 7: 點心 -->
-    <section id="scene7" class="scene">
+    <div id="modal-4" class="modal">
+      <span id="modal-close" class="modal-close">&times;</span>
+      <div class="modal-body">
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="白飯" />
+            白飯
+          </label>
+          <label class="special-label">一份300g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="蔬菜" />
+            蔬菜
+          </label>
+          <label class="special-label">一份100g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="牛肉" />
+            豆腐
+          </label>
+          <label class="special-label">一份50g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="豬肉" />
+            麵條
+          </label>
+          <label class="special-label">一份300g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="雞肉" />
+            素火腿
+          </label>
+          <label class="special-label">一份80g</label>
+        </div>
+        <div class="input-group">
+          <label class="main-label">
+            <img class="icon" src="./images/icon_rice.webp" alt="麵條" />
+            菇類
+          </label>
+          <label class="special-label">一份75g</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scene 8: 點心 -->
+    <section id="scene8" class="scene">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>請問您日常會選擇吃哪些點心？</h1>
@@ -1486,10 +1821,13 @@
               <span class="bar" onclick="getPreviousScene()"></span>
             </div>
             <div class="bar-hit-area">
-              <span class="bar active" onclick="goToScene(7)"></span>
+              <span class="bar" onclick="goToScene(4)"></span>
             </div>
             <div class="bar-hit-area">
-              <span class="bar" onclick="goToScene(8)"></span>
+              <span class="bar active" onclick="goToScene(8)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar" onclick="goToScene(9)"></span>
             </div>
           </div>
         </div>
@@ -1625,11 +1963,11 @@
         </div>
       </div>
       <button class="nav-btn prev-btn" onclick="getPreviousScene()">‹</button>
-      <button class="nav-btn next-btn" onclick="goToScene(8)">›</button>
+      <button class="nav-btn next-btn" onclick="goToScene(9)">›</button>
     </section>
 
-    <!-- Scene 8: 剩食 -->
-    <section id="scene8" class="scene">
+    <!-- Scene 9: 剩食 -->
+    <section id="scene9" class="scene">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
         <h1>平常會有多少剩食？</h1>
@@ -1642,10 +1980,13 @@
               <span class="bar" onclick="getPreviousScene()"></span>
             </div>
             <div class="bar-hit-area">
-              <span class="bar" onclick="goToScene(7)"></span>
+              <span class="bar" onclick="goToScene(4)"></span>
             </div>
             <div class="bar-hit-area">
-              <span class="bar active" onclick="goToScene(8)"></span>
+              <span class="bar" onclick="goToScene(8)"></span>
+            </div>
+            <div class="bar-hit-area">
+              <span class="bar active" onclick="goToScene(9)"></span>
             </div>
           </div>
         </div>
@@ -1701,7 +2042,7 @@
     </div>
       </div>
 
-      <button class="nav-btn prev-btn" onclick="goToScene(7)">‹</button>
+      <button class="nav-btn prev-btn" onclick="goToScene(8)">‹</button>
       <button class="nav-btn next-btn" onclick="window.location.href='fashion.html'">›</button>
     </section>
 
@@ -1750,7 +2091,7 @@
             //葷食
             document.getElementById("food-modal-rice-value").value = data.foodModalRiceValue ?? 0;
             document.getElementById("food-modal-vegetable-value").value = data.foodModalVegetableValue ?? 0;
-            document.getElementById("food-modal-milk-value").value = data.foodModalMilkValue ?? 0;
+            document.getElementById("food-modal-beef-value").value = data.foodModalMilkValue ?? 0;
             document.getElementById("food-modal-lamb-value").value = data.foodModalLambValue ?? 0;
             document.getElementById("food-modal-pork-value").value = data.foodModalPorkValue ?? 0;
             document.getElementById("food-modal-chicken-value").value = data.foodModalChickenValue ?? 0;
@@ -1830,7 +2171,7 @@
           //葷食
           foodModalRiceValue: document.getElementById("food-modal-rice-value").value ?? 0,
           foodModalVegetableValue: document.getElementById("food-modal-vegetable-value").value ?? 0,
-          foodModalMilkValue: document.getElementById("food-modal-milk-value").value ?? 0,
+          foodModalBeefValue: document.getElementById("food-modal-beef-value").value ?? 0,
           foodModalLambValue: document.getElementById("food-modal-lamb-value").value ?? 0,
           foodModalPorkValue: document.getElementById("food-modal-pork-value").value ?? 0,
           foodModalChickenValue: document.getElementById("food-modal-chicken-value").value ?? 0,
@@ -1976,47 +2317,64 @@
       updateProgressBars();
     }
 
-    // 第 2 幕 下一頁
-    function handleSubDietNext() {
-      if (!selectedSubDiet) {
-        alert("請先選擇一種素食類型");
-        return;
-      }
-      // 根據選擇跳到對應場景
-      switch (selectedSubDiet) {
-        case "seafood":
-          goToScene(4);
-          break;
-        case "eggmilk":
-          goToScene(5);
-          break;
-        case "vegan":
-          goToScene(6);
-          break;
-      }
+  // 第 2 幕 下一頁
+  function handleSubDietNext() {
+    if (!selectedSubDiet) {
+      alert("請先選擇一種素食類型");
+      return;
     }
+    // 根據選擇跳到對應場景
+    switch (selectedSubDiet) {
+      case "seafood":
+        goToScene(5); // 原本是 4
+        break;
+      case "eggmilk":
+        goToScene(6); // 原本是 5
+        break;
+      case "vegan":
+        goToScene(7); // 原本是 6
+        break;
+    }
+  }
 
-    // 根據用戶選擇決定上一頁應該回到哪裡
-    function getPreviousScene() {
-      if (selectedDiet === 'omnivore') {
-        goToScene(3); // 葷食者回到日常食物頁面
-      } else {
-        // 素食者根據選擇的素食類型回到對應頁面
-        switch (selectedSubDiet) {
-          case 'seafood':
-            goToScene(4);
-            break;
-          case 'eggmilk':
-            goToScene(5);
-            break;
-          case 'vegan':
-            goToScene(6);
-            break;
-          default:
-            goToScene(2); // 如果沒有選擇，回到素食選擇頁面
-        }
+  // 根據用戶選擇決定上一頁應該回到哪裡
+  function getPreviousScene() {
+    if (selectedDiet === 'omnivore') {
+      goToScene(4); // 葷食者回到日常食物頁面
+    } else {
+      // 素食者根據選擇的素食類型回到對應頁面
+      switch (selectedSubDiet) {
+        case 'seafood':
+          goToScene(5); // 原本是 4
+          break;
+        case 'eggmilk':
+          goToScene(6); // 原本是 5
+          break;
+        case 'vegan':
+          goToScene(7); // 原本是 6
+          break;
+        default:
+          goToScene(2); // 如果沒有選擇，回到素食選擇頁面
       }
     }
+  }
+
+  // 獲取根據素食類型選擇的場景
+  function getSubDietScene() {
+    switch (selectedSubDiet) {
+      case 'seafood':
+        goToScene(5); // 原本是 4
+        break;
+      case 'eggmilk':
+        goToScene(6); // 原本是 5
+        break;
+      case 'vegan':
+        goToScene(7); // 原本是 6
+        break;
+      default:
+        goToScene(2);
+    }
+  }
 
     // 獲取根據素食類型選擇的場景
     function getSubDietScene() {
@@ -2035,125 +2393,132 @@
       }
     }
 
-      // 更新進度條顯示
-  function updateProgressBars() {
-    const activeScene = document.querySelector('.scene.active');
-    if (!activeScene) return;
-    
-    const sceneId = activeScene.id;
-    const progressBar = activeScene.querySelector('.bar-container');
-    if (!progressBar) return;
+    // 更新進度條顯示
+    function updateProgressBars() {
+      const activeScene = document.querySelector('.scene.active');
+      if (!activeScene) return;
+      
+      const sceneId = activeScene.id;
+      const progressBar = activeScene.querySelector('.bar-container');
+      if (!progressBar) return;
 
-    progressBar.innerHTML = ''; // 清空現有進度條
+      progressBar.innerHTML = ''; // 清空現有進度條
 
-    let bars = [];
+      let bars = [];
 
-    if (selectedDiet === 'omnivore') {
-      // 葷食者流程: 1 -> 3 -> 7 -> 8
-      bars = [
-        { scene: 1, label: '選擇飲食' },
-        { scene: 3, label: '日常食物' },
-        { scene: 7, label: '點心' },
-        { scene: 8, label: '剩食' }
-      ];
-    } else if (selectedDiet === 'vegetarian') {
-      // 素食者流程
-      bars = [
-        { scene: 1, label: '選擇飲食' },
-        { scene: 2, label: '素食類型' }
-      ];
+      if (selectedDiet === 'omnivore') {
+        // 葷食者流程: 1 -> 3 -> 4 -> 8 -> 9
+        bars = [
+          { scene: 1, label: '選擇飲食' },
+          { scene: 3, label: '日常食物' },
+          { scene: 4, label: '（新場景）' }, // 你新加的 scene
+          { scene: 8, label: '點心' },       // 原本 7 → 8
+          { scene: 9, label: '剩食' }        // 原本 8 → 9
+        ];
+      } else if (selectedDiet === 'vegetarian') {
+        // 素食者流程
+        bars = [
+          { scene: 1, label: '選擇飲食' },
+          { scene: 2, label: '素食類型' }
+        ];
 
-      // 如果已選擇素食類型才加第三格
-      if (selectedSubDiet) {
-        let subDietScene, subDietLabel;
-        switch (selectedSubDiet) {
-          case 'seafood':
-            subDietScene = 4;
-            subDietLabel = '海鮮素';
-            break;
-          case 'eggmilk':
-            subDietScene = 5;
-            subDietLabel = '蛋奶素';
-            break;
-          case 'vegan':
-            subDietScene = 6;
-            subDietLabel = '全素';
-            break;
+        // 如果已選擇素食類型才加第三格
+        if (selectedSubDiet) {
+          let subDietScene, subDietLabel;
+          switch (selectedSubDiet) {
+            case 'seafood':
+              subDietScene = 5; // 原本 4
+              subDietLabel = '海鮮素';
+              break;
+            case 'eggmilk':
+              subDietScene = 6; // 原本 5
+              subDietLabel = '蛋奶素';
+              break;
+            case 'vegan':
+              subDietScene = 7; // 原本 6
+              subDietLabel = '全素';
+              break;
+          }
+          bars.push({ scene: subDietScene, label: subDietLabel });
         }
-        bars.push({ scene: subDietScene, label: subDietLabel });
+
+        bars.push(
+          { scene: 8, label: '點心' }, // 原本 7 → 8
+          { scene: 9, label: '剩食' }  // 原本 8 → 9
+        );
+      } else {
+        // 默認顯示
+        bars = [
+          { scene: 1, label: '選擇飲食' },
+          { scene: 3, label: '日常食物' },
+          { scene: 4, label: '（新場景）' },
+          { scene: 8, label: '點心' },
+          { scene: 9, label: '剩食' }
+        ];
       }
 
-      bars.push(
-        { scene: 7, label: '點心' },
-        { scene: 8, label: '剩食' }
-      );
-    } else {
-      // 默認顯示
-      bars = [
-        { scene: 1, label: '選擇飲食' },
-        { scene: 3, label: '日常食物' },
-        { scene: 7, label: '點心' },
-        { scene: 8, label: '剩食' }
-      ];
+      // 建立進度條 DOM
+      const currentSceneNum = parseInt(sceneId.replace('scene', ''));
+      bars.forEach(bar => {
+        const barHitArea = document.createElement('div');
+        barHitArea.className = 'bar-hit-area';
+
+        const barSpan = document.createElement('span');
+        barSpan.className = 'bar';
+
+        if (bar.scene === currentSceneNum) {
+          barSpan.classList.add('active');
+        }
+
+        barSpan.onclick = () => goToScene(bar.scene);
+
+        barHitArea.appendChild(barSpan);
+        progressBar.appendChild(barHitArea);
+      });
     }
-
-    // 建立進度條 DOM
-    const currentSceneNum = parseInt(sceneId.replace('scene', ''));
-    bars.forEach(bar => {
-      const barHitArea = document.createElement('div');
-      barHitArea.className = 'bar-hit-area';
-
-      const barSpan = document.createElement('span');
-      barSpan.className = 'bar';
-
-      if (bar.scene === currentSceneNum) {
-        barSpan.classList.add('active');
-      }
-
-      barSpan.onclick = () => goToScene(bar.scene);
-
-      barHitArea.appendChild(barSpan);
-      progressBar.appendChild(barHitArea);
-    });
-  }
-
 
     // 初始化時更新進度條
     document.addEventListener('DOMContentLoaded', () => {
       updateProgressBars();
     });
 
-    // 6. Modal 彈窗 - 帶隱藏scene功能
-    const infoBtn = document.getElementById("info-btn");
-    const modal = document.getElementById("modal");
-    const closeX = document.getElementById("modal-close");
+document.querySelectorAll(".info-btn").forEach((btn) => {
+  const targetId = btn.dataset.target;
+  const modal = document.querySelector(targetId);
+  if (!modal) return;
 
-    infoBtn.addEventListener("click", () => {
-      modal.style.display = "flex";
-      // 隱藏當前活動的scene
-      const activeScene = document.querySelector(".scene.active");
-      if (activeScene) {
-        activeScene.style.visibility = "hidden";
-      }
-    });
+  const closeBtn = modal.querySelector(".modal-close");
 
-    function closeModal() {
-      modal.style.display = "none";
-      // 恢復當前活動scene的顯示
-      const activeScene = document.querySelector(".scene.active");
-      if (activeScene) {
-        activeScene.style.visibility = "visible";
-      }
+  // 開啟
+  btn.addEventListener("click", () => {
+    modal.style.display = "flex";
+
+    // 隱藏當前 scene
+    const activeScene = document.querySelector(".scene.active");
+    if (activeScene) activeScene.style.visibility = "hidden";
+  });
+
+  // 關閉
+  function closeModal() {
+    modal.style.display = "none";
+    const activeScene = document.querySelector(".scene.active");
+    if (activeScene) activeScene.style.visibility = "visible";
+  }
+
+  if (closeBtn) closeBtn.addEventListener("click", closeModal);
+
+  // 點背景關閉
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // 按 ESC 關閉
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.style.display === "flex") {
+      closeModal();
     }
-
-    closeX.addEventListener("click", closeModal);
-
-    // 點擊彈窗外部也能關閉彈窗
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) {
-        closeModal();
-      }
-    });
+  });
+});
 
     function updateWasteValue(val) {
         document.getElementById("waste-value").innerText = val + "%";
