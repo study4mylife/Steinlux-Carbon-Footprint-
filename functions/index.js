@@ -76,6 +76,14 @@ const travelCoefficients = {
       "中型休旅車": 0.133333333,
       "大型休旅車": 0.183647799
     },
+    cruise: {
+      sail: 350,
+      stay: 100
+    },
+    flight: {
+      unchecked: 0,
+      checked:0
+    },
     mrt: 0.07822,
     train: 0.054,
     hsr: 5.76
