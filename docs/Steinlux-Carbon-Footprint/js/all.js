@@ -61,11 +61,19 @@ let isPlayingMessages = false;
 function StartQuestionnaire() {
     document.querySelector(".story-body").style.display = "none";
     document.querySelector("body").style.display = "flex";
-    document.querySelector(".scene-1").classList.add("active");
+    
+    const scene = document.querySelector(".scene-1");
+    scene.classList.add("active");
+    
+    setTimeout(() => {
+        scene.classList.add("awakening");
+    }, 50); // 延遲一點，確保 .active 已套用
+
     // 取得目前檔案名稱
     const fileName = window.location.pathname.split("/").pop();
 
     // 根據不同檔案名稱設定背景
+    let bgImage;
     switch (fileName) {
         case "traffic-daily.html":
             bgImage = "./images/bg-traffic-daily.webp";
@@ -93,15 +101,60 @@ function StartQuestionnaire() {
 
 sendButton.addEventListener("click", () => {
     const storyBody = document.querySelector('.story-body');
+    const loader = document.getElementById("page-loader");
+
+    // 顯示 Loader
+    loader.style.display = "flex";
 
     // 啟動「從夢中醒來」動畫
     storyBody.classList.remove("awakening");
 
-    // 2 秒後切換到問卷頁面
-    setTimeout(() => {
-        StartQuestionnaire();
-    }, 2000);
-});
+    // 取得背景圖路徑
+    const fileName = window.location.pathname.split("/").pop();
+    let bgImage;
+    switch (fileName) {
+        case "traffic-daily.html":
+            bgImage = "./images/bg-traffic-daily.webp";
+            break;
+        case "home.html":
+            bgImage = "./images/bg-home.webp";
+            break;
+        case "traffic-travel.html":
+            bgImage = "./images/bg-traffic-travel.webp";
+            break;
+        case "food.html":
+            bgImage = "./images/bg-food.webp";
+            break;
+        case "fashion.html":
+            bgImage = "./images/bg-fashion.webp";
+            break;
+        case "entertainment.html":
+            bgImage = "./images/bg-entertainment.webp";
+            break;
+    }
+
+    // 紀錄開始時間
+    const startTime = Date.now();
+
+    // 預載背景圖
+    const img = new Image();
+    img.src = bgImage;
+
+    function finish() {
+        const elapsed = Date.now() - startTime;
+        const minDuration = 1000;
+        const delay = Math.max(0, minDuration - elapsed);
+
+        setTimeout(() => {
+            StartQuestionnaire();
+            loader.style.display = "none";
+        }, delay);
+    }
+
+    img.onload = finish;
+    img.onerror = finish;
+})
+
 setTimeout(() => {
     skipButton = document.getElementById("skip-button");
     

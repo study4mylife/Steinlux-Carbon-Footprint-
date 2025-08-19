@@ -90,6 +90,37 @@ select {
   }
 }
 
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.loader {
+  height: 50px;
+  aspect-ratio: 2;
+  border: 10px solid transparent;
+  box-sizing: border-box;
+  background: 
+    radial-gradient(farthest-side,#fff 98%,#0000) left/20px 20px,
+    radial-gradient(farthest-side,#fff 98%,#0000) left/20px 20px,
+    radial-gradient(farthest-side,#fff 98%,#0000) center/20px 20px,
+    radial-gradient(farthest-side,#fff 98%,#0000) right/20px 20px,
+    rgba(0,0,0,0);
+  background-repeat: no-repeat;
+  filter: contrast(10);
+  animation: l14 1s infinite;
+}
+@keyframes l14 {
+  100%  {background-position:right,left,center,right}
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -117,6 +148,22 @@ body {
   transition: transform .05s ease-in-out;
   z-index: 1;
 }
+
+.scene-1{
+  filter: blur(8px) brightness(0.8);
+  opacity: 0.6;
+  transform: scale(1.05);
+  transition: filter 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              scale 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scene-1.awakening {
+    filter: blur(0) brightness(1);
+    opacity: 1;
+    transform: scale(1);
+}
+
 
 .scene::before {
   content: "";
