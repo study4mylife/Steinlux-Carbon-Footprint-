@@ -105,7 +105,7 @@
         letter-spacing: 8px;
         color: #F5F5F5;
         top: 5%;
-        left: 5%;
+        right: 72.5%;
         translate:(-50%, -50%); ;
         z-index: 2;
         opacity: 1;
@@ -131,17 +131,17 @@
         opacity: 1;
       }
 
-      #carbon-footprint-emissions-value {
+      .scene-1 #carbon-footprint-emissions-value {
         font-size: 1.75rem;
         color: #6D808F;
       }
 
-      .emissions-unit {
+      .scene-1 .emissions-unit {
         font-size: 0.8rem;
         letter-spacing: 4px;
       }
 
-      .carbon-footprint-emissions-neutrality {
+      .scene-1 .carbon-footprint-emissions-neutrality {
         width: 65%;
         font-size: 0.8rem;
         text-align: justify;
@@ -149,7 +149,7 @@
         line-height: 2;
       }
 
-      .carbon-footprint-temperature-container {
+      .scene-1 .carbon-footprint-temperature-container {
         display: flex;
         flex-direction: column;
         position: fixed;
@@ -164,13 +164,80 @@
         opacity: 1;
       }
 
-      .temperature-text {
+      .scene-1 .temperature-text {
         text-align: right;
       }
 
-      #carbon-footprint-temperature-value {
+      .scene-1 #carbon-footprint-temperature-value {
         color: #C00000;
       }
+
+      .scene-1 .polarbear-container {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        width: 300px;
+        font-size: 0.75rem;
+        letter-spacing: 8px;
+        color: #F5F5F5;
+        top: 57.5%;
+        right: 5%;
+        translate:(-50%, -50%); ;
+        z-index: 2;
+        opacity: 1;
+      }
+
+      .scene-1 .polarbear-text {
+        font-size: 0.75rem;
+      }
+
+      @media (max-width: 900px) {
+        .scene-1 {
+          display: flex;
+          flex-direction: column;
+          align-items: center;   /* 水平置中 */
+          justify-content: flex-start; /* 從上往下排列 */
+        }
+
+        .scene-1 .sealevel-container,
+        .scene-1 .carbon-footprint-emissions-container,
+        .scene-1 .carbon-footprint-temperature-container,
+        .scene-1 .polarbear-container {
+          position: static;   /* 拿掉 fixed 讓它們跟隨 flex 排列 */
+          width: 90%;        /* 自動縮排，避免超出螢幕 */
+          max-width: 450px;  /* 保持原本容器寬度限制 */
+          margin: 1rem 0;    /* 間距 */
+          text-align: center; /* 文字置中 */
+          translate: none;   /* 移除 translate */
+        }
+      }
+
+      .scene-2 .carbon-footprint-status-container {
+        position: fixed;
+        top: 5%;
+        left: 5%;
+        translate:(-50%, -50%);
+        width: 40vw;
+        height: 90vh;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 72px;
+        opacity: 0;
+        -webkit-box-shadow:
+        inset -7px -5.25px 2px -6.5px rgba(255, 255, 255), 
+        inset 7px 5.25px 2px -6.5px rgb(255, 255, 255),
+        inset -2.25px -8px 2px -6.75px rgb(255, 255, 255), 
+        inset 2.25px 8px 2px -6.75px rgb(255, 255, 255),
+        4px 8px 32px 0px rgba(110, 110, 110, 0.25);
+        box-shadow:
+        inset -7px -5.25px 2px -6.5px rgba(255, 255, 255), 
+        inset 7px 5.25px 2px -6.5px rgb(255, 255, 255),
+        inset -2.25px -8px 2px -6.75px rgb(255, 255, 255), 
+        inset 2.25px 8px 2px -6.75px rgb(255, 255, 255),
+        4px 8px 32px 0px rgba(110, 110, 110, 0.25);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
 
       /* 提示滑鼠 */
      .scroll-mouse {
@@ -226,22 +293,27 @@
           <iframe allow="fullscreen 'none'" frameBorder="0" src="https://coastal.climatecentral.org/embed/map/11/121.4115/25.1141/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=true&elevation_model=best_available&esl_model=ipcc_2021&percentile=p50&slr_year=2100&temperature_rise=3.1&temperature_unit=C" width="100%" height="200" title="Climate Central | Land projected to be below tideline in 2100"></iframe>
         </div>
 
-    <div class="carbon-footprint-emissions-container">
-      <p class="emissions-text">您過去一年的碳足跡排放是</p>
-      <p>
-        <span id="carbon-footprint-emissions-value">12.437</span>
-        <span>公噸<span class="emissions-unit">二氧化碳當量(tCO2e)</span></span>
-        
-      </p>
-      <p class="carbon-footprint-emissions-neutrality">為了中和您的排放，必須復育大約 17,274m2的自然再生林地。這大約與1.3座台北大巨蛋相同！</p>
-    </div>
+        <div class="carbon-footprint-emissions-container">
+          <p class="emissions-text">您過去一年的碳足跡排放是</p>
+          <p>
+            <span id="carbon-footprint-emissions-value">12.437</span>
+            <span>公噸<span class="emissions-unit">二氧化碳當量(tCO2e)</span></span>
+            
+          </p>
+          <p class="carbon-footprint-emissions-neutrality">為了中和您的排放，必須復育大約 17,274m2的自然再生林地。這大約與1.3座台北大巨蛋相同！</p>
+        </div>
 
-    <div class="carbon-footprint-temperature-container">
-      <p class="temperature-text">地球持續升溫</p>
-      <p class="temperature-text">本世紀末將達
-        <span id="carbon-footprint-temperature-value">3.7℃</span>
-      </p>
-    </div>
+        <div class="carbon-footprint-temperature-container">
+          <p class="temperature-text">地球持續升溫</p>
+          <p class="temperature-text">本世紀末將達
+            <span id="carbon-footprint-temperature-value">3.7℃</span>
+          </p>
+        </div>
+
+        <div class="polarbear-container">
+          <img src="./images/bg-fashion.webp" alt="">
+          <p class="polarbear-text">這將導致我們可愛的北極熊不再有冷氣吹...</p>
+        </div>
         
         <div class="scroll-mouse">
           <svg class="mouse-svg" viewBox="0 0 18 26" xmlns="http://www.w3.org/2000/svg">
@@ -254,6 +326,10 @@
         </div>
       </section>
       <section class="scene scene-2">
+
+        <div class="carbon-footprint-status-container">
+        </div>
+
         <div class="scroll-mouse">
           <svg class="mouse-svg" viewBox="0 0 18 26" xmlns="http://www.w3.org/2000/svg">
             <!-- 白色底框 -->
@@ -380,6 +456,10 @@ observer.observe(document.querySelector(".scene-2"));
       ease: "power2.out",
       onStart: () => {
         gsap.to(".scene-1 .sealevel-container", { opacity: 0, duration: 0.5 });
+        gsap.to(".scene-1 .carbon-footprint-emissions-container", { opacity: 0, duration: 0.5 });
+        gsap.to(".scene-1 .carbon-footprint-temperature-container", { opacity: 0, duration: 0.5 });
+        gsap.to(".scene-1 .polarbear-container", { opacity: 0, duration: 0.25 });
+        gsap.to(".scene-2 .carbon-footprint-status-container", { delay: 0.5, opacity: 1, duration: 1.5 })
       },
       onComplete: () => {
         isScrolling = false;
@@ -400,7 +480,11 @@ observer.observe(document.querySelector(".scene-2"));
       duration: 2,
       ease: "power2.out",
       onStart: () => {
-        gsap.to(".scene-1 .sealevel-container", { delay: 1, opacity: 1, duration: 1.5 });
+        gsap.to(".scene-1 .sealevel-container", { delay: 0.5, opacity: 1, duration: 1.5 });
+        gsap.to(".scene-1 .carbon-footprint-emissions-container", { delay: 0.5, opacity: 1, duration: 1.5 });
+        gsap.to(".scene-1 .carbon-footprint-temperature-container", { delay: 0.5, opacity: 1, duration: 1.5 });
+        gsap.to(".scene-1 .polarbear-container", { delay: 0.75, opacity: 1, duration: 1.5 });
+        gsap.to(".scene-2 .carbon-footprint-status-container", { opacity: 0, duration: 0.5 })
       },
       onComplete: () => {
         isScrolling = false;
