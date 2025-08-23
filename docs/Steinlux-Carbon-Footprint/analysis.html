@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>星際碳險</title>
+    <title>星際碳險 - 碳足跡分析</title>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-functions-compat.js"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    
     <style>
-      /*—— 自訂字體 ——*/
       @font-face {
         font-family: "GenSenRounded2TW-R";
         src: url("../font/GenSenRounded2TW-R.otf") format("opentype");
@@ -17,15 +22,11 @@
       }
 
       @media (min-width: 1200px) {
-        html {
-          font-size: 18px;
-        }
+        html { font-size: 18px; }
       }
 
       @media (max-width: 480px) {
-        html {
-          font-size: 14px;
-        }
+        html { font-size: 14px; }
       }
 
       html {
@@ -37,11 +38,45 @@
         padding: 0;
         width: 100vw;
         height: 100vh;
+        background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
       }
 
       p {
-        width: 100%;
-        margin: 0.25rem;
+        margin: 0.5rem 0;
+      }
+
+      .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+      }
+
+      .loading-screen.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-top: 3px solid #ffffff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
       }
 
       .scroll-container {
@@ -51,9 +86,10 @@
         scroll-snap-type: y mandatory;
         scroll-behavior: smooth;
         z-index: 999;
+        width: 100vw;
+        overflow: hidden;
       }
 
-      /*—— 場景容器 ——*/
       .scene {
         position: relative;
         width: 100vw;
@@ -72,47 +108,33 @@
         background-size: 100% 200%;
       }
 
-      @media (max-width: 1024px) {
-      .scene-1 {
-        background: url("images/0813修02.jpg") no-repeat 0 0;
-        background-size: 100% 200%;
-      }
-
-      .scene-2 {
-        background: url("images/0813修02.jpg") no-repeat 0 -100vh;
-        background-size: 100% 200%;
-      }
-      }
-
       @media (max-width: 600px) {
-      .scene-1 {
-        background: url("images/0813修03.jpg") no-repeat 0 0;
-        background-size: 100% 200%;
+        .scene-1 {
+          background: url("images/0813修03.jpg") no-repeat 0 0;
+          background-size: 100% 200%;
+        }
+        .scene-2 { height: 0; }
       }
 
-      .scene-2 {
-        height: 0;
-      }
-      }
-
+      /* 第一幕样式 */
       .scene-1 .sealevel-container {
         display: flex;
         flex-direction: column;
         position: fixed;
         min-width: max-content;
-        min-height: max-content;
+        height: 50vh;
         font-size: 1.5rem;
         letter-spacing: 8px;
         color: #F5F5F5;
         top: 5%;
-        right: 72.5%;
-        translate:(-50%, -50%); ;
+        left: 5.75%;
+        translate: (-50%, -50%);
         z-index: 2;
         opacity: 1;
       }
 
       .scene-1 .sealevel-container iframe {
-        margin-top: 0.5rem;
+        margin-top: 1rem;
         border-radius: 1.25rem;
       }
 
@@ -126,7 +148,7 @@
         color: #F5F5F5;
         top: 5%;
         right: 3.25%;
-        translate:(-50%, -50%); ;
+        translate: (-50%, -50%);
         z-index: 2;
         opacity: 1;
       }
@@ -159,7 +181,7 @@
         color: #F5F5F5;
         top: 38%;
         right: 5%;
-        translate:(-50%, -50%); ;
+        translate: (-50%, -50%);
         z-index: 2;
         opacity: 1;
       }
@@ -182,355 +204,868 @@
         color: #F5F5F5;
         top: 57.5%;
         right: 5%;
-        translate:(-50%, -50%); ;
+        translate: (-50%, -50%);
         z-index: 2;
         opacity: 1;
       }
 
-      .scene-1 .polarbear-text {
-        font-size: 0.75rem;
+      /* 第二幕详细数据样式 */
+      .scene-2 .carbon-footprint-status-container {
+        position: fixed;
+        top: 50%;
+        left: 25%;
+        transform: translate(-50%, -50%);
+        width: 40vw;
+        max-width: 1200px;
+        height: 85vh;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 20px;
+        border: 0.25px solid rgba(255, 255, 255);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 1rem 2rem;
+        box-sizing: border-box;
+        opacity: 0;
+        overflow-y: auto;
+      }
+
+      .analysis-title {
+        text-align: center;
+        font-size: 1.25rem;
+        font-weight: normal;
+        color: #f5f5f5;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        letter-spacing: 0.75rem;
+        border-bottom: 1.5pt solid #ffffff60;
+      }
+
+      .total-emissions {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .total-value {
+        font-size: 3rem;
+        color: #ff6b6b;
+        font-weight: bold;
+        display: block;
+      }
+
+      .total-unit {
+        font-size: 1rem;
+        color: #cccccc;
+        margin-top: 0.5rem;
+      }
+
+      .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .category-card {
+        border-radius: 8px;
+      }
+
+      .category-header {
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:0.5rem 1rem;
+        border-radius: 8px;
+        box-shadow: 2pt 2pt 2.5pt #C3CADB24;
+      }
+
+      .category-title {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        text-align: center;
+        letter-spacing: 2px;
+      }
+
+      .category-value {
+        font-size: 0.9rem;
+        text-align: center;
+      }
+
+      .category-unit {
+        font-size: 0.9rem;
+        color: #cccccc;
+        text-align: center;
+      }
+
+      .category-percentage {
+        font-size: 0.8rem;
+        color: #ffb347;
+        text-align: center;
+        margin-top: 0.5rem;
+      }
+
+      .breakdown-item {
+        display:flex;
+        justify-content:space-between;
+        padding: 0.5rem 1rem;
+      }
+
+      .item-emission {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .recommendations {
+        position: fixed;
+        top: 50%;
+        right: -15%;
+        transform: translate(-50%, -50%);
+        width: 40vw;
+        max-width: 1200px;
+        height: 85vh;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 20px;
+        border: 0.25px solid rgba(255, 255, 255);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 1rem;
+        opacity: 0;
+        box-sizing: border-box;
+        overflow-y: auto;
+      }
+
+      .recommendations strong {
+        text-decoration: dotted;
+        color: #ffffff;
+        margin-bottom: 1rem;
+        text-align: center;
+        font-size: 1rem;
+      }
+
+      .recommendations ul {
+        font-size: 0.55rem;
+        line-height: 1.8;
+      }
+
+      .recommendations li {
+        margin-bottom: 0.5rem;
+      }
+
+      /* 滑鼠提示样式 */
+      .scroll-mouse {
+        position: fixed;
+        bottom: 5%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 5;
+        width: 18px;
+        height: 26px;
+        cursor: pointer;
+      }
+
+      .border-anim {
+        stroke-dasharray: 90;
+        stroke-dashoffset: 90;
+        cursor: pointer;
+        transition: stroke-dashoffset 1s linear;
+      }
+      
+      .mouse-line {
+        position: absolute;
+        width: 0.05rem;
+        height: 0.4rem;
+        background-color: #fff;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: translateY 0.3s linear;
+        animation: none;
+      }
+
+      .scroll-mouse:hover .mouse-line {
+        animation: mouseLineAnim 0.6s forwards;
+      }
+
+      .scroll-mouse:not(:hover) .border-anim {
+        stroke-dashoffset: 90;
+      }
+
+      .scroll-mouse:hover .border-anim {
+        stroke-dashoffset: 0;
+      }
+
+      @keyframes mouseLineAnim {
+        0% { transform: translate(-50%, -50%); }
+        100% { transform: translate(-50%, 100%); }
+      }
+
+      .error-message {
+        color: #ff6b6b;
+        text-align: center;
+        font-size: 1.2rem;
+        padding: 2rem;
+        background: rgba(255, 107, 107, 0.1);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 107, 107, 0.3);
+        margin: 1rem 0;
       }
 
       @media (max-width: 900px) {
         .scene-1 {
           display: flex;
           flex-direction: column;
-          align-items: center;   /* 水平置中 */
-          justify-content: flex-start; /* 從上往下排列 */
+          align-items: center;
+          justify-content: flex-start;
         }
 
         .scene-1 .sealevel-container,
         .scene-1 .carbon-footprint-emissions-container,
         .scene-1 .carbon-footprint-temperature-container,
         .scene-1 .polarbear-container {
-          position: static;   /* 拿掉 fixed 讓它們跟隨 flex 排列 */
-          width: 90%;        /* 自動縮排，避免超出螢幕 */
-          max-width: 450px;  /* 保持原本容器寬度限制 */
-          margin: 1rem 0;    /* 間距 */
-          text-align: center; /* 文字置中 */
-          translate: none;   /* 移除 translate */
+          position: static;
+          width: 90%;
+          max-width: 450px;
+          margin: 1rem 0;
+          text-align: center;
+          translate: none;
+        }
+
+        .categories-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .analysis-title {
+          font-size: 1.5rem;
+        }
+
+        .total-value {
+          font-size: 2rem;
         }
       }
-
-      .scene-2 .carbon-footprint-status-container {
-        position: fixed;
-        top: 5%;
-        left: 5%;
-        translate:(-50%, -50%);
-        width: 40vw;
-        height: 90vh;
-        background: rgba(255, 255, 255, 0.4);
-        border-radius: 72px;
-        opacity: 0;
-        -webkit-box-shadow:
-        inset -7px -5.25px 2px -6.5px rgba(255, 255, 255), 
-        inset 7px 5.25px 2px -6.5px rgb(255, 255, 255),
-        inset -2.25px -8px 2px -6.75px rgb(255, 255, 255), 
-        inset 2.25px 8px 2px -6.75px rgb(255, 255, 255),
-        4px 8px 32px 0px rgba(110, 110, 110, 0.25);
-        box-shadow:
-        inset -7px -5.25px 2px -6.5px rgba(255, 255, 255), 
-        inset 7px 5.25px 2px -6.5px rgb(255, 255, 255),
-        inset -2.25px -8px 2px -6.75px rgb(255, 255, 255), 
-        inset 2.25px 8px 2px -6.75px rgb(255, 255, 255),
-        4px 8px 32px 0px rgba(110, 110, 110, 0.25);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-      }
-
-
-      /* 提示滑鼠 */
-     .scroll-mouse {
-      position: fixed;
-      bottom: 5%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 5;
-      width: 18px;
-      height: 26px;
-      cursor: pointer;
-    }
-
-    /* 動畫邊框 */
-    .border-anim {
-      stroke-dasharray: 90;
-      stroke-dashoffset: 90;
-      cursor: pointer;
-      transition: stroke-dashoffset 1s linear;
-    }
-    
-    .mouse-line {
-      position: absolute;
-      width: 0.05rem;
-      height: 0.4rem;
-      background-color: #fff;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      transition: translateY 0.3s linear;
-      animation: none;
-    }
-
-    .scroll-mouse:hover .mouse-line {
-      animation: mouseLineAnim 0.6s forwards;
-    }
-
-    .scroll-mouse:not(:hover) .border-anim {
-      stroke-dashoffset: 90;
-    }
-
-    .scroll-mouse:hover .border-anim {
-      stroke-dashoffset: 00;
-    }
-
     </style>
-  </head>
-  <body>
-    <div class="scroll-container">
-      <section class="scene scene-1">
-        <div class="sealevel-container">
-          <p>2100年，預計海平面<br>​將上升......</p>
-          <iframe allow="fullscreen 'none'" frameBorder="0" src="https://coastal.climatecentral.org/embed/map/11/121.4115/25.1141/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=true&elevation_model=best_available&esl_model=ipcc_2021&percentile=p50&slr_year=2100&temperature_rise=3.1&temperature_unit=C" width="100%" height="200" title="Climate Central | Land projected to be below tideline in 2100"></iframe>
-        </div>
-
-        <div class="carbon-footprint-emissions-container">
-          <p class="emissions-text">您過去一年的碳足跡排放是</p>
-          <p>
-            <span id="carbon-footprint-emissions-value">12.437</span>
-            <span>公噸<span class="emissions-unit">二氧化碳當量(tCO2e)</span></span>
-            
-          </p>
-          <p class="carbon-footprint-emissions-neutrality">為了中和您的排放，必須復育大約 17,274m2的自然再生林地。這大約與1.3座台北大巨蛋相同！</p>
-        </div>
-
-        <div class="carbon-footprint-temperature-container">
-          <p class="temperature-text">地球持續升溫</p>
-          <p class="temperature-text">本世紀末將達
-            <span id="carbon-footprint-temperature-value">3.7℃</span>
-          </p>
-        </div>
-
-        <div class="polarbear-container">
-          <img src="./images/bg-fashion.webp" alt="">
-          <p class="polarbear-text">這將導致我們可愛的北極熊不再有冷氣吹...</p>
-        </div>
-        
-        <div class="scroll-mouse">
-          <svg class="mouse-svg" viewBox="0 0 18 26" xmlns="http://www.w3.org/2000/svg">
-            <!-- 白色底框 -->
-            <rect x="1" y="1" width="16" height="24" rx="8" stroke="#cccccc" stroke-width="1" fill="none" />
-            <!-- 動畫邊框 -->
-            <rect class="border-anim" x="1" y="1" width="16" height="24" rx="8" stroke="#ffffff" stroke-width="1" fill="none" />
-          </svg>
-          <div class="mouse-line"></div>
-        </div>
-      </section>
-      <section class="scene scene-2">
-
-        <div class="carbon-footprint-status-container">
-        </div>
-
-        <div class="scroll-mouse">
-          <svg class="mouse-svg" viewBox="0 0 18 26" xmlns="http://www.w3.org/2000/svg">
-            <!-- 白色底框 -->
-            <rect x="1" y="1" width="16" height="24" rx="8" stroke="#cccccc" stroke-width="1" fill="none" />
-            <!-- 動畫邊框 -->
-            <rect class="border-anim" x="1" y="1" width="16" height="24" rx="8" stroke="#ffffff" stroke-width="1" fill="none" />
-          </svg>
-          <div class="mouse-line"></div>
-        </div>
-      </section>
+</head>
+<body>
+    <!-- 加载屏幕 -->
+    <div class="loading-screen">
+        <div class="spinner"></div>
     </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
+    <div class="scroll-container">
+        <section class="scene scene-1">
+            <div class="sealevel-container">
+                <p>2100年，預計海平面<br>將上升......</p>
+                <iframe allow="fullscreen 'none'" frameBorder="0" 
+                        src="https://coastal.climatecentral.org/embed/map/11/121.4115/25.1141/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=true&elevation_model=best_available&esl_model=ipcc_2021&percentile=p50&slr_year=2100&temperature_rise=3.1&temperature_unit=C" 
+                        width="100%" height="200" 
+                        title="Climate Central | Land projected to be below tideline in 2100">
+                </iframe>
+            </div>
 
-// 第一幕直接開始
+            <div class="carbon-footprint-emissions-container">
+                <p class="emissions-text">您過去一年的碳足跡排放是</p>
+                <p>
+                    <span id="carbon-footprint-emissions-value">計算中...</span>
+                    <span>公噸<span class="emissions-unit">二氧化碳當量(tCO2e)</span></span>
+                </p>
+                <p class="carbon-footprint-emissions-neutrality" id="neutrality-text">計算中...</p>
+            </div>
 
-// 第二幕使用 IntersectionObserver 等進入畫面後才執行
+            <div class="carbon-footprint-temperature-container">
+                <p class="temperature-text">地球持續升溫</p>
+                <p class="temperature-text">本世紀末將達
+                    <span id="carbon-footprint-temperature-value">3.7℃</span>
+                </p>
+            </div>
 
-const observer = new IntersectionObserver(
-  (entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        // 動畫時間是 1 秒，這裡延遲 1000ms 再打字
-        setTimeout(() => {
-        }, 1000);
-        observer.unobserve(entry.target);
+            <div class="polarbear-container">
+                <img src="./images/bg-fashion.webp" alt="北極熊">
+                <p class="polarbear-text">這將導致我們可愛的北極熊不再有冷氣吹...</p>
+            </div>
+            
+            <div class="scroll-mouse">
+                <svg class="mouse-svg" viewBox="0 0 18 26" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1" y="1" width="16" height="24" rx="8" stroke="#cccccc" stroke-width="1" fill="none" />
+                    <rect class="border-anim" x="1" y="1" width="16" height="24" rx="8" stroke="#ffffff" stroke-width="1" fill="none" />
+                </svg>
+                <div class="mouse-line"></div>
+            </div>
+        </section>
+
+        <section class="scene scene-2">
+            <div class="carbon-footprint-status-container">
+                <h2 class="analysis-title">您生活碳足跡計算的詳細數據</h2>
+
+                <div class="categories-grid" id="categories-container">
+                </div>
+            </div>
+
+            <div class="recommendations">
+                <h3>減碳建議</h3>
+                <ul id="recommendations-list">
+                    <li>計算分析中...</li>
+                </ul>
+            </div>
+
+            <div class="scroll-mouse">
+                <svg class="mouse-svg" viewBox="0 0 18 26" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1" y="1" width="16" height="24" rx="8" stroke="#cccccc" stroke-width="1" fill="none" />
+                    <rect class="border-anim" x="1" y="1" width="16" height="24" rx="8" stroke="#ffffff" stroke-width="1" fill="none" />
+                </svg>
+                <div class="mouse-line"></div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+// Firebase 配置
+const firebaseConfig = {
+  apiKey: "AIzaSyBm2oNcPhQ5nbQbLrvQUnlQ31LoxX3JThM",
+  authDomain: "steinlux-calculator.firebaseapp.com",
+  projectId: "steinlux-calculator",
+  storageBucket: "steinlux-calculator.firebasestorage.app",
+  messagingSenderId: "180210584345",
+  appId: "1:180210584345:web:759888650c808df8159388",
+  measurementId: "G-VX9JK5P5DF"
+};
+
+// 初始化 Firebase
+firebase.initializeApp(firebaseConfig);
+const functions = firebase.functions();
+
+// 碳足跡数据 - 詳細版本
+let carbonDetailedData = {
+    'traffic-daily': { total: 0, breakdown: {} },
+    'home': { total: 0, breakdown: {} },
+    'traffic-travel': { total: 0, breakdown: {} },
+    'food': { total: 0, breakdown: {} },
+    'fashion': { total: 0, breakdown: {} },
+    'entertainment': { total: 0, breakdown: {} }
+};
+
+// 碳足跡数据 - 簡化版本（保持相容性）
+let carbonData = {
+    'traffic-daily': 0,
+    'home': 0,
+    'traffic-travel': 0,
+    'food': 0,
+    'fashion': 0,
+    'entertainment': 0
+};
+
+let totalEmissions = 0;
+
+// 页面映射
+const pageNames = {
+    'traffic-daily': '日常通勤',
+    'home': '居住生活',
+    'traffic-travel': '旅遊交通',
+    'food': '日常飲食',
+    'fashion': '時尚穿搭',
+    'entertainment': '生活娛樂'
+};
+
+// 获取用户ID
+function getUserId() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('userId');
+    
+    if (userId) {
+        return userId;
+    }
+    
+    const storedUserId = localStorage.getItem('userId');
+    if (storedUserId) {
+        return storedUserId;
+    }
+    
+    return 'test-user';
+}
+
+// 调用 Firebase Function 计算碳足跡
+async function calculateCarbonFootprintDetailed() {
+    const userId = getUserId();
+    const pages = Object.keys(carbonDetailedData);
+    const calculateCarbonPage = functions.httpsCallable('calculateCarbonPage');
+
+    try {
+        const promises = pages.map(pageName => 
+            calculateCarbonPage({ userId, pageName })
+        );
+
+        const results = await Promise.all(promises);
+        
+        // 更新詳細數據
+        results.forEach(result => {
+            if (result.data) {
+                const pageName = result.data.pageName;
+                carbonDetailedData[pageName] = {
+                    total: result.data.total || 0,
+                    breakdown: result.data.breakdown || {}
+                };
+                // 保持原有的 carbonData 格式
+                carbonData[pageName] = result.data.total || 0;
+            }
+        });
+
+        // 計算總排放量
+        totalEmissions = Object.values(carbonData).reduce((sum, value) => sum + value, 0);
+        
+        return true;
+    } catch (error) {
+        console.error('計算碳足跡時發生錯誤:', error);
+        showError('計算碳足跡時發生錯誤，請稍後再試');
+        return false;
+    }
+}
+
+// 显示错误信息
+function showError(message) {
+    const container = document.getElementById('categories-container');
+    container.innerHTML = `<div class="error-message">${message}</div>`;
+}
+
+const categoryInfo = {
+    'traffic-daily': { color: '#6D808F', bgcolor: '#6D808F35', name: '日常通勤' },
+    'home': { color: '#A88E71', bgcolor: '#A88E7135', name: '居住生活' },
+    'traffic-travel': { color: '#C18181', bgcolor: '#C1818135', name: '旅遊交通' },
+    'food': { color: '#A3B18D', bgcolor: '#A3B18D35', name: '日常飲食' },
+    'fashion': { color: '#B6A0B1', bgcolor: '#B6A0B135', name: '時尚穿搭' },
+    'entertainment': { color: '#AAC5D2', bgcolor: '#AAC5D235', name: '生活娛樂' }
+};
+
+function createCategoryCards() {
+    const container = document.getElementById('categories-container');
+    container.innerHTML = '';
+
+    const order = ['traffic-daily', 'home', 'traffic-travel', 'food', 'fashion', 'entertainment'];
+
+    const filteredEntries = Object.entries(carbonDetailedData)
+        .filter(([pageKey, data]) => data.total > 0);
+
+    if (filteredEntries.length === 0) {
+        const noDataCard = document.createElement('div');
+        noDataCard.className = 'category-card no-data';
+        noDataCard.innerHTML = `
+            <div class="category-header" style="background-color:${info.bgcolor}; font-weight:bold; color:${info.color}; border-left: 8px solid ${info.color};">
+                <h3 class="category-title">暫無數據</h3>
+                <div class="category-value" style="color:#888;">0.000</div>
+            </div>
+            <div class="category-description" style="padding:0.5rem 1rem;">請完成碳足跡問卷以查看詳細數據</div>
+        `;
+        container.appendChild(noDataCard);
+        return;
+    }
+
+    const orderedEntries = filteredEntries.sort(
+        ([a], [b]) => order.indexOf(a) - order.indexOf(b)
+    );
+
+    orderedEntries.forEach(([pageKey, data]) => {
+        const info = categoryInfo[pageKey];
+
+        const sortedBreakdown = Object.entries(data.breakdown)
+            .filter(([itemName, itemData]) => itemData.emission > 0)
+            .sort((a, b) => b[1].emission - a[1].emission);
+
+        const card = document.createElement('div');
+        card.className = 'category-card detailed';
+
+        const itemsHTML = sortedBreakdown.length > 0 ?
+            sortedBreakdown.map(([itemName, itemData]) => {
+                return `
+                    <div class="breakdown-item">
+                        <div class="item-info">
+                            <div class="item-name" style="font-weight:bold; color:${info.color};">${itemName}</div>
+                            <div class="item-details" style="font-size:0.85em; color:#666;">
+                                ${itemData.input} ${itemData.unit || ''}
+                            </div>
+                        </div>
+                        <div class="item-emission" style="color:${info.color};">
+                            ${itemData.emission.toFixed(3)}
+                        </div>
+                    </div>
+                `;
+            }).join('')
+            : '<div class="no-items" style="padding:0.5rem 1rem; color:#999;">暫無詳細項目</div>';
+
+        card.innerHTML = `
+            <div class="category-header" style="background-color:${info.bgcolor}; font-weight:bold; color:${info.color}; border-left: 8px solid ${info.color};">
+                <h3 class="category-title" style="margin:0;">${info.name}</h3>
+                <div class="category-value" style="color:${info.color};">${data.total.toFixed(3)}</div>
+            </div>
+            <div class="category-breakdown">
+                ${itemsHTML}
+            </div>
+        `;
+
+        container.appendChild(card);
+    });
+}
+// 更新显示数据
+function updateDisplay() {
+    // 更新第一幕的总排放量
+    const emissionsValueElement = document.getElementById('carbon-footprint-emissions-value');
+    if (totalEmissions > 0) {
+        emissionsValueElement.textContent = totalEmissions.toFixed(3);
+        
+        // 更新中和说明
+        const forestArea = Math.round(totalEmissions * 1389);
+        const stadiums = (forestArea / 13284).toFixed(1);
+        const neutralityText = document.getElementById('neutrality-text');
+        neutralityText.textContent = `為了中和您的排放，必須復育大約 ${forestArea.toLocaleString()}m²的自然再生林地。這大約與${stadiums}座台北大巨蛋相同！`;
+        
+    } else {
+        emissionsValueElement.textContent = '暫無數據';
+        const neutralityText = document.getElementById('neutrality-text');
+        neutralityText.textContent = '請完成碳足跡問卷，我們將為您計算需要復育的森林面積。';
+        
+    }
+
+    // 创建分类卡片
+    createCategoryCards();
+
+    // 生成减碳建议
+    generateRecommendations();
+}
+
+function generateRecommendations() {
+  const recommendations = [];
+
+  // 取得有數值的項目，並排序取前三大
+  const activeCategories = Object.entries(carbonData)
+    .filter(([key, value]) => value > 0)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3); // 只取前三大
+
+  const list = document.getElementById('recommendations-list');
+  list.innerHTML = ''; // 清空原本內容
+
+  if (activeCategories.length === 0) {
+    recommendations.push({
+      pageKey: 'none',
+      title: '尚未完成問卷',
+      content: '請先完成碳足跡問卷，我們將根據您的數據提供個人化減碳建議'
+    });
+  } else {
+    // 針對前三大類別提供詳細建議
+    activeCategories.forEach(([pageKey, value]) => {
+      switch(pageKey) {
+        case 'traffic-daily':
+          recommendations.push({
+            pageKey,
+            title: categoryInfo[pageKey].name,
+            content: '你的日常通勤碳排放較高，可能是因為機車或汽車使用頻率較高。可以考慮改變部分通勤方式。<br>例如：<br>• 短程改為步行或騎腳踏車，減少燃油車使用次數<br>• 若有條件，可改用電動車或共乘方式，減少個人排放<br>• 調整駕駛習慣，如保持胎壓、減少怠速，以提升燃油效率'
+          });
+          break;
+        case 'traffic-travel':
+          recommendations.push({
+            pageKey,
+            title: categoryInfo[pageKey].name,
+            content: '你的旅遊交通碳足跡較高，可能是來自飛機旅行。長途飛行是個人碳排放的主要來源之一。<br>你可以考慮：<br>• 減少不必要的短途飛行，改搭高鐵或火車<br>• 若需飛行，選擇直飛航班，減少中轉產生的額外排放<br>• 支持碳補償計畫，如選擇航空公司的碳中和選項'
+          });
+          break;
+        case 'home':
+          recommendations.push({
+            pageKey,
+            title: categoryInfo[pageKey].name,
+            content: '你的住家碳排放較高，可能與家電使用、冷氣或熱水器有關。你可以嘗試：<br>• 更換高效節能電器，如 LED 燈、變頻冷氣<br>• 減少不必要的電器待機電力，使用插座開關隨手關閉<br>• 提升房屋隔熱效果，減少冷氣或暖氣的使用需求'
+          });
+          break;
+        case 'food':
+          recommendations.push({
+            pageKey,
+            title: categoryInfo[pageKey].name,
+            content: '你的飲食碳排放較高，可能與肉類攝取頻繁或食物浪費有關。建議：<br>• 減少紅肉和加工肉類攝取，增加植物性飲食<br>• 選擇當季在地食材，減少食物運輸碳排放<br>• 減少食物浪費，注意保存和計畫購買'
+          });
+          break;
+        case 'fashion':
+          recommendations.push({
+            pageKey,
+            title: categoryInfo[pageKey].name,
+            content: '你的時尚穿搭碳排放較高，可能與快時尚消費習慣有關。建議：<br>• 選擇耐用的衣物，減少購買快時尚<br>• 考慮二手或租借服飾<br>• 支持永續品牌與環保材料的衣物'
+          });
+          break;
+        case 'entertainment':
+          recommendations.push({
+            pageKey,
+            title: categoryInfo[pageKey].name,
+            content: '你的娛樂活動碳排放較高，可能與高耗能娛樂設備或頻繁活動有關。建議：<br>• 選擇低碳娛樂方式，如戶外運動、閱讀<br>• 減少高耗能電子設備使用時間<br>• 參與社區活動或公共資源娛樂'
+          });
+          break;
       }
     });
-  },
-  {
-    threshold: 0.6,
   }
-);
 
-observer.observe(document.querySelector(".scene-2"));
+  // 顯示建議
+  list.innerHTML = recommendations.map(rec => {
+    if (rec.pageKey === 'none') {
+      return `
+        <li>
+          <div style="font-weight:bold; color:#555;">${rec.title}</div>
+          <div style="margin-left:0.5rem; color:#666;">${rec.content}</div>
+        </li>
+      `;
+    } else {
+      const info = categoryInfo[rec.pageKey];
+      return `
+        <li style="margin-bottom:1rem;">
+          <div style="font-weight:bold; color:${info.color}; padding-left:0.5rem;">
+            ${rec.title}
+          </div>
+          <div style="margin-left:0.75rem; margin-top:0.25rem; color:#333;">
+            ${rec.content}
+          </div>
+        </li>
+      `;
+    }
+  }).join('');
+}
 
+// 页面加载完成后的初始化
+document.addEventListener("DOMContentLoaded", async () => {
+    const loadingScreen = document.querySelector('.loading-screen');
+    
+    try {
+        // 使用新的詳細計算函數
+        const success = await calculateCarbonFootprintDetailed();
+        
+        if (success) {
+            updateDisplay();
+            console.log('碳足跡計算完成:', carbonDetailedData);
+            console.log('總排放量:', totalEmissions);
+        } else {
+            document.getElementById('carbon-footprint-emissions-value').textContent = '計算失敗';
+        }
+    } catch (error) {
+        console.error('初始化錯誤:', error);
+        showError('系統初始化失敗，請重新整理頁面');
+    } finally {
+        setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+        }, 1000);
+    }
+
+    setupSceneTransitions();
+});
+
+
+// 场景切换设置
+function setupSceneTransitions() {
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting && entry.target.classList.contains('scene-2')) {
+                    setTimeout(() => {
+                        // 第二幕进入动画
+                    }, 1000);
+                }
+            });
+        },
+        { threshold: 0.6 }
+    );
+
+    observer.observe(document.querySelector(".scene-2"));
+
+    // 移动设备触摸处理
     function isMobile() {
-    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     }
 
     function preventTouchScroll(e) {
-      e.preventDefault();
+        e.preventDefault();
     }
 
     if (isMobile()) {
-      document.body.addEventListener("touchmove", preventTouchScroll, { passive: false });
+        document.body.addEventListener("touchmove", preventTouchScroll, { passive: false });
     }
 
-    // 函數：暫時禁止滾動
+    const container = document.querySelector(".scroll-container");
+    let isScrolling = false;
+    const cooldownTime = 3000;
+    let lastScrollTime = 0;
+
     function disableScroll() {
-      document.body.style.overflow = "hidden";
+        document.body.style.overflow = "hidden";
+        container.style.overflow = "hidden";
     }
 
-    // 函數：恢復滾動
     function enableScroll() {
-      document.body.style.overflow = "";
+        document.body.style.overflow = "";
+        container.style.overflow = "";
     }
-    
-    // 判斷是否為行動裝置
-  function isMobile() {
-    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  }
-  const isMobileLayout = window.innerWidth <= 768;
 
-  function preventTouchScroll(e) {
-    e.preventDefault();
-  }
-  if (isMobile()) {
-    document.body.addEventListener("touchmove", preventTouchScroll, { passive: false });
-  }
+    // 切到第二幕
+    function goToSecondScene() {
+        if (isScrolling) return;
+        const vh = window.innerHeight;
+        isScrolling = true;
+        lastScrollTime = Date.now();
+        disableScroll();
 
-  function disableScroll() {
-    document.body.style.overflow = "hidden";
-    container.style.overflow = "hidden";
-  }
-
-  function enableScroll() {
-    document.body.style.overflow = "";
-    container.style.overflow = "";
-  }
-
-  if (isMobile()) {
-  document.body.addEventListener("touchmove", preventTouchScroll, { passive: false });
-
-  let touchStartY = 0;
-  let touchEndY = 0;
-
-  document.body.addEventListener("touchstart", (e) => {
-    touchStartY = e.touches[0].clientY;
-  });
-
-  document.body.addEventListener("touchend", (e) => {
-    touchEndY = e.changedTouches[0].clientY;
-    const deltaY = touchEndY - touchStartY;
-
-    // 向上滑（往下進入第二幕）
-    if (deltaY < -50) { // 閾值 50px 避免誤觸
-      goToSecondScene();
+        gsap.to(container, {
+            scrollTo: { y: vh },
+            duration: 2,
+            ease: "power2.out",
+            onStart: () => {
+                gsap.to(".scene-1 .sealevel-container", { opacity: 0, duration: 0.5 });
+                gsap.to(".scene-1 .carbon-footprint-emissions-container", { opacity: 0, duration: 0.5 });
+                gsap.to(".scene-1 .carbon-footprint-temperature-container", { opacity: 0, duration: 0.5 });
+                gsap.to(".scene-1 .polarbear-container", { opacity: 0, duration: 0.25 });
+                gsap.to(".scene-2 .carbon-footprint-status-container", { delay: 0.5, opacity: 1, duration: 1.5 });
+                gsap.to(".scene-2 .recommendations", { delay: 0.5, opacity: 1, duration: 1.5 });
+            },
+            onComplete: () => {
+                isScrolling = false;
+                enableScroll();
+            },
+        });
     }
-    // 向下滑（往上回第一幕）
-    else if (deltaY > 50) {
-      goToFirstScene();
+
+    // 切回第一幕
+    function goToFirstScene() {
+        const vh = window.innerHeight;
+        isScrolling = true;
+        lastScrollTime = Date.now();
+        disableScroll();
+
+        gsap.to(container, {
+            scrollTo: { y: 0 },
+            duration: 2,
+            ease: "power2.out",
+            onStart: () => {
+                gsap.to(".scene-1 .sealevel-container", { delay: 0.5, opacity: 1, duration: 1.5 });
+                gsap.to(".scene-1 .carbon-footprint-emissions-container", { delay: 0.5, opacity: 1, duration: 1.5 });
+                gsap.to(".scene-1 .carbon-footprint-temperature-container", { delay: 0.5, opacity: 1, duration: 1.5 });
+                gsap.to(".scene-1 .polarbear-container", { delay: 0.75, opacity: 1, duration: 1.5 });
+                gsap.to(".scene-2 .carbon-footprint-status-container", { opacity: 0, duration: 0.5 });
+                gsap.to(".scene-2 .recommendations", { opacity: 0, duration: 0.5 });
+            },
+            onComplete: () => {
+                isScrolling = false;
+                enableScroll();
+            },
+        });
     }
-  });
+
+    // 移动设备触摸切换
+    if (isMobile()) {
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        document.body.addEventListener("touchstart", (e) => {
+            touchStartY = e.touches[0].clientY;
+        });
+
+        document.body.addEventListener("touchend", (e) => {
+            touchEndY = e.changedTouches[0].clientY;
+            const deltaY = touchEndY - touchStartY;
+
+            // 向上滑（往下进入第二幕）
+            if (deltaY < -50) {
+                goToSecondScene();
+            }
+            // 向下滑（往上回第一幕）
+            else if (deltaY > 50) {
+                goToFirstScene();
+            }
+        });
+    }
+
+    // 点击滑鼠图标切换场景
+    const scrollMouse1 = document.querySelector(".scene-1 .scroll-mouse");
+    if (scrollMouse1) scrollMouse1.addEventListener("click", goToSecondScene);
+
+    const scrollMouse2 = document.querySelector(".scene-2 .scroll-mouse");
+    if (scrollMouse2) scrollMouse2.addEventListener("click", goToFirstScene);
+
+    // 滑鼠滚轮切换场景
+    container.addEventListener(
+        "wheel",
+        (e) => {
+            const now = Date.now();
+            if (now - lastScrollTime < cooldownTime || isScrolling) {
+                e.preventDefault();
+                return;
+            }
+
+            const deltaY = e.deltaY;
+            const scrollTop = container.scrollTop;
+            const vh = window.innerHeight;
+
+            // 往下滚进入第二幕
+            if (deltaY > 0 && scrollTop < vh / 2) {
+                e.preventDefault();
+                goToSecondScene();
+            }
+            // 往上滚回到第一幕
+            else if (deltaY < 0 && scrollTop > vh / 1.5 && scrollTop < vh * 1.5) {
+                e.preventDefault();
+                goToFirstScene();
+            }
+        },
+        { passive: false }
+    );
+
+    // 暴露全局函数
+    window.goToSecondScene = goToSecondScene;
+    window.goToFirstScene = goToFirstScene;
 }
 
-  const container = document.querySelector(".scroll-container");
-  let isScrolling = false;
-  const cooldownTime = 3000;
-  let lastScrollTime = 0;
-
-  // 切到第二幕
-  function goToSecondScene() {
-    if (isScrolling) return;
-    const vh = window.innerHeight;
-    isScrolling = true;
-    lastScrollTime = Date.now();
-    disableScroll();
-
-    gsap.to(container, {
-      scrollTo: { y: vh },
-      duration: 2,
-      ease: "power2.out",
-      onStart: () => {
-        gsap.to(".scene-1 .sealevel-container", { opacity: 0, duration: 0.5 });
-        gsap.to(".scene-1 .carbon-footprint-emissions-container", { opacity: 0, duration: 0.5 });
-        gsap.to(".scene-1 .carbon-footprint-temperature-container", { opacity: 0, duration: 0.5 });
-        gsap.to(".scene-1 .polarbear-container", { opacity: 0, duration: 0.25 });
-        gsap.to(".scene-2 .carbon-footprint-status-container", { delay: 0.5, opacity: 1, duration: 1.5 })
-      },
-      onComplete: () => {
-        isScrolling = false;
-        enableScroll();
-      },
+// 错误处理和重试机制
+function retryCalculation() {
+    const loadingScreen = document.querySelector('.loading-screen');
+    loadingScreen.classList.remove('hidden');
+    
+    calculateCarbonFootprintDetailed().then(success => {
+        if (success) {
+            updateDisplay();
+        } else {
+            showError('重新計算失敗，請檢查網路連接或稍後再試');
+        }
+    }).finally(() => {
+        setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+        }, 1000);
     });
-  }
+}
 
-  // 切回第一幕
-  function goToFirstScene() {
-    const vh = window.innerHeight;
-    isScrolling = true;
-    lastScrollTime = Date.now();
-    disableScroll();
+// 数据导出功能
+function exportCarbonData() {
+    const exportData = {
+        timestamp: new Date().toISOString(),
+        userId: getUserId(),
+        totalEmissions: totalEmissions,
+        categories: carbonData,
+        detailedData: carbonDetailedData,
+        details: Object.entries(carbonData)
+            .filter(([key, value]) => value > 0)
+            .map(([key, value]) => ({
+                category: pageNames[key],
+                emissions: value,
+                percentage: ((value / totalEmissions) * 100).toFixed(1)
+            }))
+    };
 
-    gsap.to(container, {
-      scrollTo: { y: 0 },
-      duration: 2,
-      ease: "power2.out",
-      onStart: () => {
-        gsap.to(".scene-1 .sealevel-container", { delay: 0.5, opacity: 1, duration: 1.5 });
-        gsap.to(".scene-1 .carbon-footprint-emissions-container", { delay: 0.5, opacity: 1, duration: 1.5 });
-        gsap.to(".scene-1 .carbon-footprint-temperature-container", { delay: 0.5, opacity: 1, duration: 1.5 });
-        gsap.to(".scene-1 .polarbear-container", { delay: 0.75, opacity: 1, duration: 1.5 });
-        gsap.to(".scene-2 .carbon-footprint-status-container", { opacity: 0, duration: 0.5 })
-      },
-      onComplete: () => {
-        isScrolling = false;
-        enableScroll();
-      },
-    });
-  }
+    const dataStr = JSON.stringify(exportData, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `carbon-footprint-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
 
-  // 點擊滑鼠圖示切換場景
-  const scrollMouse1 = document.querySelector(".scene-1 .scroll-mouse");
-  if (scrollMouse1) scrollMouse1.addEventListener("click", goToSecondScene);
-
-  const scrollMouse2 = document.querySelector(".scene-2 .scroll-mouse");
-  if (scrollMouse2) scrollMouse2.addEventListener("click", goToFirstScene);
-
-  window.goToSecondScene = goToSecondScene;
-
-  // 滑鼠滾輪切換場景
-  container.addEventListener(
-    "wheel",
-    (e) => {
-      const now = Date.now();
-      if (now - lastScrollTime < cooldownTime || isScrolling) {
-        e.preventDefault();
-        return;
-      }
-
-      const deltaY = e.deltaY;
-      const scrollTop = container.scrollTop;
-      const vh = window.innerHeight;
-
-      // 往下滾進入第二幕
-      if (deltaY > 0 && scrollTop < vh / 2) {
-        e.preventDefault();
-        goToSecondScene();
-      }
-      // 往上滾回到第一幕
-      else if (deltaY < 0 && scrollTop > vh / 1.5 && scrollTop < vh * 1.5) {
-        e.preventDefault();
-        goToFirstScene();
-      }
-    },
-    { passive: false }
-  );
-});
-</script>
-
-  </body>
+// 暴露测试和工具函数到全局
+window.retryCalculation = retryCalculation;
+window.exportCarbonData = exportCarbonData;
+    </script>
+</body>
 </html>

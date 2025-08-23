@@ -1,747 +1,747 @@
 [
-  {
-      "iata_code": "ADD_亞的斯亞貝巴 博萊國際機場",
-      "latitude_deg": 8.97789,
-      "longitude_deg": 38.7993
-  },
-  {
-      "iata_code": "ADL_阿德雷德機場",
-      "latitude_deg": -34.947512,
-      "longitude_deg": 138.533
-  },
-  {
-      "iata_code": "AKL_奧克蘭國際機場",
-      "latitude_deg": -37.01199,
-      "longitude_deg": 174.786
-  },
-  {
-      "iata_code": "AMS_阿姆斯特丹 史基浦機場",
-      "latitude_deg": 52.308601,
-      "longitude_deg": 4.76389
-  },
-  {
-      "iata_code": "ATL_亞特蘭大 哈茲菲爾德–傑克遜國際機場",
-      "latitude_deg": 33.6367,
-      "longitude_deg": -84.4281
-  },
-  {
-      "iata_code": "AUH_阿布達比國際機場",
-      "latitude_deg": 24.443764,
-      "longitude_deg": 54.6517
-  },
-  {
-      "iata_code": "BCN_巴塞隆納 埃爾普拉特機場",
-      "latitude_deg": 41.2971,
-      "longitude_deg": 2.07846
-  },
-  {
-      "iata_code": "BER_柏林 布蘭登堡機場",
-      "latitude_deg": 52.362247,
-      "longitude_deg": 13.5007
-  },
-  {
-      "iata_code": "BKK_曼谷 素萬那普國際機場",
-      "latitude_deg": 13.68109989,
-      "longitude_deg": 100.747
-  },
-  {
-      "iata_code": "BNE_布里斯本機場",
-      "latitude_deg": -27.38419914,
-      "longitude_deg": 153.117
-  },
-  {
-      "iata_code": "BOG_波哥大 埃爾多拉多國際機場",
-      "latitude_deg": 4.70159,
-      "longitude_deg": -74.1469
-  },
-  {
-      "iata_code": "BOM_孟買 查特拉帕提·希瓦吉·瑪哈拉傑國際機場",
-      "latitude_deg": 19.08869934,
-      "longitude_deg": 72.8679
-  },
-  {
-      "iata_code": "BOS_波士頓 羅根國際機場",
-      "latitude_deg": 42.36197,
-      "longitude_deg": -71.0079
-  },
-  {
-      "iata_code": "BRU_布魯塞爾機場",
-      "latitude_deg": 50.901402,
-      "longitude_deg": 4.48444
-  },
-  {
-      "iata_code": "CAI_開羅國際機場",
-      "latitude_deg": 30.111534,
-      "longitude_deg": 31.3967
-  },
-  {
-      "iata_code": "CAN_廣州 白雲國際機場",
-      "latitude_deg": 23.392401,
-      "longitude_deg": 113.299
-  },
-  {
-      "iata_code": "CDG_巴黎 戴高樂機場",
-      "latitude_deg": 49.012798,
-      "longitude_deg": 2.55
-  },
-  {
-      "iata_code": "CEB_宿霧 麥克坦–宿霧國際機場",
-      "latitude_deg": 10.309261,
-      "longitude_deg": 123.98
-  },
-  {
-      "iata_code": "CGK_雅加達 蘇加諾–哈達國際機場",
-      "latitude_deg": -6.12556982,
-      "longitude_deg": 106.656
-  },
-  {
-      "iata_code": "CGO_鄭州 新鄭國際機場",
-      "latitude_deg": 34.526497,
-      "longitude_deg": 113.849
-  },
-  {
-      "iata_code": "CHC_基督城國際機場",
-      "latitude_deg": -43.48939896,
-      "longitude_deg": 172.532
-  },
-  {
-      "iata_code": "CKG_重慶 江北國際機場",
-      "latitude_deg": 29.712254,
-      "longitude_deg": 106.652
-  },
-  {
-      "iata_code": "CLT_夏洛特道格拉斯國際機場",
-      "latitude_deg": 35.2140007,
-      "longitude_deg": -80.9431
-  },
-  {
-      "iata_code": "CMB_可倫坡 班達拉奈克國際機場",
-      "latitude_deg": 7.180759907,
-      "longitude_deg": 79.8841
-  },
-  {
-      "iata_code": "CNS_凱恩斯機場",
-      "latitude_deg": -16.88579941,
-      "longitude_deg": 145.755
-  },
-  {
-      "iata_code": "CNX_清邁國際機場",
-      "latitude_deg": 18.76679993,
-      "longitude_deg": 98.9626
-  },
-  {
-      "iata_code": "CPT_開普敦國際機場",
-      "latitude_deg": -33.96480179,
-      "longitude_deg": 18.6017
-  },
-  {
-      "iata_code": "CRK_克拉克國際機場",
-      "latitude_deg": 15.186,
-      "longitude_deg": 120.56
-  },
-  {
-      "iata_code": "CSX_長沙 黃花國際機場",
-      "latitude_deg": 28.189199,
-      "longitude_deg": 113.22
-  },
-  {
-      "iata_code": "CTS_新千歲機場",
-      "latitude_deg": 42.7752,
-      "longitude_deg": 141.692
-  },
-  {
-      "iata_code": "CTU_成都 雙流國際機場",
-      "latitude_deg": 30.558257,
-      "longitude_deg": 103.946
-  },
-  {
-      "iata_code": "DAC_達卡 沙阿賈拉勒國際機場",
-      "latitude_deg": 23.843347,
-      "longitude_deg": 90.3978
-  },
-  {
-      "iata_code": "DAD_峴港國際機場",
-      "latitude_deg": 16.0439,
-      "longitude_deg": 108.199
-  },
-  {
-      "iata_code": "DCA_華盛頓 雷根國家機場",
-      "latitude_deg": 38.8521,
-      "longitude_deg": -77.0377
-  },
-  {
-      "iata_code": "DEL_德里 英迪拉·甘地國際機場",
-      "latitude_deg": 28.55563,
-      "longitude_deg": 77.0952
-  },
-  {
-      "iata_code": "DEN_丹佛國際機場",
-      "latitude_deg": 39.86169815,
-      "longitude_deg": -104.673
-  },
-  {
-      "iata_code": "DFW_達拉斯/沃斯堡國際機場",
-      "latitude_deg": 32.896801,
-      "longitude_deg": -97.038
-  },
-  {
-      "iata_code": "DSS_達卡爾 布萊茲·迪亞涅國際機場",
-      "latitude_deg": 38.965719,
-      "longitude_deg": 121.538
-  },
-  {
-      "iata_code": "DLC_大連 周水子國際機場",
-      "latitude_deg": 25.273056,
-      "longitude_deg": 51.6081
-  },
-  {
-      "iata_code": "DOH_多哈 哈馬德國際機場",
-      "latitude_deg": -8.74817,
-      "longitude_deg": 115.167
-  },
-  {
-      "iata_code": "DPS_峇里島 伍拉·賴國際機場",
-      "latitude_deg": -12.41497,
-      "longitude_deg": 130.882
-  },
-  {
-      "iata_code": "DRW_達爾文國際機場",
-      "latitude_deg": 14.67,
-      "longitude_deg": -17.0733
-  },
-  {
-      "iata_code": "DUB_都柏林機場",
-      "latitude_deg": 53.428713,
-      "longitude_deg": -6.26212
-  },
-  {
-      "iata_code": "DUS_杜塞爾多夫機場",
-      "latitude_deg": 51.289501,
-      "longitude_deg": 6.76678
-  },
-  {
-      "iata_code": "DXB_杜拜國際機場",
-      "latitude_deg": 25.25279999,
-      "longitude_deg": 55.3644
-  },
-  {
-      "iata_code": "EDI_愛丁堡機場",
-      "latitude_deg": 55.950145,
-      "longitude_deg": -3.37229
-  },
-  {
-      "iata_code": "EWR_紐華克 自由國際機場",
-      "latitude_deg": 40.692501,
-      "longitude_deg": -74.1687
-  },
-  {
-      "iata_code": "EZE_布宜諾斯艾利斯 皮斯塔里尼國際機場（埃塞薩）",
-      "latitude_deg": -34.8222,
-      "longitude_deg": -58.5358
-  },
-  {
-      "iata_code": "FCO_羅馬 菲烏米奇諾機場",
-      "latitude_deg": 41.804532,
-      "longitude_deg": 12.252
-  },
-  {
-      "iata_code": "FOC_福州 長樂國際機場",
-      "latitude_deg": 25.934669,
-      "longitude_deg": 119.663
-  },
-  {
-      "iata_code": "FRA_法蘭克福機場",
-      "latitude_deg": 50.030241,
-      "longitude_deg": 8.5611
-  },
-  {
-      "iata_code": "FUK_福岡機場",
-      "latitude_deg": 33.58589935,
-      "longitude_deg": 130.451
-  },
-  {
-      "iata_code": "GIG_里約熱內盧 加利昂國際機場",
-      "latitude_deg": -22.809999,
-      "longitude_deg": -43.2506
-  },
-  {
-      "iata_code": "GLA_格拉斯哥國際機場",
-      "latitude_deg": 55.871899,
-      "longitude_deg": -4.43306
-  },
-  {
-      "iata_code": "GMP_首爾 金浦國際機場",
-      "latitude_deg": 37.5583,
-      "longitude_deg": 126.791
-  },
-  {
-      "iata_code": "GRU_聖保羅 瓜魯柳斯國際機場",
-      "latitude_deg": -23.431944,
-      "longitude_deg": -46.4678
-  },
-  {
-      "iata_code": "GUW_阿特勞國際機場",
-      "latitude_deg": 47.122559,
-      "longitude_deg": 51.8193
-  },
-  {
-      "iata_code": "HAM_漢堡機場",
-      "latitude_deg": 53.630402,
-      "longitude_deg": 9.98823
-  },
-  {
-      "iata_code": "HAN_河內 內排國際機場",
-      "latitude_deg": 21.221201,
-      "longitude_deg": 105.807
-  },
-  {
-      "iata_code": "HGH_杭州 蕭山國際機場",
-      "latitude_deg": 30.23609,
-      "longitude_deg": 120.429
-  },
-  {
-      "iata_code": "HKG_香港國際機場",
-      "latitude_deg": 22.308901,
-      "longitude_deg": 113.915
-  },
-  {
-      "iata_code": "HKT_普吉國際機場",
-      "latitude_deg": 8.1132,
-      "longitude_deg": 98.3169
-  },
-  {
-      "iata_code": "HND_東京 羽田機場",
-      "latitude_deg": 35.552299,
-      "longitude_deg": 139.78
-  },
-  {
-      "iata_code": "HNL_檀香山 國際機場",
-      "latitude_deg": 21.32062,
-      "longitude_deg": -157.924
-  },
-  {
-      "iata_code": "HUN_花蓮機場",
-      "latitude_deg": 24.0230999,
-      "longitude_deg": 121.618
-  },
-  {
-      "iata_code": "IAH_休士頓 喬治·布希洲際機場",
-      "latitude_deg": 29.9843998,
-      "longitude_deg": -95.3414
-  },
-  {
-      "iata_code": "ICN_仁川國際機場",
-      "latitude_deg": 37.469101,
-      "longitude_deg": 126.451
-  },
-  {
-      "iata_code": "IST_伊斯坦堡機場",
-      "latitude_deg": 41.261297,
-      "longitude_deg": 28.742
-  },
-  {
-      "iata_code": "ITM_大阪 伊丹機場",
-      "latitude_deg": 34.7855,
-      "longitude_deg": 135.438
-  },
-  {
-      "iata_code": "JED_吉達 阿卜杜勒-阿齊茲國王國際機場",
-      "latitude_deg": 21.6796,
-      "longitude_deg": 39.1565
-  },
-  {
-      "iata_code": "JFK_紐約 甘迺迪國際機場",
-      "latitude_deg": 40.639447,
-      "longitude_deg": -73.7793
-  },
-  {
-      "iata_code": "JJN_泉州 晉江國際機場",
-      "latitude_deg": 24.7964,
-      "longitude_deg": 118.59
-  },
-  {
-      "iata_code": "JNB_約翰尼斯堡 奧利弗·坦博國際機場",
-      "latitude_deg": -26.1392,
-      "longitude_deg": 28.246
-  },
-  {
-      "iata_code": "KHH_高雄國際機場",
-      "latitude_deg": 22.577101,
-      "longitude_deg": 120.35
-  },
-  {
-      "iata_code": "KIX_大阪 關西國際機場",
-      "latitude_deg": 34.427299,
-      "longitude_deg": 135.244
-  },
-  {
-      "iata_code": "KMG_昆明 長水國際機場",
-      "latitude_deg": 25.110313,
-      "longitude_deg": 102.937
-  },
-  {
-      "iata_code": "KNH_金門 尚義機場",
-      "latitude_deg": 24.4279,
-      "longitude_deg": 118.359
-  },
-  {
-      "iata_code": "KUL_吉隆坡國際機場",
-      "latitude_deg": 11.362917,
-      "longitude_deg": 104.917
-  },
-  {
-      "iata_code": "LAS_拉斯維加斯 哈里·瑞德國際機場",
-      "latitude_deg": 2.74558,
-      "longitude_deg": 101.71
-  },
-  {
-      "iata_code": "LAX_洛杉磯國際機場",
-      "latitude_deg": 36.083361,
-      "longitude_deg": -115.152
-  },
-  {
-      "iata_code": "LGW_倫敦 蓋威克機場",
-      "latitude_deg": 33.942501,
-      "longitude_deg": -118.408
-  },
-  {
-      "iata_code": "LHR_倫敦 希斯洛機場",
-      "latitude_deg": 51.148771,
-      "longitude_deg": -0.19209
-  },
-  {
-      "iata_code": "LJG_麗江 三義機場",
-      "latitude_deg": 51.4706,
-      "longitude_deg": -0.46194
-  },
-  {
-      "iata_code": "LYS_里昂 聖埃克絮佩里機場",
-      "latitude_deg": 26.68,
-      "longitude_deg": 100.246
-  },
-  {
-      "iata_code": "LZN_馬祖 南竿機場",
-      "latitude_deg": 45.725996,
-      "longitude_deg": 5.09014
-  },
-  {
-      "iata_code": "MAD_馬德里 巴拉哈斯機場",
-      "latitude_deg": 26.1598,
-      "longitude_deg": 119.958
-  },
-  {
-      "iata_code": "MAN_曼徹斯特機場",
-      "latitude_deg": 40.471926,
-      "longitude_deg": -3.56264
-  },
-  {
-      "iata_code": "MCO_奧蘭多國際機場",
-      "latitude_deg": 53.349375,
-      "longitude_deg": -2.27952
-  },
-  {
-      "iata_code": "MEL_墨爾本 圖拉馬琳機場",
-      "latitude_deg": 28.42939949,
-      "longitude_deg": -81.309
-  },
-  {
-      "iata_code": "MEX_墨西哥城 國際機場",
-      "latitude_deg": -37.673302,
-      "longitude_deg": 144.843
-  },
-  {
-      "iata_code": "MIA_邁阿密國際機場",
-      "latitude_deg": 19.435137,
-      "longitude_deg": -99.0713
-  },
-  {
-      "iata_code": "MNL_馬尼拉 尼諾伊·阿基諾國際機場",
-      "latitude_deg": 25.79319954,
-      "longitude_deg": -80.2906
-  },
-  {
-      "iata_code": "MUC_慕尼黑機場",
-      "latitude_deg": 14.5086,
-      "longitude_deg": 121.02
-  },
-  {
-      "iata_code": "MXP_米蘭 馬爾彭薩機場",
-      "latitude_deg": 48.353802,
-      "longitude_deg": 11.7861
-  },
-  {
-      "iata_code": "MXZ_梅州 梅縣機場",
-      "latitude_deg": 45.6306,
-      "longitude_deg": 8.72811
-  },
-  {
-      "iata_code": "MZG_澎湖 馬公機場",
-      "latitude_deg": 24.263425,
-      "longitude_deg": 116.098
-  },
-  {
-      "iata_code": "NAN_斐濟 楠迪國際機場",
-      "latitude_deg": 23.568701,
-      "longitude_deg": 119.628
-  },
-  {
-      "iata_code": "NCE_尼斯 蔚藍海岸機場",
-      "latitude_deg": -17.7553997,
-      "longitude_deg": 177.443
-  },
-  {
-      "iata_code": "NGB_寧波 櫟社國際機場",
-      "latitude_deg": 43.658401,
-      "longitude_deg": 7.21587
-  },
-  {
-      "iata_code": "NGO_名古屋 中部國際機場",
-      "latitude_deg": 29.82670021,
-      "longitude_deg": 121.462
-  },
-  {
-      "iata_code": "NKG_南京 祿口國際機場",
-      "latitude_deg": 34.858398,
-      "longitude_deg": 136.805
-  },
-  {
-      "iata_code": "NRT_東京 成田國際機場",
-      "latitude_deg": 31.735032,
-      "longitude_deg": 118.866
-  },
-  {
-      "iata_code": "NSN_納爾遜機場",
-      "latitude_deg": 35.764702,
-      "longitude_deg": 140.386
-  },
-  {
-      "iata_code": "OKA_沖繩 那霸機場",
-      "latitude_deg": -41.298302,
-      "longitude_deg": 173.221
-  },
-  {
-      "iata_code": "ORD_芝加哥 歐海爾國際機場",
-      "latitude_deg": 26.195801,
-      "longitude_deg": 127.646
-  },
-  {
-      "iata_code": "ORY_巴黎 奧利機場",
-      "latitude_deg": 41.9786,
-      "longitude_deg": -87.9048
-  },
-  {
-      "iata_code": "PEK_北京 首都國際機場",
-      "latitude_deg": 48.72333,
-      "longitude_deg": 2.37944
-  },
-  {
-      "iata_code": "PEN_檳城國際機場",
-      "latitude_deg": 40.08010101,
-      "longitude_deg": 116.585
-  },
-  {
-      "iata_code": "PER_珀斯機場",
-      "latitude_deg": 5.297140121,
-      "longitude_deg": 100.277
-  },
-  {
-      "iata_code": "PHL_費城國際機場",
-      "latitude_deg": -31.94029999,
-      "longitude_deg": 115.967
-  },
-  {
-      "iata_code": "PNH_金邊 國際機場",
-      "latitude_deg": 39.871899,
-      "longitude_deg": -75.2411
-  },
-  {
-      "iata_code": "KTI_金邊 德崇國際機場",
-      "latitude_deg": 33.435302,
-      "longitude_deg": -112.006
-  },
-  {
-      "iata_code": "PHX_鳳凰城 天港國際機場",
-      "latitude_deg": 39.509945,
-      "longitude_deg": 116.411
-  },
-  {
-      "iata_code": "PKX_北京 大興國際機場",
-      "latitude_deg": 11.5466,
-      "longitude_deg": 104.844
-  },
-  {
-      "iata_code": "PPT_大溪地 法阿國際機場",
-      "latitude_deg": -17.553699,
-      "longitude_deg": -149.607
-  },
-  {
-      "iata_code": "PRG_布拉格 瓦茨拉夫·哈維爾機場",
-      "latitude_deg": 50.100874,
-      "longitude_deg": 14.2599
-  },
-  {
-      "iata_code": "PUS_釜山 金海國際機場",
-      "latitude_deg": 35.179501,
-      "longitude_deg": 128.938
-  },
-  {
-      "iata_code": "PVG_上海 浦東國際機場",
-      "latitude_deg": 31.1434,
-      "longitude_deg": 121.805
-  },
-  {
-      "iata_code": "RAR_拉羅湯加國際機場",
-      "latitude_deg": -21.2027,
-      "longitude_deg": -159.806
-  },
-  {
-      "iata_code": "RMQ_臺中國際機場",
-      "latitude_deg": 24.2647,
-      "longitude_deg": 120.621
-  },
-  {
-      "iata_code": "ROT_羅托魯瓦機場",
-      "latitude_deg": -38.1092,
-      "longitude_deg": 176.317
-  },
-  {
-      "iata_code": "SCL_聖地牙哥 阿圖羅·梅里諾·貝尼特斯國際機場",
-      "latitude_deg": -33.39300156,
-      "longitude_deg": -70.7858
-  },
-  {
-      "iata_code": "SEA_西雅圖-塔科馬國際機場",
-      "latitude_deg": 47.447943,
-      "longitude_deg": -122.31
-  },
-  {
-      "iata_code": "SEZ_塞席爾國際機場",
-      "latitude_deg": -4.67434,
-      "longitude_deg": 55.5218
-  },
-  {
-      "iata_code": "SFO_舊金山國際機場",
-      "latitude_deg": 37.619806,
-      "longitude_deg": -122.375
-  },
-  {
-      "iata_code": "SGN_胡志明市 新山一國際機場",
-      "latitude_deg": 10.8188,
-      "longitude_deg": 106.652
-  },
-  {
-      "iata_code": "SHA_上海 虹橋國際機場",
-      "latitude_deg": 31.198104,
-      "longitude_deg": 121.334
-  },
-  {
-      "iata_code": "SHE_瀋陽 桃仙國際機場",
-      "latitude_deg": 41.639801,
-      "longitude_deg": 123.483
-  },
-  {
-      "iata_code": "SIN_新加坡 樟宜機場",
-      "latitude_deg": 1.35019,
-      "longitude_deg": 103.994
-  },
-  {
-      "iata_code": "SVO_莫斯科 謝列梅捷沃國際機場",
-      "latitude_deg": 55.972599,
-      "longitude_deg": 37.4146
-  },
-  {
-      "iata_code": "SYD_悉尼 金斯福德·史密斯國際機場",
-      "latitude_deg": -33.94609833,
-      "longitude_deg": 151.177
-  },
-  {
-      "iata_code": "SZX_深圳 寶安國際機場",
-      "latitude_deg": 22.639299,
-      "longitude_deg": 113.811
-  },
-  {
-      "iata_code": "TFU_成都 天府國際機場",
-      "latitude_deg": 30.31252,
-      "longitude_deg": 104.441
-  },
-  {
-      "iata_code": "TLS_土魯斯-布拉尼亞克機場",
-      "latitude_deg": 43.629101,
-      "longitude_deg": 1.36382
-  },
-  {
-      "iata_code": "TNA_濟南 遙牆國際機場",
-      "latitude_deg": 36.857201,
-      "longitude_deg": 117.216
-  },
-  {
-      "iata_code": "TNN_臺南機場",
-      "latitude_deg": 22.950399,
-      "longitude_deg": 120.206
-  },
-  {
-      "iata_code": "TPE_台灣桃園國際機場",
-      "latitude_deg": 25.0777,
-      "longitude_deg": 121.233
-  },
-  {
-      "iata_code": "TSA_臺北松山機場",
-      "latitude_deg": 25.06940079,
-      "longitude_deg": 121.552
-  },
-  {
-      "iata_code": "TSN_天津 濱海國際機場",
-      "latitude_deg": 39.12440109,
-      "longitude_deg": 117.346
-  },
-  {
-      "iata_code": "VIE_維也納國際機場",
-      "latitude_deg": 48.110298,
-      "longitude_deg": 16.5697
-  },
-  {
-      "iata_code": "WLG_威靈頓國際機場",
-      "latitude_deg": -41.32720184,
-      "longitude_deg": 174.805
-  },
-  {
-      "iata_code": "WUH_武漢 天河國際機場",
-      "latitude_deg": 30.774798,
-      "longitude_deg": 114.214
-  },
-  {
-      "iata_code": "XIY_西安 咸陽國際機場",
-      "latitude_deg": 34.447102,
-      "longitude_deg": 108.752
-  },
-  {
-      "iata_code": "XMN_廈門 高崎國際機場",
-      "latitude_deg": 24.54400063,
-      "longitude_deg": 118.128
-  },
-  {
-      "iata_code": "YNT_煙台 蓬萊國際機場",
-      "latitude_deg": 37.659724,
-      "longitude_deg": 120.978
-  },
-  {
-      "iata_code": "YUL_蒙特婁 特魯多國際機場",
-      "latitude_deg": 45.467837,
-      "longitude_deg": -73.7423
-  },
-  {
-      "iata_code": "YVR_溫哥華國際機場",
-      "latitude_deg": 49.19390106,
-      "longitude_deg": -123.184
-  },
-  {
-      "iata_code": "YYZ_多倫多 皮爾遜國際機場",
-      "latitude_deg": 43.6772,
-      "longitude_deg": -79.6306
-  },
-  {
-      "iata_code": "ZQN_皇后鎮機場",
-      "latitude_deg": -45.021099,
-      "longitude_deg": 168.739
-  }
+    {
+        "iata_code": "ADD_亞的斯亞貝巴博萊國際機場",
+        "latitude_deg": 8.97789,
+        "longitude_deg": 38.7993
+    },
+    {
+        "iata_code": "ADL_阿德雷德機場",
+        "latitude_deg": -34.947512,
+        "longitude_deg": 138.533
+    },
+    {
+        "iata_code": "AKL_奧克蘭國際機場",
+        "latitude_deg": -37.01199,
+        "longitude_deg": 174.786
+    },
+    {
+        "iata_code": "AMS_阿姆斯特丹史基浦機場",
+        "latitude_deg": 52.308601,
+        "longitude_deg": 4.76389
+    },
+    {
+        "iata_code": "ATL_亞特蘭大哈茲菲爾德–傑克遜國際機場",
+        "latitude_deg": 33.6367,
+        "longitude_deg": -84.4281
+    },
+    {
+        "iata_code": "AUH_阿布達比國際機場",
+        "latitude_deg": 24.443764,
+        "longitude_deg": 54.6517
+    },
+    {
+        "iata_code": "BCN_巴塞隆納埃爾普拉特機場",
+        "latitude_deg": 41.2971,
+        "longitude_deg": 2.07846
+    },
+    {
+        "iata_code": "BER_柏林布蘭登堡機場",
+        "latitude_deg": 52.362247,
+        "longitude_deg": 13.5007
+    },
+    {
+        "iata_code": "BKK_曼谷素萬那普國際機場",
+        "latitude_deg": 13.68109989,
+        "longitude_deg": 100.747
+    },
+    {
+        "iata_code": "BNE_布里斯本機場",
+        "latitude_deg": -27.38419914,
+        "longitude_deg": 153.117
+    },
+    {
+        "iata_code": "BOG_波哥大埃爾多拉多國際機場",
+        "latitude_deg": 4.70159,
+        "longitude_deg": -74.1469
+    },
+    {
+        "iata_code": "BOM_孟買查特拉帕提·希瓦吉·瑪哈拉傑國際機場",
+        "latitude_deg": 19.08869934,
+        "longitude_deg": 72.8679
+    },
+    {
+        "iata_code": "BOS_波士頓羅根國際機場",
+        "latitude_deg": 42.36197,
+        "longitude_deg": -71.0079
+    },
+    {
+        "iata_code": "BRU_布魯塞爾機場",
+        "latitude_deg": 50.901402,
+        "longitude_deg": 4.48444
+    },
+    {
+        "iata_code": "CAI_開羅國際機場",
+        "latitude_deg": 30.111534,
+        "longitude_deg": 31.3967
+    },
+    {
+        "iata_code": "CAN_廣州白雲國際機場",
+        "latitude_deg": 23.392401,
+        "longitude_deg": 113.299
+    },
+    {
+        "iata_code": "CDG_巴黎戴高樂機場",
+        "latitude_deg": 49.012798,
+        "longitude_deg": 2.55
+    },
+    {
+        "iata_code": "CEB_宿霧麥克坦–宿霧國際機場",
+        "latitude_deg": 10.309261,
+        "longitude_deg": 123.98
+    },
+    {
+        "iata_code": "CGK_雅加達蘇加諾–哈達國際機場",
+        "latitude_deg": -6.12556982,
+        "longitude_deg": 106.656
+    },
+    {
+        "iata_code": "CGO_鄭州新鄭國際機場",
+        "latitude_deg": 34.526497,
+        "longitude_deg": 113.849
+    },
+    {
+        "iata_code": "CHC_基督城國際機場",
+        "latitude_deg": -43.48939896,
+        "longitude_deg": 172.532
+    },
+    {
+        "iata_code": "CKG_重慶江北國際機場",
+        "latitude_deg": 29.712254,
+        "longitude_deg": 106.652
+    },
+    {
+        "iata_code": "CLT_夏洛特道格拉斯國際機場",
+        "latitude_deg": 35.2140007,
+        "longitude_deg": -80.9431
+    },
+    {
+        "iata_code": "CMB_可倫坡班達拉奈克國際機場",
+        "latitude_deg": 7.180759907,
+        "longitude_deg": 79.8841
+    },
+    {
+        "iata_code": "CNS_凱恩斯機場",
+        "latitude_deg": -16.88579941,
+        "longitude_deg": 145.755
+    },
+    {
+        "iata_code": "CNX_清邁國際機場",
+        "latitude_deg": 18.76679993,
+        "longitude_deg": 98.9626
+    },
+    {
+        "iata_code": "CPT_開普敦國際機場",
+        "latitude_deg": -33.96480179,
+        "longitude_deg": 18.6017
+    },
+    {
+        "iata_code": "CRK_克拉克國際機場",
+        "latitude_deg": 15.186,
+        "longitude_deg": 120.56
+    },
+    {
+        "iata_code": "CSX_長沙黃花國際機場",
+        "latitude_deg": 28.189199,
+        "longitude_deg": 113.22
+    },
+    {
+        "iata_code": "CTS_新千歲機場",
+        "latitude_deg": 42.7752,
+        "longitude_deg": 141.692
+    },
+    {
+        "iata_code": "CTU_成都雙流國際機場",
+        "latitude_deg": 30.558257,
+        "longitude_deg": 103.946
+    },
+    {
+        "iata_code": "DAC_達卡沙阿賈拉勒國際機場",
+        "latitude_deg": 23.843347,
+        "longitude_deg": 90.3978
+    },
+    {
+        "iata_code": "DAD_峴港國際機場",
+        "latitude_deg": 16.0439,
+        "longitude_deg": 108.199
+    },
+    {
+        "iata_code": "DCA_華盛頓雷根國家機場",
+        "latitude_deg": 38.8521,
+        "longitude_deg": -77.0377
+    },
+    {
+        "iata_code": "DEL_德里英迪拉·甘地國際機場",
+        "latitude_deg": 28.55563,
+        "longitude_deg": 77.0952
+    },
+    {
+        "iata_code": "DEN_丹佛國際機場",
+        "latitude_deg": 39.86169815,
+        "longitude_deg": -104.673
+    },
+    {
+        "iata_code": "DFW_達拉斯/沃斯堡國際機場",
+        "latitude_deg": 32.896801,
+        "longitude_deg": -97.038
+    },
+    {
+        "iata_code": "DSS_達卡爾布萊茲·迪亞涅國際機場",
+        "latitude_deg": 38.965719,
+        "longitude_deg": 121.538
+    },
+    {
+        "iata_code": "DLC_大連周水子國際機場",
+        "latitude_deg": 25.273056,
+        "longitude_deg": 51.6081
+    },
+    {
+        "iata_code": "DOH_多哈哈馬德國際機場",
+        "latitude_deg": -8.74817,
+        "longitude_deg": 115.167
+    },
+    {
+        "iata_code": "DPS_峇里島伍拉·賴國際機場",
+        "latitude_deg": -12.41497,
+        "longitude_deg": 130.882
+    },
+    {
+        "iata_code": "DRW_達爾文國際機場",
+        "latitude_deg": 14.67,
+        "longitude_deg": -17.0733
+    },
+    {
+        "iata_code": "DUB_都柏林機場",
+        "latitude_deg": 53.428713,
+        "longitude_deg": -6.26212
+    },
+    {
+        "iata_code": "DUS_杜塞爾多夫機場",
+        "latitude_deg": 51.289501,
+        "longitude_deg": 6.76678
+    },
+    {
+        "iata_code": "DXB_杜拜國際機場",
+        "latitude_deg": 25.25279999,
+        "longitude_deg": 55.3644
+    },
+    {
+        "iata_code": "EDI_愛丁堡機場",
+        "latitude_deg": 55.950145,
+        "longitude_deg": -3.37229
+    },
+    {
+        "iata_code": "EWR_紐華克自由國際機場",
+        "latitude_deg": 40.692501,
+        "longitude_deg": -74.1687
+    },
+    {
+        "iata_code": "EZE_布宜諾斯艾利斯皮斯塔里尼國際機場（埃塞薩）",
+        "latitude_deg": -34.8222,
+        "longitude_deg": -58.5358
+    },
+    {
+        "iata_code": "FCO_羅馬菲烏米奇諾機場",
+        "latitude_deg": 41.804532,
+        "longitude_deg": 12.252
+    },
+    {
+        "iata_code": "FOC_福州長樂國際機場",
+        "latitude_deg": 25.934669,
+        "longitude_deg": 119.663
+    },
+    {
+        "iata_code": "FRA_法蘭克福機場",
+        "latitude_deg": 50.030241,
+        "longitude_deg": 8.5611
+    },
+    {
+        "iata_code": "FUK_福岡機場",
+        "latitude_deg": 33.58589935,
+        "longitude_deg": 130.451
+    },
+    {
+        "iata_code": "GIG_里約熱內盧加利昂國際機場",
+        "latitude_deg": -22.809999,
+        "longitude_deg": -43.2506
+    },
+    {
+        "iata_code": "GLA_格拉斯哥國際機場",
+        "latitude_deg": 55.871899,
+        "longitude_deg": -4.43306
+    },
+    {
+        "iata_code": "GMP_首爾金浦國際機場",
+        "latitude_deg": 37.5583,
+        "longitude_deg": 126.791
+    },
+    {
+        "iata_code": "GRU_聖保羅瓜魯柳斯國際機場",
+        "latitude_deg": -23.431944,
+        "longitude_deg": -46.4678
+    },
+    {
+        "iata_code": "GUW_阿特勞國際機場",
+        "latitude_deg": 47.122559,
+        "longitude_deg": 51.8193
+    },
+    {
+        "iata_code": "HAM_漢堡機場",
+        "latitude_deg": 53.630402,
+        "longitude_deg": 9.98823
+    },
+    {
+        "iata_code": "HAN_河內內排國際機場",
+        "latitude_deg": 21.221201,
+        "longitude_deg": 105.807
+    },
+    {
+        "iata_code": "HGH_杭州蕭山國際機場",
+        "latitude_deg": 30.23609,
+        "longitude_deg": 120.429
+    },
+    {
+        "iata_code": "HKG_香港國際機場",
+        "latitude_deg": 22.308901,
+        "longitude_deg": 113.915
+    },
+    {
+        "iata_code": "HKT_普吉國際機場",
+        "latitude_deg": 8.1132,
+        "longitude_deg": 98.3169
+    },
+    {
+        "iata_code": "HND_東京羽田機場",
+        "latitude_deg": 35.552299,
+        "longitude_deg": 139.78
+    },
+    {
+        "iata_code": "HNL_檀香山國際機場",
+        "latitude_deg": 21.32062,
+        "longitude_deg": -157.924
+    },
+    {
+        "iata_code": "HUN_花蓮機場",
+        "latitude_deg": 24.0230999,
+        "longitude_deg": 121.618
+    },
+    {
+        "iata_code": "IAH_休士頓喬治·布希洲際機場",
+        "latitude_deg": 29.9843998,
+        "longitude_deg": -95.3414
+    },
+    {
+        "iata_code": "ICN_仁川國際機場",
+        "latitude_deg": 37.469101,
+        "longitude_deg": 126.451
+    },
+    {
+        "iata_code": "IST_伊斯坦堡機場",
+        "latitude_deg": 41.261297,
+        "longitude_deg": 28.742
+    },
+    {
+        "iata_code": "ITM_大阪伊丹機場",
+        "latitude_deg": 34.7855,
+        "longitude_deg": 135.438
+    },
+    {
+        "iata_code": "JED_吉達阿卜杜勒-阿齊茲國王國際機場",
+        "latitude_deg": 21.6796,
+        "longitude_deg": 39.1565
+    },
+    {
+        "iata_code": "JFK_紐約甘迺迪國際機場",
+        "latitude_deg": 40.639447,
+        "longitude_deg": -73.7793
+    },
+    {
+        "iata_code": "JJN_泉州晉江國際機場",
+        "latitude_deg": 24.7964,
+        "longitude_deg": 118.59
+    },
+    {
+        "iata_code": "JNB_約翰尼斯堡奧利弗·坦博國際機場",
+        "latitude_deg": -26.1392,
+        "longitude_deg": 28.246
+    },
+    {
+        "iata_code": "KHH_高雄國際機場",
+        "latitude_deg": 22.577101,
+        "longitude_deg": 120.35
+    },
+    {
+        "iata_code": "KIX_大阪關西國際機場",
+        "latitude_deg": 34.427299,
+        "longitude_deg": 135.244
+    },
+    {
+        "iata_code": "KMG_昆明長水國際機場",
+        "latitude_deg": 25.110313,
+        "longitude_deg": 102.937
+    },
+    {
+        "iata_code": "KNH_金門尚義機場",
+        "latitude_deg": 24.4279,
+        "longitude_deg": 118.359
+    },
+    {
+        "iata_code": "KUL_吉隆坡國際機場",
+        "latitude_deg": 11.362917,
+        "longitude_deg": 104.917
+    },
+    {
+        "iata_code": "LAS_拉斯維加斯哈里·瑞德國際機場",
+        "latitude_deg": 2.74558,
+        "longitude_deg": 101.71
+    },
+    {
+        "iata_code": "LAX_洛杉磯國際機場",
+        "latitude_deg": 36.083361,
+        "longitude_deg": -115.152
+    },
+    {
+        "iata_code": "LGW_倫敦蓋威克機場",
+        "latitude_deg": 33.942501,
+        "longitude_deg": -118.408
+    },
+    {
+        "iata_code": "LHR_倫敦希斯洛機場",
+        "latitude_deg": 51.148771,
+        "longitude_deg": -0.19209
+    },
+    {
+        "iata_code": "LJG_麗江三義機場",
+        "latitude_deg": 51.4706,
+        "longitude_deg": -0.46194
+    },
+    {
+        "iata_code": "LYS_里昂聖埃克絮佩里機場",
+        "latitude_deg": 26.68,
+        "longitude_deg": 100.246
+    },
+    {
+        "iata_code": "LZN_馬祖南竿機場",
+        "latitude_deg": 45.725996,
+        "longitude_deg": 5.09014
+    },
+    {
+        "iata_code": "MAD_馬德里巴拉哈斯機場",
+        "latitude_deg": 26.1598,
+        "longitude_deg": 119.958
+    },
+    {
+        "iata_code": "MAN_曼徹斯特機場",
+        "latitude_deg": 40.471926,
+        "longitude_deg": -3.56264
+    },
+    {
+        "iata_code": "MCO_奧蘭多國際機場",
+        "latitude_deg": 53.349375,
+        "longitude_deg": -2.27952
+    },
+    {
+        "iata_code": "MEL_墨爾本圖拉馬琳機場",
+        "latitude_deg": 28.42939949,
+        "longitude_deg": -81.309
+    },
+    {
+        "iata_code": "MEX_墨西哥城國際機場",
+        "latitude_deg": -37.673302,
+        "longitude_deg": 144.843
+    },
+    {
+        "iata_code": "MIA_邁阿密國際機場",
+        "latitude_deg": 19.435137,
+        "longitude_deg": -99.0713
+    },
+    {
+        "iata_code": "MNL_馬尼拉尼諾伊·阿基諾國際機場",
+        "latitude_deg": 25.79319954,
+        "longitude_deg": -80.2906
+    },
+    {
+        "iata_code": "MUC_慕尼黑機場",
+        "latitude_deg": 14.5086,
+        "longitude_deg": 121.02
+    },
+    {
+        "iata_code": "MXP_米蘭馬爾彭薩機場",
+        "latitude_deg": 48.353802,
+        "longitude_deg": 11.7861
+    },
+    {
+        "iata_code": "MXZ_梅州梅縣機場",
+        "latitude_deg": 45.6306,
+        "longitude_deg": 8.72811
+    },
+    {
+        "iata_code": "MZG_澎湖馬公機場",
+        "latitude_deg": 24.263425,
+        "longitude_deg": 116.098
+    },
+    {
+        "iata_code": "NAN_斐濟楠迪國際機場",
+        "latitude_deg": 23.568701,
+        "longitude_deg": 119.628
+    },
+    {
+        "iata_code": "NCE_尼斯蔚藍海岸機場",
+        "latitude_deg": -17.7553997,
+        "longitude_deg": 177.443
+    },
+    {
+        "iata_code": "NGB_寧波櫟社國際機場",
+        "latitude_deg": 43.658401,
+        "longitude_deg": 7.21587
+    },
+    {
+        "iata_code": "NGO_名古屋中部國際機場",
+        "latitude_deg": 29.82670021,
+        "longitude_deg": 121.462
+    },
+    {
+        "iata_code": "NKG_南京祿口國際機場",
+        "latitude_deg": 34.858398,
+        "longitude_deg": 136.805
+    },
+    {
+        "iata_code": "NRT_東京成田國際機場",
+        "latitude_deg": 31.735032,
+        "longitude_deg": 118.866
+    },
+    {
+        "iata_code": "NSN_納爾遜機場",
+        "latitude_deg": 35.764702,
+        "longitude_deg": 140.386
+    },
+    {
+        "iata_code": "OKA_沖繩那霸機場",
+        "latitude_deg": -41.298302,
+        "longitude_deg": 173.221
+    },
+    {
+        "iata_code": "ORD_芝加哥歐海爾國際機場",
+        "latitude_deg": 26.195801,
+        "longitude_deg": 127.646
+    },
+    {
+        "iata_code": "ORY_巴黎奧利機場",
+        "latitude_deg": 41.9786,
+        "longitude_deg": -87.9048
+    },
+    {
+        "iata_code": "PEK_北京首都國際機場",
+        "latitude_deg": 48.72333,
+        "longitude_deg": 2.37944
+    },
+    {
+        "iata_code": "PEN_檳城國際機場",
+        "latitude_deg": 40.08010101,
+        "longitude_deg": 116.585
+    },
+    {
+        "iata_code": "PER_珀斯機場",
+        "latitude_deg": 5.297140121,
+        "longitude_deg": 100.277
+    },
+    {
+        "iata_code": "PHL_費城國際機場",
+        "latitude_deg": -31.94029999,
+        "longitude_deg": 115.967
+    },
+    {
+        "iata_code": "PNH_金邊國際機場",
+        "latitude_deg": 39.871899,
+        "longitude_deg": -75.2411
+    },
+    {
+        "iata_code": "KTI_金邊德崇國際機場",
+        "latitude_deg": 33.435302,
+        "longitude_deg": -112.006
+    },
+    {
+        "iata_code": "PHX_鳳凰城天港國際機場",
+        "latitude_deg": 39.509945,
+        "longitude_deg": 116.411
+    },
+    {
+        "iata_code": "PKX_北京大興國際機場",
+        "latitude_deg": 11.5466,
+        "longitude_deg": 104.844
+    },
+    {
+        "iata_code": "PPT_大溪地法阿國際機場",
+        "latitude_deg": -17.553699,
+        "longitude_deg": -149.607
+    },
+    {
+        "iata_code": "PRG_布拉格瓦茨拉夫·哈維爾機場",
+        "latitude_deg": 50.100874,
+        "longitude_deg": 14.2599
+    },
+    {
+        "iata_code": "PUS_釜山金海國際機場",
+        "latitude_deg": 35.179501,
+        "longitude_deg": 128.938
+    },
+    {
+        "iata_code": "PVG_上海浦東國際機場",
+        "latitude_deg": 31.1434,
+        "longitude_deg": 121.805
+    },
+    {
+        "iata_code": "RAR_拉羅湯加國際機場",
+        "latitude_deg": -21.2027,
+        "longitude_deg": -159.806
+    },
+    {
+        "iata_code": "RMQ_臺中國際機場",
+        "latitude_deg": 24.2647,
+        "longitude_deg": 120.621
+    },
+    {
+        "iata_code": "ROT_羅托魯瓦機場",
+        "latitude_deg": -38.1092,
+        "longitude_deg": 176.317
+    },
+    {
+        "iata_code": "SCL_聖地牙哥阿圖羅·梅里諾·貝尼特斯國際機場",
+        "latitude_deg": -33.39300156,
+        "longitude_deg": -70.7858
+    },
+    {
+        "iata_code": "SEA_西雅圖-塔科馬國際機場",
+        "latitude_deg": 47.447943,
+        "longitude_deg": -122.31
+    },
+    {
+        "iata_code": "SEZ_塞席爾國際機場",
+        "latitude_deg": -4.67434,
+        "longitude_deg": 55.5218
+    },
+    {
+        "iata_code": "SFO_舊金山國際機場",
+        "latitude_deg": 37.619806,
+        "longitude_deg": -122.375
+    },
+    {
+        "iata_code": "SGN_胡志明市新山一國際機場",
+        "latitude_deg": 10.8188,
+        "longitude_deg": 106.652
+    },
+    {
+        "iata_code": "SHA_上海虹橋國際機場",
+        "latitude_deg": 31.198104,
+        "longitude_deg": 121.334
+    },
+    {
+        "iata_code": "SHE_瀋陽桃仙國際機場",
+        "latitude_deg": 41.639801,
+        "longitude_deg": 123.483
+    },
+    {
+        "iata_code": "SIN_新加坡樟宜機場",
+        "latitude_deg": 1.35019,
+        "longitude_deg": 103.994
+    },
+    {
+        "iata_code": "SVO_莫斯科謝列梅捷沃國際機場",
+        "latitude_deg": 55.972599,
+        "longitude_deg": 37.4146
+    },
+    {
+        "iata_code": "SYD_悉尼金斯福德·史密斯國際機場",
+        "latitude_deg": -33.94609833,
+        "longitude_deg": 151.177
+    },
+    {
+        "iata_code": "SZX_深圳寶安國際機場",
+        "latitude_deg": 22.639299,
+        "longitude_deg": 113.811
+    },
+    {
+        "iata_code": "TFU_成都天府國際機場",
+        "latitude_deg": 30.31252,
+        "longitude_deg": 104.441
+    },
+    {
+        "iata_code": "TLS_土魯斯-布拉尼亞克機場",
+        "latitude_deg": 43.629101,
+        "longitude_deg": 1.36382
+    },
+    {
+        "iata_code": "TNA_濟南遙牆國際機場",
+        "latitude_deg": 36.857201,
+        "longitude_deg": 117.216
+    },
+    {
+        "iata_code": "TNN_臺南機場",
+        "latitude_deg": 22.950399,
+        "longitude_deg": 120.206
+    },
+    {
+        "iata_code": "TPE_台灣桃園國際機場",
+        "latitude_deg": 25.0777,
+        "longitude_deg": 121.233
+    },
+    {
+        "iata_code": "TSA_臺北松山機場",
+        "latitude_deg": 25.06940079,
+        "longitude_deg": 121.552
+    },
+    {
+        "iata_code": "TSN_天津濱海國際機場",
+        "latitude_deg": 39.12440109,
+        "longitude_deg": 117.346
+    },
+    {
+        "iata_code": "VIE_維也納國際機場",
+        "latitude_deg": 48.110298,
+        "longitude_deg": 16.5697
+    },
+    {
+        "iata_code": "WLG_威靈頓國際機場",
+        "latitude_deg": -41.32720184,
+        "longitude_deg": 174.805
+    },
+    {
+        "iata_code": "WUH_武漢天河國際機場",
+        "latitude_deg": 30.774798,
+        "longitude_deg": 114.214
+    },
+    {
+        "iata_code": "XIY_西安咸陽國際機場",
+        "latitude_deg": 34.447102,
+        "longitude_deg": 108.752
+    },
+    {
+        "iata_code": "XMN_廈門高崎國際機場",
+        "latitude_deg": 24.54400063,
+        "longitude_deg": 118.128
+    },
+    {
+        "iata_code": "YNT_煙台蓬萊國際機場",
+        "latitude_deg": 37.659724,
+        "longitude_deg": 120.978
+    },
+    {
+        "iata_code": "YUL_蒙特婁特魯多國際機場",
+        "latitude_deg": 45.467837,
+        "longitude_deg": -73.7423
+    },
+    {
+        "iata_code": "YVR_溫哥華國際機場",
+        "latitude_deg": 49.19390106,
+        "longitude_deg": -123.184
+    },
+    {
+        "iata_code": "YYZ_多倫多皮爾遜國際機場",
+        "latitude_deg": 43.6772,
+        "longitude_deg": -79.6306
+    },
+    {
+        "iata_code": "ZQN_皇后鎮機場",
+        "latitude_deg": -45.021099,
+        "longitude_deg": 168.739
+    }
 ]

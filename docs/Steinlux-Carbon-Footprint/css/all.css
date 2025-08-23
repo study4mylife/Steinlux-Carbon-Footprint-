@@ -108,10 +108,10 @@ select {
   border: 10px solid transparent;
   box-sizing: border-box;
   background: 
-    radial-gradient(farthest-side,#fff 98%,#0000) left/20px 20px,
-    radial-gradient(farthest-side,#fff 98%,#0000) left/20px 20px,
-    radial-gradient(farthest-side,#fff 98%,#0000) center/20px 20px,
-    radial-gradient(farthest-side,#fff 98%,#0000) right/20px 20px,
+    radial-gradient(farthest-side,#eee 98%,#0000) left/20px 20px,
+    radial-gradient(farthest-side,#eee 98%,#0000) left/20px 20px,
+    radial-gradient(farthest-side,#eee 98%,#0000) center/20px 20px,
+    radial-gradient(farthest-side,#eee 98%,#0000) right/20px 20px,
     rgba(0,0,0,0);
   background-repeat: no-repeat;
   filter: contrast(10);
@@ -128,7 +128,17 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: inherit; /* 讓 body 也有背景 */
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  z-index: -1;
 }
 
 .scene {
@@ -232,7 +242,7 @@ h1 {
   color: #6c808f;
   font-family: "GenSenRounded2TW-R", sans-serif;
   font-weight: 400;
-  letter-spacing: 10px;
+  letter-spacing: 0.6rem;
   text-shadow: #7f7f7f40 2pt 2pt 3pt;
   margin: 0.5rem 0;
 }
@@ -240,6 +250,9 @@ h1 {
 /* 切換開關 */
 .chapter-bar {
   display: flex;
+  align-items: center;   /* 水平置中 */
+  justify-content: center; /* 垂直置中 */
+  text-align: center;   /* 文字置中 */
   position: relative;
   width: fit-content;
   height: fit-content;
@@ -258,14 +271,14 @@ h1 {
   position: absolute;
   inset: 0;
   -webkit-box-shadow:
-  inset -8.5px -2.25px 0 -7px rgb(255, 255, 255), 
-  inset 8.5px 2.25px 0 -7px rgb(255, 255, 255),
+  inset -7.5px -4.5px 0 -7px rgb(255, 255, 255), 
+  inset 7.5px 4.5px 0 -7px rgb(255, 255, 255),
   inset -2.75px -8.5px 0 -7.25px rgb(255, 255, 255), 
   inset 2.75px 8.5px 0 -7.25px rgb(255, 255, 255),
   2px 2px 12px 4px rgba(110, 110, 110, 0.15);
   box-shadow:
-  inset -8.75px -4.5px 0 -7px rgb(255, 255, 255), 
-  inset 8.75px 4.5px 0 -7px rgb(255, 255, 255),
+  inset -7.5px -4.5px 0 -7px rgb(255, 255, 255), 
+  inset 7.5px 4.5px 0 -7px rgb(255, 255, 255),
   inset -2.75px -8.5px 0 -7.25px rgb(255, 255, 255), 
   inset 2.75px 8.5px 0 -7.25px rgb(255, 255, 255),
   2px 2px 12px 4px rgba(110, 110, 110, 0.15);
@@ -284,7 +297,7 @@ h1 {
   color: #6D808F;
   text-decoration: none;
   scale: 0.95;
-  padding: 0.15rem 1.5rem;
+  padding: 0.15rem 1.25rem 0.15rem 1.5rem;
   transition: background-color 0.3s ease;
   border-radius: 96px;
   text-wrap: nowrap;
@@ -314,7 +327,7 @@ h1 {
 
 @media (max-width: 600px) {
   .chapter-button {
-    padding: 0.15rem 1.25rem;
+    padding: 0.15rem 1rem 0.15rem 1.25rem;
   }
 
   .chapter-icon {
@@ -324,7 +337,7 @@ h1 {
 
 @media (max-width: 480px) {
   .chapter-button {
-    padding: 0.15rem 0.5rem;
+    padding: 0.15rem 0.25rem 0.15rem 0.5rem;
   }
 
   .chapter-icon {
@@ -332,34 +345,6 @@ h1 {
 }
 }
 
-/* 碳排圓環 */
-.carbon-ring-container {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  text-align: center;
-}
-.carbon-ring {
-  width: 200px;
-  height: 200px;
-}
-
-.carbon-ring svg {
-  transform: rotate(-112.5deg); /* 把缺角轉到左邊中間 (360 - 45)/2 */
-}
-
-.carbon-ring .text {
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #333;
-  line-height: 1.3;
-}
 
 /* 跳轉橫槓 */
 
@@ -379,8 +364,9 @@ h1 {
 }
 
 @media (max-width: 600px) {
-  h1 {
-    margin-bottom: 2rem ;
+  .scene h1 {
+    line-height: 1.8;
+    margin-bottom: 1.5rem ;
   }
   .page-indicator {
     display: none;
