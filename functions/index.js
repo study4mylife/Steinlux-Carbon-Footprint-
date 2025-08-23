@@ -17,8 +17,8 @@ const dailyCoefficients = {
       }
     },
     elecfuel: {
-      unchecked: 0.022,
-      checked: 0.606
+      unchecked: 0.606,
+      checked: 0.022
     },
     carType: {
       "小型房車": 0.185396825,
@@ -29,13 +29,16 @@ const dailyCoefficients = {
       "大型休旅車": 0.183647799
     },
     motorcycle: 0.073,
+    elecmotorcycle: {
+      unchecked: 0.606,
+      checked: 0.022
+    },
     bus: {
       "燃油公車": 0.078,
       "電動公車": 0.034,
     },
     mrt: 0.07822,
     train: 0.054,
-    hsr: 5.76
 };
 
 const homeCoefficients = {
@@ -65,8 +68,8 @@ const travelCoefficients = {
       }
     },
     elecfuel: {
-      unchecked: 0.022,
-      checked: 0.606
+      unchecked: 0.606,
+      checked: 0.022
     },
     carType: {
       "小型房車": 0.185396825,
@@ -82,11 +85,10 @@ const travelCoefficients = {
     },
     flight: {
       unchecked: 0,
-      checked:0
+      checked: 0
     },
     mrt: 0.07822,
     train: 0.054,
-    hsr: 5.76
 };
 
 const foodCoefficients = {
@@ -192,146 +194,238 @@ const entertainmentCoefficients = {
 // 單頁計算邏輯
 function calculatePageTotal(pageName, pageData) {
   let total = 0;
+  let breakdown = {};
   console.log(`開始計算 ${pageName} 頁面，資料:`, Object.keys(pageData));
 
 // 日常交通頁面計算
 if (pageName === "traffic-daily") {
+  let name, inputValue, coefficient, emission, unit;
+  
   // ====== 汽車 ======
   if (!pageData.dailyCarFuelTypeToggle && !pageData.dailyCarMethodToggle) {
     // 油車 - 油量模式
-    let coefficient;
-    if (!pageData.oilUnitToggle) {
-      coefficient = dailyCoefficients.fuel.unchecked; // 2.92
-    } else {
-      coefficient = dailyCoefficients.fuel.checked[pageData.dailyCarFuelTypeValue] ?? 0;
-    }
-    const oilTotal = parseFloat(pageData.dailyCarOilValue) * coefficient;
-    console.log(`汽車(油量模式): ${pageData.dailyCarOilValue} * ${coefficient} = ${oilTotal}`);
-    total += oilTotal;
+    name = "汽車(油車)";
+    inputValue = parseFloat(pageData.dailyCarOilValue);
+    unit = pageData.oilUnitToggle ? "L" : "元";
+    coefficient = pageData.oilUnitToggle
+      ? (dailyCoefficients.fuel.checked[pageData.dailyCarFuelTypeValue] ?? 0)
+      : dailyCoefficients.fuel.unchecked;
+    emission = inputValue * coefficient;
 
   } else if (!pageData.dailyCarFuelTypeToggle && pageData.dailyCarMethodToggle) {
     // 油車 - 距離模式
-    const coefficient = dailyCoefficients.carType[pageData.dailyCarTypeValue] ?? 0;
-    const distTotal = parseFloat(pageData.dailyOilcarDistanceValue) * coefficient;
-    console.log(`汽車(距離模式): ${pageData.dailyOilcarDistanceValue} * ${coefficient} = ${distTotal}`);
-    total += distTotal;
-
-  } else if (pageData.dailyCarFuelTypeToggle && !pageData.dailyCarMethodToggle) {
-    // 電車 - 距離模式
-    const coefficient = dailyCoefficients.elecfuel.unchecked;
-    const distTotal = parseFloat(pageData.dailyEVDistanceValue) * coefficient;
-    console.log(`電車(距離模式): ${pageData.dailyEVDistanceValue} * ${coefficient} = ${distTotal}`);
-    total += distTotal;
+    name = "汽車(油車)";
+    inputValue = parseFloat(pageData.dailyOilcarDistanceValue);
+    unit = "km";
+    coefficient = dailyCoefficients.carType[pageData.dailyCarTypeValue] ?? 0;
+    emission = inputValue * coefficient;
 
   } else if (pageData.dailyCarFuelTypeToggle && pageData.dailyCarMethodToggle) {
+    // 電車 - 距離模式
+    name = "汽車(電車)";
+    inputValue = parseFloat(pageData.dailyEVDistanceValue);
+    unit = "km";
+    coefficient = dailyCoefficients.elecfuel.checked;
+    emission = inputValue * coefficient;
+
+  } else if (pageData.dailyCarFuelTypeToggle && !pageData.dailyCarMethodToggle) {
     // 電車 - 充電量模式
-    const coefficient = dailyCoefficients.elecfuel.unchecked;
-    const chargeTotal = parseFloat(pageData.dailyEVChargeValue) * coefficient;
-    console.log(`電車(充電量模式): ${pageData.dailyEVChargeValue} * ${coefficient} = ${chargeTotal}`);
-    total += chargeTotal;
+    name = "汽車(電車)";
+    inputValue = parseFloat(pageData.dailyEVChargeValue);
+    unit = "kWh";
+    coefficient = dailyCoefficients.elecfuel.unchecked;
+    emission = inputValue * coefficient;
+  }
+
+  if (emission && emission > 0) {
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit
+    };
   }
 
   // ====== 機車 ======
   if (!pageData.dailyMotorcycleFuelTypeToggle && !pageData.dailyMotorcycleMethodToggle) {
     // 油機 - 油量模式
-    let coefficient;
-    if (!pageData.oilUnitToggle) {
-      coefficient = dailyCoefficients.fuel.unchecked; // 2.92
-    } else {
-      coefficient = dailyCoefficients.fuel.checked[pageData.dailyMotorcycleFuelTypeValue] ?? 0;
-    }
-    const oilTotal = parseFloat(pageData.dailyMotorcycleOilValue) * coefficient;
-    console.log(`機車(油量模式): ${pageData.dailyMotorcycleOilValue} * ${coefficient} = ${oilTotal}`);
-    total += oilTotal;
+    name = "機車(油車)";
+    inputValue = parseFloat(pageData.dailyMotorcycleOilValue);
+    unit = pageData.oilUnitToggle ? "L" : "元";
+    coefficient = pageData.oilUnitToggle
+      ? (dailyCoefficients.fuel.checked[pageData.dailyMotorcycleFuelTypeValue] ?? 0)
+      : dailyCoefficients.fuel.unchecked;
+    emission = inputValue * coefficient;
 
   } else if (!pageData.dailyMotorcycleFuelTypeToggle && pageData.dailyMotorcycleMethodToggle) {
     // 油機 - 距離模式
-    const coefficient = dailyCoefficients.motorcycle;
-    const distTotal = parseFloat(pageData.dailyOilmotorcycleDistanceValue) * coefficient;
-    console.log(`機車(距離模式): ${pageData.dailyOilmotorcycleDistanceValue} * ${coefficient} = ${distTotal}`);
-    total += distTotal;
+    name = "機車(油車)";
+    inputValue = parseFloat(pageData.dailyOilmotorcycleDistanceValue);
+    unit = "km";
+    coefficient = dailyCoefficients.motorcycle;
+    emission = inputValue * coefficient;
 
   } else if (pageData.dailyMotorcycleFuelTypeToggle && !pageData.dailyMotorcycleMethodToggle) {
-    // 電機 - 距離模式
-    const coefficient = dailyCoefficients.elecfuel.unchecked;
-    const distTotal = parseFloat(pageData.dailyElectricmotorcycleDistanceValue) * coefficient;
-    console.log(`電機(距離模式): ${pageData.dailyElectricmotorcycleDistanceValue} * ${coefficient} = ${distTotal}`);
-    total += distTotal;
+    // 電機 - 充電量模式
+    name = "機車(電車)";
+    inputValue = parseFloat(pageData.dailyElectricmotorcycleChargeValue);
+    unit = "kWh";
+    coefficient = dailyCoefficients.elecmotorcycle.unchecked;
+    emission = inputValue * coefficient;
 
   } else if (pageData.dailyMotorcycleFuelTypeToggle && pageData.dailyMotorcycleMethodToggle) {
-    // 電機 - 充電量模式
-    const coefficient = dailyCoefficients.elecfuel.unchecked;
-    const chargeTotal = parseFloat(pageData.dailyElectricmotorcycleChargeValue) * coefficient;
-    console.log(`電機(充電量模式): ${pageData.dailyElectricmotorcycleChargeValue} * ${coefficient} = ${chargeTotal}`);
-    total += chargeTotal;
+    // 電機 - 距離模式
+    name = "機車(電車)";
+    inputValue = parseFloat(pageData.dailyElectricmotorcycleDistanceValue);
+    unit = "km";
+    coefficient = dailyCoefficients.elecmotorcycle.checked;
+    emission = inputValue * coefficient;
+  }
+
+  if (emission && emission > 0) {
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit
+    };
   }
 
   // ====== 公車 ======
   if (pageData.dailyBusDistanceValue > 0) {
+    name = "公車";
+    inputValue = parseFloat(pageData.dailyBusDistanceValue);
+    unit = "km";
     const busType = pageData.dailyBusFuelTypeValue ?? "燃油公車";
-    const busCoefficient = dailyCoefficients.bus[busType] ?? 0;
-    const busTotal = parseFloat(pageData.dailyBusDistanceValue) * busCoefficient;
-    console.log(`公車(${busType}): ${pageData.dailyBusDistanceValue} * ${busCoefficient} = ${busTotal}`);
-    total += busTotal;
+    coefficient = dailyCoefficients.bus[busType] ?? 0;
+    emission = inputValue * coefficient;
+    
+    total += emission;
+    breakdown[`${name}(${busType})`] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit
+    };
   }
 
   // ====== MRT ======
   if (pageData.dailyMRTDistanceTotal > 0) {
-    const mrtCoefficient = dailyCoefficients.mrt;
-    const mrtTotal = parseFloat(pageData.dailyMRTDistanceTotal) * mrtCoefficient;
-    console.log(`MRT: ${pageData.dailyMRTDistanceTotal} * ${mrtCoefficient} = ${mrtTotal}`);
-    total += mrtTotal;
+    name = "MRT";
+    inputValue = parseFloat(pageData.dailyMRTDistanceTotal);
+    unit = "km";
+    coefficient = dailyCoefficients.mrt;
+    emission = inputValue * coefficient;
+    
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit
+    };
   }
 
   // ====== 火車 ======
   if (pageData.dailyTrainDistanceTotal > 0) {
-    const trainCoefficient = dailyCoefficients.train;
-    const trainTotal = parseFloat(pageData.dailyTrainDistanceTotal) * trainCoefficient;
-    console.log(`火車: ${pageData.dailyTrainDistanceTotal} * ${trainCoefficient} = ${trainTotal}`);
-    total += trainTotal;
+    name = "火車";
+    inputValue = parseFloat(pageData.dailyTrainDistanceTotal);
+    unit = "km";
+    coefficient = dailyCoefficients.train;
+    emission = inputValue * coefficient;
+    
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit
+    };
   }
 
   // ====== 高鐵 ======
   if (pageData.dailyHSRDistanceTotal > 0) {
-    const hsrCoefficient = dailyCoefficients.hsr;
-    const hsrTotal = parseFloat(pageData.dailyHSRDistanceTotal) * hsrCoefficient;
-    console.log(`高鐵: ${pageData.dailyHSRDistanceTotal} * ${hsrCoefficient} = ${hsrTotal}`);
-    total += hsrTotal;
+    name = "高鐵";
+    inputValue = parseFloat(pageData.dailyHSRDistanceTotal);
+    unit = "km";
+    coefficient = 1; // 直接使用距離值
+    emission = inputValue * coefficient;
+    
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit
+    };
   }
-
 }
 
 // 居家頁面計算
 if (pageName === "home") {
   const members = parseFloat(pageData.homeMember);
+  let name, inputValue, coefficient, emission, unit;
+
   // 用電
   if (pageData.homeElectricityValue !== undefined && pageData.homeElectricityValue > 0) {
-    const elecCoefficient = pageData.homeElectricityToggle
+    name = "電力";
+    inputValue = parseFloat(pageData.homeElectricityValue);
+    unit = "kWh";
+    coefficient = pageData.homeElectricityToggle
       ? homeCoefficients.electricity.checked
       : homeCoefficients.electricity.unchecked;
-    const elecTotal = parseFloat(pageData.homeElectricityValue) * elecCoefficient * members;
-    console.log(`用電: ${pageData.homeElectricityValue} * ${elecCoefficient} * ${members} = ${elecTotal}`);
-    total += elecTotal;
+    emission = inputValue * coefficient * members;
+    
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient: coefficient * members,
+      emission,
+      unit,
+      members
+    };
   }
 
   // 用水
   if (pageData.homeWaterValue !== undefined && pageData.homeWaterValue > 0) {
-    const waterCoefficient = pageData.homeWaterToggle
+    name = "水";
+    inputValue = parseFloat(pageData.homeWaterValue);
+    unit = "度";
+    coefficient = pageData.homeWaterToggle
       ? homeCoefficients.water.checked
       : homeCoefficients.water.unchecked;
-    const waterTotal = parseFloat(pageData.homeWaterValue) * waterCoefficient * members;
-    console.log(`用水: ${pageData.homeWaterValue} * ${waterCoefficient} ÷ ${members} = ${waterTotal}`);
-    total += waterTotal;
+    emission = inputValue * coefficient * members;
+    
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient: coefficient * members,
+      emission,
+      unit,
+      members
+    };
   }
 
-  // 瓦斯
+  // 天然氣
   if (pageData.homeGasValue !== undefined && pageData.homeGasValue > 0) {
-    const gasCoefficient = pageData.homeGasToggle
+    name = "天然氣";
+    inputValue = parseFloat(pageData.homeGasValue);
+    unit = "度";
+    coefficient = pageData.homeGasToggle
       ? homeCoefficients.gas.checked
       : homeCoefficients.gas.unchecked;
-    const gasTotal = parseFloat(pageData.homeGasValue) * gasCoefficient * members;
-    console.log(`瓦斯: ${pageData.homeGasValue} * ${gasCoefficient} * ${members} = ${gasTotal}`);
-    total += gasTotal;
+    emission = inputValue * coefficient * members;
+    
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient: coefficient * members,
+      emission,
+      unit,
+      members
+    };
   }
 
   // 垃圾
@@ -341,78 +435,128 @@ if (pageName === "home") {
     pageData.homeTrashBagCapacity > 0 &&
     pageData.homeTrashFrequency > 0
   ) {
-    const trashTotal = (parseFloat(pageData.homeTrashBagCapacity) *
-                        parseFloat(pageData.homeTrashFrequency) *
-                        homeCoefficients.garbage) * members;
-    console.log(`垃圾: ${pageData.homeTrashBagCapacity} * ${pageData.homeTrashFrequency} * ${homeCoefficients.garbage} * ${members} = ${trashTotal}`);
-    total += trashTotal;
+    name = "垃圾";
+    inputValue = parseFloat(pageData.homeTrashBagCapacity) * parseFloat(pageData.homeTrashFrequency);
+    unit = "公升/月";
+    coefficient = homeCoefficients.garbage * members;
+    emission = inputValue * coefficient;
+    
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit,
+      members
+    };
   }
 }
 
+// 旅遊交通頁面計算
 if (pageName === "traffic-travel") {
+  let name, inputValue, coefficient, emission, unit;
+
   // ====== 汽車 ======
   if (!pageData.travelCarFuelTypeToggle && !pageData.travelCarMethodToggle) {
     // 油車 - 油量模式
-    let coefficient;
-    if (!pageData.oilUnitToggle) {
-      coefficient = travelCoefficients.fuel.unchecked; // 2.92
-    } else {
-      coefficient = travelCoefficients.fuel.checked[pageData.travelCarFuelTypeValue] ?? 0;
-    }
-    const oilTotal = parseFloat(pageData.travelCarOilValue) * coefficient;
-    console.log(`汽車(油量模式): ${pageData.travelCarOilValue} * ${coefficient} = ${oilTotal}`);
-    total += oilTotal;
+    name = "汽車(油車)";
+    inputValue = parseFloat(pageData.travelCarOilValue);
+    unit = pageData.oilUnitToggle ? "L" : "元";
+    coefficient = pageData.oilUnitToggle
+      ? (travelCoefficients.fuel.checked[pageData.travelCarFuelTypeValue] ?? 0)
+      : travelCoefficients.fuel.unchecked;
+    emission = inputValue * coefficient;
 
   } else if (!pageData.travelCarFuelTypeToggle && pageData.travelCarMethodToggle) {
     // 油車 - 距離模式
-    const coefficient = travelCoefficients.carType[pageData.travelCarTypeValue] ?? 0;
-    const distTotal = parseFloat(pageData.travelOilcarDistanceValue) * coefficient;
-    console.log(`汽車(距離模式): ${pageData.travelOilcarDistanceValue} * ${coefficient} = ${distTotal}`);
-    total += distTotal;
+    name = "汽車(油車)";
+    inputValue = parseFloat(pageData.travelOilcarDistanceValue);
+    unit = "km";
+    coefficient = travelCoefficients.carType[pageData.travelCarTypeValue] ?? 0;
+    emission = inputValue * coefficient;
 
   } else if (pageData.travelCarFuelTypeToggle && !pageData.travelCarMethodToggle) {
     // 電車 - 距離模式
-    const coefficient = travelCoefficients.elecfuel.unchecked;
-    const distTotal = parseFloat(pageData.travelEVDistanceValue) * coefficient;
-    console.log(`電車(距離模式): ${pageData.travelEVDistanceValue} * ${coefficient} = ${distTotal}`);
-    total += distTotal;
+    name = "汽車(電車)";
+    inputValue = parseFloat(pageData.travelEVDistanceValue);
+    unit = "km";
+    coefficient = travelCoefficients.elecfuel.checked;
+    emission = inputValue * coefficient;
 
   } else if (pageData.travelCarFuelTypeToggle && pageData.travelCarMethodToggle) {
     // 電車 - 充電量模式
-    const coefficient = travelCoefficients.elecfuel.unchecked;
-    const chargeTotal = parseFloat(pageData.travelEVChargeValue) * coefficient;
-    console.log(`電車(充電量模式): ${pageData.travelEVChargeValue} * ${coefficient} = ${chargeTotal}`);
-    total += chargeTotal;
+    name = "汽車(電車)";
+    inputValue = parseFloat(pageData.travelEVChargeValue);
+    unit = "kWh";
+    coefficient = travelCoefficients.elecfuel.unchecked;
+    emission = inputValue * coefficient;
+  }
+
+  if (emission && emission > 0) {
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit
+    };
   }
 
   // ====== MRT ======
   if (pageData.travelMRTDistanceTotal > 0) {
-    const mrtCoefficient = travelCoefficients.mrt;
-    const mrtTotal = parseFloat(pageData.travelMRTDistanceTotal) * mrtCoefficient;
-    console.log(`MRT: ${pageData.travelMRTDistanceTotal} * ${mrtCoefficient} = ${mrtTotal}`);
-    total += mrtTotal;
+    name = "MRT";
+    inputValue = parseFloat(pageData.travelMRTDistanceTotal);
+    unit = "km";
+    coefficient = travelCoefficients.mrt;
+    emission = inputValue * coefficient;
+    
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit
+    };
   }
 
   // ====== 火車 ======
   if (pageData.travelTrainDistanceTotal > 0) {
-    const trainCoefficient = travelCoefficients.train;
-    const trainTotal = parseFloat(pageData.travelTrainDistanceTotal) * trainCoefficient;
-    console.log(`火車: ${pageData.travelTrainDistanceTotal} * ${trainCoefficient} = ${trainTotal}`);
-    total += trainTotal;
+    name = "火車";
+    inputValue = parseFloat(pageData.travelTrainDistanceTotal);
+    unit = "km";
+    coefficient = travelCoefficients.train;
+    emission = inputValue * coefficient;
+    
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit
+    };
   }
 
   // ====== 高鐵 ======
   if (pageData.travelHSRDistanceTotal > 0) {
-    const hsrCoefficient = travelCoefficients.hsr;
-    const hsrTotal = parseFloat(pageData.travelHSRDistanceTotal) * hsrCoefficient;
-    console.log(`高鐵: ${pageData.travelHSRDistanceTotal} * ${hsrCoefficient} = ${hsrTotal}`);
-    total += hsrTotal;
+    name = "高鐵";
+    inputValue = parseFloat(pageData.travelHSRDistanceTotal);
+    unit = "km";
+    coefficient = 1;
+    emission = inputValue * coefficient;
+    
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit
+    };
   }
-
 }
 
+// 食物頁面計算
 if (pageName === "food") {
-  let foodTotal = 0;
+  let name, inputValue, coefficient, emission, unit;
 
   if (pageData.selectedDiet === "omnivore") {
     // ===== 葷食 =====
@@ -421,190 +565,410 @@ if (pageName === "food") {
     const omnivore = foodCoefficients.omnivore;
 
     // 日常飲食
-    foodTotal += (parseFloat(pageData.foodDumplingsValue) || 0) * (dailyFood.dumplings || 0);
-    foodTotal += (parseFloat(pageData.foodBeefNoodleValue) || 0) * (dailyFood.beefNoodle || 0);
-    foodTotal += (parseFloat(pageData.foodPorkBentoValue) || 0) * (dailyFood.porkBento || 0);
-    foodTotal += (parseFloat(pageData.foodChickenBentoValue) || 0) * (dailyFood.chickenBento || 0);
-    foodTotal += (parseFloat(pageData.foodBeefBowlValue) || 0) * (dailyFood.beefBowl || 0);
-    foodTotal += (parseFloat(pageData.foodCurryPorkRiceValue) || 0) * (dailyFood.curryPorkRice || 0);
-    foodTotal += (parseFloat(pageData.foodHamburgerValue) || 0) * (dailyFood.hamburger || 0);
-    foodTotal += (parseFloat(pageData.foodHotpotValue) || 0) * (dailyFood.Hotpot || 0);
+    const dailyFoodItems = [
+      { key: 'foodDumplingsValue', name: '水餃', coeff: dailyFood.dumplings, unit: '顆' },
+      { key: 'foodBeefNoodleValue', name: '牛肉麵', coeff: dailyFood.beefNoodle, unit: '碗' },
+      { key: 'foodPorkBentoValue', name: '豬肉便當', coeff: dailyFood.porkBento, unit: '個' },
+      { key: 'foodChickenBentoValue', name: '雞肉便當', coeff: dailyFood.chickenBento, unit: '個' },
+      { key: 'foodBeefBowlValue', name: '牛肉飯', coeff: dailyFood.beefBowl, unit: '碗' },
+      { key: 'foodCurryPorkRiceValue', name: '咖哩豬肉飯', coeff: dailyFood.curryPorkRice, unit: '碗' },
+      { key: 'foodHamburgerValue', name: '漢堡', coeff: dailyFood.hamburger, unit: '個' },
+      { key: 'foodHotpotValue', name: '火鍋', coeff: dailyFood.Hotpot, unit: '次' }
+    ];
 
-    // 葷食頁面
-    foodTotal += (parseFloat(pageData.foodModalRiceValue) || 0) * (omnivore.rice || 0);
-    foodTotal += (parseFloat(pageData.foodModalVegetableValue) || 0) * (omnivore.vegetable || 0);
-    foodTotal += (parseFloat(pageData.foodModalBeefValue) || 0) * (omnivore.beef || 0);
-    foodTotal += (parseFloat(pageData.foodModalLambValue) || 0) * (omnivore.lamb || 0);
-    foodTotal += (parseFloat(pageData.foodModalPorkValue) || 0) * (omnivore.pork || 0);
-    foodTotal += (parseFloat(pageData.foodModalChickenValue) || 0) * (omnivore.chicken || 0);
-    foodTotal += (parseFloat(pageData.foodModalEggValue) || 0) * (omnivore.egg || 0);
-    foodTotal += (parseFloat(pageData.foodModalShrimpValue) || 0) * (omnivore.shrimp || 0);
-    foodTotal += (parseFloat(pageData.foodModalFishValue) || 0) * (omnivore.fish || 0);
-    foodTotal += (parseFloat(pageData.foodModalNoodleValue) || 0) * (omnivore.noodle || 0);
+    dailyFoodItems.forEach(item => {
+      if (pageData[item.key] && pageData[item.key] > 0) {
+        inputValue = parseFloat(pageData[item.key]);
+        emission = inputValue * item.coeff;
+        total += emission;
+        breakdown[item.name] = {
+          input: inputValue,
+          coefficient: item.coeff,
+          emission,
+          unit: item.unit
+        };
+      }
+    });
+
+    // 葷食項目
+    const omniItems = [
+      { key: 'foodModalRiceValue', name: '米飯', coeff: omnivore.rice, unit: '碗' },
+      { key: 'foodModalVegetableValue', name: '蔬菜', coeff: omnivore.vegetable, unit: '份' },
+      { key: 'foodModalBeefValue', name: '牛肉', coeff: omnivore.beef, unit: '份' },
+      { key: 'foodModalLambValue', name: '羊肉', coeff: omnivore.lamb, unit: '份' },
+      { key: 'foodModalPorkValue', name: '豬肉', coeff: omnivore.pork, unit: '份' },
+      { key: 'foodModalChickenValue', name: '雞肉', coeff: omnivore.chicken, unit: '份' },
+      { key: 'foodModalEggValue', name: '雞蛋', coeff: omnivore.egg, unit: '顆' },
+      { key: 'foodModalShrimpValue', name: '蝦子', coeff: omnivore.shrimp, unit: '份' },
+      { key: 'foodModalFishValue', name: '魚類', coeff: omnivore.fish, unit: '份' },
+      { key: 'foodModalNoodleValue', name: '麵條', coeff: omnivore.noodle, unit: '份' }
+    ];
+
+    omniItems.forEach(item => {
+      if (pageData[item.key] && pageData[item.key] > 0) {
+        inputValue = parseFloat(pageData[item.key]);
+        emission = inputValue * item.coeff;
+        total += emission;
+        breakdown[item.name] = {
+          input: inputValue,
+          coefficient: item.coeff,
+          emission,
+          unit: item.unit
+        };
+      }
+    });
 
     // 點心
-    foodTotal += (parseFloat(pageData.foodSnackChickenBeefBubbleMilkTeaValue) || 0) * (dessert.chickenBeefBubbleMilkTea || 0);
-    foodTotal += (parseFloat(pageData.foodSnackInstantNoodleValue) || 0) * (dessert.InstantNoodle || 0);
-    foodTotal += (parseFloat(pageData.foodSnackBeerValue) || 0) * (dessert.beer || 0);
-    foodTotal += (parseFloat(pageData.foodSnackFrenchfriesValue) || 0) * (dessert.frenchfries || 0);
-    foodTotal += (parseFloat(pageData.foodSnackTeaEggValue) || 0) * (dessert.teaEgg || 0);
-    foodTotal += (parseFloat(pageData.foodSnackSoyMilkValue) || 0) * (dessert.soyMilk || 0);
-    foodTotal += (parseFloat(pageData.foodSnackBlackCoffeeValue) || 0) * (dessert.blackCoffee || 0);
-    foodTotal += (parseFloat(pageData.foodSnackMilkValue) || 0) * (dessert.milk || 0);
+    const snackItems = [
+      { key: 'foodSnackChickenBeefBubbleMilkTeaValue', name: '珍珠奶茶', coeff: dessert.chickenBeefBubbleMilkTea, unit: '杯' },
+      { key: 'foodSnackInstantNoodleValue', name: '泡麵', coeff: dessert.InstantNoodle, unit: '包' },
+      { key: 'foodSnackBeerValue', name: '啤酒', coeff: dessert.beer, unit: '罐' },
+      { key: 'foodSnackFrenchfriesValue', name: '薯條', coeff: dessert.frenchfries, unit: '份' },
+      { key: 'foodSnackTeaEggValue', name: '茶葉蛋', coeff: dessert.teaEgg, unit: '顆' },
+      { key: 'foodSnackSoyMilkValue', name: '豆漿', coeff: dessert.soyMilk, unit: '杯' },
+      { key: 'foodSnackBlackCoffeeValue', name: '黑咖啡', coeff: dessert.blackCoffee, unit: '杯' },
+      { key: 'foodSnackMilkValue', name: '牛奶', coeff: dessert.milk, unit: '杯' }
+    ];
+
+    snackItems.forEach(item => {
+      if (pageData[item.key] && pageData[item.key] > 0) {
+        inputValue = parseFloat(pageData[item.key]);
+        emission = inputValue * item.coeff;
+        total += emission;
+        breakdown[item.name] = {
+          input: inputValue,
+          coefficient: item.coeff,
+          emission,
+          unit: item.unit
+        };
+      }
+    });
 
     // 剩食
-    foodTotal += (parseFloat(pageData.foodWasteSliderValue) || 0);
+    if (pageData.foodWasteSliderValue && pageData.foodWasteSliderValue > 0) {
+      inputValue = parseFloat(pageData.foodWasteSliderValue);
+      emission = inputValue;
+      total += emission;
+      breakdown['剩食'] = {
+        input: inputValue,
+        coefficient: 1,
+        emission,
+        unit: 'kg CO₂e'
+      };
+    }
 
   } else if (pageData.selectedDiet === "vegetarian") {
     // ===== 素食 =====
     const dessert = foodCoefficients.dessert;
+    let vegType;
 
-    // 海鮮素
     if (pageData.selectedSubDiet === "seafood") {
-      const seafood = foodCoefficients.vegetarian.seafood;
-      foodTotal += (parseFloat(pageData.foodSeafoodRiceValue) || 0) * (seafood.rice || 0);
-      foodTotal += (parseFloat(pageData.foodSeafoodVegetableValue) || 0) * (seafood.vegetable || 0);
-      foodTotal += (parseFloat(pageData.foodSeafoodTofuValue) || 0) * (seafood.tofu || 0);
-      foodTotal += (parseFloat(pageData.foodSeafoodMilkValue) || 0) * (seafood.milk || 0);
-      foodTotal += (parseFloat(pageData.foodSeafoodNoodleValue) || 0) * (seafood.noodle || 0);
-      foodTotal += (parseFloat(pageData.foodSeafoodHamValue) || 0) * (seafood.ham || 0);
-      foodTotal += (parseFloat(pageData.foodSeafoodEggValue) || 0) * (seafood.egg || 0);
-      foodTotal += (parseFloat(pageData.foodSeafoodShrimpValue) || 0) * (seafood.shrimp || 0);
-      foodTotal += (parseFloat(pageData.foodSeafoodFishValue) || 0) * (seafood.fish || 0);
-      foodTotal += (parseFloat(pageData.foodSeafoodMushroomValue) || 0) * (seafood.mushroom || 0);
+      vegType = foodCoefficients.vegetarian.seafood;
+      const seafoodItems = [
+        { key: 'foodSeafoodRiceValue', name: '米飯', coeff: vegType.rice, unit: '碗' },
+        { key: 'foodSeafoodVegetableValue', name: '蔬菜', coeff: vegType.vegetable, unit: '份' },
+        { key: 'foodSeafoodTofuValue', name: '豆腐', coeff: vegType.tofu, unit: '塊' },
+        { key: 'foodSeafoodMilkValue', name: '牛奶', coeff: vegType.milk, unit: '杯' },
+        { key: 'foodSeafoodNoodleValue', name: '麵條', coeff: vegType.noodle, unit: '份' },
+        { key: 'foodSeafoodHamValue', name: '素火腿', coeff: vegType.ham, unit: '片' },
+        { key: 'foodSeafoodEggValue', name: '雞蛋', coeff: vegType.egg, unit: '顆' },
+        { key: 'foodSeafoodShrimpValue', name: '蝦子', coeff: vegType.shrimp, unit: '份' },
+        { key: 'foodSeafoodFishValue', name: '魚類', coeff: vegType.fish, unit: '份' },
+        { key: 'foodSeafoodMushroomValue', name: '菇類', coeff: vegType.mushroom, unit: '份' }
+      ];
+
+      seafoodItems.forEach(item => {
+        if (pageData[item.key] && pageData[item.key] > 0) {
+          inputValue = parseFloat(pageData[item.key]);
+          emission = inputValue * item.coeff;
+          total += emission;
+          breakdown[item.name] = {
+            input: inputValue,
+            coefficient: item.coeff,
+            emission,
+            unit: item.unit
+          };
+        }
+      });
+
+    } else if (pageData.selectedSubDiet === "eggmilk") {
+      vegType = foodCoefficients.vegetarian.eggmilk;
+      const eggmilkItems = [
+        { key: 'foodEggmilkRiceValue', name: '米飯', coeff: vegType.rice, unit: '碗' },
+        { key: 'foodEggmilkVegetableValue', name: '蔬菜', coeff: vegType.vegetable, unit: '份' },
+        { key: 'foodEggmilkTofuValue', name: '豆腐', coeff: vegType.tofu, unit: '塊' },
+        { key: 'foodEggmilkMilkValue', name: '牛奶', coeff: vegType.milk, unit: '杯' },
+        { key: 'foodEggmilkNoodleValue', name: '麵條', coeff: vegType.noodle, unit: '份' },
+        { key: 'foodEggmilkHamValue', name: '素火腿', coeff: vegType.ham, unit: '片' },
+        { key: 'foodEggmilkEggValue', name: '雞蛋', coeff: vegType.egg, unit: '顆' },
+        { key: 'foodEggmilkMushroomValue', name: '菇類', coeff: vegType.mushroom, unit: '份' }
+      ];
+
+      eggmilkItems.forEach(item => {
+        if (pageData[item.key] && pageData[item.key] > 0) {
+          inputValue = parseFloat(pageData[item.key]);
+          emission = inputValue * item.coeff;
+          total += emission;
+          breakdown[item.name] = {
+            input: inputValue,
+            coefficient: item.coeff,
+            emission,
+            unit: item.unit
+          };
+        }
+      });
+
+    } else if (pageData.selectedSubDiet === "vegan") {
+      vegType = foodCoefficients.vegetarian.vegan;
+      const veganItems = [
+        { key: 'foodVeganRiceValue', name: '米飯', coeff: vegType.rice, unit: '碗' },
+        { key: 'foodVeganVegetableValue', name: '蔬菜', coeff: vegType.vegetable, unit: '份' },
+        { key: 'foodVeganTofuValue', name: '豆腐', coeff: vegType.tofu, unit: '塊' },
+        { key: 'foodVeganNoodleValue', name: '麵條', coeff: vegType.noodle, unit: '份' },
+        { key: 'foodVeganHamValue', name: '素火腿', coeff: vegType.ham, unit: '片' },
+        { key: 'foodVeganMushroomValue', name: '菇類', coeff: vegType.mushroom, unit: '份' }
+      ];
+
+      veganItems.forEach(item => {
+        if (pageData[item.key] && pageData[item.key] > 0) {
+          inputValue = parseFloat(pageData[item.key]);
+          emission = inputValue * item.coeff;
+          total += emission;
+          breakdown[item.name] = {
+            input: inputValue,
+            coefficient: item.coeff,
+            emission,
+            unit: item.unit
+          };
+        }
+      });
     }
 
-    // 蛋奶素
-    if (pageData.selectedSubDiet === "eggmilk") {
-      const eggmilk = foodCoefficients.vegetarian.eggmilk;
-      foodTotal += (parseFloat(pageData.foodEggmilkRiceValue) || 0) * (eggmilk.rice || 0);
-      foodTotal += (parseFloat(pageData.foodEggmilkVegetableValue) || 0) * (eggmilk.vegetable || 0);
-      foodTotal += (parseFloat(pageData.foodEggmilkTofuValue) || 0) * (eggmilk.tofu || 0);
-      foodTotal += (parseFloat(pageData.foodEggmilkMilkValue) || 0) * (eggmilk.milk || 0);
-      foodTotal += (parseFloat(pageData.foodEggmilkNoodleValue) || 0) * (eggmilk.noodle || 0);
-      foodTotal += (parseFloat(pageData.foodEggmilkHamValue) || 0) * (eggmilk.ham || 0);
-      foodTotal += (parseFloat(pageData.foodEggmilkEggValue) || 0) * (eggmilk.egg || 0);
-      foodTotal += (parseFloat(pageData.foodEggmilkMushroomValue) || 0) * (eggmilk.mushroom || 0);
-    }
+    // 點心 (素食共用)
+    const snackItems = [
+      { key: 'foodSnackChickenBeefBubbleMilkTeaValue', name: '珍珠奶茶', coeff: dessert.chickenBeefBubbleMilkTea, unit: '杯' },
+      { key: 'foodSnackInstantNoodleValue', name: '泡麵', coeff: dessert.InstantNoodle, unit: '包' },
+      { key: 'foodSnackBeerValue', name: '啤酒', coeff: dessert.beer, unit: '罐' },
+      { key: 'foodSnackFrenchfriesValue', name: '薯條', coeff: dessert.frenchfries, unit: '份' },
+      { key: 'foodSnackTeaEggValue', name: '茶葉蛋', coeff: dessert.teaEgg, unit: '顆' },
+      { key: 'foodSnackSoyMilkValue', name: '豆漿', coeff: dessert.soyMilk, unit: '杯' },
+      { key: 'foodSnackBlackCoffeeValue', name: '黑咖啡', coeff: dessert.blackCoffee, unit: '杯' },
+      { key: 'foodSnackMilkValue', name: '牛奶', coeff: dessert.milk, unit: '杯' }
+    ];
 
-    // 全素
-    if (pageData.selectedSubDiet === "vegan") {
-      const vegan = foodCoefficients.vegetarian.vegan;
-      foodTotal += (parseFloat(pageData.foodVeganRiceValue) || 0) * (vegan.rice || 0);
-      foodTotal += (parseFloat(pageData.foodVeganVegetableValue) || 0) * (vegan.vegetable || 0);
-      foodTotal += (parseFloat(pageData.foodVeganTofuValue) || 0) * (vegan.tofu || 0);
-      foodTotal += (parseFloat(pageData.foodVeganNoodleValue) || 0) * (vegan.noodle || 0);
-      foodTotal += (parseFloat(pageData.foodVeganHamValue) || 0) * (vegan.ham || 0);
-      foodTotal += (parseFloat(pageData.foodVeganMushroomValue) || 0) * (vegan.mushroom || 0);
-    }
-
-    // 點心
-    foodTotal += (parseFloat(pageData.foodSnackChickenBeefBubbleMilkTeaValue) || 0) * (dessert.chickenBeefBubbleMilkTea || 0);
-    foodTotal += (parseFloat(pageData.foodSnackInstantNoodleValue) || 0) * (dessert.InstantNoodle || 0);
-    foodTotal += (parseFloat(pageData.foodSnackBeerValue) || 0) * (dessert.beer || 0);
-    foodTotal += (parseFloat(pageData.foodSnackFrenchfriesValue) || 0) * (dessert.frenchfries || 0);
-    foodTotal += (parseFloat(pageData.foodSnackTeaEggValue) || 0) * (dessert.teaEgg || 0);
-    foodTotal += (parseFloat(pageData.foodSnackSoyMilkValue) || 0) * (dessert.soyMilk || 0);
-    foodTotal += (parseFloat(pageData.foodSnackBlackCoffeeValue) || 0) * (dessert.blackCoffee || 0);
-    foodTotal += (parseFloat(pageData.foodSnackMilkValue) || 0) * (dessert.milk || 0);
+    snackItems.forEach(item => {
+      if (pageData[item.key] && pageData[item.key] > 0) {
+        inputValue = parseFloat(pageData[item.key]);
+        emission = inputValue * item.coeff;
+        total += emission;
+        breakdown[item.name] = {
+          input: inputValue,
+          coefficient: item.coeff,
+          emission,
+          unit: item.unit
+        };
+      }
+    });
 
     // 剩食
-    foodTotal += (parseFloat(pageData.foodWasteSliderValue) || 0);
+    if (pageData.foodWasteSliderValue && pageData.foodWasteSliderValue > 0) {
+      inputValue = parseFloat(pageData.foodWasteSliderValue);
+      emission = inputValue;
+      total += emission;
+      breakdown['剩食'] = {
+        input: inputValue,
+        coefficient: 1,
+        emission,
+        unit: 'kg CO₂e'
+      };
+    }
   }
-
-  console.log(`食物總和: ${foodTotal}`);
-  total += foodTotal;
 }
 
 // 時尚頁面計算
 if (pageName === "fashion") {
+  let name, inputValue, coefficient, emission, unit;
+
   // 快時尚
   if (pageData.fastFashion !== undefined && pageData.fastFashion > 0) {
-    const fastFashionTotal = parseFloat(pageData.fastFashion) * fashionCoefficients.fastFashion;
-    console.log(`快時尚: ${pageData.fastFashion} * ${fashionCoefficients.fastFashion} = ${fastFashionTotal}`);
-    total += fastFashionTotal;
+    name = "快時尚";
+    inputValue = parseFloat(pageData.fastFashion);
+    unit = "元";
+    coefficient = fashionCoefficients.fastFashion;
+    emission = inputValue * coefficient;
+    
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit
+    };
   }
 
   // 奢侈時尚
   if (pageData.luxuryFashion !== undefined && pageData.luxuryFashion > 0) {
-    const luxuryFashionTotal = parseFloat(pageData.luxuryFashion) * fashionCoefficients.luxuryFashion;
-    console.log(`奢侈時尚: ${pageData.luxuryFashion} * ${fashionCoefficients.luxuryFashion} = ${luxuryFashionTotal}`);
-    total += luxuryFashionTotal;
+    name = "奢侈時尚";
+    inputValue = parseFloat(pageData.luxuryFashion);
+    unit = "元";
+    coefficient = fashionCoefficients.luxuryFashion;
+    emission = inputValue * coefficient;
+    
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit
+    };
   }
 }
 
 // 娛樂頁面計算
 if (pageName === "entertainment") {
+  let name, inputValue, coefficient, emission, unit;
+
   // KTV 計算
   if (pageData.entertainmentKTV !== undefined && pageData.entertainmentKTV > 0) {
-    const ktvCoefficient = pageData.entertainmentKTVToggle
+    name = "KTV";
+    inputValue = parseFloat(pageData.entertainmentKTV);
+    unit = "小時";
+    coefficient = pageData.entertainmentKTVToggle
       ? entertainmentCoefficients.KTV.checked
       : entertainmentCoefficients.KTV.unchecked;
-    const ktvTotal = parseFloat(pageData.entertainmentKTV) * ktvCoefficient;
-    console.log(`KTV: ${pageData.entertainmentKTV} * ${ktvCoefficient} = ${ktvTotal}`);
-    total += ktvTotal;
+    emission = inputValue * coefficient;
+    
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit,
+      renewable: pageData.entertainmentKTVToggle
+    };
   }
 
   // 電影 計算
   if (pageData.entertainmentCinemaValue !== undefined && pageData.entertainmentCinemaValue > 0) {
-    const cinemaCoefficient = pageData.entertainmentCinemaToggle
+    name = "電影";
+    inputValue = parseFloat(pageData.entertainmentCinemaValue);
+    unit = "場";
+    coefficient = pageData.entertainmentCinemaToggle
       ? entertainmentCoefficients.cinema.checked
       : entertainmentCoefficients.cinema.unchecked;
-    const cinemaTotal = parseFloat(pageData.entertainmentCinemaValue) * cinemaCoefficient;
-    console.log(`電影: ${pageData.entertainmentCinemaValue} * ${cinemaCoefficient} = ${cinemaTotal}`);
-    total += cinemaTotal;
+    emission = inputValue * coefficient;
+    
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit,
+      renewable: pageData.entertainmentCinemaToggle
+    };
   }
 
   // 健身房 計算
   if (pageData.entertainmentGymValue !== undefined && pageData.entertainmentGymValue > 0) {
-    const gymCoefficient = pageData.entertainmentGymToggle
+    name = "健身房";
+    inputValue = parseFloat(pageData.entertainmentGymValue);
+    unit = "小時";
+    coefficient = pageData.entertainmentGymToggle
       ? entertainmentCoefficients.entertainmentGym.checked
       : entertainmentCoefficients.entertainmentGym.unchecked;
-    const gymTotal = parseFloat(pageData.entertainmentGymValue) * gymCoefficient;
-    console.log(`健身房: ${pageData.entertainmentGymValue} * ${gymCoefficient} = ${gymTotal}`);
-    total += gymTotal;
+    emission = inputValue * coefficient;
+    
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit,
+      renewable: pageData.entertainmentGymToggle
+    };
   }
 
   // 旅遊住宿 計算
   if (pageData.entertainmentHotelValue !== undefined && pageData.entertainmentHotelValue > 0) {
-    const hotelCoefficient = pageData.entertainmentHotelToggle
+    name = "旅遊住宿";
+    inputValue = parseFloat(pageData.entertainmentHotelValue);
+    unit = "晚";
+    coefficient = pageData.entertainmentHotelToggle
       ? entertainmentCoefficients.hotel.checked
       : entertainmentCoefficients.hotel.unchecked;
-    const hotelTotal = parseFloat(pageData.entertainmentHotelValue) * hotelCoefficient;
-    console.log(`旅遊住宿: ${pageData.entertainmentHotelValue} * ${hotelCoefficient} = ${hotelTotal}`);
-    total += hotelTotal;
+    emission = inputValue * coefficient;
+    
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit,
+      renewable: pageData.entertainmentHotelToggle
+    };
   }
 
   // 網路 計算
   if (pageData.entertainmentInternetValue !== undefined && pageData.entertainmentInternetValue > 0) {
-    const internetTotal = parseFloat(pageData.entertainmentInternetValue) * entertainmentCoefficients.internet;
-    console.log(`網路: ${pageData.entertainmentInternetValue} * ${entertainmentCoefficients.internet} = ${internetTotal}`);
-    total += internetTotal;
+    name = "網路";
+    inputValue = parseFloat(pageData.entertainmentInternetValue);
+    unit = "GB";
+    coefficient = entertainmentCoefficients.internet;
+    emission = inputValue * coefficient;
+    
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit
+    };
   }
 
   // 影音串流 計算
   if (pageData.entertainmentStreamingValue !== undefined && pageData.entertainmentStreamingValue > 0) {
-    const streamingCoefficient = pageData.entertainmentStreamingToggle
+    name = "影音串流";
+    inputValue = parseFloat(pageData.entertainmentStreamingValue);
+    unit = "小時";
+    coefficient = pageData.entertainmentStreamingToggle
       ? entertainmentCoefficients.streaming.checked
       : entertainmentCoefficients.streaming.unchecked;
-    const streamingTotal = parseFloat(pageData.entertainmentStreamingValue) * streamingCoefficient;
-    console.log(`影音串流: ${pageData.entertainmentStreamingValue} * ${streamingCoefficient} = ${streamingTotal}`);
-    total += streamingTotal;
+    emission = inputValue * coefficient;
+    
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit,
+      renewable: pageData.entertainmentStreamingToggle
+    };
   }
 
   // 宗教信仰 計算
   if (pageData.entertainmentReligionValue !== undefined && pageData.entertainmentReligionValue > 0) {
-    const religionCoefficient = pageData.entertainmentReligionToggle
+    name = "宗教信仰";
+    inputValue = parseFloat(pageData.entertainmentReligionValue);
+    unit = "小時";
+    coefficient = pageData.entertainmentReligionToggle
       ? entertainmentCoefficients.religion.checked
       : entertainmentCoefficients.religion.unchecked;
-    const religionTotal = parseFloat(pageData.entertainmentReligionValue) * religionCoefficient;
-    console.log(`宗教信仰: ${pageData.entertainmentReligionValue} * ${religionCoefficient} = ${religionTotal}`);
-    total += religionTotal;
+    emission = inputValue * coefficient;
+    
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit,
+      renewable: pageData.entertainmentReligionToggle
+    };
   }
 }
 
   console.log(`${pageName} 總計算結果:`, total);
-  return total;
+  console.log(`${pageName} 詳細分解:`, breakdown);
+  return { total, breakdown };
 }
 
 exports.calculateCarbonPage = onCall(async (request) => {
@@ -652,13 +1016,18 @@ exports.calculateCarbonPage = onCall(async (request) => {
 
     if (!pageData) {
       console.log("未找到資料，回傳 0");
-      return { pageName, total: 0, message: "沒有資料" };
+      return { pageName, total: 0, breakdown: {}, message: "沒有資料" };
     }
 
-    const total = calculatePageTotal(pageName, pageData);
-    console.log("最終計算結果:", total);
+    const result = calculatePageTotal(pageName, pageData);
+    console.log("最終計算結果:", result);
 
-    return { pageName, total, message: "計算成功" };
+    return { 
+      pageName, 
+      total: result.total, 
+      breakdown: result.breakdown,
+      message: "計算成功" 
+    };
     
   } catch (error) {
     console.error("函數執行錯誤:", error.message);
@@ -670,4 +1039,4 @@ exports.calculateCarbonPage = onCall(async (request) => {
     
     throw new HttpsError("internal", `計算失敗: ${error.message}`);
   }
-});
+})
