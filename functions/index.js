@@ -8,13 +8,13 @@ initializeApp();
 
 const dailyCoefficients = {
     fuel: {
-      unchecked: 2.92,
-      checked: {
+      unchecked:  {
       "92無鉛": 0.104369392,
       "95無鉛": 0.099058433,
       "98無鉛": 0.092764523,
       "柴油": 0.113203265
-      }
+      },
+      checked: 2.92
     },
     elecfuel: {
       unchecked: 0.606,
@@ -59,13 +59,13 @@ const homeCoefficients = {
 
 const travelCoefficients = {
     fuel: {
-      unchecked: 2.92,
-      checked: {
+      unchecked:  {
       "92無鉛": 0.104369392,
       "95無鉛": 0.099058433,
       "98無鉛": 0.092764523,
       "柴油": 0.113203265
-      }
+      },
+      checked: 2.92
     },
     elecfuel: {
       unchecked: 0.606,
@@ -208,8 +208,8 @@ if (pageName === "traffic-daily") {
     inputValue = parseFloat(pageData.dailyCarOilValue);
     unit = pageData.oilUnitToggle ? "L" : "元";
     coefficient = pageData.oilUnitToggle
-      ? (dailyCoefficients.fuel.checked[pageData.dailyCarFuelTypeValue] ?? 0)
-      : dailyCoefficients.fuel.unchecked;
+      ? (dailyCoefficients.fuel.unchecked[pageData.dailyCarFuelTypeValue] ?? 0)
+      : dailyCoefficients.fuel.checked;
     emission = inputValue * coefficient;
 
   } else if (!pageData.dailyCarFuelTypeToggle && pageData.dailyCarMethodToggle) {
@@ -254,8 +254,8 @@ if (pageName === "traffic-daily") {
     inputValue = parseFloat(pageData.dailyMotorcycleOilValue);
     unit = pageData.oilUnitToggle ? "L" : "元";
     coefficient = pageData.oilUnitToggle
-      ? (dailyCoefficients.fuel.checked[pageData.dailyMotorcycleFuelTypeValue] ?? 0)
-      : dailyCoefficients.fuel.unchecked;
+      ? (dailyCoefficients.fuel.unchecked[pageData.dailyMotorcycleFuelTypeValue] ?? 0)
+      : dailyCoefficients.fuel.checked;
     emission = inputValue * coefficient;
 
   } else if (!pageData.dailyMotorcycleFuelTypeToggle && pageData.dailyMotorcycleMethodToggle) {
@@ -463,8 +463,8 @@ if (pageName === "traffic-travel") {
     inputValue = parseFloat(pageData.travelCarOilValue);
     unit = pageData.oilUnitToggle ? "L" : "元";
     coefficient = pageData.oilUnitToggle
-      ? (travelCoefficients.fuel.checked[pageData.travelCarFuelTypeValue] ?? 0)
-      : travelCoefficients.fuel.unchecked;
+      ? (travelCoefficients.fuel.unchecked[pageData.travelCarFuelTypeValue] ?? 0)
+      : travelCoefficients.fuel.checked;
     emission = inputValue * coefficient;
 
   } else if (!pageData.travelCarFuelTypeToggle && pageData.travelCarMethodToggle) {
@@ -475,7 +475,7 @@ if (pageName === "traffic-travel") {
     coefficient = travelCoefficients.carType[pageData.travelCarTypeValue] ?? 0;
     emission = inputValue * coefficient;
 
-  } else if (pageData.travelCarFuelTypeToggle && !pageData.travelCarMethodToggle) {
+  } else if (pageData.travelCarFuelTypeToggle && pageData.travelCarMethodToggle) {
     // 電車 - 距離模式
     name = "汽車(電車)";
     inputValue = parseFloat(pageData.travelEVDistanceValue);
@@ -483,7 +483,7 @@ if (pageName === "traffic-travel") {
     coefficient = travelCoefficients.elecfuel.checked;
     emission = inputValue * coefficient;
 
-  } else if (pageData.travelCarFuelTypeToggle && pageData.travelCarMethodToggle) {
+  } else if (pageData.travelCarFuelTypeToggle && !pageData.travelCarMethodToggle) {
     // 電車 - 充電量模式
     name = "汽車(電車)";
     inputValue = parseFloat(pageData.travelEVChargeValue);
