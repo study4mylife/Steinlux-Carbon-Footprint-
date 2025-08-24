@@ -11,6 +11,8 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@latest/dist/chart.umd.min.js"></script>
     
     <style>
       @font-face {
@@ -36,8 +38,6 @@
       body {
         margin: 0;
         padding: 0;
-        width: 100vw;
-        height: 100vh;
         background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
       }
 
@@ -79,6 +79,7 @@
         100% { transform: rotate(360deg); }
       }
 
+      /* 桌面版本的滾動容器設置 */
       .scroll-container {
         position: fixed;
         height: 100vh;
@@ -92,28 +93,67 @@
 
       .scene {
         position: relative;
-        width: 100vw;
         height: 100vh;
         scroll-snap-align: start;
         z-index: 999;
       }
 
+      .scene.active {
+        pointer-events: auto; /* 只有 active 的場景可以點 */
+      }
+      
+      @media (max-width: 1024px) {
+        body {
+          height: auto; /* 允許body高度自適應 */
+        }
+        
+        .scroll-container {
+          position: static !important; /* 改為靜態定位 */
+          overflow-y: visible !important; /* 允許正常滾動 */
+          scroll-snap-type: none !important; /* 取消滾動吸附 */
+          scroll-behavior: auto !important; /* 恢復正常滾動行為 */
+          overflow-x: hidden !important;
+        }
+
+        .scene {
+          position: static !important; /* 改為靜態定位 */
+          scroll-snap-align: none !important; /* 取消滾動吸附對齊 */
+          height: auto !important; /* 高度自適應內容 */
+          min-height: 100vh; /* 最小高度保持一個視窗高度 */
+          overflow-x: hidden;
+        }
+        
+        /* 確保第二個場景在手機上也顯示 */
+        .scene-2 {
+          height: auto !important;
+          min-height: 100vh;
+          pointer-events: initial !important;
+        }
+      }
+
       .scene-1 {
         background: url("images/0813修01.jpg") no-repeat 0 0;
         background-size: 100% 200%;
+        pointer-events: initial;
       }
 
       .scene-2 {
         background: url("images/0813修01.jpg") no-repeat 0 -100vh;
         background-size: 100% 200%;
+        pointer-events: none;
       }
 
-      @media (max-width: 600px) {
-        .scene-1 {
+      @media (max-width: 1024px) {
+        .scene-1, .scene-2 {
+          background: none
+        }
+
+        .scroll-container {
           background: url("images/0813修03.jpg") no-repeat 0 0;
           background-size: 100% 200%;
         }
-        .scene-2 { height: 0; }
+
+        
       }
 
       /* 第一幕样式 */
@@ -130,12 +170,39 @@
         left: 5.75%;
         translate: (-50%, -50%);
         z-index: 2;
-        opacity: 1;
+        opacity: 100;
+      }
+
+      .scene-1 .sealevel-container p {
+        margin-bottom: 1rem;
       }
 
       .scene-1 .sealevel-container iframe {
-        margin-top: 1rem;
         border-radius: 1.25rem;
+      }
+
+      .scene-1 .map-buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+      }
+
+      .scene-1 .map-buttons button {
+        background: rgba(255,255,255,0.5);
+        border: none;
+        padding: 0.25rem;
+        border: 0.25pt solid #fff;
+        color: #6D808F;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.5rem;
+        text-shadow: #7F7F7F60;
+      }
+
+      .scene-1 .map-buttons button.active-btn {
+        border: 0.25pt solid #AD967C;
+        color: #AD967C;
       }
 
       .scene-1 .carbon-footprint-emissions-container {
@@ -338,6 +405,34 @@
         overflow-y: auto;
       }
 
+      .recommendation-page {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        margin-top: 1rem;
+      }
+
+      .toggle-switch {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .toggle-switch button {
+        background: rgba(255,255,255,0.6);
+        border: none;
+        padding: 0.4rem 0.8rem;
+        margin: 0 0.25rem;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .toggle-switch button.active {
+        background: rgba(255,255,255,0.95);
+        font-weight: bold;
+      }
+
       .recommendations strong {
         text-decoration: dotted;
         color: #ffffff;
@@ -354,17 +449,85 @@
       .recommendations li {
         margin-bottom: 0.5rem;
       }
+      
+      .emissions-legend-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        list-style:none;
+        text-align: center;
+        padding:0; 
+        margin:0;
+      }
+
+      .chart-container {
+        display:flex;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 100%;
+      }
+
+      #emissions-chart {
+        max-width: 50%;
+        max-height: 300px;
+      }
+
+      /* legend 列表 */
+      #emissions-legend {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      /* 每一列 */
+      .legend-item {
+        display: flex;
+        align-items: center;
+        font-size: 0.8rem;
+      }
+
+      /* 顏色小圓點 */
+      .legend-color {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 0.5rem;
+      }
 
       /* 滑鼠提示样式 */
-      .scroll-mouse {
-        position: fixed;
+      .scene-1 .scroll-mouse {
+        position: absolute;
         bottom: 5%;
         left: 50%;
         transform: translate(-50%, -50%);
         z-index: 5;
         width: 18px;
         height: 26px;
+        opacity: 1;
         cursor: pointer;
+      }
+
+      .scene-2 .scroll-mouse {
+        position: absolute;
+        top: 5%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 5;
+        width: 18px;
+        height: 26px;
+        opacity: 0;
+        cursor: pointer;
+      }
+
+      /* 在手機版本隱藏滑鼠提示 */
+      @media (max-width: 1024px) {
+        .scroll-mouse {
+          display: none !important;
+        }
       }
 
       .border-anim {
@@ -386,10 +549,6 @@
         animation: none;
       }
 
-      .scroll-mouse:hover .mouse-line {
-        animation: mouseLineAnim 0.6s forwards;
-      }
-
       .scroll-mouse:not(:hover) .border-anim {
         stroke-dashoffset: 90;
       }
@@ -398,10 +557,6 @@
         stroke-dashoffset: 0;
       }
 
-      @keyframes mouseLineAnim {
-        0% { transform: translate(-50%, -50%); }
-        100% { transform: translate(-50%, 100%); }
-      }
 
       .error-message {
         color: #ff6b6b;
@@ -414,8 +569,9 @@
         margin: 1rem 0;
       }
 
-      @media (max-width: 900px) {
-        .scene-1 {
+      /* 手機版本的響應式調整 */
+      @media (max-width: 1024px) {
+        .scene-1, .scene-2 {
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -426,12 +582,38 @@
         .scene-1 .carbon-footprint-emissions-container,
         .scene-1 .carbon-footprint-temperature-container,
         .scene-1 .polarbear-container {
-          position: static;
+          position: static !important;
           width: 90%;
           max-width: 450px;
           margin: 1rem 0;
           text-align: center;
           translate: none;
+        }
+
+        .scene-2 {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .scene-2 .carbon-footprint-status-container {
+          position: static !important;
+          width: 90vw;
+          height: auto;
+          max-height: none;
+          margin-bottom: 2rem;
+          transform: none;
+          opacity: 1 !important;
+        }
+
+        .scene-2 .recommendations {
+          position: static !important;
+          width: 90vw;
+          height: auto;
+          max-height: none;
+          margin-bottom: 2rem;
+          transform: none;
+          opacity: 1 !important;
         }
 
         .categories-grid {
@@ -444,6 +626,28 @@
 
         .total-value {
           font-size: 2rem;
+        }
+
+        .chart-container {
+          flex-direction: column;
+        }
+
+        #emissions-chart {
+          max-width: 50%;
+          max-height: 300px;
+          margin-bottom: 1.5rem;
+        }
+
+
+        #emissions-legend {
+          flex-direction: row
+        }
+
+        .legend-item {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 30%;
         }
       }
     </style>
@@ -458,11 +662,26 @@
         <section class="scene scene-1">
             <div class="sealevel-container">
                 <p>2100年，預計海平面<br>將上升......</p>
-                <iframe allow="fullscreen 'none'" frameBorder="0" 
-                        src="https://coastal.climatecentral.org/embed/map/11/121.4115/25.1141/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=true&elevation_model=best_available&esl_model=ipcc_2021&percentile=p50&slr_year=2100&temperature_rise=3.1&temperature_unit=C" 
-                        width="100%" height="200" 
-                        title="Climate Central | Land projected to be below tideline in 2100">
-                </iframe>
+                <div style="display:flex; gap:1rem; align-items:flex-start;">
+                  <!-- iframe 區塊 -->
+                  <iframe id="mapFrame" 
+                          src="https://coastal.climatecentral.org/embed/map/13/121.5354/25.082/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C" 
+                          width="80%" height="200" 
+                          style="border-radius:1rem; border:none;"
+                          allow="fullscreen"
+                          title="Climate Central Map">
+                  </iframe>
+
+                  <!-- 按鈕區塊 -->
+                  <div class="map-buttons">
+                    <button onclick="switchMap('taipei', this)" class="active-btn">雙北地區</button>
+                    <button onclick="switchMap('yilan', this)">蘭陽平原</button>
+                    <button onclick="switchMap('hsinchu', this)">竹苗地區</button>
+                    <button onclick="switchMap('taichung', this)">中彰地區</button>
+                    <button onclick="switchMap('chiayi', this)">雲嘉南區</button>
+                    <button onclick="switchMap('kaohsiung', this)">高屏地區</button>
+                  </div>
+                </div>
             </div>
 
             <div class="carbon-footprint-emissions-container">
@@ -504,10 +723,29 @@
             </div>
 
             <div class="recommendations">
-                <h3>減碳建議</h3>
+              <div class="toggle-switch">
+                <button id="summary-btn" class="active">結語</button>
+                <button id="advice-btn">改善建議</button>
+              </div>
+
+              <!-- 第一頁：結語與圓餅圖 -->
+              <div id="summary-page" class="recommendation-page">
+                <!-- 圓餅圖區 -->
+                <div class="chart-container">
+                  <canvas id="emissions-chart"></canvas>
+                  <!-- 右側 legend -->
+                  <div >
+                    <ul class="emissions-legend-container" id="emissions-legend"></ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 第二頁：改善建議 -->
+              <div id="advice-page" class="recommendation-page" style="display:none;">
                 <ul id="recommendations-list">
-                    <li>計算分析中...</li>
+                  <li>計算分析中...</li>
                 </ul>
+              </div>
             </div>
 
             <div class="scroll-mouse">
@@ -568,6 +806,39 @@ const pageNames = {
     'entertainment': '生活娛樂'
 };
 
+const urls = {
+  taipei: "https://coastal.climatecentral.org/embed/map/13/121.5354/25.082/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C",
+  yilan: "https://coastal.climatecentral.org/embed/map/12/121.8527/24.735/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C",
+  hsinchu: "https://coastal.climatecentral.org/embed/map/12/120.9782/24.7644/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C",
+  taichung: "https://coastal.climatecentral.org/embed/map/13/120.5391/24.1589/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C",
+  chiayi: "https://coastal.climatecentral.org/embed/map/11/120.2957/23.4169/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C",
+  kaohsiung: "https://coastal.climatecentral.org/embed/map/11/120.6035/22.6896/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C"
+};
+
+function switchMap(region, btn) {
+  // 換 iframe 的 src
+  document.getElementById("mapFrame").src = urls[region];
+
+  // 移除所有按鈕的 active 樣式
+  document.querySelectorAll(".map-buttons button").forEach(b => {
+    b.classList.remove("active-btn");
+  });
+
+  // 幫目前點擊的按鈕加上 active 樣式
+  if (btn) {
+    btn.classList.add("active-btn");
+  }
+}
+
+// 检测是否为移动设备
+function isMobile() {
+    return window.innerWidth <= 1024 || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+// 当前模式状态
+let currentMode = null;
+let sceneTransitionsSetup = false;
+
 // 获取用户ID
 function getUserId() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -612,7 +883,7 @@ async function calculateCarbonFootprintDetailed() {
         });
 
         // 計算總排放量
-        totalEmissions = Object.values(carbonData).reduce((sum, value) => sum + value, 0);
+        totalEmissions = Object.values(carbonData).reduce((sum, value) => sum + value, 0)/1000;
         
         return true;
     } catch (error) {
@@ -650,7 +921,7 @@ function createCategoryCards() {
         const noDataCard = document.createElement('div');
         noDataCard.className = 'category-card no-data';
         noDataCard.innerHTML = `
-            <div class="category-header" style="background-color:${info.bgcolor}; font-weight:bold; color:${info.color}; border-left: 8px solid ${info.color};">
+            <div class="category-header" style="background-color:#f0f0f0; font-weight:bold; color:#888; border-left: 8px solid #888;">
                 <h3 class="category-title">暫無數據</h3>
                 <div class="category-value" style="color:#888;">0.000</div>
             </div>
@@ -705,6 +976,7 @@ function createCategoryCards() {
         container.appendChild(card);
     });
 }
+
 // 更新显示数据
 function updateDisplay() {
     // 更新第一幕的总排放量
@@ -713,8 +985,8 @@ function updateDisplay() {
         emissionsValueElement.textContent = totalEmissions.toFixed(3);
         
         // 更新中和说明
-        const forestArea = Math.round(totalEmissions * 1389);
-        const stadiums = (forestArea / 13284).toFixed(1);
+        const forestArea = Math.round(totalEmissions * 1388.889);
+        const stadiums = (forestArea / 12950).toFixed(1);
         const neutralityText = document.getElementById('neutrality-text');
         neutralityText.textContent = `為了中和您的排放，必須復育大約 ${forestArea.toLocaleString()}m²的自然再生林地。這大約與${stadiums}座台北大巨蛋相同！`;
         
@@ -730,7 +1002,90 @@ function updateDisplay() {
 
     // 生成减碳建议
     generateRecommendations();
+
+    // 初始化圓餅圖
+    renderEmissionsChart();
 }
+
+// 初始化 Chart.js 圓餅圖
+let emissionsChart = null;
+
+function renderEmissionsChart() {
+  const ctx = document.getElementById('emissions-chart').getContext('2d');
+  const dataValues = [];
+  const dataLabels = [];
+  const dataColors = [];
+
+  Object.entries(carbonData).forEach(([key, value]) => {
+    if (value > 0) {
+      dataValues.push(value);
+      dataLabels.push(categoryInfo[key].name);
+      dataColors.push(categoryInfo[key].color);
+    }
+  });
+
+  // 如果已存在圖表就先銷毀
+  if (emissionsChart) emissionsChart.destroy();
+
+  // 初始化圓餅圖
+  emissionsChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: dataLabels,
+      datasets: [{
+        data: dataValues,
+        backgroundColor: dataColors,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false // 內建 legend 關閉
+        }
+      }
+    }
+  });
+
+// 生成右側自訂 legend
+const legendContainer = document.getElementById('emissions-legend');
+legendContainer.innerHTML = ''; // 清空舊的 legend
+const total = dataValues.reduce((a, b) => a + b, 0);
+
+dataLabels.forEach((label, index) => {
+  const li = document.createElement('li');
+  li.classList.add('legend-item');
+  li.style.color = dataColors[index]; // 顏色依然用 inline，因為每個顏色不同
+
+  const colorBox = document.createElement('span');
+  colorBox.classList.add('legend-color');
+  colorBox.style.backgroundColor = dataColors[index];
+
+  const percent = ((dataValues[index] / total) * 100).toFixed(1);
+
+  li.appendChild(colorBox);
+  li.appendChild(document.createTextNode(`${label}: ${percent}%`));
+
+  legendContainer.appendChild(li);
+});
+}
+
+
+// Toggle 切換
+document.getElementById('summary-btn').addEventListener('click', () => {
+  document.getElementById('summary-page').style.display = 'flex';
+  document.getElementById('advice-page').style.display = 'none';
+  document.getElementById('summary-btn').classList.add('active');
+  document.getElementById('advice-btn').classList.remove('active');
+  renderEmissionsChart();
+});
+
+document.getElementById('advice-btn').addEventListener('click', () => {
+  document.getElementById('summary-page').style.display = 'none';
+  document.getElementById('advice-page').style.display = 'flex';
+  document.getElementById('summary-btn').classList.remove('active');
+  document.getElementById('advice-btn').classList.add('active');
+});
 
 function generateRecommendations() {
   const recommendations = [];
@@ -825,6 +1180,108 @@ function generateRecommendations() {
   }).join('');
 }
 
+// 重置為桌面模式
+function resetToDesktopMode() {
+    const container = document.querySelector(".scroll-container");
+    const body = document.body;
+    
+    // 重置滾動位置到頂部
+    if (container) {
+        container.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    // 重置所有元素的透明度
+    setTimeout(() => {
+        // 第一幕元素顯示
+        gsap.set(".scene-1 .sealevel-container", { opacity: 1 });
+        gsap.set(".scene-1 .carbon-footprint-emissions-container", { opacity: 1 });
+        gsap.set(".scene-1 .carbon-footprint-temperature-container", { opacity: 1 });
+        gsap.set(".scene-1 .polarbear-container", { opacity: 1 });
+        
+        // 第二幕元素隱藏
+        gsap.set(".scene-2 .carbon-footprint-status-container", { opacity: 0 });
+        gsap.set(".scene-2 .recommendations", { opacity: 0 });
+    }, 100);
+    
+    // 清除可能的樣式覆蓋
+    body.style.overflow = "";
+    if (container) {
+        container.style.overflow = "";
+    }
+}
+
+// 重置為移動模式
+function resetToMobileMode() {
+    const container = document.querySelector(".scroll-container");
+    
+    // 重置滾動位置到頂部
+    if (container) {
+        container.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    // 確保所有元素在移動版本都顯示
+    setTimeout(() => {
+        gsap.set(".scene-1 .sealevel-container", { opacity: 1 });
+        gsap.set(".scene-1 .carbon-footprint-emissions-container", { opacity: 1 });
+        gsap.set(".scene-1 .carbon-footprint-temperature-container", { opacity: 1 });
+        gsap.set(".scene-1 .polarbear-container", { opacity: 1 });
+        gsap.set(".scene-2 .carbon-footprint-status-container", { opacity: 1 });
+        gsap.set(".scene-2 .recommendations", { opacity: 1 });
+    }, 100);
+}
+
+// 處理模式切換
+function handleModeChange() {
+    const mobile = isMobile();
+    
+    if (currentMode === mobile) {
+        return; // 模式沒有改變，不需要處理
+    }
+    
+    console.log(`模式切換: ${currentMode === null ? '初始化' : (currentMode ? '移動' : '桌面')} -> ${mobile ? '移動' : '桌面'}`);
+    
+    currentMode = mobile;
+    
+    if (mobile) {
+        // 切換到移動模式
+        resetToMobileMode();
+        // 移除可能存在的事件監聽器
+        removeDesktopEventListeners();
+        sceneTransitionsSetup = false;
+    } else {
+        // 切換到桌面模式
+        resetToDesktopMode();
+        // 設置桌面版場景切換
+        if (!sceneTransitionsSetup) {
+            setTimeout(() => {
+                setupSceneTransitions();
+                sceneTransitionsSetup = true;
+            }, 200);
+        }
+    }
+}
+
+// 移除桌面版事件監聽器
+let currentScrollListener = null;
+let currentMouseListeners = [];
+
+function removeDesktopEventListeners() {
+    const container = document.querySelector(".scroll-container");
+    
+    // 移除滾輪事件監聽器
+    if (container && currentScrollListener) {
+        container.removeEventListener('wheel', currentScrollListener);
+        currentScrollListener = null;
+    }
+    
+    // 移除滑鼠點擊事件
+    currentMouseListeners.forEach(({ element, listener }) => {
+        if (element && listener) {
+            element.removeEventListener('click', listener);
+        }
+    });
+    currentMouseListeners = [];
+}
 // 页面加载完成后的初始化
 document.addEventListener("DOMContentLoaded", async () => {
     const loadingScreen = document.querySelector('.loading-screen');
@@ -849,11 +1306,28 @@ document.addEventListener("DOMContentLoaded", async () => {
         }, 1000);
     }
 
-    setupSceneTransitions();
+    // 初始化模式檢測
+    handleModeChange();
+    
+    // 監聽視窗大小改變
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        // 防抖處理，避免頻繁觸發
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            handleModeChange();
+        }, 250);
+    });
+    
+    // 監聽方向改變（移動設備）
+    window.addEventListener('orientationchange', () => {
+        setTimeout(() => {
+            handleModeChange();
+        }, 500); // 給一點時間讓瀏覽器完成方向改變
+    });
 });
 
-
-// 场景切换设置
+// 场景切换设置 - 僅限桌面版
 function setupSceneTransitions() {
     const observer = new IntersectionObserver(
         (entries) => {
@@ -869,19 +1343,6 @@ function setupSceneTransitions() {
     );
 
     observer.observe(document.querySelector(".scene-2"));
-
-    // 移动设备触摸处理
-    function isMobile() {
-        return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    }
-
-    function preventTouchScroll(e) {
-        e.preventDefault();
-    }
-
-    if (isMobile()) {
-        document.body.addEventListener("touchmove", preventTouchScroll, { passive: false });
-    }
 
     const container = document.querySelector(".scroll-container");
     let isScrolling = false;
@@ -900,6 +1361,8 @@ function setupSceneTransitions() {
 
     // 切到第二幕
     function goToSecondScene() {
+        document.querySelector(".scene-1").classList.remove("active");
+        document.querySelector(".scene-2").classList.add("active");
         if (isScrolling) return;
         const vh = window.innerHeight;
         isScrolling = true;
@@ -911,12 +1374,16 @@ function setupSceneTransitions() {
             duration: 2,
             ease: "power2.out",
             onStart: () => {
+                gsap.to(".scene-1", { PointerEvent: 'none' });
                 gsap.to(".scene-1 .sealevel-container", { opacity: 0, duration: 0.5 });
                 gsap.to(".scene-1 .carbon-footprint-emissions-container", { opacity: 0, duration: 0.5 });
                 gsap.to(".scene-1 .carbon-footprint-temperature-container", { opacity: 0, duration: 0.5 });
                 gsap.to(".scene-1 .polarbear-container", { opacity: 0, duration: 0.25 });
+                gsap.to(".scene-1 .scroll-mouse", { opacity: 0, duration: 0.25 });
+                gsap.to(".scene-2", { PointerEvent: 'intial' });
                 gsap.to(".scene-2 .carbon-footprint-status-container", { delay: 0.5, opacity: 1, duration: 1.5 });
                 gsap.to(".scene-2 .recommendations", { delay: 0.5, opacity: 1, duration: 1.5 });
+                gsap.to(".scene-2 .scroll-mouse", { delay: 0.5, opacity: 1, duration: 1.5 });
             },
             onComplete: () => {
                 isScrolling = false;
@@ -927,6 +1394,8 @@ function setupSceneTransitions() {
 
     // 切回第一幕
     function goToFirstScene() {
+        document.querySelector(".scene-2").classList.remove("active");
+        document.querySelector(".scene-1").classList.add("active");
         const vh = window.innerHeight;
         isScrolling = true;
         lastScrollTime = Date.now();
@@ -937,12 +1406,16 @@ function setupSceneTransitions() {
             duration: 2,
             ease: "power2.out",
             onStart: () => {
+                gsap.to(".scene-1", { PointerEvent: 'intial' });
                 gsap.to(".scene-1 .sealevel-container", { delay: 0.5, opacity: 1, duration: 1.5 });
                 gsap.to(".scene-1 .carbon-footprint-emissions-container", { delay: 0.5, opacity: 1, duration: 1.5 });
                 gsap.to(".scene-1 .carbon-footprint-temperature-container", { delay: 0.5, opacity: 1, duration: 1.5 });
                 gsap.to(".scene-1 .polarbear-container", { delay: 0.75, opacity: 1, duration: 1.5 });
+                gsap.to(".scene-1 .scroll-mouse", { delay: 0.5, opacity: 1, duration: 1.5 });
+                gsap.to(".scene-2", { PointerEvent: 'none' });
                 gsap.to(".scene-2 .carbon-footprint-status-container", { opacity: 0, duration: 0.5 });
                 gsap.to(".scene-2 .recommendations", { opacity: 0, duration: 0.5 });
+                gsap.to(".scene-2 .scroll-mouse", { opacity: 0, duration: 0.5 });
             },
             onComplete: () => {
                 isScrolling = false;
@@ -951,64 +1424,57 @@ function setupSceneTransitions() {
         });
     }
 
-    // 移动设备触摸切换
-    if (isMobile()) {
-        let touchStartY = 0;
-        let touchEndY = 0;
+  // 滑鼠滚轮切换场景
+  const wheelHandler = (e) => {
+      const statusContainer = document.querySelector(".carbon-footprint-status-container");
+      const recommendations = document.querySelector(".recommendations");
 
-        document.body.addEventListener("touchstart", (e) => {
-            touchStartY = e.touches[0].clientY;
-        });
+      // 🔒 如果滾動事件發生在指定容器內 → 不觸發場景切換
+      if (
+          (statusContainer && statusContainer.contains(e.target)) ||
+          (recommendations && recommendations.contains(e.target))
+      ) {
+          return; // 直接跳出，不做場景切換
+      }
 
-        document.body.addEventListener("touchend", (e) => {
-            touchEndY = e.changedTouches[0].clientY;
-            const deltaY = touchEndY - touchStartY;
+      const now = Date.now();
+      if (now - lastScrollTime < cooldownTime || isScrolling) {
+          e.preventDefault();
+          return;
+      }
 
-            // 向上滑（往下进入第二幕）
-            if (deltaY < -50) {
-                goToSecondScene();
-            }
-            // 向下滑（往上回第一幕）
-            else if (deltaY > 50) {
-                goToFirstScene();
-            }
-        });
-    }
+      const deltaY = e.deltaY;
+      const scrollTop = container.scrollTop;
+      const vh = window.innerHeight;
+
+      // 往下滚进入第二幕
+      if (deltaY > 0 && scrollTop < vh / 2) {
+          e.preventDefault();
+          goToSecondScene();
+      }
+      // 往上滚回到第一幕
+      else if (deltaY < 0 && scrollTop > vh / 1.5 && scrollTop < vh * 1.5) {
+          e.preventDefault();
+          goToFirstScene();
+      }
+  };
+    
+    container.addEventListener("wheel", wheelHandler, { passive: false });
+    currentScrollListener = wheelHandler;
 
     // 点击滑鼠图标切换场景
     const scrollMouse1 = document.querySelector(".scene-1 .scroll-mouse");
-    if (scrollMouse1) scrollMouse1.addEventListener("click", goToSecondScene);
-
     const scrollMouse2 = document.querySelector(".scene-2 .scroll-mouse");
-    if (scrollMouse2) scrollMouse2.addEventListener("click", goToFirstScene);
-
-    // 滑鼠滚轮切换场景
-    container.addEventListener(
-        "wheel",
-        (e) => {
-            const now = Date.now();
-            if (now - lastScrollTime < cooldownTime || isScrolling) {
-                e.preventDefault();
-                return;
-            }
-
-            const deltaY = e.deltaY;
-            const scrollTop = container.scrollTop;
-            const vh = window.innerHeight;
-
-            // 往下滚进入第二幕
-            if (deltaY > 0 && scrollTop < vh / 2) {
-                e.preventDefault();
-                goToSecondScene();
-            }
-            // 往上滚回到第一幕
-            else if (deltaY < 0 && scrollTop > vh / 1.5 && scrollTop < vh * 1.5) {
-                e.preventDefault();
-                goToFirstScene();
-            }
-        },
-        { passive: false }
-    );
+    
+    if (scrollMouse1) {
+        scrollMouse1.addEventListener("click", goToSecondScene);
+        currentMouseListeners.push({ element: scrollMouse1, listener: goToSecondScene });
+    }
+    
+    if (scrollMouse2) {
+        scrollMouse2.addEventListener("click", goToFirstScene);
+        currentMouseListeners.push({ element: scrollMouse2, listener: goToFirstScene });
+    }
 
     // 暴露全局函数
     window.goToSecondScene = goToSecondScene;
