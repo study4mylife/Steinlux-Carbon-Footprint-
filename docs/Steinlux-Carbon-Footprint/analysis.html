@@ -15,13 +15,24 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@latest/dist/chart.umd.min.js"></script>
     
     <style>
-      @font-face {
-        font-family: "GenSenRounded2TW-R";
-        src: url("../font/GenSenRounded2TW-R.otf") format("opentype");
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-      }
+    /*—— 自訂字體 ——*/
+    @font-face {
+      font-family: "GenSenRounded2TW-R";
+      src: url("./font/GenSenRounded2TW-R.otf") format("opentype"),
+          url("./font/GenSenRounded2TW-R.woff") format("woff");
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "GenSenRounded2TW-L";
+      src: url("./font/GenSenRounded2TW-L.otf") format("opentype"),
+          url("./font/GenSenRounded2TW-L.woff") format("woff");
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
 
       @media (min-width: 1200px) {
         html { font-size: 18px; }
@@ -89,6 +100,117 @@
         z-index: 999;
         width: 100vw;
         overflow: hidden;
+      }
+
+      /* 切換開關 */
+
+      @keyframes switchOn {
+        0% {
+          transform: translateX(20%);
+        }
+        20% {
+          transform: translateX(182%);
+        }
+        40% {
+          transform: translateX(158%);
+        }
+        60% {
+          transform: translateX(178%);
+        }
+        80% {
+          transform: translateX(172%);
+        }
+        100% {
+          transform: translateX(175%);
+        }
+      }
+
+      @keyframes switchOff {
+        0% {
+          transform: translateX(120%);
+        }
+        20% {
+          transform: translateX(-2%);
+        }
+        40% {
+          transform: translateX(22%);
+        }
+        60% {
+          transform: translateX(2%);
+        }
+        80% {
+          transform: translateX(8%);
+        }
+        100% {
+          transform: translateX(5%);
+        }
+      }
+
+      .toggle-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .toggle-switch {
+        position: relative;
+        min-width: 60px;
+        min-height: 24px;
+        margin: 0 1.5rem;
+      }
+
+      .toggle-row .nowrap-text {
+        height: fit-content;
+        font-size: 1rem;
+        color: #6D808F;
+        letter-spacing: 2px;
+        text-shadow: 3pt 3pt 5pt #7F7F7F40;
+      }
+
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .toggle-switch .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #eff3f990;
+        border: none;
+        box-shadow: 2pt 2.5pt 3pt #6d808f50 inset;
+        border-radius: 24px;
+        transition: 0.75s;
+      }
+
+      .toggle-switch .slider:before {
+        position: absolute;
+        content: "";
+        height: 20px;
+        width: 20px;
+        left: 2px;
+        bottom: 2.3px;
+        background: #fff;
+        border-radius: 50%;
+        transition: 0.3s;
+        box-shadow: 5pt 5pt 10pt #c3cadb76;
+      }
+
+
+      .toggle-switch input:checked + .slider {
+        background: #d0d2d6;
+      }
+
+      .toggle-switch input:checked + .slider:before {
+        animation: switchOn 1s linear forwards;
+      }
+
+      .toggle-switch input:not(:checked) + .slider:before {
+        animation: switchOff 1s linear forwards;
       }
 
       .scene {
@@ -161,11 +283,12 @@
         display: flex;
         flex-direction: column;
         position: fixed;
-        min-width: max-content;
+        width: 450px;
         height: 50vh;
         font-size: 1.5rem;
-        letter-spacing: 8px;
+        letter-spacing: 10px;
         color: #F5F5F5;
+        text-shadow: 2pt 2pt 3pt #7F7F7F40;
         top: 5%;
         left: 5.75%;
         translate: (-50%, -50%);
@@ -178,7 +301,8 @@
       }
 
       .scene-1 .sealevel-container iframe {
-        border-radius: 1.25rem;
+        border: none;
+        border-radius: 8px;
       }
 
       .scene-1 .map-buttons {
@@ -193,11 +317,12 @@
         border: none;
         padding: 0.25rem;
         border: 0.25pt solid #fff;
+        border-radius: 2px;
         color: #6D808F;
         cursor: pointer;
         transition: all 0.3s ease;
         font-size: 0.5rem;
-        text-shadow: #7F7F7F60;
+        text-shadow: 2pt 2pt 3pt #7F7F7F40;
       }
 
       .scene-1 .map-buttons button.active-btn {
@@ -213,6 +338,7 @@
         font-size: 1.5rem;
         letter-spacing: 8px;
         color: #F5F5F5;
+        text-shadow: 2pt 2pt 3pt #7F7F7F40;
         top: 5%;
         right: 3.25%;
         translate: (-50%, -50%);
@@ -246,6 +372,7 @@
         font-size: 1.5rem;
         letter-spacing: 8px;
         color: #F5F5F5;
+        text-shadow: 2pt 2pt 3pt #7F7F7F40;
         top: 38%;
         right: 5%;
         translate: (-50%, -50%);
@@ -261,21 +388,6 @@
         color: #C00000;
       }
 
-      .scene-1 .polarbear-container {
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        width: 300px;
-        font-size: 0.75rem;
-        letter-spacing: 8px;
-        color: #F5F5F5;
-        top: 57.5%;
-        right: 5%;
-        translate: (-50%, -50%);
-        z-index: 2;
-        opacity: 1;
-      }
-
       /* 第二幕详细数据样式 */
       .scene-2 .carbon-footprint-status-container {
         position: fixed;
@@ -285,6 +397,7 @@
         width: 40vw;
         max-width: 1200px;
         height: 85vh;
+        text-shadow: 2pt 2pt 3pt #7F7F7F40;
         background: rgba(255, 255, 255, 0.4);
         border-radius: 20px;
         border: 0.25px solid rgba(255, 255, 255);
@@ -344,13 +457,13 @@
         display:flex;
         justify-content:space-between;
         align-items:center;
-        padding:0.5rem 1rem;
+        padding: 0.5rem 1rem 0.5rem 0.55rem;
         border-radius: 8px;
         box-shadow: 2pt 2pt 2.5pt #C3CADB24;
       }
 
       .category-title {
-        font-size: 0.9rem;
+        font-size: 0.75rem;
         margin-bottom: 1rem;
         text-align: center;
         letter-spacing: 2px;
@@ -375,9 +488,24 @@
       }
 
       .breakdown-item {
+        font-family: "GenSenRounded2TW-L", sans-serif;
+        font-weight: bold;
         display:flex;
         justify-content:space-between;
         padding: 0.5rem 1rem;
+      }
+
+      .breakdown-item .item-info {
+        letter-spacing: 2px;
+      }
+
+      .breakdown-item .item-info .item-name {
+        font-size: 0.7rem;
+      }
+
+      .breakdown-item .item-info .item-details {
+        font-size: 0.5rem;
+        color: #A6A6A6;
       }
 
       .item-emission {
@@ -407,55 +535,68 @@
 
       .recommendation-page {
         display: flex;
+        flex-direction: column;
         align-items: center;
         gap: 2rem;
         margin-top: 1rem;
       }
 
-      .toggle-switch {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 0.5rem;
+      #recommendations-list {
+        padding-left: 0;
       }
-
-      .toggle-switch button {
-        background: rgba(255,255,255,0.6);
-        border: none;
-        padding: 0.4rem 0.8rem;
-        margin: 0 0.25rem;
-        border-radius: 20px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .toggle-switch button.active {
-        background: rgba(255,255,255,0.95);
-        font-weight: bold;
-      }
-
-      .recommendations strong {
-        text-decoration: dotted;
-        color: #ffffff;
+      
+      /* 每個條目 */
+      .recommendation-item {
         margin-bottom: 1rem;
-        text-align: center;
-        font-size: 1rem;
-      }
-
-      .recommendations ul {
+        color: #000;
+        list-style: none;
         font-size: 0.55rem;
-        line-height: 1.8;
       }
 
-      .recommendations li {
-        margin-bottom: 0.5rem;
+      /* 沒有分類的特殊處理 */
+      .recommendation-item.no-category {
+        color: #555;
+      }
+
+      /* 標題 */
+      .recommendation-title {
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        letter-spacing: 2px;
+      }
+
+      /* 球體 marker */
+      .marker {
+        display: inline-block;
+        min-width: 0.75rem;
+        min-height: 0.75rem;
+        border-radius: 50%;
+      }
+
+      /* 沒分類的 marker (灰色) */
+      .marker-gray {
+        background-color: #555;
+      }
+
+      /* 內容 */
+      .recommendation-content {
+        margin-left: 1.25rem;
+        margin-top: 0.5rem;
+        color: #000;
+        line-height: 1.8;
+        letter-spacing: 2px;
       }
       
       .emissions-legend-container {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         flex-wrap: wrap;
         list-style:none;
         text-align: center;
+        gap: 1.25rem;
         padding:0; 
         margin:0;
       }
@@ -465,21 +606,12 @@
         justify-content: space-evenly;
         align-items: center;
         width: 100%;
+        height: 250px;
       }
 
       #emissions-chart {
         max-width: 50%;
-        max-height: 300px;
-      }
-
-      /* legend 列表 */
-      #emissions-legend {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
+        max-height: 250px;
       }
 
       /* 每一列 */
@@ -487,15 +619,17 @@
         display: flex;
         align-items: center;
         font-size: 0.8rem;
+        letter-spacing: 1px;
+        text-wrap: nowrap;
       }
 
       /* 顏色小圓點 */
       .legend-color {
-        width: 20px;
-        height: 20px;
+        min-width: 1rem;
+        min-height: 1rem;
         border-radius: 50%;
         display: inline-block;
-        margin-right: 0.5rem;
+        margin-right: 0.75rem;
       }
 
       /* 滑鼠提示样式 */
@@ -580,8 +714,7 @@
 
         .scene-1 .sealevel-container,
         .scene-1 .carbon-footprint-emissions-container,
-        .scene-1 .carbon-footprint-temperature-container,
-        .scene-1 .polarbear-container {
+        .scene-1 .carbon-footprint-temperature-container {
           position: static !important;
           width: 90%;
           max-width: 450px;
@@ -630,25 +763,38 @@
 
         .chart-container {
           flex-direction: column;
+          height: fit-content;
         }
 
         #emissions-chart {
-          max-width: 50%;
-          max-height: 300px;
+          max-width: 80%;
+          max-height: 250px;
           margin-bottom: 1.5rem;
         }
 
-
-        #emissions-legend {
-          flex-direction: row
+        .emissions-legend-container {
+          align-items: flex-start;
         }
 
         .legend-item {
           display: flex;
-          justify-content: center;
           align-items: center;
-          width: 30%;
+          justify-content: center;
+          box-sizing: border-box;
+          padding: 0.25rem;
         }
+      }
+
+      @media (max-width: 600px) {
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            box-sizing: border-box;
+            width: 100%;
+            padding: 0.25rem;
+          }
       }
     </style>
 </head>
@@ -667,7 +813,6 @@
                   <iframe id="mapFrame" 
                           src="https://coastal.climatecentral.org/embed/map/13/121.5354/25.082/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C" 
                           width="80%" height="200" 
-                          style="border-radius:1rem; border:none;"
                           allow="fullscreen"
                           title="Climate Central Map">
                   </iframe>
@@ -696,13 +841,8 @@
             <div class="carbon-footprint-temperature-container">
                 <p class="temperature-text">地球持續升溫</p>
                 <p class="temperature-text">本世紀末將達
-                    <span id="carbon-footprint-temperature-value">3.7℃</span>
+                    <span id="carbon-footprint-temperature-value">3.7</span>℃
                 </p>
-            </div>
-
-            <div class="polarbear-container">
-                <img src="./images/bg-fashion.webp" alt="北極熊">
-                <p class="polarbear-text">這將導致我們可愛的北極熊不再有冷氣吹...</p>
             </div>
             
             <div class="scroll-mouse">
@@ -723,9 +863,13 @@
             </div>
 
             <div class="recommendations">
-              <div class="toggle-switch">
-                <button id="summary-btn" class="active">結語</button>
-                <button id="advice-btn">改善建議</button>
+              <div class="toggle-row">
+                <span class="nowrap-text">結語說明</span>
+                <label class="toggle-switch">
+                  <input type="checkbox">
+                  <span class="slider"></span>
+                </label>
+                <span class="nowrap-text">改善建議</span>
               </div>
 
               <!-- 第一頁：結語與圓餅圖 -->
@@ -734,17 +878,18 @@
                 <div class="chart-container">
                   <canvas id="emissions-chart"></canvas>
                   <!-- 右側 legend -->
-                  <div >
+                  <div>
                     <ul class="emissions-legend-container" id="emissions-legend"></ul>
                   </div>
                 </div>
+
+                <ul id="recommendations-list">
+                  <li>計算分析中...</li>
+                </ul>
               </div>
 
               <!-- 第二頁：改善建議 -->
               <div id="advice-page" class="recommendation-page" style="display:none;">
-                <ul id="recommendations-list">
-                  <li>計算分析中...</li>
-                </ul>
               </div>
             </div>
 
@@ -856,6 +1001,27 @@ function getUserId() {
     return 'test-user';
 }
 
+// --- Toggle 切換結語 / 改善建議 ---
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.querySelector(".toggle-switch input");
+  const summaryPage = document.getElementById("summary-page");
+  const advicePage = document.getElementById("advice-page");
+
+  if (toggle) {
+    toggle.addEventListener("change", () => {
+      if (toggle.checked) {
+        // 顯示改善建議
+        summaryPage.style.display = "none";
+        advicePage.style.display = "flex";
+      } else {
+        // 顯示結語
+        summaryPage.style.display = "flex";
+        advicePage.style.display = "none";
+      }
+    });
+  }
+});
+
 // 调用 Firebase Function 计算碳足跡
 async function calculateCarbonFootprintDetailed() {
     const userId = getUserId();
@@ -951,12 +1117,12 @@ function createCategoryCards() {
                     <div class="breakdown-item">
                         <div class="item-info">
                             <div class="item-name" style="font-weight:bold; color:${info.color};">${itemName}</div>
-                            <div class="item-details" style="font-size:0.85em; color:#666;">
+                            <div class="item-details">
                                 ${itemData.input} ${itemData.unit || ''}
                             </div>
                         </div>
                         <div class="item-emission" style="color:${info.color};">
-                            ${itemData.emission.toFixed(3)}
+                            ${itemData.emission.toFixed(2)}
                         </div>
                     </div>
                 `;
@@ -966,7 +1132,7 @@ function createCategoryCards() {
         card.innerHTML = `
             <div class="category-header" style="background-color:${info.bgcolor}; font-weight:bold; color:${info.color}; border-left: 8px solid ${info.color};">
                 <h3 class="category-title" style="margin:0;">${info.name}</h3>
-                <div class="category-value" style="color:${info.color};">${data.total.toFixed(3)}</div>
+                <div class="category-value" style="color:${info.color};">${data.total.toFixed(2)}</div>
             </div>
             <div class="category-breakdown">
                 ${itemsHTML}
@@ -982,7 +1148,7 @@ function updateDisplay() {
     // 更新第一幕的总排放量
     const emissionsValueElement = document.getElementById('carbon-footprint-emissions-value');
     if (totalEmissions > 0) {
-        emissionsValueElement.textContent = totalEmissions.toFixed(3);
+        emissionsValueElement.textContent = totalEmissions.toFixed(2);
         
         // 更新中和说明
         const forestArea = Math.round(totalEmissions * 1388.889);
@@ -1035,10 +1201,12 @@ function renderEmissionsChart() {
       datasets: [{
         data: dataValues,
         backgroundColor: dataColors,
+        borderWidth: 0,       // 去掉白邊
       }]
     },
     options: {
       responsive: true,
+      cutout: '70%',          // 控制內圈大小，數值越大圓環越細
       plugins: {
         legend: {
           display: false // 內建 legend 關閉
@@ -1047,45 +1215,28 @@ function renderEmissionsChart() {
     }
   });
 
-// 生成右側自訂 legend
-const legendContainer = document.getElementById('emissions-legend');
-legendContainer.innerHTML = ''; // 清空舊的 legend
-const total = dataValues.reduce((a, b) => a + b, 0);
+  // 生成右側自訂 legend
+  const legendContainer = document.getElementById('emissions-legend');
+  legendContainer.innerHTML = ''; // 清空舊的 legend
+  const total = dataValues.reduce((a, b) => a + b, 0);
 
-dataLabels.forEach((label, index) => {
-  const li = document.createElement('li');
-  li.classList.add('legend-item');
-  li.style.color = dataColors[index]; // 顏色依然用 inline，因為每個顏色不同
+  dataLabels.forEach((label, index) => {
+    const li = document.createElement('li');
+    li.classList.add('legend-item');
+    li.style.color = dataColors[index]; // 顏色依然用 inline，因為每個顏色不同
 
-  const colorBox = document.createElement('span');
-  colorBox.classList.add('legend-color');
-  colorBox.style.backgroundColor = dataColors[index];
+    const colorBox = document.createElement('span');
+    colorBox.classList.add('legend-color');
+    colorBox.style.backgroundColor = dataColors[index];
 
-  const percent = ((dataValues[index] / total) * 100).toFixed(1);
+    const percent = ((dataValues[index] / total) * 100).toFixed(1);
 
-  li.appendChild(colorBox);
-  li.appendChild(document.createTextNode(`${label}: ${percent}%`));
+    li.appendChild(colorBox);
+    li.appendChild(document.createTextNode(`${label} ,${percent}%`));
 
-  legendContainer.appendChild(li);
-});
+    legendContainer.appendChild(li);
+  });
 }
-
-
-// Toggle 切換
-document.getElementById('summary-btn').addEventListener('click', () => {
-  document.getElementById('summary-page').style.display = 'flex';
-  document.getElementById('advice-page').style.display = 'none';
-  document.getElementById('summary-btn').classList.add('active');
-  document.getElementById('advice-btn').classList.remove('active');
-  renderEmissionsChart();
-});
-
-document.getElementById('advice-btn').addEventListener('click', () => {
-  document.getElementById('summary-page').style.display = 'none';
-  document.getElementById('advice-page').style.display = 'flex';
-  document.getElementById('summary-btn').classList.remove('active');
-  document.getElementById('advice-btn').classList.add('active');
-});
 
 function generateRecommendations() {
   const recommendations = [];
@@ -1112,43 +1263,43 @@ function generateRecommendations() {
         case 'traffic-daily':
           recommendations.push({
             pageKey,
-            title: categoryInfo[pageKey].name,
-            content: '你的日常通勤碳排放較高，可能是因為機車或汽車使用頻率較高。可以考慮改變部分通勤方式。<br>例如：<br>• 短程改為步行或騎腳踏車，減少燃油車使用次數<br>• 若有條件，可改用電動車或共乘方式，減少個人排放<br>• 調整駕駛習慣，如保持胎壓、減少怠速，以提升燃油效率'
+            title: '你的日常通勤碳排放較高，可能是因為機車或汽車使用頻率較高。可以考慮改變部分通勤方式。',
+            content: '例如：<br>• 短程改為步行或騎腳踏車，減少燃油車使用次數<br>• 若有條件，可改用電動車或共乘方式，減少個人排放<br>• 調整駕駛習慣，如保持胎壓、減少怠速，以提升燃油效率'
           });
           break;
         case 'traffic-travel':
           recommendations.push({
             pageKey,
-            title: categoryInfo[pageKey].name,
-            content: '你的旅遊交通碳足跡較高，可能是來自飛機旅行。長途飛行是個人碳排放的主要來源之一。<br>你可以考慮：<br>• 減少不必要的短途飛行，改搭高鐵或火車<br>• 若需飛行，選擇直飛航班，減少中轉產生的額外排放<br>• 支持碳補償計畫，如選擇航空公司的碳中和選項'
+            title: '你的旅遊交通碳足跡較高，可能是來自飛機旅行。長途飛行是個人碳排放的主要來源之一。',
+            content: '你可以考慮：<br>• 減少不必要的短途飛行，改搭高鐵或火車<br>• 若需飛行，選擇直飛航班，減少中轉產生的額外排放<br>• 支持碳補償計畫，如選擇航空公司的碳中和選項'
           });
           break;
         case 'home':
           recommendations.push({
             pageKey,
-            title: categoryInfo[pageKey].name,
-            content: '你的住家碳排放較高，可能與家電使用、冷氣或熱水器有關。你可以嘗試：<br>• 更換高效節能電器，如 LED 燈、變頻冷氣<br>• 減少不必要的電器待機電力，使用插座開關隨手關閉<br>• 提升房屋隔熱效果，減少冷氣或暖氣的使用需求'
+            title: '你的住家碳排放較高，可能與家電使用、冷氣或熱水器有關。',
+            content: '你可以嘗試：<br>• 更換高效節能電器，如 LED 燈、變頻冷氣<br>• 減少不必要的電器待機電力，使用插座開關隨手關閉<br>• 提升房屋隔熱效果，減少冷氣或暖氣的使用需求'
           });
           break;
         case 'food':
           recommendations.push({
             pageKey,
-            title: categoryInfo[pageKey].name,
-            content: '你的飲食碳排放較高，可能與肉類攝取頻繁或食物浪費有關。建議：<br>• 減少紅肉和加工肉類攝取，增加植物性飲食<br>• 選擇當季在地食材，減少食物運輸碳排放<br>• 減少食物浪費，注意保存和計畫購買'
+            title: '你的食物碳足跡較高，可能來自高碳排的飲食選擇，如紅肉、乳製品或進口食品。',
+            content: '你可以考慮：<br>• 減少牛肉與羊肉攝取，改為雞肉、魚類或植物蛋白<br>• 優先選擇當地、當季食材，減少長途運輸的碳排<br>• 避免食物浪費，適量購買、保存與利用剩食'
           });
           break;
         case 'fashion':
           recommendations.push({
             pageKey,
-            title: categoryInfo[pageKey].name,
-            content: '你的時尚穿搭碳排放較高，可能與快時尚消費習慣有關。建議：<br>• 選擇耐用的衣物，減少購買快時尚<br>• 考慮二手或租借服飾<br>• 支持永續品牌與環保材料的衣物'
+            title: '你的衣物碳足跡較高，可能與頻繁購衣或快時尚消費習慣有關。',
+            content: '試試這些方法降低影響：<br>• 選擇高品質、耐穿的衣物，減少購買頻率<br>• 支持二手市場，或參加舊衣回收、交換活動<br>• 洗衣時使用冷水並自然晾乾，減少乾衣機的能源消耗'
           });
           break;
         case 'entertainment':
           recommendations.push({
             pageKey,
-            title: categoryInfo[pageKey].name,
-            content: '你的娛樂活動碳排放較高，可能與高耗能娛樂設備或頻繁活動有關。建議：<br>• 選擇低碳娛樂方式，如戶外運動、閱讀<br>• 減少高耗能電子設備使用時間<br>• 參與社區活動或公共資源娛樂'
+            title: '你的娛樂碳足跡較高，可能來自頻繁購買電子產品或高耗能的娛樂方式，如長時間串流影片。',
+            content: '試試這些改變：<br>• 減少不必要的電子產品升級，延長設備使用壽命<br>• 調低串流影片解析度，或改為下載觀看，減少數據中心耗能<br>• 嘗試更多低碳娛樂，如閱讀、戶外活動或桌遊'
           });
           break;
       }
@@ -1159,26 +1310,314 @@ function generateRecommendations() {
   list.innerHTML = recommendations.map(rec => {
     if (rec.pageKey === 'none') {
       return `
-        <li>
-          <div style="font-weight:bold; color:#555;">${rec.title}</div>
-          <div style="margin-left:0.5rem; color:#666;">${rec.content}</div>
+        <li class="recommendation-item no-category">
+          <div class="recommendation-title">
+            <span class="marker marker-gray"></span>
+            ${rec.title}
+          </div>
+          <div class="recommendation-content">${rec.content}</div>
         </li>
       `;
     } else {
       const info = categoryInfo[rec.pageKey];
       return `
-        <li style="margin-bottom:1rem;">
-          <div style="font-weight:bold; color:${info.color}; padding-left:0.5rem;">
+        <li class="recommendation-item">
+          <div class="recommendation-title" style="color:${info.color};">
+            <span class="marker" style="background-color:${info.color};"></span>
             ${rec.title}
           </div>
-          <div style="margin-left:0.75rem; margin-top:0.25rem; color:#333;">
-            ${rec.content}
-          </div>
+          <div class="recommendation-content">${rec.content}</div>
         </li>
       `;
     }
   }).join('');
 }
+
+// ===================== 工具函式 =====================
+const isNumber = v => typeof v === 'number' && isFinite(v);
+const sum = arr => arr.reduce((a,b)=>a+(isNumber(b)?b:0),0);
+const share = (part, total) => {
+  const p = isNumber(part) ? part : 0;
+  const t = isNumber(total) && total > 0 ? total : 0;
+  return t === 0 ? 0 : p / t;
+};
+const hasAnyPositive = obj => !!obj && Object.values(obj).some(v => isNumber(v) ? v > 0 : !!v);
+
+// 取最大鍵名（忽略非數字或 <=0）
+function maxKey(obj, keys) {
+  let best = null, bestVal = -Infinity;
+  if (!obj) return null;
+  for (const k of keys) {
+    const v = obj[k];
+    if (isNumber(v) && v > bestVal && v > 0) {
+      best = k; bestVal = v;
+    }
+  }
+  return best;
+}
+
+// ===================== 改善建議模板 =====================
+const adviceTemplates = {
+  // --- 日常通勤(有填就寫) ---
+  commute_car: `
+    <h3>日常通勤</h3>
+    <p>開車通勤雖然方便，但對地球可有點傷～來看看有什麼小方法能幫你減碳又不太麻煩：</p>
+    <ul>
+      <li>偶爾搭搭大眾運輸：如果有地鐵、公車或高鐵能搭，不妨偶爾放下方向盤，改搭一下，碳排少很多，而且還不用找停車位超讚！</li>
+      <li>能走就走，能騎就騎：你家離公司或學校不遠嗎？那就走路或騎腳踏車吧～順便活動筋骨、醒腦又省碳，一舉三得～</li>
+      <li>找人一起坐車也很棒：真的要開車的話，也可以找同事或朋友一起共乘，少一台車跑在路上，空氣會感謝你～</li>
+      <li>換台電動車也不錯啦：如果你本來就有開車的需求，那可以考慮未來換成電動車，現在充電站越來越多，也越來越方便了，減碳效果也很不錯！</li>
+    </ul>
+  `,
+
+  // --- 旅遊 ---
+  travel_plane: `
+    <h3>旅遊</h3>
+    <p>飛行次數高，是你的碳足跡大魔王！搭飛機雖然快速又方便，但其實飛行是碳排放非常高的交通方式，特別是短程航班。</p>
+    <ul>
+      <li>少搭短程飛機：像「台北到高雄」這類短程，改搭高鐵或船更環保，整體時間常常差不多。</li>
+      <li>把旅行排得更有計劃：與其一年飛好幾趟，不如一次安排長一點的假期，減少搭機次數。</li>
+      <li>探索低碳旅遊方式：多用火車、高鐵、公車旅行，沿途風景也很療癒。</li>
+      <li>選擇碳補償航班：部分航空公司提供碳抵換（植樹、再生能源），多少幫地球平衡一下。</li>
+    </ul>
+  `,
+  travel_public: `
+    <h3>旅遊</h3>
+    <p>你大多使用大眾交通工具完成旅遊與移動，超棒的低碳選擇！想再更進一步可以參考：</p>
+    <ul>
+      <li>低碳接駁：前往車站的短程盡量走路、單車或公車，減少短途開車。</li>
+      <li>支持碳中和服務：看到「綠色座位」或碳補償選項時可以支持，讓旅程更環保。</li>
+      <li>彈性遠端：若工作性質允許，部分旅程以視訊取代移動。</li>
+      <li>綠色分享：把你的低碳旅遊經驗分享給朋友，一起把影響力放大！</li>
+    </ul>
+  `,
+
+  // --- 住家 ---
+  home_water: `
+    <h3>住家 - 水較多</h3>
+    <p>你家裡的碳足跡主要來自「用水」。幾個小改變就能讓家裡更環保：</p>
+    <ul>
+      <li>洗澡縮短 3～5 分鐘或稍降水溫，熱水器不用那麼拚命燒水。</li>
+      <li>冷水洗衣，省下加熱電力；累積多一點衣物再洗更有效率。</li>
+      <li>雙段式省水馬桶或水箱放寶特瓶，單次沖水更省。</li>
+      <li>安裝省水花灑、起泡器，使用體感差不多但更省水。</li>
+      <li>回收水二次利用：洗菜水澆花、沖馬桶，簡單又實用。</li>
+    </ul>
+  `,
+  home_electric: `
+    <h3>住家 - 電較多</h3>
+    <ul>
+      <li>白天多用自然光。</li>
+      <li>冷氣設 26～28 度並搭配電風扇；定期清洗濾網。</li>
+      <li>減少待機：用有開關延長線一次切電。</li>
+      <li>換 LED 燈泡，耐用又省電。</li>
+      <li>大型家電累積多一點再用，效率更好。</li>
+    </ul>
+  `,
+  home_gas: `
+    <h3>住家 - 瓦斯較多</h3>
+    <ul>
+      <li>使用合適鍋具與火力，提高燃燒效率。</li>
+      <li>規劃烹飪時間，避免火候過大或過久。</li>
+      <li>汰換高效能爐具，降低每次烹飪的能源消耗。</li>
+    </ul>
+  `,
+  home_trash: `
+    <h3>住家 - 垃圾減量</h3>
+    <ul>
+      <li>分類回收：塑膠、金屬、紙類確實分開，減少掩埋量。</li>
+      <li>減少一次性物品：改用可重複使用容器與袋子。</li>
+      <li>購物減量：下單前先想是否真的需要，避免過度包裝與浪費。</li>
+    </ul>
+  `,
+
+  // --- 衣服 ---
+  clothes_fast: `
+    <h3>衣服 - 快時尚</h3>
+    <ul>
+      <li>買少一點、挑好一點，提升穿著次數與搭配性。</li>
+      <li>支持永續品牌，鼓勵透明與回收材質。</li>
+      <li>社群發聲，促使品牌改善。</li>
+    </ul>
+  `,
+  clothes_luxury: `
+    <h3>衣服 - 奢華時尚</h3>
+    <ul>
+      <li>投資經典耐穿款，拉長產品壽命。</li>
+      <li>支持有永續理念的精品系列。</li>
+      <li>不穿的衣物寄售或轉賣，延長使用週期。</li>
+      <li>用消費者聲音鼓勵更多品牌重視環保。</li>
+    </ul>
+  `,
+
+  // --- 食物 ---
+  food_meat: `
+    <h3>食物 - 葷食</h3>
+    <ul>
+      <li>少吃紅肉，多選雞肉、魚肉等白肉。</li>
+      <li>挑選可持續養殖或友善畜牧的肉品。</li>
+      <li>多吃蔬菜、豆類、豆腐，健康又減碳。</li>
+      <li>優先當季在地食材，降低運輸排放。</li>
+    </ul>
+  `,
+  food_vege: `
+    <h3>食物 - 素食</h3>
+    <ul>
+      <li>飲食多樣化，避免單一作物需求過度。</li>
+      <li>挑選當季蔬菜與在地食材。</li>
+      <li>減少加工素食，多自煮更健康。</li>
+      <li>在地購買更新鮮也更環保。</li>
+    </ul>
+  `,
+  food_waste: `
+    <h3>食物 - 廚餘</h3>
+    <ul>
+      <li>可行時進行廚餘堆肥，化為有機肥料。</li>
+      <li>規劃份量，減少食物浪費。</li>
+      <li>廚餘與一般垃圾分開，提高回收效率。</li>
+    </ul>
+  `,
+
+  // --- 娛樂（各項目 >=5% 就寫） ---
+  ent_cinema: `
+    <h3>娛樂 - 電影院</h3>
+    <ul>
+      <li>選擇中小型或節能影廳。</li>
+      <li>少開車前往，改搭大眾運輸或共乘。</li>
+      <li>支持採用 LED 放映設備的影廳。</li>
+    </ul>
+  `,
+  ent_ktv: `
+    <h3>娛樂 - KTV</h3>
+    <ul>
+      <li>挑選節能店家。</li>
+      <li>冷氣溫度勿過低。</li>
+      <li>共乘或搭捷運前往。</li>
+    </ul>
+  `,
+  ent_gym: `
+    <h3>娛樂 - 健身房</h3>
+    <ul>
+      <li>選擇有節能或再生能源的場館。</li>
+      <li>多用自由重量或自重訓練。</li>
+      <li>離峰時段前往，整體能耗更低。</li>
+    </ul>
+  `,
+  ent_religion: `
+    <h3>娛樂 - 拜拜</h3>
+    <ul>
+      <li>改用環保香或低煙香。</li>
+      <li>少量燒香，心誠即可。</li>
+      <li>支持電子香爐，乾淨又方便。</li>
+    </ul>
+  `,
+  ent_hotel: `
+    <h3>娛樂 - 飯店住宿</h3>
+    <ul>
+      <li>選綠色旅館或具環保認證的飯店。</li>
+      <li>連住不必天天清潔，省水省電。</li>
+      <li>旅途中多用大眾運輸。</li>
+      <li>自備個人盥洗用品，減少一次性浪費。</li>
+    </ul>
+  `,
+};
+
+    function generateAdvice(userData = {}) {
+      const adviceEl = document.getElementById('advice-page');
+      if (!adviceEl) return;
+      adviceEl.innerHTML = '';
+
+      const filled = {
+        commute: userData?.filled?.commute ?? hasAnyPositive(userData.commute),
+        travel: userData?.filled?.travel ?? hasAnyPositive(userData.travel),
+        home: userData?.filled?.home ?? hasAnyPositive(userData.home),
+        clothes: userData?.filled?.clothes ?? !!userData?.clothes?.type,
+        food: userData?.filled?.food ?? (!!userData?.food && (userData.food.diet || isNumber(userData.food.foodWasteShare))),
+        entertainment: userData?.filled?.entertainment ?? hasAnyPositive(userData.entertainment),
+      };
+
+      // 通勤
+      if (filled.commute) {
+        const c = userData.commute || {};
+        const totalCommute = sum([c.car, c.motorcycle, c.public, c.walk, c.bike]);
+        const carShare = share(sum([c.car, c.motorcycle]), totalCommute);
+        const publicShare = share(c.public, totalCommute);
+
+        if (carShare >= 0.5 || (carShare >= publicShare && (carShare > 0 || publicShare === 0))) {
+          adviceEl.innerHTML += adviceTemplates.commute_car;
+        } else if (publicShare > 0) {
+          adviceEl.innerHTML += adviceTemplates.commute_public;
+        }
+      }
+
+      // 旅遊
+      if (filled.travel) {
+        const t = userData.travel || {};
+        const totalTravel = sum([t.flight, t.hsr, t.train, t.bus, t.ship]);
+        const flightShare = share(t.flight, totalTravel);
+        const publicTravel = sum([t.hsr, t.train, t.bus, t.ship]);
+        const publicShare = share(publicTravel, totalTravel);
+
+        if ((t.flight > 0) && (t.flight > publicTravel || flightShare > 0.5)) {
+          adviceEl.innerHTML += adviceTemplates.travel_plane;
+        } else if ((t.flight || 0) === 0 && publicShare >= 0.6 && publicShare > 0) {
+          adviceEl.innerHTML += adviceTemplates.travel_public;
+        }
+      }
+
+      // 住家
+      if (filled.home) {
+        const h = userData.home || {};
+        const topKey = maxKey(h, ['water','electricity','gas']);
+        if (topKey === 'water') adviceEl.innerHTML += adviceTemplates.home_water;
+        if (topKey === 'electricity') adviceEl.innerHTML += adviceTemplates.home_electric;
+        if (topKey === 'gas') adviceEl.innerHTML += adviceTemplates.home_gas;
+        adviceEl.innerHTML += adviceTemplates.home_trash;
+      }
+
+      // 衣服
+      if (filled.clothes) {
+        const type = userData?.clothes?.type;
+        if (type === 'fast') adviceEl.innerHTML += adviceTemplates.clothes_fast;
+        if (type === 'luxury') adviceEl.innerHTML += adviceTemplates.clothes_luxury;
+      }
+
+      // 食物
+      if (filled.food) {
+        const f = userData.food || {};
+        const diet = f.diet;
+        if (diet === 'omnivore') adviceEl.innerHTML += adviceTemplates.food_meat;
+        if (diet === 'vegetarian' || diet === 'vegan') adviceEl.innerHTML += adviceTemplates.food_vege;
+        if (isNumber(f.foodWasteShare) && f.foodWasteShare >= 0.20) {
+          adviceEl.innerHTML += adviceTemplates.food_waste;
+        }
+      }
+
+      // 娛樂
+      if (filled.entertainment) {
+        const e = userData.entertainment || {};
+        const totalEnt = sum(Object.values(e));
+        const entShare = key => share(e[key], totalEnt);
+
+        if (entShare('cinema') >= 0.05) adviceEl.innerHTML += adviceTemplates.ent_cinema;
+        if (entShare('ktv') >= 0.05) adviceEl.innerHTML += adviceTemplates.ent_ktv;
+        if (entShare('gym') >= 0.05) adviceEl.innerHTML += adviceTemplates.ent_gym;
+        if (entShare('religion') >= 0.05) adviceEl.innerHTML += adviceTemplates.ent_religion;
+        if (entShare('hotel') >= 0.05) adviceEl.innerHTML += adviceTemplates.ent_hotel;
+      }
+    }
+
+    // ===================== 測試用假資料 =====================
+    const sampleUser = {
+      commute: { car: 120, motorcycle: 30, public: 20, walk: 5, bike: 3 },
+      travel: { flight: 600, hsr: 100, train: 80, bus: 20, ship: 0 },
+      home: { water: 50, electricity: 180, gas: 40, trash: 15 },
+      clothes: { type: 'fast' },
+      food: { diet: 'omnivore', foodWasteShare: 0.25 },
+      entertainment: { cinema: 12, ktv: 8, gym: 3, religion: 5, hotel: 20 }
+    };
+
+    generateAdvice(sampleUser);
 
 // 重置為桌面模式
 function resetToDesktopMode() {
@@ -1196,7 +1635,6 @@ function resetToDesktopMode() {
         gsap.set(".scene-1 .sealevel-container", { opacity: 1 });
         gsap.set(".scene-1 .carbon-footprint-emissions-container", { opacity: 1 });
         gsap.set(".scene-1 .carbon-footprint-temperature-container", { opacity: 1 });
-        gsap.set(".scene-1 .polarbear-container", { opacity: 1 });
         
         // 第二幕元素隱藏
         gsap.set(".scene-2 .carbon-footprint-status-container", { opacity: 0 });
@@ -1224,7 +1662,6 @@ function resetToMobileMode() {
         gsap.set(".scene-1 .sealevel-container", { opacity: 1 });
         gsap.set(".scene-1 .carbon-footprint-emissions-container", { opacity: 1 });
         gsap.set(".scene-1 .carbon-footprint-temperature-container", { opacity: 1 });
-        gsap.set(".scene-1 .polarbear-container", { opacity: 1 });
         gsap.set(".scene-2 .carbon-footprint-status-container", { opacity: 1 });
         gsap.set(".scene-2 .recommendations", { opacity: 1 });
     }, 100);
@@ -1378,7 +1815,6 @@ function setupSceneTransitions() {
                 gsap.to(".scene-1 .sealevel-container", { opacity: 0, duration: 0.5 });
                 gsap.to(".scene-1 .carbon-footprint-emissions-container", { opacity: 0, duration: 0.5 });
                 gsap.to(".scene-1 .carbon-footprint-temperature-container", { opacity: 0, duration: 0.5 });
-                gsap.to(".scene-1 .polarbear-container", { opacity: 0, duration: 0.25 });
                 gsap.to(".scene-1 .scroll-mouse", { opacity: 0, duration: 0.25 });
                 gsap.to(".scene-2", { PointerEvent: 'intial' });
                 gsap.to(".scene-2 .carbon-footprint-status-container", { delay: 0.5, opacity: 1, duration: 1.5 });
@@ -1410,7 +1846,6 @@ function setupSceneTransitions() {
                 gsap.to(".scene-1 .sealevel-container", { delay: 0.5, opacity: 1, duration: 1.5 });
                 gsap.to(".scene-1 .carbon-footprint-emissions-container", { delay: 0.5, opacity: 1, duration: 1.5 });
                 gsap.to(".scene-1 .carbon-footprint-temperature-container", { delay: 0.5, opacity: 1, duration: 1.5 });
-                gsap.to(".scene-1 .polarbear-container", { delay: 0.75, opacity: 1, duration: 1.5 });
                 gsap.to(".scene-1 .scroll-mouse", { delay: 0.5, opacity: 1, duration: 1.5 });
                 gsap.to(".scene-2", { PointerEvent: 'none' });
                 gsap.to(".scene-2 .carbon-footprint-status-container", { opacity: 0, duration: 0.5 });

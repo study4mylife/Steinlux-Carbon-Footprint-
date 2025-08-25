@@ -84,8 +84,8 @@ const travelCoefficients = {
       stay: 100
     },
     flight: {
-      unchecked: 0,
-      checked: 0
+      unchecked: 48.29,
+      checked: 1111
     },
     mrt: 0.07822,
     train: 0.054,
@@ -266,20 +266,20 @@ if (pageName === "traffic-daily") {
     coefficient = dailyCoefficients.motorcycle;
     emission = inputValue * coefficient;
 
-  } else if (pageData.dailyMotorcycleFuelTypeToggle && !pageData.dailyMotorcycleMethodToggle) {
-    // 電機 - 充電量模式
-    name = "機車(電車)";
-    inputValue = parseFloat(pageData.dailyElectricmotorcycleChargeValue);
-    unit = "kWh";
-    coefficient = dailyCoefficients.elecmotorcycle.unchecked;
-    emission = inputValue * coefficient;
-
   } else if (pageData.dailyMotorcycleFuelTypeToggle && pageData.dailyMotorcycleMethodToggle) {
     // 電機 - 距離模式
     name = "機車(電車)";
     inputValue = parseFloat(pageData.dailyElectricmotorcycleDistanceValue);
     unit = "km";
     coefficient = dailyCoefficients.elecmotorcycle.checked;
+    emission = inputValue * coefficient;
+
+  } else if (pageData.dailyMotorcycleFuelTypeToggle && !pageData.dailyMotorcycleMethodToggle) {
+    // 電機 - 充電量模式
+    name = "機車(電車)";
+    inputValue = parseFloat(pageData.dailyElectricmotorcycleChargeValue);
+    unit = "kWh";
+    coefficient = dailyCoefficients.elecmotorcycle.unchecked;
     emission = inputValue * coefficient;
   }
 
@@ -502,6 +502,69 @@ if (pageName === "traffic-travel") {
     };
   }
 
+    // ====== 郵輪 ======
+  if (pageData.travelSailDayTotal > 0 || pageData.travelstayDayTotal > 0) {
+    name = "郵輪";
+    const sailDays = parseFloat(pageData.travelSailDayTotal) || 0;
+    const stayDays = parseFloat(pageData.travelstayDayTotal) || 0;
+
+    inputValue = sailDays - stayDays; // 用於 breakdown 顯示
+    unit = "天";
+
+    // 計算公式：sail天數 * 350 - stay天數 * 100
+    emission = sailDays * travelCoefficients.cruise.sail 
+             - stayDays * travelCoefficients.cruise.stay;
+
+    coefficient = `航行:${travelCoefficients.cruise.sail} / 停泊:${travelCoefficients.cruise.stay}`;
+
+    if (emission > 0) {
+      total += emission;
+      breakdown[name] = {
+        input: `${sailDays} 航行天 - ${stayDays} 停泊天`,
+        coefficient,
+        emission,
+        unit
+      };
+    }
+  }
+
+  // ====== 飛機 ======
+  if (!pageData.travelFlightMethodToggle) {
+    // 方式一：用時間計算
+    name = "飛機";
+    inputValue = parseFloat(pageData.travelFlightTimeValue) || 0;
+    unit = "小時";
+    coefficient = travelCoefficients.flight.unchecked;
+    emission = inputValue * coefficient;
+
+  } else {
+    // 方式二：用距離計算
+    name = "飛機";
+    const distance = parseFloat(pageData.travelFlightDistanceTotal) || 0;
+    inputValue = distance;
+    unit = "km";
+
+    if (distance > 0 && distance < 4000) {
+      emission = (distance * 2.9) / 190 * 0.8075 * 3.16 * 2;
+    } else if (distance >= 4000) {
+      emission = (distance * 4.5) / 385 * 0.8075 * 3.16 * 2;
+    } else {
+      emission = 0;
+    }
+
+    coefficient = distance < 4000 ? "短程航班公式" : "長程航班公式";
+  }
+
+  if (emission > 0) {
+    total += emission;
+    breakdown[name] = {
+      input: inputValue,
+      coefficient,
+      emission,
+      unit
+    };
+  }
+
   // ====== MRT ======
   if (pageData.travelMRTDistanceTotal > 0) {
     name = "MRT";
@@ -579,12 +642,12 @@ if (pageName === "food") {
     dailyFoodItems.forEach(item => {
       if (pageData[item.key] && pageData[item.key] > 0) {
         inputValue = parseFloat(pageData[item.key]);
-        emission = inputValue * item.coeff;
+        emission = inputValue * item.coeff * 52; // 一年
         total += emission;
         breakdown[item.name] = {
-          input: inputValue,
+          input: inputValue, // 每週輸入
           coefficient: item.coeff,
-          emission,
+          emission, // 一年排放量
           unit: item.unit
         };
       }
@@ -607,7 +670,7 @@ if (pageName === "food") {
     omniItems.forEach(item => {
       if (pageData[item.key] && pageData[item.key] > 0) {
         inputValue = parseFloat(pageData[item.key]);
-        emission = inputValue * item.coeff;
+        emission = inputValue * item.coeff * 52; // 一年
         total += emission;
         breakdown[item.name] = {
           input: inputValue,
@@ -633,7 +696,7 @@ if (pageName === "food") {
     snackItems.forEach(item => {
       if (pageData[item.key] && pageData[item.key] > 0) {
         inputValue = parseFloat(pageData[item.key]);
-        emission = inputValue * item.coeff;
+        emission = inputValue * item.coeff * 52; // 一年
         total += emission;
         breakdown[item.name] = {
           input: inputValue,
@@ -644,7 +707,7 @@ if (pageName === "food") {
       }
     });
 
-    // 剩食
+    // 剩食 (保持原本的，因為已經是 kg CO₂e)
     if (pageData.foodWasteSliderValue && pageData.foodWasteSliderValue > 0) {
       inputValue = parseFloat(pageData.foodWasteSliderValue);
       emission = inputValue;
@@ -680,7 +743,7 @@ if (pageName === "food") {
       seafoodItems.forEach(item => {
         if (pageData[item.key] && pageData[item.key] > 0) {
           inputValue = parseFloat(pageData[item.key]);
-          emission = inputValue * item.coeff;
+          emission = inputValue * item.coeff * 52; // 一年
           total += emission;
           breakdown[item.name] = {
             input: inputValue,
@@ -707,7 +770,7 @@ if (pageName === "food") {
       eggmilkItems.forEach(item => {
         if (pageData[item.key] && pageData[item.key] > 0) {
           inputValue = parseFloat(pageData[item.key]);
-          emission = inputValue * item.coeff;
+          emission = inputValue * item.coeff * 52; // 一年
           total += emission;
           breakdown[item.name] = {
             input: inputValue,
@@ -732,7 +795,7 @@ if (pageName === "food") {
       veganItems.forEach(item => {
         if (pageData[item.key] && pageData[item.key] > 0) {
           inputValue = parseFloat(pageData[item.key]);
-          emission = inputValue * item.coeff;
+          emission = inputValue * item.coeff * 52; // 一年
           total += emission;
           breakdown[item.name] = {
             input: inputValue,
@@ -759,7 +822,7 @@ if (pageName === "food") {
     snackItems.forEach(item => {
       if (pageData[item.key] && pageData[item.key] > 0) {
         inputValue = parseFloat(pageData[item.key]);
-        emission = inputValue * item.coeff;
+        emission = inputValue * item.coeff * 52; // 一年
         total += emission;
         breakdown[item.name] = {
           input: inputValue,
@@ -770,7 +833,7 @@ if (pageName === "food") {
       }
     });
 
-    // 剩食
+    // 剩食 (保持原本)
     if (pageData.foodWasteSliderValue && pageData.foodWasteSliderValue > 0) {
       inputValue = parseFloat(pageData.foodWasteSliderValue);
       emission = inputValue;
@@ -784,6 +847,7 @@ if (pageName === "food") {
     }
   }
 }
+
 
 // 時尚頁面計算
 if (pageName === "fashion") {
