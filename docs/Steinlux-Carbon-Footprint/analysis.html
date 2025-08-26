@@ -34,6 +34,10 @@
       font-display: swap;
     }
 
+      @media (min-width: 1600px) {
+        html { font-size: 20px; }
+      }
+
       @media (min-width: 1200px) {
         html { font-size: 18px; }
       }
@@ -150,6 +154,14 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        font-size: 1.25rem;
+        font-weight: normal;
+        color: #f5f5f5;
+        margin-top: 1.1671875rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        letter-spacing: 0.75rem;
+        border-bottom: 1.5pt solid #ffffff60;
       }
 
       .toggle-switch {
@@ -161,7 +173,7 @@
 
       .toggle-row .nowrap-text {
         height: fit-content;
-        font-size: 1rem;
+        font-size: 1.25rem;
         color: #6D808F;
         letter-spacing: 2px;
         text-shadow: 3pt 3pt 5pt #7F7F7F40;
@@ -283,10 +295,10 @@
         display: flex;
         flex-direction: column;
         position: fixed;
-        width: 450px;
+        width: 30vw;
         height: 50vh;
-        font-size: 1.5rem;
-        letter-spacing: 10px;
+        font-size: 1.75rem;
+        letter-spacing: 6px;
         color: #F5F5F5;
         text-shadow: 2pt 2pt 3pt #7F7F7F40;
         top: 5%;
@@ -301,6 +313,8 @@
       }
 
       .scene-1 .sealevel-container iframe {
+        width: 80%;
+        height: 30vh;
         border: none;
         border-radius: 8px;
       }
@@ -334,13 +348,13 @@
         display: flex;
         flex-direction: column;
         position: fixed;
-        width: 450px;
-        font-size: 1.5rem;
-        letter-spacing: 8px;
+        width: 40vw;
+        font-size: 1.75rem;
+        letter-spacing: 6px;
         color: #F5F5F5;
         text-shadow: 2pt 2pt 3pt #7F7F7F40;
         top: 5%;
-        right: 3.25%;
+        right: -5.25%;
         translate: (-50%, -50%);
         z-index: 2;
         opacity: 1;
@@ -369,8 +383,8 @@
         flex-direction: column;
         position: fixed;
         width: 450px;
-        font-size: 1.5rem;
-        letter-spacing: 8px;
+        font-size: 1.75rem;
+        letter-spacing: 6px;
         color: #F5F5F5;
         text-shadow: 2pt 2pt 3pt #7F7F7F40;
         top: 38%;
@@ -443,8 +457,9 @@
       }
 
       .categories-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         gap: 1.5rem;
         margin-bottom: 2rem;
       }
@@ -463,7 +478,7 @@
       }
 
       .category-title {
-        font-size: 0.75rem;
+        font-size: 0.85rem;
         margin-bottom: 1rem;
         text-align: center;
         letter-spacing: 2px;
@@ -500,7 +515,7 @@
       }
 
       .breakdown-item .item-info .item-name {
-        font-size: 0.7rem;
+        font-size: 0.8rem;
       }
 
       .breakdown-item .item-info .item-details {
@@ -542,6 +557,7 @@
       }
 
       #recommendations-list {
+        width: 100%;
         padding-left: 0;
       }
       
@@ -550,7 +566,7 @@
         margin-bottom: 1rem;
         color: #000;
         list-style: none;
-        font-size: 0.55rem;
+        font-size: 0.9rem;
       }
 
       /* 沒有分類的特殊處理 */
@@ -562,7 +578,7 @@
       .recommendation-title {
         font-weight: bold;
         display: flex;
-        align-items: center;
+        align-items: start;
         gap: 0.5rem;
         letter-spacing: 2px;
       }
@@ -573,6 +589,7 @@
         min-width: 0.75rem;
         min-height: 0.75rem;
         border-radius: 50%;
+        margin-top: 4px;
       }
 
       /* 沒分類的 marker (灰色) */
@@ -621,6 +638,95 @@
         font-size: 0.8rem;
         letter-spacing: 1px;
         text-wrap: nowrap;
+      }
+
+      .advice-summary-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 三列自動換行 */
+        gap: 1rem;
+        width: 100%;
+        margin-bottom: 1.5rem;
+      }
+
+      @media (max-width: 1200px) {
+        .advice-summary-container {
+          grid-template-columns: repeat(2, 1fr);
+          justify-items: center;
+        }
+
+        .advice-summary-card {
+          min-width: 60%;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .advice-summary-container {
+          grid-template-columns: 1fr;
+        }
+
+        .advice-summary-card {
+          min-width: 80%;
+        }
+      }
+
+      .advice-summary-card {
+      border-radius: 8px;
+      padding: 0rem 0.25rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      text-shadow: 2pt 2pt 3pt #7F7F7F40;
+      letter-spacing: 0.5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 40px;
+      max-width: 200px;
+      }
+
+      .advice-name {
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-wrap: nowrap;
+      }
+
+      .advice-value {
+        font-size: 0.85rem;
+        font-weight: bold;
+      }
+
+      .advice-dot {
+        display: inline-block;
+        min-width: 0.75rem;
+        min-height: 0.75rem;
+        max-width: 0.75rem;
+        max-height: 0.75rem;
+        border-radius: 50%;
+        margin: 10px 8px 0 0;
+        vertical-align: middle;
+      }
+
+      .advice-section {
+        line-height: 1.8;
+      }
+
+      .advice-section p {
+        display: flex;
+        align-items: flex-start;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      .advice-section ul {
+          margin-left: 1rem;
+          color: #333;
+      }
+
+      .advice-section li {
+          margin-bottom: 0.5rem;
+      }
+
+      .no-data-advice p {
+          color: #999;
+          font-weight: bold;
       }
 
       /* 顏色小圓點 */
@@ -701,6 +807,12 @@
         border-radius: 10px;
         border: 1px solid rgba(255, 107, 107, 0.3);
         margin: 1rem 0;
+      }
+
+      @media (min-width: 1600px) {
+      .scene-1 .sealevel-container {
+          width: 30vw;
+        }
       }
 
       /* 手機版本的響應式調整 */
@@ -812,7 +924,6 @@
                   <!-- iframe 區塊 -->
                   <iframe id="mapFrame" 
                           src="https://coastal.climatecentral.org/embed/map/13/121.5354/25.082/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C" 
-                          width="80%" height="200" 
                           allow="fullscreen"
                           title="Climate Central Map">
                   </iframe>
@@ -1143,31 +1254,75 @@ function createCategoryCards() {
     });
 }
 
-// 更新显示数据
+// 計算升溫幅度，累積碳排量線性插值
+function calculateTemperatureIncrease(totalEmissions) {
+    const currentYear = new Date().getFullYear();
+
+    // 累積碳排量公式
+    const cumulativeEmissions = (totalEmissions/11.77) * 4.86 * 8000000000 * (2100 - currentYear) / 1000000000;
+    console.log('累積碳排量 (GtCO2):', cumulativeEmissions);
+
+    // 累積碳排量對應的暖化映射
+    const mapping = [
+        { emissions: 0, temp: 0 },
+        { emissions: 500, temp: 1.5 },
+        { emissions: 1000, temp: 1.7 },
+        { emissions: 1500, temp: 2.1 },
+        { emissions: 2800, temp: 3.5 },
+        { emissions: 3500, temp: 4 }
+    ];
+
+    let temperature = 0;
+
+    // 線性內插
+    for (let i = 0; i < mapping.length - 1; i++) {
+        const p1 = mapping[i];
+        const p2 = mapping[i + 1];
+        if (cumulativeEmissions >= p1.emissions && cumulativeEmissions <= p2.emissions) {
+            const ratio = (cumulativeEmissions - p1.emissions) / (p2.emissions - p1.emissions);
+            temperature = p1.temp + ratio * (p2.temp - p1.temp);
+            break;
+        }
+    }
+
+    // 超過最大值顯示 4+
+    if (cumulativeEmissions > mapping[mapping.length - 1].emissions) return '4+';
+
+    // 下限 1.48
+    if (temperature < 1.48) temperature = 1.48;
+
+    return temperature.toFixed(2);
+}
+
+// 更新顯示資料
 function updateDisplay() {
-    // 更新第一幕的总排放量
     const emissionsValueElement = document.getElementById('carbon-footprint-emissions-value');
+    const temperatureValueElement = document.getElementById('carbon-footprint-temperature-value');
+
     if (totalEmissions > 0) {
         emissionsValueElement.textContent = totalEmissions.toFixed(2);
-        
-        // 更新中和说明
+
+        // 更新升溫幅度
+        temperatureValueElement.textContent = calculateTemperatureIncrease(totalEmissions) + '℃';
+
+        // 更新中和說明
         const forestArea = Math.round(totalEmissions * 1388.889);
         const stadiums = (forestArea / 12950).toFixed(1);
         const neutralityText = document.getElementById('neutrality-text');
         neutralityText.textContent = `為了中和您的排放，必須復育大約 ${forestArea.toLocaleString()}m²的自然再生林地。這大約與${stadiums}座台北大巨蛋相同！`;
-        
     } else {
         emissionsValueElement.textContent = '暫無數據';
+        temperatureValueElement.textContent = '暫無數據';
         const neutralityText = document.getElementById('neutrality-text');
         neutralityText.textContent = '請完成碳足跡問卷，我們將為您計算需要復育的森林面積。';
-        
     }
 
-    // 创建分类卡片
+    // 建立分類卡片
     createCategoryCards();
 
-    // 生成减碳建议
+    // 生成減碳建議
     generateRecommendations();
+    generateAdvice();
 
     // 初始化圓餅圖
     renderEmissionsChart();
@@ -1356,202 +1511,458 @@ function maxKey(obj, keys) {
   return best;
 }
 
-// ===================== 改善建議模板 =====================
-const adviceTemplates = {
-  // --- 日常通勤(有填就寫) ---
-  commute_car: `
-    <h3>日常通勤</h3>
-    <p>開車通勤雖然方便，但對地球可有點傷～來看看有什麼小方法能幫你減碳又不太麻煩：</p>
-    <ul>
-      <li>偶爾搭搭大眾運輸：如果有地鐵、公車或高鐵能搭，不妨偶爾放下方向盤，改搭一下，碳排少很多，而且還不用找停車位超讚！</li>
-      <li>能走就走，能騎就騎：你家離公司或學校不遠嗎？那就走路或騎腳踏車吧～順便活動筋骨、醒腦又省碳，一舉三得～</li>
-      <li>找人一起坐車也很棒：真的要開車的話，也可以找同事或朋友一起共乘，少一台車跑在路上，空氣會感謝你～</li>
-      <li>換台電動車也不錯啦：如果你本來就有開車的需求，那可以考慮未來換成電動車，現在充電站越來越多，也越來越方便了，減碳效果也很不錯！</li>
-    </ul>
-  `,
+// 建議模板函數 - 根據類別返回帶顏色的建議內容
+function getAdviceTemplate(templateKey, categoryKey) {
+    const info = categoryInfo[categoryKey];
+    if (!info) return '';
+    
+    const color = info.color;
+    
+    const templates = {
+        // --- 日常通勤 ---
+        commute_car: `
+            <div class="advice-section" style="color:${color};">
+                <p><span class="advice-dot" style="background-color:${color};"></span>開車通勤雖然方便，但對地球可有點傷～來看看有什麼小方法能幫你減碳又不太麻煩：</p>
+                <ul>
+                    <li>偶爾搭搭大眾運輸：如果有地鐵、公車或高鐵能搭，不妨偶爾放下方向盤，改搭一下，碳排少很多，而且還不用找停車位超讚！</li>
+                    <li>能走就走，能騎就騎：你家離公司或學校不遠嗎？那就走路或騎腳踏車吧～順便活動筋骨、醒腦又省碳，一舉三得～</li>
+                    <li>找人一起坐車也很棒：真的要開車的話，也可以找同事或朋友一起共乘，少一台車跑在路上，空氣會感謝你～</li>
+                    <li>換台電動車也不錯啦：如果你本來就有開車的需求，那可以考慮未來換成電動車，現在充電站越來越多，也越來越方便了，減碳效果也很不錯！</li>
+                </ul>
+            </div>
+        `,
 
-  // --- 旅遊 ---
-  travel_plane: `
-    <h3>旅遊</h3>
-    <p>飛行次數高，是你的碳足跡大魔王！搭飛機雖然快速又方便，但其實飛行是碳排放非常高的交通方式，特別是短程航班。</p>
-    <ul>
-      <li>少搭短程飛機：像「台北到高雄」這類短程，改搭高鐵或船更環保，整體時間常常差不多。</li>
-      <li>把旅行排得更有計劃：與其一年飛好幾趟，不如一次安排長一點的假期，減少搭機次數。</li>
-      <li>探索低碳旅遊方式：多用火車、高鐵、公車旅行，沿途風景也很療癒。</li>
-      <li>選擇碳補償航班：部分航空公司提供碳抵換（植樹、再生能源），多少幫地球平衡一下。</li>
-    </ul>
-  `,
-  travel_public: `
-    <h3>旅遊</h3>
-    <p>你大多使用大眾交通工具完成旅遊與移動，超棒的低碳選擇！想再更進一步可以參考：</p>
-    <ul>
-      <li>低碳接駁：前往車站的短程盡量走路、單車或公車，減少短途開車。</li>
-      <li>支持碳中和服務：看到「綠色座位」或碳補償選項時可以支持，讓旅程更環保。</li>
-      <li>彈性遠端：若工作性質允許，部分旅程以視訊取代移動。</li>
-      <li>綠色分享：把你的低碳旅遊經驗分享給朋友，一起把影響力放大！</li>
-    </ul>
-  `,
+        // --- 旅遊 ---
+        travel_plane: `
+            <div class="advice-section" style="color:${color};">
+                <p><span class="advice-dot" style="background-color:${color};"></span>搭飛機雖然快速又方便，但其實飛行是碳排放非常高的一種交通方式，特別是短程航班，起降階段排放量特別驚人。不過不用完全戒飛，改變一點點，也能減碳不少：</p>
+                <ul>
+                    <li>少搭短程飛機：像是「台北到高雄」或「台中到金門」這種短程航班，飛行時間雖然短，但起降階段的碳排放其實特別高。不妨改搭高鐵或船，不只更環保，有時候整體時間也差不多，還省下候機時間呢！</li>
+                    <li>把旅行排得更有計劃：與其一年飛好幾趟，不如一次安排長一點的假期，減少搭機次數又能玩得更盡興。</li>
+                    <li>探索低碳旅遊方式：搭火車、高鐵、公車旅遊，碳排低又能慢慢欣賞沿途風景，其實也滿療癒的。</li>
+                    <li>選擇碳補償航班：部分航空公司有提供碳補償選項，可以用少量費用支持碳抵換專案（例如植樹、再生能源），多少幫地球平衡一下。</li>
+                </ul>
+            </div>
+        `,
+        travel_public: `
+            <div class="advice-section" style="color:${color};">
+                <p><span class="advice-dot" style="background-color:${color};"></span>你選擇搭大眾運輸通勤，真的超棒的！這比自己開車或騎機車環保多了，已經是很棒的低碳選擇了～<br>如果你還想再進一步為地球多做一點，這邊有幾個小撇步可以參考看看：</p>
+                <ul>
+                    <li>接駁也能低碳一點：從家裡到高鐵或火車站那段路，可以的話就走路、騎腳踏車，或再接一段公車，減少短途開車的碳排也有幫助喔～</li>
+                    <li>支持碳中和服務：有些列車或航空公司有推出「綠色座位」或碳補償選項（例如種樹、投資再生能源），未來如果看到這種服務，可以考慮支持一下，讓你的旅程更環保！</li>
+                    <li>有時候遠端也不錯：如果工作性質允許，不妨和公司討論看看可不可以一週有幾天遠端上班，這樣不但省通勤時間，還能少搭幾趟車，碳排自然就少了～</li>
+                    <li>你就是最棒的綠色榜樣：你已經走在減碳的路上了，不妨把你的經驗分享給身邊的親朋好友，大家一起搭大眾運輸，對環境的幫助會更大！</li>
+                </ul>
+            </div>
+        `,
 
-  // --- 住家 ---
-  home_water: `
-    <h3>住家 - 水較多</h3>
-    <p>你家裡的碳足跡主要來自「用水」。幾個小改變就能讓家裡更環保：</p>
-    <ul>
-      <li>洗澡縮短 3～5 分鐘或稍降水溫，熱水器不用那麼拚命燒水。</li>
-      <li>冷水洗衣，省下加熱電力；累積多一點衣物再洗更有效率。</li>
-      <li>雙段式省水馬桶或水箱放寶特瓶，單次沖水更省。</li>
-      <li>安裝省水花灑、起泡器，使用體感差不多但更省水。</li>
-      <li>回收水二次利用：洗菜水澆花、沖馬桶，簡單又實用。</li>
-    </ul>
-  `,
-  home_electric: `
-    <h3>住家 - 電較多</h3>
-    <ul>
-      <li>白天多用自然光。</li>
-      <li>冷氣設 26～28 度並搭配電風扇；定期清洗濾網。</li>
-      <li>減少待機：用有開關延長線一次切電。</li>
-      <li>換 LED 燈泡，耐用又省電。</li>
-      <li>大型家電累積多一點再用，效率更好。</li>
-    </ul>
-  `,
-  home_gas: `
-    <h3>住家 - 瓦斯較多</h3>
-    <ul>
-      <li>使用合適鍋具與火力，提高燃燒效率。</li>
-      <li>規劃烹飪時間，避免火候過大或過久。</li>
-      <li>汰換高效能爐具，降低每次烹飪的能源消耗。</li>
-    </ul>
-  `,
-  home_trash: `
-    <h3>住家 - 垃圾減量</h3>
-    <ul>
-      <li>分類回收：塑膠、金屬、紙類確實分開，減少掩埋量。</li>
-      <li>減少一次性物品：改用可重複使用容器與袋子。</li>
-      <li>購物減量：下單前先想是否真的需要，避免過度包裝與浪費。</li>
-    </ul>
-  `,
+        // --- 住家 ---
+        home_water: `
+            <div class="advice-section" style="color:${color};">
+                <p><span class="advice-dot" style="background-color:${color};"></span>你家裡的碳足跡主要來自「用水」這塊，雖然水本身不會排碳，但抽水、加熱洗澡水、處理廢水這些過程其實都會耗能，碳排也跟著來～但別擔心，幾個小改變就能讓家裡更環保：</p>
+                <ul>
+                    <li>洗澡時間稍微縮短一下下：把淋浴時間縮短個 3～5 分鐘，或者水溫稍微調低一點，熱水器就不用那麼拚命燒水，省能又省錢。</li>
+                    <li>冷水洗衣更聰明：熱水洗衣其實沒必要（而且可能還傷衣服），不如改用冷水，省下不少加熱的電力～還有記得累積多一點衣服再洗，減少洗衣次數也有幫助！</li>
+                    <li>馬桶沖水也可以省一點：如果家裡是舊式馬桶，可以換成雙段式省水款；或是放個寶特瓶在水箱裡，讓每次沖水的水量變少，效果其實滿有感的！</li>
+                    <li>注意漏水 + 換節水設備：定期檢查水龍頭和馬桶有沒有在偷偷漏水～也可以考慮裝省水花灑、水龍頭起泡器這類的節水小工具，用起來跟一般的一樣，但其實很省水。</li>
+                    <li>回收水二次利用：像洗菜水可以拿來澆花、沖馬桶，這種簡單的小動作，真的超實用又環保！</li>
+                    <p>小小調整就能省下很多水和能源，不只幫地球減碳，連水費都會變少一點，環境跟荷包一起加分，何樂而不為呢？</p>
+                </ul>
+            </div>
+        `,
+        home_electric: `
+            <div class="advice-section" style="color:${color};">
+                <p><span class="advice-dot" style="background-color:${color};"></span>你的住家碳足跡偏高，主要是用電量比較多。雖然用電是現代生活的基本需求，但其實很多時候，我們可以用得更聰明、更省碳一點～來看看有什麼實用又不難的小改變吧：</p>
+                <ul>
+                    <li>白天善用自然光：白天能不開燈就不開，讓陽光幫你省一波電，心情也比較好！</li>
+                    <li>冷氣使用有技巧：冷氣不要一開就設很低，設在 26～28 度是舒適又省電的甜蜜點，加上電風扇一起用，涼感會更快也更省～別忘了定期清洗濾網，冷氣才不會「偷吃電」喔。</li>
+                    <li>留意「待機電力」的小地方：有些家電像是電視、微波爐、音響，沒開機的時候，其實也會偷偷耗一點電。如果你覺得不方便，可以考慮用有開關的延長線，一次切電就好，不用天天拔插頭～對於不常用的電器，偶爾拔一下也不錯，雖然省的不多，但累積起來還是有差！ ！</li>
+                    <li>換成節能燈泡：LED 燈比傳統燈泡省電好幾倍，而且更耐用，長遠下來超划算！</li>
+                    <li>家電使用也能小省一下：洗衣機、洗碗機等大型家電累積多一點再用，效率會更高。如果有要換家電，也可以優先選有「節能標章」的款式，真的有差！</li>
+                    <p>其實生活中很多微小的習慣，只要稍微調整一下，用電就能降下來。不只是減碳，電費也會跟著變可愛，省心又省荷包～</p>
+                </ul>
+            </div>
+        `,
+        home_gas: `
+            <div class="advice-section" style="color:${color};">
+                <p><span class="advice-dot" style="background-color:${color};"></span>瓦斯是日常生活中常見的能源，但每次使用其實也會有一些碳排放。小小的調整可以幫助你減少碳足跡：</p>
+                <ul>
+                    <li>調整烹飪方式：烹煮食物時，盡量選擇適當的鍋具，使用適當的火力，可以讓瓦斯燃燒更有效率，不用開那麼大火。</li>
+                    <li>控制烹飪時間：有些食物煮太久，火候過大不但浪費瓦斯，還會影響食物品質。試著規劃食物煮的時間，避免過長的等待。</li>
+                    <li>高效能爐具：如果打算換爐具，可以選擇能效較高的瓦斯爐，這樣可以讓每次烹飪時的能源消耗更低。</li>
+                    <p小小改變，讓每一次的烹飪都更加節能！不僅能幫地球減碳，還能節省瓦斯費用，一舉兩得！</p>
+                </ul>
+            </div>
+        `,
+        home_trash: `
+            <div class="advice-section" style="color:${color};">
+                <p><span class="advice-dot" style="background-color:${color};"></span>垃圾處理會產生相當多的碳排放，減少垃圾量和增加回收利用是減碳的關鍵。這裡有幾個可以參考的小建議：</p>
+                <ul>
+                    <li>分類回收：確保家庭垃圾分類清楚，將可回收物品如塑膠、金屬、紙類分開，這樣可以減少進入垃圾掩埋場的量。</li>
+                    <li>減少一次性物品：盡量減少使用一次性包裝材料或塑膠袋，選擇可重複使用的容器，這樣有助於減少垃圾量。</li>
+                    <li>•	購物減量：每次購物前，考慮是否真的需要，避免過多的物品消耗與包裝產生垃圾。</li>
+                    <p>把垃圾分類好、減少一次性物品，這些小舉動就能讓你為環保出一份力！每次購物、每次選擇，都能對地球產生正面的影響！</p>
+                </ul>
+            </div>
+        `,
 
-  // --- 衣服 ---
-  clothes_fast: `
-    <h3>衣服 - 快時尚</h3>
-    <ul>
-      <li>買少一點、挑好一點，提升穿著次數與搭配性。</li>
-      <li>支持永續品牌，鼓勵透明與回收材質。</li>
-      <li>社群發聲，促使品牌改善。</li>
-    </ul>
-  `,
-  clothes_luxury: `
-    <h3>衣服 - 奢華時尚</h3>
-    <ul>
-      <li>投資經典耐穿款，拉長產品壽命。</li>
-      <li>支持有永續理念的精品系列。</li>
-      <li>不穿的衣物寄售或轉賣，延長使用週期。</li>
-      <li>用消費者聲音鼓勵更多品牌重視環保。</li>
-    </ul>
-  `,
+        // --- 衣服 ---
+        clothes_fast: `
+            <div class="advice-section" style="color:${color};">
+                <p><span class="advice-dot" style="background-color:${color};"></span>快時尚建議（給愛買衣服又想顧地球的你)<br>愛穿搭沒什麼不好，但快時尚的衣服為了便宜、流行，常常大量生產、快速淘汰，對環境其實蠻傷的。你不一定要變成極簡主義者，但可以從以下幾個方向開始：</p>
+                <ul>
+                    <li>買少一點、挑好一點：下手前先想想這件衣服能不能穿好幾次、搭配性高不高。一次買一堆，結果都穿不到幾次真的很浪費。</li>
+                    <li>支持比較有良心的品牌：現在有越來越多品牌開始注重永續，用回收布料、生產更透明，支持他們等於用錢投票，讓好的品牌活下來。</li>
+                    <li>發聲也能帶來改變：覺得某品牌浪費太誇張、不重視環境？可以在社群媒體上發聲或留言，很多品牌其實會聽的！</li>
+                    <p>時尚可以是環保的，從每一次的選擇開始，讓你穿得好看，也穿得安心！</p>
+                </ul>
+            </div>
+        `,
+        clothes_luxury: `
+            <div class="advice-section" style="color:${color};">
+                <p><span class="advice-dot" style="background-color:${color};"></span>奢華時尚建議（給懂質感又有環保意識的你)<br>精品不一定比快時尚環保，尤其是長途運送、過度包裝、使用稀有材料等等，加起來碳排也不少。但如果你喜歡精品，其實也可以穿得有格調又不傷地球：</p>
+                <ul>
+                    <li>買之前想長遠：挑真正喜歡、能穿好幾年、甚至穿到老的款式，才是真正值得投資。</li>
+                    <li>挑選有永續理念的精品品牌：像 Stella McCartney、Chloé 有些系列就強調環保設計，買得安心又有品味。</li>
+                    <li>不穿的也別浪費：可以拿去精品寄售店、或轉賣平台，讓其他人繼續珍惜它。</li>
+                    <li>讓品牌知道你在意：用你的聲音鼓勵更多精品品牌重視環保，消費者的力量真的很強大！</li>
+                </ul>
+            </div>
+        `,
 
-  // --- 食物 ---
-  food_meat: `
-    <h3>食物 - 葷食</h3>
-    <ul>
-      <li>少吃紅肉，多選雞肉、魚肉等白肉。</li>
-      <li>挑選可持續養殖或友善畜牧的肉品。</li>
-      <li>多吃蔬菜、豆類、豆腐，健康又減碳。</li>
-      <li>優先當季在地食材，降低運輸排放。</li>
-    </ul>
-  `,
-  food_vege: `
-    <h3>食物 - 素食</h3>
-    <ul>
-      <li>飲食多樣化，避免單一作物需求過度。</li>
-      <li>挑選當季蔬菜與在地食材。</li>
-      <li>減少加工素食，多自煮更健康。</li>
-      <li>在地購買更新鮮也更環保。</li>
-    </ul>
-  `,
-  food_waste: `
-    <h3>食物 - 廚餘</h3>
-    <ul>
-      <li>可行時進行廚餘堆肥，化為有機肥料。</li>
-      <li>規劃份量，減少食物浪費。</li>
-      <li>廚餘與一般垃圾分開，提高回收效率。</li>
-    </ul>
-  `,
+        // --- 食物 ---
+        food_meat: `
+            <div class="advice-section" style="color:${color};">
+                <p><span class="advice-dot" style="background-color:${color};"></span>葷食<br>嘿～如果你的飲食中紅肉佔比高，其實這樣對碳排放的影響不小。別擔心，這裡有幾個小撇步，讓你也能吃得健康又減碳：</p>
+                <ul>
+                    <li>少吃紅肉，多選白肉：牛排雖然好吃，但牛肉的碳排放超高！不妨試試雞肉、魚肉，它們的碳足跡比較輕，也有很好的蛋白質來源。</li>
+                    <li>選擇可持續養殖的肉品：如果還是想吃肉，記得挑選有機或可持續養殖的肉品，這樣對環境的影響會小一些。</li>
+                    <li>多加點植物性食物：偶爾換換口味，加入更多蔬菜、豆腐、豆類等，這不僅對你的健康有益，還能讓你的碳足跡下降！</li>
+                    <li>購買當地食材：少買進口的食物，選擇當季當地的蔬果或肉品，這樣不但新鮮，還能減少運輸的碳排放。</li>
+                </ul>
+            </div>
+        `,
+        food_vege: `
+            <div class="advice-section" style="color:${color};">
+                <p><span class="advice-dot" style="background-color:${color};"></span>素食<br>讚啦！素食本來就是減碳的一大步。不過還是有些小地方可以再調整，讓你對地球更友善：</p>
+                <ul>
+                    <li>吃得更有變化：選擇多樣化的植物性食物，讓飲食更營養，也能有效減少因單一作物需求過度造成的碳排放。</li>
+                    <li>挑選當季食材：去菜市場挑選當季的蔬菜，這樣不僅能減少碳排放，還能讓你吃到最新鮮的食物。</li>
+                    <li>減少加工素食食品：雖然市面上有很多素肉漢堡、素食香腸等，但這些加工過的食品對碳排放的影響其實也蠻大的。嘗試更多自家料理，這樣不僅能減少碳足跡，也能吃得更健康！</li>
+                    <li>購買當地食材：少買進口的食物，選擇當季當地的蔬果，這樣不但新鮮，還能減少運輸的碳排放。</li>
+                </ul>
+            </div>
+        `,
+        food_waste: `
+            <div class="advice-section" style="color:${color};">
+                <p><span class="advice-dot" style="background-color:${color};"></span>廚餘的處理不當會讓有機垃圾變成溫室氣體的源頭，這裡有一些改善的方法：</p>
+                <ul>
+                    <li>廚餘堆肥：如果有空間，試著將廚餘進行堆肥處理，不僅減少垃圾，也能為你的花園提供有機肥料。</li>
+                    <li>減少食物浪費：合理規劃每次的食物分量，避免過多食物被丟棄，這樣不僅減少廚餘，也能節省預算。</li>
+                    <li>廚餘分開處理：將廚餘與其他垃圾分開丟，避免對廢物處理系統造成負擔，並提高廚餘的回收率。</li>
+                </ul>
+            </div>
+        `,
 
-  // --- 娛樂（各項目 >=5% 就寫） ---
-  ent_cinema: `
-    <h3>娛樂 - 電影院</h3>
-    <ul>
-      <li>選擇中小型或節能影廳。</li>
-      <li>少開車前往，改搭大眾運輸或共乘。</li>
-      <li>支持採用 LED 放映設備的影廳。</li>
-    </ul>
-  `,
-  ent_ktv: `
-    <h3>娛樂 - KTV</h3>
-    <ul>
-      <li>挑選節能店家。</li>
-      <li>冷氣溫度勿過低。</li>
-      <li>共乘或搭捷運前往。</li>
-    </ul>
-  `,
-  ent_gym: `
-    <h3>娛樂 - 健身房</h3>
-    <ul>
-      <li>選擇有節能或再生能源的場館。</li>
-      <li>多用自由重量或自重訓練。</li>
-      <li>離峰時段前往，整體能耗更低。</li>
-    </ul>
-  `,
-  ent_religion: `
-    <h3>娛樂 - 拜拜</h3>
-    <ul>
-      <li>改用環保香或低煙香。</li>
-      <li>少量燒香，心誠即可。</li>
-      <li>支持電子香爐，乾淨又方便。</li>
-    </ul>
-  `,
-  ent_hotel: `
-    <h3>娛樂 - 飯店住宿</h3>
-    <ul>
-      <li>選綠色旅館或具環保認證的飯店。</li>
-      <li>連住不必天天清潔，省水省電。</li>
-      <li>旅途中多用大眾運輸。</li>
-      <li>自備個人盥洗用品，減少一次性浪費。</li>
-    </ul>
-  `,
-};
+        // --- 娛樂 ---
+        ent_cinema: `
+            <div class="advice-section" style="color:${color};">
+                <p><span class="advice-dot" style="background-color:${color};"></span>去電影院看電影超療癒，但別忘了影廳的冷氣、燈光、音響都會耗電。試試以下方式減點碳吧：</p>
+                <ul>
+                    <li>選擇中小型影院：比較省電，也有機會支持在地小型經營者 </li>
+                    <li>少開車去電影院：搭捷運、騎腳踏車或跟朋友一起共乘都不錯</li>
+                    <li>選擇節能影廳：有些新式影廳會使用LED放映設備，比傳統放映更環保！邊享受電影邊愛地球也不衝突！</li>
+                    <p>挑間省電又有質感的電影院，不只觀影體驗升級，也能讓你的低碳生活更有趣！</p>
+                </ul>
+            </div>
+        `,
+        ent_ktv: `
+            <div class="advice-section" style="color:${color};">
+                <p><span class="advice-dot" style="background-color:${color};"></span>唱K超紓壓，但KTV的冷氣、燈光、音響可是電力大怪獸！來看看怎麼唱得更低碳：</p>
+                <ul>
+                    <li>挑選節能 KTV：有些店家會標榜省電或綠能，優先支持這些場所</li>
+                    <li>控制冷氣：溫度不要開太低，唱到出汗才過癮嘛</li>
+                    <li>交通工具很重要：跟朋友一起坐車或搭捷運，少一點碳，多一點快樂小結語：唱得嗨也能唱出綠生活！</li>
+                    <p>小小改變，就能讓你的歡唱夜少一點碳、多一點對地球的溫柔</p>
+                </ul>
 
-    function generateAdvice(userData = {}) {
-      const adviceEl = document.getElementById('advice-page');
-      if (!adviceEl) return;
-      adviceEl.innerHTML = '';
+            </div>
+        `,
+        ent_gym: `
+            <div class="advice-section" style="color:${color};">
+                <p><span class="advice-dot" style="background-color:${color};"></span>運動超棒！但健身房裡的器材、冷氣真的挺耗電。想運動又顧地球？可以這樣做：</p>
+                <ul>
+                    <li>選永續設備的健身房：有些健身房會標榜節能、用再生能源或有環保認證，優先選這種不只能動得安心，還能對地球友善一點</li>
+                    <li>多練自由重量或自重訓練：像是啞鈴、槓鈴或徒手深蹲、伏地挺身，這些訓練方式不但不耗電，效果一樣好，還能練出穩定核心，訓練品質更高！</li>
+                    <li>選擇離峰時段：人少時去健身房，整體能源消耗也會少一點，低碳也能高效鍛鍊！</li>
+                    <p>你不需要為了環保就犧牲訓練效果，改用自由重量或自重訓練，照樣能進步、練出成果，還能默默替地球省下一筆能源～綠色健身，其實沒那麼難</p>
+                </ul>
 
-      const filled = {
-        commute: userData?.filled?.commute ?? hasAnyPositive(userData.commute),
-        travel: userData?.filled?.travel ?? hasAnyPositive(userData.travel),
-        home: userData?.filled?.home ?? hasAnyPositive(userData.home),
-        clothes: userData?.filled?.clothes ?? !!userData?.clothes?.type,
-        food: userData?.filled?.food ?? (!!userData?.food && (userData.food.diet || isNumber(userData.food.foodWasteShare))),
-        entertainment: userData?.filled?.entertainment ?? hasAnyPositive(userData.entertainment),
-      };
+            </div>
+        `,
+        ent_religion: `
+            <div class="advice-section" style="color:${color};">
+                <p><span class="advice-dot" style="background-color:${color};"></span>拜拜求心安沒問題，但燒香也會產生碳排和空氣污染喔～不如這樣調整看看：</p>
+                <ul>
+                    <li>用環保香：市面上有些低煙、少毒的香品，可以當替代方案。</li>
+                    <li>少量燒香：不一定要「煙霧瀰漫」才靈驗，心誠就好！</li>
+                    <li>電子拜拜也可以：有些寺廟已經使用電子香爐，乾淨又方便，誠心不靠煙，環保更平安！</li>
+                    <p>信仰加上環保，讓你的善念也為地球盡一份心力</p>
+                </ul>
+            </div>
+        `,
+        ent_hotel: `
+            <div class="advice-section" style="color:${color};">
+                <p><span class="advice-dot" style="background-color:${color};"></span>出去玩最開心～但飯店也會有不少能源耗用。來試試這些小改變，旅行更永續：</p>
+                <ul>
+                    <li>選綠色旅館：像是有環保認證（LEED、EarthCheck）的飯店</li>
+                    <li>減少清潔服務：連住幾天其實不需要每天打掃，幫忙節省水電與清潔劑</li>
+                    <li>搭大眾交通工具：旅行途中改搭巴士、捷運、共乘都能減碳</li>
+                    <li>自備一次性用品：牙刷、刮鬍刀自己帶，不拿飯店備品也能減少浪費，旅行開心，地球也一起開心!</li>
+                    <p>用綠色方式住飯店，你的每一趟旅程都會留下更好的回憶和足跡</p>
+                </ul>
+            </div>
+        `,
+    };
 
-      // 通勤
-      if (filled.commute) {
-        const c = userData.commute || {};
-        const totalCommute = sum([c.car, c.motorcycle, c.public, c.walk, c.bike]);
-        const carShare = share(sum([c.car, c.motorcycle]), totalCommute);
-        const publicShare = share(c.public, totalCommute);
+    return templates[templateKey] || '';
+}
 
-        if (carShare >= 0.5 || (carShare >= publicShare && (carShare > 0 || publicShare === 0))) {
-          adviceEl.innerHTML += adviceTemplates.commute_car;
-        } else if (publicShare > 0) {
-          adviceEl.innerHTML += adviceTemplates.commute_public;
+
+// ===================== 从 carbonDetailedData 转换为 userData 格式 =====================
+function convertCarbonDataToUserData() {
+    const userData = {
+        commute: {},
+        travel: {},
+        home: {},
+        clothes: { type: null },
+        food: { diet: null, foodWasteInput: 0 }, // ⭐ 改成 input
+        entertainment: {},
+        filled: {}
+    };
+
+    // 检查是否有填写数据的辅助函数
+    const hasData = (categoryData) => categoryData && categoryData.total > 0 && 
+                     Object.keys(categoryData.breakdown).length > 0;
+
+    // 日常通勤数据转换
+    if (hasData(carbonDetailedData['traffic-daily'])) {
+        userData.filled.commute = true;
+        const breakdown = carbonDetailedData['traffic-daily'].breakdown;
+        
+        Object.entries(breakdown).forEach(([itemName, itemData]) => {
+            const name = itemName.toLowerCase();
+            if (name.includes('汽车') || name.includes('汽車') || name.includes('开车') || name.includes('駕車')) {
+                userData.commute.car = (userData.commute.car || 0) + itemData.emission;
+            } else if (name.includes('机车') || name.includes('機車') || name.includes('摩托车') || name.includes('摩托車')) {
+                userData.commute.motorcycle = (userData.commute.motorcycle || 0) + itemData.emission;
+            } else if (name.includes('公车') || name.includes('公車') || name.includes('地铁') || name.includes('地鐵') || 
+                      name.includes('捷运') || name.includes('捷運') || name.includes('高铁') || name.includes('高鐵')) {
+                userData.commute.public = (userData.commute.public || 0) + itemData.emission;
+            } else if (name.includes('步行') || name.includes('走路')) {
+                userData.commute.walk = (userData.commute.walk || 0) + itemData.emission;
+            } else if (name.includes('自行车') || name.includes('自行車') || name.includes('腳踏車')) {
+                userData.commute.bike = (userData.commute.bike || 0) + itemData.emission;
+            } else {
+                userData.commute.car = (userData.commute.car || 0) + itemData.emission;
+            }
+        });
+    } else {
+        userData.filled.commute = false;
+    }
+
+    // 旅游交通数据转换
+    if (hasData(carbonDetailedData['traffic-travel'])) {
+        userData.filled.travel = true;
+        const breakdown = carbonDetailedData['traffic-travel'].breakdown;
+        
+        Object.entries(breakdown).forEach(([itemName, itemData]) => {
+            const name = itemName.toLowerCase();
+            if (name.includes('飞机') || name.includes('飛機') || name.includes('航班') || name.includes('搭機')) {
+                userData.travel.flight = (userData.travel.flight || 0) + itemData.emission;
+            } else if (name.includes('高铁') || name.includes('高鐵')) {
+                userData.travel.hsr = (userData.travel.hsr || 0) + itemData.emission;
+            } else if (name.includes('火车') || name.includes('火車') || name.includes('台铁') || name.includes('台鐵')) {
+                userData.travel.train = (userData.travel.train || 0) + itemData.emission;
+            } else if (name.includes('公车') || name.includes('公車') || name.includes('客运') || name.includes('客運')) {
+                userData.travel.bus = (userData.travel.bus || 0) + itemData.emission;
+            } else if (name.includes('船') || name.includes('轮船') || name.includes('輪船')) {
+                userData.travel.ship = (userData.travel.ship || 0) + itemData.emission;
+            } else {
+                if (itemData.emission > 100) {
+                    userData.travel.flight = (userData.travel.flight || 0) + itemData.emission;
+                } else {
+                    userData.travel.train = (userData.travel.train || 0) + itemData.emission;
+                }
+            }
+        });
+    } else {
+        userData.filled.travel = false;
+    }
+
+    // 居住生活数据转换
+    if (hasData(carbonDetailedData['home'])) {
+        userData.filled.home = true;
+        const breakdown = carbonDetailedData['home'].breakdown;
+        
+        Object.entries(breakdown).forEach(([itemName, itemData]) => {
+            const name = itemName.toLowerCase();
+            if (name.includes('水') || name.includes('热水') || name.includes('熱水') || name.includes('洗澡')) {
+                userData.home.water = (userData.home.water || 0) + itemData.emission;
+            } else if (name.includes('电') || name.includes('電') || name.includes('冷气') || name.includes('冷氣') || 
+                      name.includes('家电') || name.includes('家電')) {
+                userData.home.electricity = (userData.home.electricity || 0) + itemData.emission;
+            } else if (name.includes('瓦斯') || name.includes('天然气') || name.includes('天然氣') || name.includes('煮饭') || name.includes('煮飯')) {
+                userData.home.gas = (userData.home.gas || 0) + itemData.emission;
+            } else if (name.includes('垃圾') || name.includes('废物') || name.includes('廢物')) {
+                userData.home.trash = (userData.home.trash || 0) + itemData.emission;
+            } else {
+                userData.home.electricity = (userData.home.electricity || 0) + itemData.emission;
+            }
+        });
+    } else {
+        userData.filled.home = false;
+    }
+
+    // 时尚穿搭数据转换
+    if (hasData(carbonDetailedData['fashion'])) {
+        userData.filled.clothes = true;
+        const breakdown = carbonDetailedData['fashion'].breakdown;
+
+        const fastEmission = breakdown["快時尚"]?.emission || 0;
+        const luxuryEmission = breakdown["奢華時尚"]?.emission || 0;
+
+        userData.clothes.type = fastEmission >= luxuryEmission ? 'fast' : 'luxury';
+    } else {
+        userData.filled.clothes = false;
+    }
+
+    // 日常饮食数据转换
+    if (hasData(carbonDetailedData['food'])) {
+        userData.filled.food = true;
+        const breakdown = carbonDetailedData['food'].breakdown;
+        
+        let meatEmission = 0;
+        let vegetableEmission = 0;
+        let wasteInput = 0; // ⭐ 新增 input
+
+        Object.entries(breakdown).forEach(([itemName, itemData]) => {
+            const name = itemName.toLowerCase();
+            if (name.includes('肉') || name.includes('牛') || name.includes('猪') || name.includes('豬') || 
+                name.includes('鸡') || name.includes('雞') || name.includes('鱼') || name.includes('魚')) {
+                meatEmission += itemData.emission;
+            } else if (name.includes('蔬菜') || name.includes('素食') || name.includes('豆') || name.includes('菜')) {
+                vegetableEmission += itemData.emission;
+            } else if (name.includes('浪费') || name.includes('浪費') || name.includes('厨余') || name.includes('剩食')) {
+                wasteInput += itemData.input || 0; // ⭐ 記錄輸入值
+            }
+        });
+
+        const foodBreakdown = carbonDetailedData['food']?.breakdown;
+        if (foodBreakdown) {
+          diet = Object.values(foodBreakdown).find(item => item.selectedDiet)?.selectedDiet;
         }
-      }
+        userData.food.diet = diet;
 
-      // 旅遊
-      if (filled.travel) {
+        userData.food.foodWasteInput = wasteInput;
+
+    } else {
+        userData.filled.food = false;
+    }
+
+    // 生活娱乐数据转换
+    if (hasData(carbonDetailedData['entertainment'])) {
+        userData.filled.entertainment = true;
+        const breakdown = carbonDetailedData['entertainment'].breakdown;
+        
+        Object.entries(breakdown).forEach(([itemName, itemData]) => {
+            const name = itemName.toLowerCase();
+            if (name.includes('电影') || name.includes('電影') || name.includes('影院')) {
+                userData.entertainment.cinema = (userData.entertainment.cinema || 0) + itemData.emission;
+            } else if (name.includes('ktv') || name.includes('卡拉ok') || name.includes('歌唱')) {
+                userData.entertainment.ktv = (userData.entertainment.ktv || 0) + itemData.emission;
+            } else if (name.includes('健身') || name.includes('运动') || name.includes('運動') || name.includes('gym')) {
+                userData.entertainment.gym = (userData.entertainment.gym || 0) + itemData.emission;
+            } else if (name.includes('拜拜') || name.includes('宗教') || name.includes('庙') || name.includes('廟')) {
+                userData.entertainment.religion = (userData.entertainment.religion || 0) + itemData.emission;
+            } else if (name.includes('旅馆') || name.includes('旅館') || name.includes('饭店') || name.includes('飯店') || name.includes('酒店')) {
+                userData.entertainment.hotel = (userData.entertainment.hotel || 0) + itemData.emission;
+            } else {
+                if (itemData.emission > 20) {
+                    userData.entertainment.hotel = (userData.entertainment.hotel || 0) + itemData.emission;
+                } else if (itemData.emission > 10) {
+                    userData.entertainment.cinema = (userData.entertainment.cinema || 0) + itemData.emission;
+                } else {
+                    userData.entertainment.ktv = (userData.entertainment.ktv || 0) + itemData.emission;
+                }
+            }
+        });
+    } else {
+        userData.filled.entertainment = false;
+    }
+
+    return userData;
+}
+
+// ===================== 生成建議 =====================
+function generateAdvice(customUserData = null) {
+    const adviceEl = document.getElementById('advice-page');
+    if (!adviceEl) return;
+    adviceEl.innerHTML = '';
+
+    const userData = customUserData || convertCarbonDataToUserData();
+    const filled = userData.filled || {};
+
+        // ⚡ 計算六大類總和
+    const sums = {
+        'traffic-daily': sum([userData?.commute?.car, userData?.commute?.motorcycle, userData?.commute?.public, userData?.commute?.walk, userData?.commute?.bike]),
+        'traffic-travel': sum([userData?.travel?.flight, userData?.travel?.hsr, userData?.travel?.train, userData?.travel?.bus, userData?.travel?.ship]),
+        'home': sum([userData?.home?.water, userData?.home?.electricity, userData?.home?.gas]),
+        'fashion': userData?.clothes?.value || 0,
+        'food': (userData?.food?.value || 0) + (userData?.food?.foodWasteInput || 0),
+        'entertainment': sum(Object.values(userData?.entertainment || {}))
+    };
+
+    // ⚡ 建立六大類長方形卡片 (依照 categoryInfo 設定名稱和顏色)
+    let summaryHTML = `<div class="advice-summary-container">`;
+    Object.entries(sums).forEach(([key, value]) => {
+        const info = categoryInfo[key] || { name: key, color: '#333', bgcolor: '#eee' };
+        summaryHTML += `
+          <div class="advice-summary-card" style="background:${info.bgcolor}; border-left:6px solid ${info.color};">
+              <span class="advice-name" style="color:${info.color};">${info.name}</span>
+              <span class="advice-value" style="color:${info.color};">${(value || 0).toFixed(2)}</span>
+          </div>
+        `;
+    });
+    summaryHTML += `</div>`;
+
+    adviceEl.innerHTML = summaryHTML;
+
+    // 通勤建議
+    if (filled.commute) {
+        const c = userData.commute || {};
+        // 檢查是否有任何值 > 0
+        const hasValue = Object.values(c || {}).some(v => isNumber(v) && v > 0);
+
+        if (hasValue) {
+            adviceEl.innerHTML += getAdviceTemplate('commute_car', 'traffic-daily');
+        }
+    }
+
+    // 住家建议
+    if (filled.home) {
+        const h = userData.home || {};
+        const topKey = maxKey(h, ['water','electricity','gas']);
+        if (topKey === 'water') adviceEl.innerHTML += getAdviceTemplate('home_water', 'home');
+        if (topKey === 'electricity') adviceEl.innerHTML += getAdviceTemplate('home_electric', 'home');
+        if (topKey === 'gas') adviceEl.innerHTML += getAdviceTemplate('home_gas', 'home');
+        if (Object.keys(h).length > 0) {
+            adviceEl.innerHTML += getAdviceTemplate('home_trash', 'home');
+        }
+    }
+
+    // 旅游建议
+    if (filled.travel) {
         const t = userData.travel || {};
         const totalTravel = sum([t.flight, t.hsr, t.train, t.bus, t.ship]);
         const flightShare = share(t.flight, totalTravel);
@@ -1559,65 +1970,55 @@ const adviceTemplates = {
         const publicShare = share(publicTravel, totalTravel);
 
         if ((t.flight > 0) && (t.flight > publicTravel || flightShare > 0.5)) {
-          adviceEl.innerHTML += adviceTemplates.travel_plane;
+            adviceEl.innerHTML += getAdviceTemplate('travel_plane', 'traffic-travel');
         } else if ((t.flight || 0) === 0 && publicShare >= 0.6 && publicShare > 0) {
-          adviceEl.innerHTML += adviceTemplates.travel_public;
+            adviceEl.innerHTML += getAdviceTemplate('travel_public', 'traffic-travel');
         }
-      }
+    }
 
-      // 住家
-      if (filled.home) {
-        const h = userData.home || {};
-        const topKey = maxKey(h, ['water','electricity','gas']);
-        if (topKey === 'water') adviceEl.innerHTML += adviceTemplates.home_water;
-        if (topKey === 'electricity') adviceEl.innerHTML += adviceTemplates.home_electric;
-        if (topKey === 'gas') adviceEl.innerHTML += adviceTemplates.home_gas;
-        adviceEl.innerHTML += adviceTemplates.home_trash;
-      }
-
-      // 衣服
-      if (filled.clothes) {
-        const type = userData?.clothes?.type;
-        if (type === 'fast') adviceEl.innerHTML += adviceTemplates.clothes_fast;
-        if (type === 'luxury') adviceEl.innerHTML += adviceTemplates.clothes_luxury;
-      }
-
-      // 食物
-      if (filled.food) {
+    // 食物建议
+    if (filled.food) {
         const f = userData.food || {};
         const diet = f.diet;
-        if (diet === 'omnivore') adviceEl.innerHTML += adviceTemplates.food_meat;
-        if (diet === 'vegetarian' || diet === 'vegan') adviceEl.innerHTML += adviceTemplates.food_vege;
-        if (isNumber(f.foodWasteShare) && f.foodWasteShare >= 0.20) {
-          adviceEl.innerHTML += adviceTemplates.food_waste;
+        if (diet === 'omnivore') adviceEl.innerHTML += getAdviceTemplate('food_meat', 'food');
+        if (diet === 'vegetarian' || diet === 'vegan') adviceEl.innerHTML += getAdviceTemplate('food_vege', 'food');
+        
+        // ⭐ 直接檢查剩食 input
+        if (isNumber(f.foodWasteInput) && f.foodWasteInput > 20) {
+            adviceEl.innerHTML += getAdviceTemplate('food_waste', 'food');
         }
-      }
+        console.log('食物浪費輸入值:', f.foodWasteInput);
+    }
 
-      // 娛樂
-      if (filled.entertainment) {
+    // 衣服建议
+    if (filled.clothes) {
+        const type = userData?.clothes?.type;
+        if (type === 'fast') adviceEl.innerHTML += getAdviceTemplate('clothes_fast', 'fashion');
+        if (type === 'luxury') adviceEl.innerHTML += getAdviceTemplate('clothes_luxury', 'fashion');
+    }
+
+    // 娱乐建议
+    if (filled.entertainment) {
         const e = userData.entertainment || {};
         const totalEnt = sum(Object.values(e));
         const entShare = key => share(e[key], totalEnt);
 
-        if (entShare('cinema') >= 0.05) adviceEl.innerHTML += adviceTemplates.ent_cinema;
-        if (entShare('ktv') >= 0.05) adviceEl.innerHTML += adviceTemplates.ent_ktv;
-        if (entShare('gym') >= 0.05) adviceEl.innerHTML += adviceTemplates.ent_gym;
-        if (entShare('religion') >= 0.05) adviceEl.innerHTML += adviceTemplates.ent_religion;
-        if (entShare('hotel') >= 0.05) adviceEl.innerHTML += adviceTemplates.ent_hotel;
-      }
+        if (entShare('cinema') >= 0.05) adviceEl.innerHTML += getAdviceTemplate('ent_cinema', 'entertainment');
+        if (entShare('ktv') >= 0.05) adviceEl.innerHTML += getAdviceTemplate('ent_ktv', 'entertainment');
+        if (entShare('gym') >= 0.05) adviceEl.innerHTML += getAdviceTemplate('ent_gym', 'entertainment');
+        if (entShare('religion') >= 0.05) adviceEl.innerHTML += getAdviceTemplate('ent_religion', 'entertainment');
+        if (entShare('hotel') >= 0.05) adviceEl.innerHTML += getAdviceTemplate('ent_hotel', 'entertainment');
     }
 
-    // ===================== 測試用假資料 =====================
-    const sampleUser = {
-      commute: { car: 120, motorcycle: 30, public: 20, walk: 5, bike: 3 },
-      travel: { flight: 600, hsr: 100, train: 80, bus: 20, ship: 0 },
-      home: { water: 50, electricity: 180, gas: 40, trash: 15 },
-      clothes: { type: 'fast' },
-      food: { diet: 'omnivore', foodWasteShare: 0.25 },
-      entertainment: { cinema: 12, ktv: 8, gym: 3, religion: 5, hotel: 20 }
-    };
+    if (!Object.values(filled).some(Boolean)) {
+        adviceEl.innerHTML = `
+            <div class="no-data-advice">
+                <p><span class="advice-dot" style="background-color:#999;"></span>尚未完成碳足跡問卷，請先完成問卷，我們將根據您的數據提供個人化減碳建議。</p>
+            </div>
+        `;
+    }
+}
 
-    generateAdvice(sampleUser);
 
 // 重置為桌面模式
 function resetToDesktopMode() {

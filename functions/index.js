@@ -620,6 +620,103 @@ if (pageName === "traffic-travel") {
 // 食物頁面計算
 if (pageName === "food") {
   let name, inputValue, coefficient, emission, unit;
+  let totalWeight = 0;
+
+  // 食材對應每份克數
+  const foodWeights = {
+    rice: 300,
+    vegetable: 100,
+    beef: 100,
+    lamb: 100,
+    pork: 100,
+    chicken: 100,
+    egg: 1,
+    shrimp: 50,
+    fish: 100,
+    noodle: 300,
+    ham: 80,
+    mushroom: 75,
+    milk: 350,
+    tofu: 50
+  };
+
+  if (pageData.selectedDiet === "omnivore") {
+    const omniItems = [
+      { key: 'foodModalRiceValue', type: 'rice' },
+      { key: 'foodModalVegetableValue', type: 'vegetable' },
+      { key: 'foodModalBeefValue', type: 'beef' },
+      { key: 'foodModalLambValue', type: 'lamb' },
+      { key: 'foodModalPorkValue', type: 'pork' },
+      { key: 'foodModalChickenValue', type: 'chicken' },
+      { key: 'foodModalEggValue', type: 'egg' },
+      { key: 'foodModalShrimpValue', type: 'shrimp' },
+      { key: 'foodModalFishValue', type: 'fish' },
+      { key: 'foodModalNoodleValue', type: 'noodle' }
+    ];
+
+    omniItems.forEach(item => {
+      if (pageData[item.key] && pageData[item.key] > 0) {
+        const count = parseFloat(pageData[item.key]);
+        totalWeight += count * foodWeights[item.type]; // 累加重量
+      }
+    });
+
+  } else if (pageData.selectedDiet === "vegetarian") {
+    let vegItems = [];
+    if (pageData.selectedSubDiet === "seafood") {
+      vegItems = [
+        { key: 'foodSeafoodRiceValue', type: 'rice' },
+        { key: 'foodSeafoodVegetableValue', type: 'vegetable' },
+        { key: 'foodSeafoodTofuValue', type: 'tofu' },
+        { key: 'foodSeafoodMilkValue', type: 'milk' },
+        { key: 'foodSeafoodNoodleValue', type: 'noodle' },
+        { key: 'foodSeafoodHamValue', type: 'ham' },
+        { key: 'foodSeafoodEggValue', type: 'egg' },
+        { key: 'foodSeafoodMushroomValue', type: 'mushroom' }
+      ];
+    } else if (pageData.selectedSubDiet === "eggmilk") {
+      vegItems = [
+        { key: 'foodEggmilkRiceValue', type: 'rice' },
+        { key: 'foodEggmilkVegetableValue', type: 'vegetable' },
+        { key: 'foodEggmilkTofuValue', type: 'tofu' },
+        { key: 'foodEggmilkMilkValue', type: 'milk' },
+        { key: 'foodEggmilkNoodleValue', type: 'noodle' },
+        { key: 'foodEggmilkHamValue', type: 'ham' },
+        { key: 'foodEggmilkEggValue', type: 'egg' },
+        { key: 'foodEggmilkMushroomValue', type: 'mushroom' }
+      ];
+    } else if (pageData.selectedSubDiet === "vegan") {
+      vegItems = [
+        { key: 'foodVeganRiceValue', type: 'rice' },
+        { key: 'foodVeganVegetableValue', type: 'vegetable' },
+        { key: 'foodVeganTofuValue', type: 'tofu' },
+        { key: 'foodVeganNoodleValue', type: 'noodle' },
+        { key: 'foodVeganHamValue', type: 'ham' },
+        { key: 'foodVeganMushroomValue', type: 'mushroom' }
+      ];
+    }
+
+    vegItems.forEach(item => {
+      if (pageData[item.key] && pageData[item.key] > 0) {
+        const count = parseFloat(pageData[item.key]);
+        totalWeight += count * foodWeights[item.type]; // 累加重量
+      }
+    });
+  }
+
+  // 剩食：把累積重量放進去
+  if (pageData.foodWasteSliderValue && pageData.foodWasteSliderValue > 0) {
+    inputValue = parseFloat(pageData.foodWasteSliderValue);
+    emission = (totalWeight*52)/1000000*(inputValue/100)*4.83;
+    total += emission;
+    breakdown['剩食'] = {
+      name: "剩食",
+      input: inputValue,
+      coefficient: 1,
+      emission,
+      unit: '%',
+    };
+  }
 
   if (pageData.selectedDiet === "omnivore") {
     // ===== 葷食 =====
@@ -648,7 +745,8 @@ if (pageName === "food") {
           input: inputValue, // 每週輸入
           coefficient: item.coeff,
           emission, // 一年排放量
-          unit: item.unit
+          unit: item.unit,
+          selectedDiet: "omnivore"
         };
       }
     });
@@ -676,7 +774,8 @@ if (pageName === "food") {
           input: inputValue,
           coefficient: item.coeff,
           emission,
-          unit: item.unit
+          unit: item.unit,
+          selectedDiet: "omnivore"
         };
       }
     });
@@ -707,19 +806,6 @@ if (pageName === "food") {
       }
     });
 
-    // 剩食 (保持原本的，因為已經是 kg CO₂e)
-    if (pageData.foodWasteSliderValue && pageData.foodWasteSliderValue > 0) {
-      inputValue = parseFloat(pageData.foodWasteSliderValue);
-      emission = inputValue;
-      total += emission;
-      breakdown['剩食'] = {
-        input: inputValue,
-        coefficient: 1,
-        emission,
-        unit: 'kg CO₂e'
-      };
-    }
-
   } else if (pageData.selectedDiet === "vegetarian") {
     // ===== 素食 =====
     const dessert = foodCoefficients.dessert;
@@ -749,7 +835,8 @@ if (pageName === "food") {
             input: inputValue,
             coefficient: item.coeff,
             emission,
-            unit: item.unit
+            unit: item.unit,
+            selectedDiet: "vegetarian"
           };
         }
       });
@@ -776,7 +863,8 @@ if (pageName === "food") {
             input: inputValue,
             coefficient: item.coeff,
             emission,
-            unit: item.unit
+            unit: item.unit,
+            selectedDiet: "vegetarian"
           };
         }
       });
@@ -801,7 +889,8 @@ if (pageName === "food") {
             input: inputValue,
             coefficient: item.coeff,
             emission,
-            unit: item.unit
+            unit: item.unit,
+            selectedDiet: "vegetarian"
           };
         }
       });
@@ -832,19 +921,6 @@ if (pageName === "food") {
         };
       }
     });
-
-    // 剩食 (保持原本)
-    if (pageData.foodWasteSliderValue && pageData.foodWasteSliderValue > 0) {
-      inputValue = parseFloat(pageData.foodWasteSliderValue);
-      emission = inputValue;
-      total += emission;
-      breakdown['剩食'] = {
-        input: inputValue,
-        coefficient: 1,
-        emission,
-        unit: 'kg CO₂e'
-      };
-    }
   }
 }
 
@@ -870,9 +946,9 @@ if (pageName === "fashion") {
     };
   }
 
-  // 奢侈時尚
+  // 奢華時尚
   if (pageData.luxuryFashion !== undefined && pageData.luxuryFashion > 0) {
-    name = "奢侈時尚";
+    name = "奢華時尚";
     inputValue = parseFloat(pageData.luxuryFashion);
     unit = "元";
     coefficient = fashionCoefficients.luxuryFashion;
