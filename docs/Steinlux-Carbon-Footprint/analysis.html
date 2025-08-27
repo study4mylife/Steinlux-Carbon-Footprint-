@@ -339,6 +339,7 @@
         background: rgba(255,255,255,0.5);
         border: none;
         width: max-content;
+        min-height: min-content;
         height: 1.25rem;
         padding: 0.25rem;
         border: 0.25pt solid #fff;
@@ -357,9 +358,11 @@
 
       .scene-1 .carbon-footprint-emissions-container {
         display: flex;
+        align-items: flex-end;
         flex-direction: column;
         position: fixed;
         width: 30vw;
+        min-width: min-content;
         font-size: 1.75rem;
         letter-spacing: 0.375rem;
         color: #F5F5F5;
@@ -371,7 +374,9 @@
       }
 
       .scene-1 .carbon-footprint-emissions-container .emissions-text {
-        text-align: justify;
+        width: 100%;
+        text-align-last: justify;
+        text-wrap: nowrap;
       }
 
       .scene-1 #carbon-footprint-emissions-value {
@@ -390,6 +395,7 @@
         text-align: justify;
         letter-spacing: 4px;
         line-height: 2;
+        margin-right: auto;
       }
 
       .scene-1 .carbon-footprint-temperature-container {
@@ -978,7 +984,7 @@
 
             <div class="carbon-footprint-emissions-container">
                 <p class="emissions-text">您過去一年的碳足跡排放是</p>
-                <p>
+                <p style="margin-right: auto;">
                     <span id="carbon-footprint-emissions-value">計算中...</span>
                     <span>公噸<span class="emissions-unit">二氧化碳當量(tCO2e)</span></span>
                 </p>
