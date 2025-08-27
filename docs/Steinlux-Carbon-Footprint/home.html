@@ -442,9 +442,12 @@ async function calculate() {
   }
 }
 
-document.querySelectorAll(".next-btn").forEach(btn => {
-  btn.addEventListener("click", calculate);
-});
+    document.querySelectorAll(".next-btn").forEach(btn => {
+      btn.addEventListener("click", calculate);
+    });
+    document.querySelectorAll(".chapter-button").forEach(btn => {
+      btn.addEventListener("click", calculate);
+    });
 
 
     function getCircularValues() {

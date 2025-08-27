@@ -66,15 +66,9 @@ select {
   color: #4a4a4a;
 }
 
-@media (min-width: 1440px) {
+@media (max-width: 480px) {
   html {
-    font-size: 18px;
-  }
-}
-
-@media (max-width: 1200px) {
-  html {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 
@@ -84,11 +78,19 @@ select {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 1200px) {
   html {
-    font-size: 14px;
+    font-size: 16px;
   }
 }
+
+@media (min-width: 1440px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+
 
 .loader-overlay {
   position: fixed;
@@ -344,6 +346,7 @@ h1 {
   font-size: 0.8rem;
 }
 }
+
 
 
 /* 跳轉橫槓 */

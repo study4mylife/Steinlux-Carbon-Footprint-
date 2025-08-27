@@ -10,7 +10,7 @@ connectedCallback() {
                 <div class="story-header-title">
                     <div class="story-header-title-lt">
                         <div class="story-header-profile-photo"></div>
-                        <h1>Neo(2)</h1>
+                        <h1>Chrónôs</h1>
                         <i class="fa-solid fa-volume-low" style="color: #6c808f;"></i>
                     </div>
                     <div class="story-header-title-rt">
