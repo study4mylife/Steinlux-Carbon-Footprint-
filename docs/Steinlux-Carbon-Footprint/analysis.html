@@ -407,7 +407,7 @@
         letter-spacing: 0.375rem;
         color: #F5F5F5;
         text-shadow: 2pt 2pt 3pt #7F7F7F40;
-        top: 38%;
+        top: 37%;
         right: 4.5%;
         translate: (-50%, -50%);
         z-index: 2;
@@ -430,7 +430,7 @@
         width: 40vw;
         max-width: 1200px;
         height: 85vh;
-        text-shadow: 2pt 2pt 3pt #7F7F7F40;
+        text-shadow: 1pt 1pt 1pt #7F7F7F40;
         background: rgba(255, 255, 255, 0.4);
         border-radius: 20px;
         border: 0.25px solid rgba(255, 255, 255);
@@ -497,7 +497,7 @@
       }
 
       .category-title {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         margin-bottom: 1rem;
         text-align: center;
         letter-spacing: 0.125rem;
@@ -505,6 +505,7 @@
 
       .category-value {
         font-size: 0.9rem;
+        letter-spacing: 0.05rem;
         text-align: center;
       }
 
@@ -530,7 +531,7 @@
       }
 
       .breakdown-item .item-info {
-        letter-spacing: 0.125rem;
+        letter-spacing: 0.075rem;
       }
 
       .breakdown-item .item-info .item-name {
@@ -546,6 +547,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        font-size: 0.8rem;
+        letter-spacing: 0.05rem;
       }
 
       .recommendations {
@@ -691,7 +694,7 @@
       border-radius: 8px;
       padding: 0rem 0.25rem;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-      text-shadow: 2pt 2pt 3pt #7F7F7F40;
+      text-shadow: 1pt 1pt 1pt #7F7F7F40;
       letter-spacing: 0.03rem;
       display: flex;
       justify-content: space-between;
@@ -1105,12 +1108,12 @@ const pageNames = {
 };
 
 const urls = {
-  taipei: "https://coastal.climatecentral.org/embed/map/13/121.5354/25.082/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C",
-  yilan: "https://coastal.climatecentral.org/embed/map/12/121.8527/24.735/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C",
-  hsinchu: "https://coastal.climatecentral.org/embed/map/12/120.9782/24.7644/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C",
-  taichung: "https://coastal.climatecentral.org/embed/map/13/120.5391/24.1589/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C",
-  chiayi: "https://coastal.climatecentral.org/embed/map/11/120.2957/23.4169/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C",
-  kaohsiung: "https://coastal.climatecentral.org/embed/map/11/120.6035/22.6896/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C"
+  taipei: "https://coastal.climatecentral.org/embed/map/13/121.4803/25.0938/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C",
+  yilan: "https://coastal.climatecentral.org/embed/map/12/121.8153/24.7567/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C",
+  hsinchu: "https://coastal.climatecentral.org/embed/map/11/120.9004/24.757/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C",
+  taichung: "https://coastal.climatecentral.org/embed/map/12/120.5003/24.1713/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C",
+  chiayi: "https://coastal.climatecentral.org/embed/map/10/120.1769/23.3712/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C",
+  kaohsiung: "https://coastal.climatecentral.org/embed/map/12/120.5064/22.4321/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C"
 };
 
 function switchMap(region, btn) {
@@ -1240,7 +1243,7 @@ function createCategoryCards() {
         const noDataCard = document.createElement('div');
         noDataCard.className = 'category-card no-data';
         noDataCard.innerHTML = `
-            <div class="category-header" style="background-color:#f0f0f0; font-weight:bold; color:#888; border-left: 8px solid #888;">
+            <div class="category-header" style="background-color:#f0f0f0; font-weight:bold; color:#888; border-left: 0.5rem solid #888;">
                 <h3 class="category-title">暫無數據</h3>
                 <div class="category-value" style="color:#888;">0.000</div>
             </div>
