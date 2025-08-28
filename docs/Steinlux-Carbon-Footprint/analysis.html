@@ -124,10 +124,11 @@
         z-index: 9999;
       }
 
-      .index-btn a img {
+      .index-btn a svg {
         width: 2.5rem;
         height: 2.5rem;
         margin: 1rem;
+        fill: #ffffff75;
       }
 
       .index-btn:hover {
@@ -298,7 +299,6 @@
           position: static !important; /* 改為靜態定位 */
           scroll-snap-align: none !important; /* 取消滾動吸附對齊 */
           height: auto !important; /* 高度自適應內容 */
-          min-height: 75vh; /* 最小高度保持一個視窗高度 */
           overflow-x: hidden;
         }
         
@@ -329,10 +329,8 @@
 
         .scroll-container {
           background: url("images/0813修03.jpg") no-repeat 0 0;
-          background-size: 100% 200%;
+          background-size: 100% 100%;
         }
-
-        
       }
 
       /* 第一幕样式 */
@@ -358,15 +356,22 @@
         text-wrap:  nowrap;
       }
 
+      .scene-1 .iframemap-container {
+        display: flex;
+        align-items: end;
+        height: 30vh;
+      }
+
       .scene-1 .iframe-container {
         display: flex;
         gap: 1rem;
         align-items: stretch;
+        width: 27.5vw;
         height: max-content;
       }
 
       .scene-1 .sealevel-container iframe {
-        width: 80%;
+        width: 100%;
         max-height: 30vh;
         aspect-ratio: 4/3;
         border: none;
@@ -375,6 +380,7 @@
 
       .scene-1 .map-buttons {
         display: flex;
+        gap: 0.5rem;
         flex-direction: column;
         justify-content: space-between;
         flex: 1;
@@ -408,7 +414,6 @@
         flex-direction: column;
         position: fixed;
         width: 30vw;
-        max-width: 500px;
         min-width: min-content;
         font-size: 1.75rem;
         letter-spacing: 0.375rem;
@@ -445,8 +450,9 @@
         font-size: 0.8rem;
         text-align: justify;
         letter-spacing: 4px;
-        line-height: 2;
+        line-height: 1.8;
         margin-right: auto;
+        margin-top: 0;
       }
 
       .neutrality-value {
@@ -462,7 +468,7 @@
         letter-spacing: 0.375rem;
         color: #F5F5F5;
         text-shadow: 2pt 2pt 3pt #7F7F7F40;
-        top: 37.25%;
+        top: 37%;
         right: 4.5%;
         translate: (-50%, -50%);
         z-index: 2;
@@ -502,6 +508,7 @@
         font-size: 1.25rem;
         font-weight: normal;
         color: #f5f5f5;
+        margin-top: 0;
         margin-bottom: 2rem;
         padding-bottom: 1rem;
         letter-spacing: 0.75rem;
@@ -618,7 +625,7 @@
         border: 0.25px solid rgba(255, 255, 255);
         backdrop-filter: blur(15px);
         -webkit-backdrop-filter: blur(15px);
-        padding: 1rem;
+        padding: 1rem 2rem;
         opacity: 0;
         box-sizing: border-box;
         overflow-y: auto;
@@ -900,6 +907,10 @@
       .scene-1 .map-buttons button {
         font-size: 0.75rem;
       }
+
+      .scene-1 .carbon-footprint-emissions-container {
+        max-width: 500px;
+      }
       }
 
       @media (min-width: 1800px) {
@@ -911,7 +922,7 @@
 
       /* 手機版本的響應式調整 */
       @media (max-width: 1024px) {
-        .index-btn a img {
+        .index-btn a svg {
           width: 2rem;
           height: 2rem;
         }
@@ -941,22 +952,58 @@
         .scene-1 .carbon-footprint-emissions-container,
         .scene-1 .carbon-footprint-temperature-container {
           position: static !important;
-          width: 70%;
-          max-width: 500px;
-          margin: 1rem 0;
+          width: 90%;
+          height: auto;
           font-size: 1.25rem;
           text-align: center;
           translate: none;
         }
 
-        .scene-1 .carbon-footprint-emissions-container,
-        .scene-1 .carbon-footprint-temperature-container {
-          position: static !important;
-          width: 70%;
-          max-width: 500px;
-          margin: 1rem 0;
-          text-align: center;
-          translate: none;
+        .scene-1 .sealevel-container, .carbon-footprint-emissions-container {
+          border-bottom: 1.5px solid #fff;
+        }
+
+        .scene-1 .sealevel-container{
+          margin: 1rem 0 0 0;
+        }
+
+        .carbon-footprint-emissions-container {
+          margin: 0;
+        }
+
+        .carbon-footprint-temperature-container {
+          margin: 0 0 1rem 0;
+        }
+
+        .scene-1 .carbon-footprint-emissions-container .emissions-text, .scene-1 .temperature-text {
+          padding-top: 0.5rem;
+        }
+
+        .scene-1 .iframemap-container {
+          height: fit-content;
+          justify-content: center;
+        }
+
+        .scene-1 .iframe-container {
+          width: 90%;
+          padding: 1rem 0 1.5rem 0;
+          justify-content: center;
+        }
+
+        .scene-1 .sealevel-container iframe {
+          width: 60%;
+          max-width: 350px;
+        }
+
+        .scene-1 .map-buttons {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          flex: none;
+        }
+
+        .scene-1 #carbon-footprint-emissions-value {
+          font-size: 1.25rem;
         }
 
         .scene-1 .carbon-footprint-emissions-container .emissions-text {
@@ -981,6 +1028,10 @@
           display: flex;
           flex-direction: column;
           align-items: center;
+        }
+
+        .toggle-switch {
+          margin: 0 1rem;
         }
 
         .toggle-row .nowrap-text {
@@ -1045,9 +1096,12 @@
       }
 
       @media (max-width: 600px) {
+        .scene-1 .sealevel-container iframe {
+          width: 80%;
+        }
+
         .scene-1 .carbon-footprint-emissions-container .emissions-text {
           text-align-last: center;
-          text-wrap: wrap;
           line-height: 1.8;
         }
 
@@ -1070,31 +1124,35 @@
 
     <div class="index-btn">
       <a href="index.html">
-        <img src="images/house.svg" alt="房子">
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 56 56">
+          <path class="house-path" d="M .6249 27.8242 C .6249 28.9492 1.5155 29.6289 2.6171 29.6289 C 3.2968 29.6289 3.8358 29.3008 4.3046 28.8320 L 27.1796 7.9961 C 27.4374 7.7383 27.7187 7.6445 28.0233 7.6445 C 28.3046 7.6445 28.5624 7.7383 28.8436 7.9961 L 51.6954 28.8320 C 52.1874 29.3008 52.7264 29.6289 53.3826 29.6289 C 54.4842 29.6289 55.3751 28.9492 55.3751 27.8242 C 55.3751 27.1211 55.1173 26.6758 54.6719 26.2774 L 46.5623 18.8945 L 46.5623 5.0430 C 46.5623 4.0117 45.9061 3.3555 44.8751 3.3555 L 41.8046 3.3555 C 40.7968 3.3555 40.0936 4.0117 40.0936 5.0430 L 40.0936 13.0117 L 30.8124 4.5274 C 29.9921 3.7539 28.9843 3.3789 27.9999 3.3789 C 27.0155 3.3789 26.0312 3.7539 25.1874 4.5274 L 1.3280 26.2774 C .9062 26.6758 .6249 27.1211 .6249 27.8242 Z M 7.3280 47.4883 C 7.3280 50.7461 9.2968 52.6445 12.6015 52.6445 L 22.0936 52.6445 L 22.0936 35.9805 C 22.0936 34.9023 22.8202 34.1992 23.8984 34.1992 L 32.1718 34.1992 C 33.2499 34.1992 33.9531 34.9023 33.9531 35.9805 L 33.9531 52.6445 L 43.4216 52.6445 C 46.7264 52.6445 48.6719 50.7461 48.6719 47.4883 L 48.6719 30.3320 L 28.7734 12.4023 C 28.5155 12.1679 28.2343 12.0508 27.9531 12.0508 C 27.6952 12.0508 27.4374 12.1679 27.1562 12.4258 L 7.3280 30.4492 Z" />
+        </svg>
       </a>
     </div>
 
     <div class="scroll-container">
         <section class="scene scene-1">
             <div class="sealevel-container">
-                <p>本世紀末，</p>
+                <p>本世紀末</p>
                 <p>預計海平面將上升......</p>
-                <div class="iframe-container">
-                  <!-- iframe 區塊 -->
-                  <iframe id="mapFrame" 
-                          src="https://coastal.climatecentral.org/embed/map/13/121.5354/25.082/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C" 
-                          allow="fullscreen"
-                          title="Climate Central Map">
-                  </iframe>
+                <div class="iframemap-container">
+                  <div class="iframe-container">
+                    <!-- iframe 區塊 -->
+                    <iframe id="mapFrame" 
+                            src="https://coastal.climatecentral.org/embed/map/13/121.5354/25.082/?theme=warming&map_type=decadal_slr&basemap=roadmap&contiguous=false&elevation_model=best_available&esl_model=ipcc_2021&percentile=p95&slr_year=2100&temperature_rise=3.0&temperature_unit=C" 
+                            allow="fullscreen"
+                            title="Climate Central Map">
+                    </iframe>
 
-                  <!-- 按鈕區塊 -->
-                  <div class="map-buttons">
-                    <button onclick="switchMap('taipei', this)" class="active-btn">雙北地區</button>
-                    <button onclick="switchMap('yilan', this)">蘭陽平原</button>
-                    <button onclick="switchMap('hsinchu', this)">竹苗地區</button>
-                    <button onclick="switchMap('taichung', this)">中彰地區</button>
-                    <button onclick="switchMap('chiayi', this)">雲嘉南區</button>
-                    <button onclick="switchMap('kaohsiung', this)">高屏地區</button>
+                    <!-- 按鈕區塊 -->
+                    <div class="map-buttons">
+                      <button onclick="switchMap('taipei', this)" class="active-btn">雙北地區</button>
+                      <button onclick="switchMap('yilan', this)">蘭陽平原</button>
+                      <button onclick="switchMap('hsinchu', this)">竹苗地區</button>
+                      <button onclick="switchMap('taichung', this)">中彰地區</button>
+                      <button onclick="switchMap('chiayi', this)">雲嘉南區</button>
+                      <button onclick="switchMap('kaohsiung', this)">高屏地區</button>
+                    </div>
                   </div>
                 </div>
             </div>
@@ -1511,11 +1569,11 @@ function updateDisplay() {
         const stadiums = (forestArea / 12950).toFixed(1);
         const neutralityText = document.getElementById('neutrality-text');
         neutralityText.innerHTML = `
-          為了中和您的排放，必須復育大約 
-          <span class="neutrality-value">${forestArea.toLocaleString()}</span>
-          m²的自然再生林地。這大約與
+          <p>為了中和您的排放，必須復育大約 
+          <p><span class="neutrality-value">${forestArea.toLocaleString()}</span>
+          m²的自然再生林地。</p><p>這大約與
           <span class="neutrality-value">${stadiums}</span>
-          座台北大巨蛋相同！
+          座台北大巨蛋相同！</p></p>
         `;
 
     } else {
