@@ -369,6 +369,7 @@ h1 {
 
 @media (max-width: 600px) {
   .scene h1 {
+    font-size: 1.25rem;
     line-height: 1.8;
     margin-bottom: 1.5rem ;
   }
@@ -478,15 +479,35 @@ h1 {
   .nav-btn {
     scale: 0.9;
   }
-  .prev-btn {
-    left: 4px;
-  }
-  .next-btn {
-    right: 4px;
-  }
 }
 
-@media (max-width: 600px) {
+@media (min-width: 600px) and (max-width: 1024px) {
+.story-container, .scene {
+  scale: 0.8;
+}
+
+.scene {
+  min-height: unset;
+}
+
+}
+
+@media (min-width: 1024px) and (max-width: 1200px) and (orientation: landscape) {
+.story-container, .scene {
+  scale: 0.8;
+}
+}
+
+@media (min-width: 600px) and (max-width: 1024px) and (orientation: landscape) {
+body {
+  height: 100%;
+}
+.story-container, .scene {
+  scale: 0.5;
+}
+}
+
+@media (max-width: 600px) or ((max-width: 768px) and (orientation: portrait)) {
   .nav-btn {
     scale: 0.75;
     top: unset;

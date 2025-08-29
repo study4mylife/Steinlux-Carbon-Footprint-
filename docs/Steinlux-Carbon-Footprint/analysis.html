@@ -41,6 +41,18 @@
     }
 
     @media (min-width: 1600px) {
+      html { font-size: 20px; }
+    }
+
+    @media (min-width: 1800px) {
+      html { font-size: 22px; }
+    }
+
+    @media (min-width: 2000px) {
+      html { font-size: 24px; }
+    }
+
+    @media (min-width: 2560px) {
       html { font-size: 28px; }
     }
 
@@ -63,7 +75,7 @@
         top: 0;
         left: 0;
         width: 100vw;
-        height: 100vh;
+        height: 200vh;
         background: rgba(158, 240, 255, 0.8);
         display: flex;
         justify-content: center;
@@ -78,6 +90,20 @@
       .loading-screen.hidden {
         opacity: 0;
         pointer-events: none;
+      }
+
+      .spinner-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        opacity: 1;
+        transition: opacity 0.5s ease;
       }
 
       .spinner {
@@ -197,8 +223,10 @@
         align-items: center;
         font-weight: normal;
         color: #f5f5f5;
-        margin-top: 1.1671875rem;
-        padding-bottom: 1rem;
+        width: 95%;
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
         letter-spacing: 0.75rem;
         border-bottom: 1.5pt solid #ffffff60;
       }
@@ -350,7 +378,7 @@
       .scene-1 .iframemap-container {
         display: flex;
         align-items: end;
-        height: 30vh;
+        height: 31vh;
       }
 
       .scene-1 .iframe-container {
@@ -358,11 +386,13 @@
         gap: 1rem;
         align-items: stretch;
         width: 27.5vw;
+        max-width: 500px;
         height: max-content;
       }
 
       .scene-1 .sealevel-container iframe {
         width: 100%;
+        max-width: 100%;
         max-height: 30vh;
         aspect-ratio: 4/3;
         border: none;
@@ -437,7 +467,7 @@
       }
 
       .scene-1 .carbon-footprint-emissions-neutrality {
-        width: 65%;
+        width: 70%;
         font-size: 0.8rem;
         text-align: justify;
         letter-spacing: 4px;
@@ -459,7 +489,7 @@
         letter-spacing: 0.375rem;
         color: #F5F5F5;
         text-shadow: 2pt 2pt 3pt #7F7F7F40;
-        top: 37%;
+        top: 36.75%;
         right: 4.5%;
         translate: (-50%, -50%);
         z-index: 2;
@@ -475,18 +505,21 @@
       }
 
       .scene-2 .carbon-footprint-status-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         position: fixed;
         top: 50%;
         left: 25%;
         transform: translate(-50%, -50%);
         width: 40vw;
         height: 85vh;
+        padding: 1rem 0;
         background: rgba(255, 255, 255, 0.35);
         border-radius: 20px;
         border: 0.25px solid rgba(255, 255, 255);
         backdrop-filter: blur(15px);
         -webkit-backdrop-filter: blur(15px);
-        padding: 1rem 2rem;
         box-sizing: border-box;
         opacity: 0;
         overflow-y: auto;
@@ -494,13 +527,18 @@
       }
 
       .analysis-title {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         text-align: center;
         font-size: 1.5rem;
         font-weight: normal;
         color: #f5f5f5;
-        margin-top: 0;
+        width: 95%;
+        margin-top: 1rem;
         margin-bottom: 2rem;
-        padding-bottom: 1rem;
+        padding-bottom: 1.5rem;
         letter-spacing: 0.75rem;
         border-bottom: 1.5pt solid #ffffff60;
       }
@@ -531,6 +569,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        width: 90%;
         gap: 1.5rem;
         margin-bottom: 2rem;
       }
@@ -604,18 +643,21 @@
       }
 
       .recommendations {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         position: fixed;
         top: 50%;
         right: -15%;
         transform: translate(-50%, -50%);
         width: 40vw;
         height: 85vh;
+        padding: 1rem 0;
         background: rgba(255, 255, 255, 0.35);
         border-radius: 20px;
         border: 0.25px solid rgba(255, 255, 255);
         backdrop-filter: blur(15px);
         -webkit-backdrop-filter: blur(15px);
-        padding: 1rem 2rem;
         opacity: 0;
         box-sizing: border-box;
         overflow-y: auto;
@@ -633,7 +675,8 @@
       }
 
       #recommendations-list {
-        width: 100%;
+        width: 90%;
+        margin: 0;
         padding-left: 0;
       }
       
@@ -697,7 +740,7 @@
         display:flex;
         justify-content: space-evenly;
         align-items: center;
-        width: 100%;
+        width: 90%;
         height: fit-content;
         padding: 2rem 0;
       }
@@ -710,6 +753,7 @@
       .legend-item {
         display: flex;
         align-items: center;
+        font-size: 0.9285rem;
         letter-spacing: 0.0625rem;
         text-wrap: nowrap;
       }
@@ -718,10 +762,11 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 2rem 1rem;
-        width: 100%;
+        margin-bottom: 1.5rem;
+        width: 90%;
       }
 
-      @media (max-width: 1200px) {
+      @media (max-width: 1440px) {
         .advice-summary-container {
           grid-template-columns: repeat(2, 1fr);
           justify-items: center;
@@ -778,6 +823,7 @@
       }
 
       .advice-section {
+        width: 90%;
         line-height: 1.8;
       }
 
@@ -790,7 +836,6 @@
       }
 
       .advice-section ul {
-          margin-left: 1rem;
           color: #333;
       }
 
@@ -880,6 +925,64 @@
         margin: 1rem 0;
       }
 
+      @media (min-width: 1440px) and (max-width: 1900px) {
+        .analysis-title {
+          font-size: 1.35rem;
+        }
+      }
+
+      
+      @media (min-width: 1024px) and (max-width: 1440px) {
+        .scene-1 .sealevel-container,
+        .scene-1 .carbon-footprint-emissions-container,
+        .scene-1 .carbon-footprint-temperature-container {
+          font-size: 1.5rem;
+        }
+
+        .scene-1 .sealevel-container {
+          left: 2.5%;
+        }
+
+        .scene-1 .carbon-footprint-emissions-container,
+        .scene-1 .carbon-footprint-temperature-container {
+          right: 2.5%;
+        }
+
+        .scene-1 .iframe-container {
+          width: 23.5vw;
+        }
+      }
+
+      @media (min-width: 1200px) and (max-width: 1440px) { 
+        .scene-2 .carbon-footprint-status-container, .scene-2 .recommendations{
+          padding: 1rem 1.5rem;
+        }
+
+        .analysis-title {
+          font-size: 1.25rem;
+          letter-spacing: 0.45rem;
+        }
+
+        .advice-value, .advice-name {
+          font-size: 0.75rem;
+        }
+      }
+
+      @media (min-width: 1024px) and (max-width: 1200px) {
+        .analysis-title {
+          font-size: 1.15rem;
+          letter-spacing: 0.5rem;
+        }
+
+        .toggle-row .nowrap-text {
+          font-size: 1.15rem;
+        }
+
+        .chart-container {
+          padding: 0;
+        }
+      }
+
       @media (min-width: 1600px) {
 
       .scene-1 .map-buttons button {
@@ -942,7 +1045,19 @@
 
         .scene-1 .sealevel-container{
           margin: 1rem 0 0 0;
+          line-height: 1.8;
         }
+
+        .scene-1 .sealevel-container .sealevel-text {
+          margin-bottom: 1rem; 
+          padding-top: 0.5rem;
+        }
+
+        .scene-1 .carbon-footprint-emissions-container .emissions-value-text {
+          padding-top: 0.5rem;
+          line-height: 1.8;
+        }
+        
 
         .carbon-footprint-emissions-container {
           margin: 0;
@@ -1030,13 +1145,18 @@
           width: 90vw;
           height: auto;
           max-height: none;
-          margin-bottom: 2rem;
+          margin-bottom: 4rem;
           transform: none;
           opacity: 1 !important;
         }
 
         .categories-grid {
           grid-template-columns: 1fr;
+        }
+
+        .analysis-title, .toggle-row {
+          width: 90%;
+          height: 50px
         }
 
         .analysis-title {
@@ -1082,6 +1202,10 @@
           line-height: 1.8;
         }
 
+        .toggle-row .nowrap-text {
+          font-size: 1.15rem;
+        }
+
         .legend-item {
             display: flex;
             align-items: center;
@@ -1096,7 +1220,9 @@
 <body>
     <!-- loading畫面 -->
     <div class="loading-screen">
+      <div class="spinner-container">
         <div class="spinner"></div>
+      </div>
     </div>
 
     <div class="index-btn">
@@ -1111,7 +1237,7 @@
         <section class="scene scene-1">
             <div class="sealevel-container">
                 <p>本世紀末</p>
-                <p>預計海平面將上升......</p>
+                <p class="sealevel-text" >預計海平面將上升......</p>
                 <div class="iframemap-container">
                   <div class="iframe-container">
                     <!-- iframe 區塊 -->
@@ -1145,7 +1271,7 @@
 
             <div class="carbon-footprint-temperature-container">
                 <p class="temperature-text">地球持續升溫</p>
-                <p class="temperature-text">本世紀末將達
+                <p style="margin-bottom: 0;" class="temperature-text">本世紀末將達
                     <span id="carbon-footprint-temperature-value">3.7</span>
                 </p>
             </div>
@@ -1400,11 +1526,11 @@ function showError(message) {
 
 const categoryInfo = {
     'traffic-daily': { color: '#6D808F', bgcolor: '#6D808F35', name: '日常通勤' },
-    'home': { color: '#A88E71', bgcolor: '#A88E7135', name: '居住生活' },
-    'traffic-travel': { color: '#C18181', bgcolor: '#C1818135', name: '旅遊交通' },
-    'food': { color: '#A3B18D', bgcolor: '#A3B18D35', name: '日常飲食' },
-    'fashion': { color: '#B6A0B1', bgcolor: '#B6A0B135', name: '時尚穿搭' },
-    'entertainment': { color: '#AAC5D2', bgcolor: '#AAC5D235', name: '生活娛樂' }
+    'home': { color: '#92775d', bgcolor: '#92775d35', name: '居住生活' },
+    'traffic-travel': { color: '#C08499', bgcolor: '#C0849935', name: '旅遊交通' },
+    'food': { color: '#758260', bgcolor: '#75826035', name: '日常飲食' },
+    'fashion': { color: '#9272a7', bgcolor: '#9272a735', name: '時尚穿搭' },
+    'entertainment': { color: '#6E92BD', bgcolor: '#6E92BD35', name: '生活娛樂' }
 };
 
 function createCategoryCards() {
@@ -1520,6 +1646,7 @@ function calculateTemperatureIncrease(totalEmissions) {
 function updateDisplay() {
     const emissionsValueElement = document.getElementById('carbon-footprint-emissions-value');
     const temperatureValueElement = document.getElementById('carbon-footprint-temperature-value');
+    const neutralityText = document.getElementById('neutrality-text');
 
     if (totalEmissions > 0) {
         emissionsValueElement.textContent = totalEmissions.toFixed(2);
@@ -1527,30 +1654,49 @@ function updateDisplay() {
         // 更新升溫幅度
         temperatureValueElement.textContent = calculateTemperatureIncrease(totalEmissions) + '℃';
 
-        // 更新中和說明
+        // 計算需要的林地面積 & 巨蛋數量
         const forestArea = Math.round(totalEmissions * 1388.889);
         const stadiums = (forestArea / 12950).toFixed(1);
-        const neutralityText = document.getElementById('neutrality-text');
-        neutralityText.innerHTML = `
-          <p>為了中和您的排放，必須復育大約 
-          <p><span class="neutrality-value">${forestArea.toLocaleString()}</span>
-          m²的自然再生林地。</p><p>這大約與
-          <span class="neutrality-value">${stadiums}</span>
-          座台北大巨蛋相同！</p></p>
-        `;
+
+        // === 專門處理中和文字的函式 ===
+        function updateNeutralityText() {
+            if (window.innerWidth > 1024) {
+                // 桌機版顯示內容
+                neutralityText.innerHTML = `
+                    為了中和您的排放，您需要復育大約 
+                    <span class="neutrality-value">${forestArea.toLocaleString()}</span>
+                    m² 的自然再生林地。換算下來，相當於 
+                    <span class="neutrality-value">${stadiums}</span>
+                    座台北大巨蛋的面積
+                `;
+            } else {
+                // 手機／小螢幕版顯示內容
+                neutralityText.innerHTML = `
+                    <p>為了中和您的排放，必須復育</p>
+                    <p>大約<span class="neutrality-value">${forestArea.toLocaleString()}</span>
+                    m²的自然再生林地。</p>
+                    <p>這大約與
+                    <span class="neutrality-value">${stadiums}</span>
+                    座台北大巨蛋相同！</p>
+                `;
+            }
+        }
+
+        // 頁面載入或數據更新時執行一次
+        updateNeutralityText();
+
+        // 監聽視窗縮放，動態切換內容
+        window.addEventListener('resize', updateNeutralityText);
 
     } else {
         emissionsValueElement.textContent = '暫無數據';
         temperatureValueElement.textContent = '暫無數據';
-        const neutralityText = document.getElementById('neutrality-text');
         neutralityText.textContent = '請完成碳足跡問卷，我們將為您計算需要復育的森林面積。';
     }
 
     createCategoryCards();
-
     generateRecommendations();
     generateAdvice();
-
     renderEmissionsChart();
 }
 
