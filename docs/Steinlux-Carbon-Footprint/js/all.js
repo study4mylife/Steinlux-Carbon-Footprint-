@@ -69,7 +69,6 @@ function StartQuestionnaire() {
         scene.classList.add("awakening");
     }, 50); // 延遲一點，確保 .active 已套用
 
-    // 取得目前檔案名稱
     const fileName = window.location.pathname.split("/").pop();
 
     // 根據不同檔案名稱設定背景
@@ -95,7 +94,6 @@ function StartQuestionnaire() {
             break;
     }
 
-    // 套用背景
     document.documentElement.style.backgroundImage = `url('${bgImage}')`;
 }
 
@@ -103,13 +101,10 @@ sendButton.addEventListener("click", () => {
     const storyBody = document.querySelector('.story-body');
     const loader = document.getElementById("page-loader");
 
-    // 顯示 Loader
     loader.style.display = "flex";
 
-    // 啟動「從夢中醒來」動畫
     storyBody.classList.remove("awakening");
 
-    // 取得背景圖路徑
     const fileName = window.location.pathname.split("/").pop();
     let bgImage;
     switch (fileName) {
@@ -133,10 +128,8 @@ sendButton.addEventListener("click", () => {
             break;
     }
 
-    // 紀錄開始時間
     const startTime = Date.now();
 
-    // 預載背景圖
     const img = new Image();
     img.src = bgImage;
 
@@ -161,19 +154,16 @@ setTimeout(() => {
     if (skipButton) {
         skipButton.addEventListener("click", skipToEnd);
     }
-    
-    // 啟動醒來動畫
+
     startAwakeningAnimation();
 }, 100);
 
 function startAwakeningAnimation() {
     const storyBody = document.querySelector('.story-body');
-    
-    // 延遲一點開始醒來效果
+
     setTimeout(() => {
         storyBody.classList.add('awakening');
         
-        // 醒來動畫完成後開始播放對話
         setTimeout(() => {
             playIntroMessages();
         }, 1500);
@@ -308,30 +298,25 @@ async function playIntroMessages() {
 
     isPlayingMessages = false;
 
-// 無論是否跳過，都在聊天結束時執行音效播放
 if (skipButton) {
     skipButton.classList.add("hidden");
 }
 
-// 開始播放
 setTimeout(() => {
     sendButton.classList.add("pulse");
     
-    // 5秒後移除pulse效果並暫停
     setTimeout(() => {
         sendButton.classList.remove("pulse");
         
-        // 暫停3秒後再次開始播放
         setTimeout(() => {
             sendButton.classList.add("pulse");
-            
-            // 再播放5秒後停止
+
             setTimeout(() => {
                 sendButton.classList.remove("pulse");
             }, 5000);
-        }, 3000); // 暫停3秒
+        }, 3000);
         
-    }, 5000); // 播放5秒
+    }, 5000);
 }, 500);
 }
 });
@@ -383,13 +368,13 @@ if (href && currentPage === href) {
 
 document.querySelectorAll('.chapter-button').forEach(button => {
   button.addEventListener('mouseenter', () => {
-    button.classList.remove('rubberBand'); // 移除舊動畫
-    void button.offsetWidth; // 觸發重排，確保動畫能重新播放
+    button.classList.remove('rubberBand');
+    void button.offsetWidth;
     button.classList.add('rubberBand');
   });
 
   button.addEventListener('mouseleave', () => {
-    button.classList.remove('rubberBand'); // 滑出移除動畫
+    button.classList.remove('rubberBand');
   });
 });
 

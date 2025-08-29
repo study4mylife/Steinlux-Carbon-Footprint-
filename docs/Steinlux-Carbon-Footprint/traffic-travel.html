@@ -92,9 +92,6 @@
       2px 2px 8px 0px rgba(110, 110, 110, 0.275);
       }
 
-      /* ---------------------------------------
-       5. 切換開關區塊 (Scene 2 & 4)
-    --------------------------------------- */
       .toggle-row {
         display: flex;
         justify-content: center;
@@ -181,9 +178,6 @@
       color: #9c7a5c;
     }
 
-      /* ---------------------------------------
-       6. 動態模板區域 (Scene 2 & 4)
-    --------------------------------------- */
       .template-wrapper {
       display: flex;
       flex-wrap: wrap;
@@ -394,7 +388,6 @@
         -ms-overflow-style: none;
       }
       
-      /* trip-list */
       .trip-item {
         font-family: "GenSenRounded2TW-L", sans-serif;
         display: flex;
@@ -1128,8 +1121,7 @@ async function calculate() {
 
   try {
     console.log("開始呼叫 Cloud Function...");
-    
-    // 創建 callable function 實例
+
     const calculateFunction = httpsCallable(functions, "calculateCarbonPage");
     
     const requestData = {
@@ -1141,19 +1133,14 @@ async function calculate() {
     console.log("requestData 型別:", typeof requestData);
     console.log("JSON.stringify(requestData):", JSON.stringify(requestData));
     
-    // 呼叫 Cloud Function
     const result = await calculateFunction(requestData);
     
     console.log("Cloud Function 回應:", result);
     console.log("result.data:", result.data);
     
-    // 顯示結果
     if (result.data && result.data.total !== undefined) {
       const total = result.data.total;
-      const message = `計算成功！\n碳排放量: ${total.toFixed(2)} kg CO2e\n頁面: ${result.data.pageName}`;
-      alert(message);
-      
-      // 你也可以把結果顯示在頁面上
+
       const resultElement = document.getElementById("calculation-result");
       if (resultElement) {
         resultElement.innerHTML = `
@@ -1289,18 +1276,15 @@ async function calculate() {
         let currentScene = "scene-travel-1";
 
         function goToNextScene() {
-          // 取得目前場景在使用者選取活動中的位置
           const currentIndex = selectedActivities.findIndex(
             (activity) => activityScenes[activity] === currentScene
           );
 
-          // 是最後一個場景 → 導向結果頁
           if (currentIndex === selectedActivities.length - 1) {
             window.location.href = "food.html";
             return;
           }
 
-          // 還有下一頁 → 取得下一個活動的 sceneId，跳轉
           const nextActivity = selectedActivities[currentIndex + 1];
           const nextSceneId = activityScenes[nextActivity];
           if (nextSceneId) {
@@ -1313,13 +1297,11 @@ async function calculate() {
             (activity) => activityScenes[activity] === currentScene
           );
 
-          // 是第一個選擇的活動 → 回到 scene-travel-1
           if (currentIndex === 0) {
             goToScene("scene-travel-1");
             return;
           }
 
-          // 還有上一頁 → 跳到上一個活動頁面
           const prevActivity = selectedActivities[currentIndex - 1];
           const prevSceneId = activityScenes[prevActivity];
           if (prevSceneId) {
@@ -1328,7 +1310,6 @@ async function calculate() {
         }
 
         function handleFirstSceneNext() {
-          // 固定順序
           const fullOrder = [
             "汽車",
             "郵輪",
@@ -1338,12 +1319,10 @@ async function calculate() {
             "高鐵",
           ];
 
-          // 過濾選取的項目並依照固定順序排序
           const sortedActivities = fullOrder.filter((activity) =>
             selectedActivities.includes(activity)
           );
 
-          // 更新陣列
           selectedActivities.length = 0;
           selectedActivities.push(...sortedActivities);
 
@@ -1356,7 +1335,7 @@ async function calculate() {
           goToScene(firstScene);
         }
 
-        const selectedActivities = []; // 儲存選取的項目
+        const selectedActivities = [];
         const activityScenes = {
           汽車: "scene-travel-2-1",
           郵輪: "scene-travel-2-2",
@@ -1397,14 +1376,12 @@ async function calculate() {
         if (!container) return;
         container.innerHTML = "";
 
-        // 👉 1. 先加上「選擇頁」的 bar（永遠是第一個）
         const selectHitArea = document.createElement("div");
         selectHitArea.classList.add("bar-hit-area");
 
         const selectBar = document.createElement("span");
         selectBar.classList.add("bar");
 
-        // 如果現在頁面是 scene-travel-1，設定 active 狀態
         if (currentScene === "scene-travel-1") {
           selectBar.classList.add("active");
         }
@@ -1412,11 +1389,10 @@ async function calculate() {
         selectHitArea.appendChild(selectBar);
         selectHitArea.onclick = () => {
           goToScene("scene-travel-1");
-          updateBarActive(0); // 第一個 bar 是 index 0
+          updateBarActive(0);
         };
         container.appendChild(selectHitArea);
 
-        // 👉 2. 依據選到的 activity 加上對應 bar
         selectedActivities.forEach((activity, idx) => {
           const sceneId = activityScenes[activity];
           if (!sceneId) return;
@@ -1427,7 +1403,6 @@ async function calculate() {
           const bar = document.createElement("span");
           bar.classList.add("bar");
 
-          // 注意：因為第一個 bar 是選擇頁，這邊是 idx+1
           if (currentScene === sceneId) {
             bar.classList.add("active");
           }
@@ -1446,16 +1421,13 @@ async function calculate() {
       function updateNavButtonsVisibility() {
         const sceneEl = document.getElementById(currentScene);
 
-        // 取得按鈕（用 querySelector 找當前 scene 裡的按鈕）
         const prevBtn = sceneEl.querySelector(".prev-btn");
         const nextBtn = sceneEl.querySelector(".next-btn");
 
-        // 全部先隱藏
         document.querySelectorAll(".prev-btn, .next-btn").forEach(btn => {
           btn.style.display = "none";
         });
 
-        // 這個 scene 有的才顯示
         if (prevBtn) prevBtn.style.display = "block";
         if (nextBtn) nextBtn.style.display = "block";
       }
@@ -1505,7 +1477,6 @@ async function calculate() {
         if (!container) return;
         container.innerHTML = "";
 
-        // ➤ 第一個 bar：選擇交通工具頁面
         const selectHitArea = document.createElement("div");
         selectHitArea.classList.add("bar-hit-area");
 
@@ -1522,7 +1493,6 @@ async function calculate() {
           updateBarActive(0);
         };
         container.appendChild(selectHitArea);
-          // 👉 2. 依據選到的 activity 加上對應 bar
         selectedActivities.forEach((activity, idx) => {
           const sceneId = activityScenes[activity];
           if (!sceneId) return;
@@ -1533,7 +1503,6 @@ async function calculate() {
           const bar = document.createElement("span");
           bar.classList.add("bar");
 
-          // 注意：因為第一個 bar 是選擇頁，這邊是 idx+1
           if (currentScene === sceneId) {
             bar.classList.add("active");
           }
@@ -1567,7 +1536,6 @@ async function calculate() {
       });
 
 
-// 修改原有的 setupToggle 函數，加入動態文字更新功能
 function setupToggle(fuelId, methodId, oilLeftId, oilRightId, elecLeftId, elecRightId, paneLeftId, paneRightId) {
     const fuelToggle   = document.getElementById(fuelId);
     const methodToggle = document.getElementById(methodId);
@@ -1578,7 +1546,6 @@ function setupToggle(fuelId, methodId, oilLeftId, oilRightId, elecLeftId, elecRi
     const paneLeft     = document.getElementById(paneLeftId);
     const paneRight    = document.getElementById(paneRightId);
 
-    // 新增：找到計算方法文字元素
     let methodLeftSpan = null;
     if (methodToggle) {
         const methodToggleCard = methodToggle.closest('.toggle-card');
@@ -1590,13 +1557,11 @@ function setupToggle(fuelId, methodId, oilLeftId, oilRightId, elecLeftId, elecRi
     function updateFuel() {
         const isElec = fuelToggle.checked;
         
-        // 原有的燃料切換邏輯
         if (oilLeft) oilLeft.classList.toggle("hidden", isElec);
         if (oilRight) oilRight.classList.toggle("hidden", isElec);
         if (elecLeft) elecLeft.classList.toggle("hidden", !isElec);
         if (elecRight) elecRight.classList.toggle("hidden", !isElec);
-        
-        // 新增：更新計算方法文字
+
         if (methodLeftSpan) {
             methodLeftSpan.textContent = isElec ? '電量' : '油量';
         }
@@ -1605,7 +1570,6 @@ function setupToggle(fuelId, methodId, oilLeftId, oilRightId, elecLeftId, elecRi
     function updateMethod() {
         const isVol = methodToggle.checked;
         
-        // 原有的方法切換邏輯
         if (paneLeft) paneLeft.classList.toggle("inactive", isVol);
         if (paneRight) paneRight.classList.toggle("inactive", !isVol);
     }
@@ -1617,7 +1581,6 @@ function setupToggle(fuelId, methodId, oilLeftId, oilRightId, elecLeftId, elecRi
         });
         methodToggle.addEventListener("change", updateMethod);
         
-        // 初始化
         updateFuel();
         updateMethod();
     }
@@ -1633,11 +1596,9 @@ function haversine(a, b) {
   return 2 * R * Math.asin(Math.sqrt(h));
 }
 
-// ===== 全域變數 =====
 let airportCoords = {}, mrtDistanceMap = {}, trDistanceMap = {}, hsrDistanceMap = {};
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 設置汽車的切換功能
   setupToggle("travel-car-fuel-type-toggle", "travel-car-method-toggle", "oil-left", "oil-right", "electric-left", "electric-right", "pane-left", "pane-right");
 
 let flightStationArray = [];
@@ -1645,7 +1606,7 @@ let flightStationArray = [];
 fetch("./data/AirportDistanceMap.json")
   .then(r => r.json())
   .then(data => {
-    // 載入座標數據（這個很重要，您的原代碼缺少這部分）
+    // 載入座標數據
     data.forEach(({ iata_code, latitude_deg, longitude_deg }) => {
       if (iata_code) {
         airportCoords[iata_code.toUpperCase()] = { 
@@ -1655,7 +1616,6 @@ fetch("./data/AirportDistanceMap.json")
       }
     });
 
-    // 用 Set 收集所有 iata_code，避免重複且轉大寫
     const airportSet = new Set();
     data.forEach(item => {
       if (item.iata_code) {
@@ -1665,7 +1625,6 @@ fetch("./data/AirportDistanceMap.json")
 
     flightStationArray = Array.from(airportSet);
 
-    // 更新選項的函數
     function updateFlightOptions(searchTerm = '') {
       const dl = document.getElementById("airportStationList");
       if (!dl) return;
@@ -1676,32 +1635,31 @@ fetch("./data/AirportDistanceMap.json")
       let filteredAirports;
       
       if (query.length === 0) {
-        // 沒有輸入時，顯示所有機場按字母順序
+
         filteredAirports = [...flightStationArray].sort((a, b) => a.localeCompare(b));
       } else {
-        // 有輸入時，進行智能排序
         filteredAirports = flightStationArray
           .filter(code => code.includes(query))
           .sort((a, b) => {
-            // 1. 代碼完全匹配
+            // 完全匹配
             if (a === query) return -1;
             if (b === query) return 1;
 
-            // 2. 代碼開頭匹配
+            // 開頭匹配
             const aStarts = a.startsWith(query);
             const bStarts = b.startsWith(query);
             if (aStarts && !bStarts) return -1;
             if (!aStarts && bStarts) return 1;
 
-            // 3. 如果都是開頭匹配，按字母順序排列
+            // 如果都是開頭匹配，按字母順序排列
             if (aStarts && bStarts) return a.localeCompare(b);
 
-            // 4. 其他情況按包含位置排序
+            // 其他情況按包含位置排序
             const aIndex = a.indexOf(query);
             const bIndex = b.indexOf(query);
             if (aIndex !== bIndex) return aIndex - bIndex;
 
-            // 5. 最後按字母順序
+            // 最後按字母順序
             return a.localeCompare(b);
           })
       }
@@ -1713,7 +1671,6 @@ fetch("./data/AirportDistanceMap.json")
       });
     }
 
-    // 綁定輸入事件
     const flightStartInput = document.getElementById("flightStart");
     const flightEndInput = document.getElementById("flightEnd");
     
@@ -1737,25 +1694,21 @@ fetch("./data/AirportDistanceMap.json")
       });
     }
 
-    // 初始載入所有選項
     updateFlightOptions();
   })
   .catch(err => console.log("Flight data not loaded:", err));
 
 // 優化的捷運、火車、高鐵站名搜索功能
 
-// 通用的選項更新函數
 function updateOptionsForDatalist(stationsArray, datalistId, searchTerm = '') {
     const dl = document.getElementById(datalistId);
     if (!dl) return;
-    
-    // 清空現有選項
+
     dl.innerHTML = '';
     
     let matchingStations = stationsArray;
     
     if (searchTerm.trim()) {
-        // 分類匹配的站名
         const startsWithMatch = [];
         const containsMatch = [];
         
@@ -1767,7 +1720,6 @@ function updateOptionsForDatalist(stationsArray, datalistId, searchTerm = '') {
             }
         });
         
-        // 合併結果：優先顯示開頭匹配的
         matchingStations = [...startsWithMatch.sort(), ...containsMatch.sort()];
     } else {
         matchingStations = stationsArray.sort();
@@ -1784,18 +1736,14 @@ function updateOptionsForDatalist(stationsArray, datalistId, searchTerm = '') {
 fetch("./data/mrtDistanceMap.json").then(r => r.json()).then(data => {
     mrtDistanceMap = data;
     
-    // 收集所有捷運站名
     const allStations = new Set(Object.keys(data).flatMap(k => k.split("_")));
     const stationsArray = Array.from(allStations);
-    
-    // 處理所有捷運相關的datalist
+
     const mrtDatalistIds = ['mrtStationListStart', 'mrtStationListEnd'];
-    
-    // 初始載入所有選項到每個datalist
+
     mrtDatalistIds.forEach(datalistId => {
         updateOptionsForDatalist(stationsArray, datalistId);
-        
-        // 找到對應的input並添加事件監聽器
+
         const input = document.querySelector(`input[list="${datalistId}"]`);
         if (input) {
             input.addEventListener('input', (e) => {
@@ -1828,15 +1776,12 @@ fetch("./data/trDistanceMap.json").then(r => r.json()).then(data => {
     }
     
     const stationsArray = Array.from(stations);
-    
-    // 處理所有火車相關的datalist  
+
     const trDatalistIds = ['trStationListStart', 'trStationListEnd'];
-    
-    // 初始載入所有選項到每個datalist
+
     trDatalistIds.forEach(datalistId => {
         updateOptionsForDatalist(stationsArray, datalistId);
-        
-        // 找到對應的input並添加事件監聽器
+
         const input = document.querySelector(`input[list="${datalistId}"]`);
         if (input) {
             input.addEventListener('input', (e) => {
@@ -1856,19 +1801,15 @@ fetch("./data/trDistanceMap.json").then(r => r.json()).then(data => {
 // 高鐵數據載入與搜索功能
 fetch("./data/hsrDistanceMap.json").then(r => r.json()).then(data => {
     hsrDistanceMap = data;
-    
-    // 收集所有高鐵站名
+
     const allStations = new Set(Object.keys(data).flatMap(k => k.split("_")));
     const stationsArray = Array.from(allStations);
-    
-    // 處理所有高鐵相關的datalist
+
     const hsrDatalistIds = ['hsrStationListStart', 'hsrStationListEnd'];
-    
-    // 初始載入所有選項到每個datalist
+
     hsrDatalistIds.forEach(datalistId => {
         updateOptionsForDatalist(stationsArray, datalistId);
-        
-        // 找到對應的input並添加事件監聽器
+
         const input = document.querySelector(`input[list="${datalistId}"]`);
         if (input) {
             input.addEventListener('input', (e) => {
@@ -1885,7 +1826,6 @@ fetch("./data/hsrDistanceMap.json").then(r => r.json()).then(data => {
     
 }).catch(err => console.log("HSR data not loaded:", err));
 
-  // 4. 飛機模式切換
   const modeToggle = document.getElementById("travel-flight-method-toggle");
   const timeWrap = document.getElementById("flight-time-wrapper");
   const stationWrap = document.getElementById("flight-station-wrapper");
@@ -1900,7 +1840,6 @@ fetch("./data/hsrDistanceMap.json").then(r => r.json()).then(data => {
     stationWrap.classList.add("hidden");
   }
 
-  // 5. 綁定所有按鈕
   const buttons = [
     { id: "addCruiseBtn", fn: addCruiseTrip },
     { id: "removeCruiseBtn", fn: removeCruiseTrip },
@@ -1913,31 +1852,26 @@ fetch("./data/hsrDistanceMap.json").then(r => r.json()).then(data => {
     if (btn) btn.addEventListener("click", fn);
   });
 
-  // 捷運按鈕
   const mrtAddBtn = document.querySelector("#scene-travel-2-4 .add-trip-wrapper .mrt-btn");
   const mrtRemoveBtn = document.querySelector("#scene-travel-2-4 .mrt-trip-list-wrapper .mrt-btn");
   if (mrtAddBtn) mrtAddBtn.addEventListener("click", addMRTTrip);
   if (mrtRemoveBtn) mrtRemoveBtn.addEventListener("click", removeMRTTrip);
-  
-  // 火車按鈕
+
   const trainAddBtn = document.querySelector("#scene-travel-2-5 .add-trip-wrapper .mrt-btn");
   const trainRemoveBtn = document.querySelector("#scene-travel-2-5 .mrt-trip-list-wrapper .mrt-btn");
   if (trainAddBtn) trainAddBtn.addEventListener("click", addTrainTrip);
   if (trainRemoveBtn) trainRemoveBtn.addEventListener("click", removeTrainTrip);
-  
-  // 高鐵按鈕
+
   const hsrAddBtn = document.querySelector("#scene-travel-2-6 .add-trip-wrapper .mrt-btn");
   const hsrRemoveBtn = document.querySelector("#scene-travel-2-6 .mrt-trip-list-wrapper .mrt-btn");
   if (hsrAddBtn) hsrAddBtn.addEventListener("click", addHsrTrip);
   if (hsrRemoveBtn) hsrRemoveBtn.addEventListener("click", removeHsrTrip);
 
-  // 設置選取功能 - 在按鈕綁定之後
   setupTripListSelection();
 });
 
 // ===== 更新選取資訊 =====
 function updateSelectionInfo(container) {
-  // 移除選取資訊顯示功能，僅保留函數結構以維持兼容性
 }
 
 // ===== 選取功能設定 =====
@@ -1953,20 +1887,16 @@ function setupTripListSelection() {
   tripContainers.forEach(selector => {
     const container = document.querySelector(selector);
     if (container && !container.hasAttribute('data-selection-setup')) {
-      // 綁定點擊事件
       container.addEventListener("click", e => {
         const item = e.target.closest(".trip-item");
         if (!item) return;
         
-        // 阻止事件冒泡
         e.stopPropagation();
         e.preventDefault();
         
-        // 切換選取狀態（多選模式）
         item.classList.toggle("selected");
       });
-      
-      // 標記已設置
+
       container.setAttribute('data-selection-setup', 'true');
     }
   });
@@ -1975,8 +1905,7 @@ function setupTripListSelection() {
 // ===== 製作可選取項目 =====
 function makeSelectable(item) {
   item.classList.add("trip-item");
-  
-  // 確保項目可以被點擊
+
   item.style.cursor = "pointer";
   item.style.userSelect = "none";
   
@@ -1992,7 +1921,7 @@ function addTrip({ map, startId, endId, countId, displaySelector, distanceType =
   let dist;
 
   if (distanceType === "pair") {
-    // 用 "A_B" 或 "B_A" 查找距離
+
     dist = map[`${s}_${e}`] ?? map[`${e}_${s}`];
   } else if (distanceType === "difference") {
     if (map[s] === undefined || map[e] === undefined) {
@@ -2022,7 +1951,6 @@ function addTrip({ map, startId, endId, countId, displaySelector, distanceType =
   const list = document.querySelector(`${displaySelector} .trip-list`);
   list.appendChild(item);
 
-  // 清空欄位
   document.getElementById(startId).value = "";
   document.getElementById(endId).value = "";
   document.getElementById(countId).value = "";
@@ -2148,7 +2076,6 @@ function addFlightTrip() {
       <span class="trip-item-text-right">${c}趟 ${type} / ${cabinLevel}</span>
     </span>`;
 
-    // 存入 dataset 用於計算
     item.dataset.start = s;
     item.dataset.end = e;
     item.dataset.count = c;
@@ -2207,7 +2134,6 @@ function sumTripDistance(map, containerSelector, type = "pair") {
 
       if (dist != null) {
         let distance = dist * count;
-        // 如果是來回，距離要乘以2
         if (tripType === "來回") {
           distance *= 2;
         }
@@ -2222,7 +2148,6 @@ function sumTripDistance(map, containerSelector, type = "pair") {
 
       if (startDist != null && endDist != null) {
         let segmentDistance = Math.abs(endDist - startDist) * count;
-        // 如果是來回，距離要乘以2
         if (tripType === "來回") {
           segmentDistance *= 2;
         }
@@ -2319,21 +2244,17 @@ function bindNumberLimit(inputId) {
   el.addEventListener('input', () => {
     let val = el.value;
 
-    // 移除非數字
     val = val.replace(/\D/g, '');
 
-    // 限制最多 2 位數
     if (val.length > 2) {
       val = val.slice(0, 2);
     }
 
-    // 如果是空的就先不處理
     if (val === '') {
       el.value = '';
       return;
     }
 
-    // 限制範圍 1 ~ 99
     let num = parseInt(val, 10);
     if (num < 1) num = 1;
     if (num > 99) num = 99;
@@ -2342,7 +2263,6 @@ function bindNumberLimit(inputId) {
   });
 }
 
-// 綁定三個輸入框
 ['mrtCount', 'trainCount', 'hsrCount', 'flightCount'].forEach(bindNumberLimit);
   </script>
 

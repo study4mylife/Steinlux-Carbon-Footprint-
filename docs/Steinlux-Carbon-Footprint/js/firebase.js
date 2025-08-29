@@ -29,7 +29,7 @@ export async function loadSectionData(sectionName) {
   return snapshot.exists() ? snapshot.val() : null;
 }
 
-// 簡單產生/記錄 userId
+// 產生/記錄 userId
 function getUserId() {
   let userId = localStorage.getItem("userId");
   if (!userId) {

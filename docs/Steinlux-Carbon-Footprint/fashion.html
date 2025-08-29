@@ -227,7 +227,6 @@ async function calculate() {
   try {
     console.log("開始呼叫 Cloud Function...");
     
-    // 創建 callable function 實例
     const calculateFunction = httpsCallable(functions, "calculateCarbonPage");
     
     const requestData = {
@@ -238,20 +237,15 @@ async function calculate() {
     console.log("準備傳送的資料:", requestData);
     console.log("requestData 型別:", typeof requestData);
     console.log("JSON.stringify(requestData):", JSON.stringify(requestData));
-    
-    // 呼叫 Cloud Function
+
     const result = await calculateFunction(requestData);
     
     console.log("Cloud Function 回應:", result);
     console.log("result.data:", result.data);
-    
-    // 顯示結果
+
     if (result.data && result.data.total !== undefined) {
       const total = result.data.total;
-      const message = `計算成功！\n碳排放量: ${total.toFixed(2)} kg CO2e\n頁面: ${result.data.pageName}`;
-      alert(message);
       
-      // 你也可以把結果顯示在頁面上
       const resultElement = document.getElementById("calculation-result");
       if (resultElement) {
         resultElement.innerHTML = `

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>星際碳險 - 碳足跡分析</title>
     
-    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-functions-compat.js"></script>
     
@@ -15,7 +14,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@latest/dist/chart.umd.min.js"></script>
     
     <style>
-    /*—— 自訂字體 ——*/
     @font-face {
       font-family: "GenSenRounded2TW-R";
       src: url("./font/GenSenRounded2TW-R.otf") format("opentype"),
@@ -140,7 +138,6 @@
         100% { transform: rotate(360deg); }
       }
 
-      /* 桌面版本的滾動容器設置 */
       .scroll-container {
         position: fixed;
         height: 100vh;
@@ -151,8 +148,6 @@
         width: 100vw;
         overflow: hidden;
       }
-
-      /* 切換開關 */
 
       @keyframes switchOn {
         0% {
@@ -279,30 +274,29 @@
       }
 
       .scene.active {
-        pointer-events: auto; /* 只有 active 的場景可以點 */
+        pointer-events: auto;
       }
       
       @media (max-width: 1024px) {
         body {
-          height: auto; /* 允許body高度自適應 */
+          height: auto;
         }
         
         .scroll-container {
-          position: static !important; /* 改為靜態定位 */
-          overflow-y: visible !important; /* 允許正常滾動 */
-          scroll-snap-type: none !important; /* 取消滾動吸附 */
-          scroll-behavior: auto !important; /* 恢復正常滾動行為 */
+          position: static !important;
+          overflow-y: visible !important;
+          scroll-snap-type: none !important;
+          scroll-behavior: auto !important;
           overflow-x: hidden !important;
         }
 
         .scene {
-          position: static !important; /* 改為靜態定位 */
-          scroll-snap-align: none !important; /* 取消滾動吸附對齊 */
-          height: auto !important; /* 高度自適應內容 */
+          position: static !important;
+          scroll-snap-align: none !important;
+          height: auto !important;
           overflow-x: hidden;
         }
-        
-        /* 確保第二個場景在手機上也顯示 */
+
         .scene-2 {
           height: auto !important;
           min-height: 100vh;
@@ -333,7 +327,6 @@
         }
       }
 
-      /* 第一幕样式 */
       .scene-1 .sealevel-container {
         display: flex;
         flex-direction: column;
@@ -633,7 +626,7 @@
       }
 
       ::-webkit-scrollbar-track {
-        background: none; /* 或 transparent */
+        background: none;
       }
 
       .recommendation-page {
@@ -649,7 +642,6 @@
         padding-left: 0;
       }
       
-      /* 每個條目 */
       .recommendation-item {
         margin-bottom: 1rem;
         color: #000;
@@ -657,12 +649,10 @@
         font-size: 0.9rem;
       }
 
-      /* 沒有分類的特殊處理 */
       .recommendation-item.no-category {
         color: #555;
       }
 
-      /* 標題 */
       .recommendation-title {
         font-weight: bold;
         display: flex;
@@ -672,7 +662,6 @@
         line-height: 1.8;
       }
 
-      /* 球體 marker */
       .marker {
         display: inline-block;
         min-width: 0.75rem;
@@ -681,12 +670,10 @@
         margin-top: 4px;
       }
 
-      /* 沒分類的 marker (灰色) */
       .marker-gray {
         background-color: #555;
       }
 
-      /* 內容 */
       .recommendation-content {
         margin-left: 0.5rem;
         margin-top: 0.5rem;
@@ -724,7 +711,6 @@
         max-height: 250px;
       }
 
-      /* 每一列 */
       .legend-item {
         display: flex;
         align-items: center;
@@ -734,7 +720,7 @@
 
       .advice-summary-container {
         display: grid;
-        grid-template-columns: repeat(3, 1fr); /* 三列自動換行 */
+        grid-template-columns: repeat(3, 1fr);
         gap: 2rem 1rem;
         width: 100%;
       }
@@ -822,7 +808,6 @@
           font-weight: bold;
       }
 
-      /* 顏色小圓點 */
       .legend-color {
         min-width: 1rem;
         min-height: 1rem;
@@ -831,7 +816,6 @@
         margin-right: 0.75rem;
       }
 
-      /* 滑鼠提示样式 */
       .scene-1 .scroll-mouse {
         position: absolute;
         bottom: 5%;
@@ -856,7 +840,6 @@
         cursor: pointer;
       }
 
-      /* 在手機版本隱藏滑鼠提示 */
       @media (max-width: 1024px) {
         .scroll-mouse {
           display: none !important;
@@ -920,7 +903,6 @@
 
       }
 
-      /* 手機版本的響應式調整 */
       @media (max-width: 1024px) {
         .index-btn a svg {
           width: 2rem;
@@ -1247,7 +1229,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const functions = firebase.functions();
 
-// 碳足跡数据 - 詳細版本
+// 碳足跡完整數據
 let carbonDetailedData = {
     'traffic-daily': { total: 0, breakdown: {} },
     'home': { total: 0, breakdown: {} },
@@ -1257,7 +1239,7 @@ let carbonDetailedData = {
     'entertainment': { total: 0, breakdown: {} }
 };
 
-// 碳足跡数据 - 簡化版本（保持相容性）
+// 碳足跡簡化數據
 let carbonData = {
     'traffic-daily': 0,
     'home': 0,
@@ -1269,7 +1251,6 @@ let carbonData = {
 
 let totalEmissions = 0;
 
-// 页面映射
 const pageNames = {
     'traffic-daily': '日常通勤',
     'home': '居住生活',
@@ -1289,15 +1270,13 @@ const urls = {
 };
 
 function switchMap(region, btn) {
-  // 換 iframe 的 src
+
   document.getElementById("mapFrame").src = urls[region];
 
-  // 移除所有按鈕的 active 樣式
   document.querySelectorAll(".map-buttons button").forEach(b => {
     b.classList.remove("active-btn");
   });
 
-  // 幫目前點擊的按鈕加上 active 樣式
   if (btn) {
     btn.classList.add("active-btn");
   }
@@ -1311,7 +1290,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!sealevel || !emissions || !temperature) return;
 
-    // 看看 wrapper 是否已經存在
     let wrapper = document.querySelector(".climate-wrapper");
 
     if (window.innerWidth <= 1024) {
@@ -1319,7 +1297,6 @@ document.addEventListener("DOMContentLoaded", () => {
         wrapper = document.createElement("div");
         wrapper.classList.add("climate-wrapper");
 
-        // 把三個元素移進 wrapper
         sealevel.parentNode.insertBefore(wrapper, sealevel);
         wrapper.appendChild(sealevel);
         wrapper.appendChild(emissions);
@@ -1337,24 +1314,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // 頁面載入時先執行一次
   wrapContainers();
 
-  // 監聽 resize
   window.addEventListener("resize", wrapContainers);
 });
 
 
-// 检测是否为移动设备
+// 檢查是否為移動裝置
 function isMobile() {
     return window.innerWidth <= 1024 || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
 
-// 当前模式状态
 let currentMode = null;
 let sceneTransitionsSetup = false;
 
-// 获取用户ID
+// 取得 userId
 function getUserId() {
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get('userId');
@@ -1380,11 +1354,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (toggle) {
     toggle.addEventListener("change", () => {
       if (toggle.checked) {
-        // 顯示改善建議
         summaryPage.style.display = "none";
         advicePage.style.display = "flex";
       } else {
-        // 顯示結語
         summaryPage.style.display = "flex";
         advicePage.style.display = "none";
       }
@@ -1392,7 +1364,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// 调用 Firebase Function 计算碳足跡
+// 用 Firebase Function 計算碳足跡詳細數據
 async function calculateCarbonFootprintDetailed() {
     const userId = getUserId();
     const pages = Object.keys(carbonDetailedData);
@@ -1405,7 +1377,6 @@ async function calculateCarbonFootprintDetailed() {
 
         const results = await Promise.all(promises);
         
-        // 更新詳細數據
         results.forEach(result => {
             if (result.data) {
                 const pageName = result.data.pageName;
@@ -1413,12 +1384,10 @@ async function calculateCarbonFootprintDetailed() {
                     total: result.data.total || 0,
                     breakdown: result.data.breakdown || {}
                 };
-                // 保持原有的 carbonData 格式
                 carbonData[pageName] = result.data.total || 0;
             }
         });
 
-        // 計算總排放量
         totalEmissions = Object.values(carbonData).reduce((sum, value) => sum + value, 0)/1000;
         
         return true;
@@ -1429,7 +1398,6 @@ async function calculateCarbonFootprintDetailed() {
     }
 }
 
-// 显示错误信息
 function showError(message) {
     const container = document.getElementById('categories-container');
     container.innerHTML = `<div class="error-message">${message}</div>`;
@@ -1583,14 +1551,11 @@ function updateDisplay() {
         neutralityText.textContent = '請完成碳足跡問卷，我們將為您計算需要復育的森林面積。';
     }
 
-    // 建立分類卡片
     createCategoryCards();
 
-    // 生成減碳建議
     generateRecommendations();
     generateAdvice();
 
-    // 初始化圓餅圖
     renderEmissionsChart();
 }
 
@@ -1627,10 +1592,10 @@ function renderEmissionsChart() {
     },
     options: {
       responsive: true,
-      cutout: '70%',          // 控制內圈大小，數值越大圓環越細
+      cutout: '70%',
       plugins: {
         legend: {
-          display: false // 內建 legend 關閉
+          display: false 
         }
       }
     }
@@ -1638,13 +1603,13 @@ function renderEmissionsChart() {
 
   // 生成右側自訂 legend
   const legendContainer = document.getElementById('emissions-legend');
-  legendContainer.innerHTML = ''; // 清空舊的 legend
+  legendContainer.innerHTML = '';
   const total = dataValues.reduce((a, b) => a + b, 0);
 
   dataLabels.forEach((label, index) => {
     const li = document.createElement('li');
     li.classList.add('legend-item');
-    li.style.color = dataColors[index]; // 顏色依然用 inline，因為每個顏色不同
+    li.style.color = dataColors[index];
 
     const colorBox = document.createElement('span');
     colorBox.classList.add('legend-color');
@@ -1666,10 +1631,10 @@ function generateRecommendations() {
   const activeCategories = Object.entries(carbonData)
     .filter(([key, value]) => value > 0)
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 3); // 只取前三大
+    .slice(0, 3);
 
   const list = document.getElementById('recommendations-list');
-  list.innerHTML = ''; // 清空原本內容
+  list.innerHTML = '';
 
   if (activeCategories.length === 0) {
     recommendations.push({
@@ -2001,23 +1966,22 @@ function getAdviceTemplate(templateKey, categoryKey) {
 }
 
 
-// ===================== 从 carbonDetailedData 转换为 userData 格式 =====================
+// ===================== 將 carbonDetailedData 轉換為 userData 格式 =====================
 function convertCarbonDataToUserData() {
     const userData = {
         commute: {},
         travel: {},
         home: {},
         clothes: { type: null },
-        food: { diet: null, foodWasteInput: 0 }, // ⭐ 改成 input
+        food: { diet: null, foodWasteInput: 0 },
         entertainment: {},
         filled: {}
     };
 
-    // 检查是否有填写数据的辅助函数
     const hasData = (categoryData) => categoryData && categoryData.total > 0 && 
                      Object.keys(categoryData.breakdown).length > 0;
 
-    // 日常通勤数据转换
+    // 日常通勤
     if (hasData(carbonDetailedData['traffic-daily'])) {
         userData.filled.commute = true;
         const breakdown = carbonDetailedData['traffic-daily'].breakdown;
@@ -2043,7 +2007,7 @@ function convertCarbonDataToUserData() {
         userData.filled.commute = false;
     }
 
-    // 旅游交通数据转换
+    // 旅游交通
     if (hasData(carbonDetailedData['traffic-travel'])) {
         userData.filled.travel = true;
         const breakdown = carbonDetailedData['traffic-travel'].breakdown;
@@ -2072,7 +2036,7 @@ function convertCarbonDataToUserData() {
         userData.filled.travel = false;
     }
 
-    // 居住生活数据转换
+    // 居住生活
     if (hasData(carbonDetailedData['home'])) {
         userData.filled.home = true;
         const breakdown = carbonDetailedData['home'].breakdown;
@@ -2096,14 +2060,14 @@ function convertCarbonDataToUserData() {
         userData.filled.home = false;
     }
 
-    // 日常饮食数据转换
+    // 日常飲食
     if (hasData(carbonDetailedData['food'])) {
         userData.filled.food = true;
         const breakdown = carbonDetailedData['food'].breakdown;
         
         let meatEmission = 0;
         let vegetableEmission = 0;
-        let wasteInput = 0; // ⭐ 新增 input
+        let wasteInput = 0;
 
         Object.entries(breakdown).forEach(([itemName, itemData]) => {
             const name = itemName.toLowerCase();
@@ -2113,7 +2077,7 @@ function convertCarbonDataToUserData() {
             } else if (name.includes('蔬菜') || name.includes('素食') || name.includes('豆') || name.includes('菜')) {
                 vegetableEmission += itemData.emission;
             } else if (name.includes('浪费') || name.includes('浪費') || name.includes('厨余') || name.includes('剩食')) {
-                wasteInput += itemData.input || 0; // ⭐ 記錄輸入值
+                wasteInput += itemData.input || 0;
             }
         });
 
@@ -2129,7 +2093,7 @@ function convertCarbonDataToUserData() {
         userData.filled.food = false;
     }
 
-        // 时尚穿搭数据转换
+    // 時尚
     if (hasData(carbonDetailedData['fashion'])) {
         userData.filled.clothes = true;
         const breakdown = carbonDetailedData['fashion'].breakdown;
@@ -2143,7 +2107,7 @@ function convertCarbonDataToUserData() {
         userData.filled.clothes = false;
     }
 
-    // 生活娱乐数据转换
+    // 娛樂
     if (hasData(carbonDetailedData['entertainment'])) {
         userData.filled.entertainment = true;
         const breakdown = carbonDetailedData['entertainment'].breakdown;
@@ -2186,7 +2150,7 @@ function generateAdvice(customUserData = null) {
     const userData = customUserData || convertCarbonDataToUserData();
     const filled = userData.filled || {};
 
-        // ⚡ 計算六大類總和
+    // 計算六大類總和
     const sums = {
         'traffic-daily': sum([userData?.commute?.car, userData?.commute?.motorcycle, userData?.commute?.public, userData?.commute?.walk, userData?.commute?.bike]),
         'traffic-travel': sum([userData?.travel?.flight, userData?.travel?.hsr, userData?.travel?.train, userData?.travel?.bus, userData?.travel?.ship]),
@@ -2196,7 +2160,7 @@ function generateAdvice(customUserData = null) {
         'entertainment': sum(Object.values(userData?.entertainment || {}))
     };
 
-    // ⚡ 建立六大類長方形卡片 (依照 categoryInfo 設定名稱和顏色)
+    // 建立六大類長方形卡片 (依照 categoryInfo 設定名稱和顏色)
     let summaryHTML = `<div class="advice-summary-container">`;
     Object.entries(sums).forEach(([key, value]) => {
         const info = categoryInfo[key] || { name: key, color: '#333', bgcolor: '#eee' };
@@ -2211,10 +2175,10 @@ function generateAdvice(customUserData = null) {
 
     adviceEl.innerHTML = summaryHTML;
 
-    // 通勤建議
+    // 通勤
     if (filled.commute) {
         const c = userData.commute || {};
-        // 檢查是否有任何值 > 0
+
         const hasValue = Object.values(c || {}).some(v => isNumber(v) && v > 0);
 
         if (hasValue) {
@@ -2222,7 +2186,7 @@ function generateAdvice(customUserData = null) {
         }
     }
 
-    // 住家建议
+    // 住家
     if (filled.home) {
         const h = userData.home || {};
         const topKey = maxKey(h, ['water','electricity','gas']);
@@ -2234,7 +2198,7 @@ function generateAdvice(customUserData = null) {
         }
     }
 
-    // 旅游建议
+    // 旅游
     if (filled.travel) {
         const t = userData.travel || {};
         const totalTravel = sum([t.flight, t.hsr, t.train, t.bus, t.ship]);
@@ -2249,7 +2213,7 @@ function generateAdvice(customUserData = null) {
         }
     }
 
-    // 食物建议
+    // 食物
     if (filled.food) {
         const f = userData.food || {};
         const diet = f.diet;
@@ -2263,14 +2227,14 @@ function generateAdvice(customUserData = null) {
         console.log('食物浪費輸入值:', f.foodWasteInput);
     }
 
-    // 衣服建议
+    // 衣服
     if (filled.clothes) {
         const type = userData?.clothes?.type;
         if (type === 'fast') adviceEl.innerHTML += getAdviceTemplate('clothes_fast', 'fashion');
         if (type === 'luxury') adviceEl.innerHTML += getAdviceTemplate('clothes_luxury', 'fashion');
     }
 
-    // 娱乐建议
+    // 娛樂
     if (filled.entertainment) {
         const e = userData.entertainment || {};
         const totalEnt = sum(Object.values(e));
@@ -2341,12 +2305,11 @@ function resetToMobileMode() {
     }, 100);
 }
 
-// 處理模式切換
 function handleModeChange() {
     const mobile = isMobile();
     
     if (currentMode === mobile) {
-        return; // 模式沒有改變，不需要處理
+        return;
     }
     
     console.log(`模式切換: ${currentMode === null ? '初始化' : (currentMode ? '移動' : '桌面')} -> ${mobile ? '移動' : '桌面'}`);
@@ -2356,13 +2319,13 @@ function handleModeChange() {
     if (mobile) {
         // 切換到移動模式
         resetToMobileMode();
-        // 移除可能存在的事件監聽器
+
         removeDesktopEventListeners();
         sceneTransitionsSetup = false;
     } else {
         // 切換到桌面模式
         resetToDesktopMode();
-        // 設置桌面版場景切換
+
         if (!sceneTransitionsSetup) {
             setTimeout(() => {
                 setupSceneTransitions();
@@ -2372,20 +2335,17 @@ function handleModeChange() {
     }
 }
 
-// 移除桌面版事件監聽器
 let currentScrollListener = null;
 let currentMouseListeners = [];
 
 function removeDesktopEventListeners() {
     const container = document.querySelector(".scroll-container");
     
-    // 移除滾輪事件監聽器
     if (container && currentScrollListener) {
         container.removeEventListener('wheel', currentScrollListener);
         currentScrollListener = null;
     }
-    
-    // 移除滑鼠點擊事件
+
     currentMouseListeners.forEach(({ element, listener }) => {
         if (element && listener) {
             element.removeEventListener('click', listener);
@@ -2394,7 +2354,6 @@ function removeDesktopEventListeners() {
     currentMouseListeners = [];
 }
 
-// 页面加载完成后的初始化
 document.addEventListener("DOMContentLoaded", async () => {
     const loadingScreen = document.querySelector('.loading-screen');
     const iframe = document.getElementById("mapFrame");
@@ -2429,10 +2388,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         tryHideLoading();
     }
 
-    // 監控模式切換
     handleModeChange();
 
-    // 防抖處理，監聽視窗大小
     let resizeTimeout;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);
@@ -2459,14 +2416,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 
-// 场景切换设置 - 僅限桌面版
+// 桌面板廠景切換
 function setupSceneTransitions() {
     const observer = new IntersectionObserver(
         (entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting && entry.target.classList.contains('scene-2')) {
                     setTimeout(() => {
-                        // 第二幕进入动画
                     }, 1000);
                 }
             });
@@ -2485,9 +2441,9 @@ function setupSceneTransitions() {
       document.body.style.overflow = "hidden";
       container.style.overflow = "hidden";
 
-      // 🔒 禁止滑鼠滾輪
+      // 禁止滑鼠滾輪
       window.addEventListener("wheel", preventScroll, { passive: false });
-      // 🔒 禁止觸控滑動
+      // 禁止觸控滑動
       window.addEventListener("touchmove", preventScroll, { passive: false });
     }
 
@@ -2566,12 +2522,11 @@ function setupSceneTransitions() {
         });
     }
 
-  // 滑鼠滚轮切换场景
   const wheelHandler = (e) => {
       const statusContainer = document.querySelector(".carbon-footprint-status-container");
       const recommendations = document.querySelector(".recommendations");
 
-      // 🔒 如果滾動事件發生在指定容器內 → 不觸發場景切換
+      // 如果滾動事件發生在指定容器內 → 不觸發場景切換
       if (
           (statusContainer && statusContainer.contains(e.target)) ||
           (recommendations && recommendations.contains(e.target))
@@ -2589,12 +2544,11 @@ function setupSceneTransitions() {
       const scrollTop = container.scrollTop;
       const vh = window.innerHeight;
 
-      // 往下滚进入第二幕
       if (deltaY > 0 && scrollTop < vh / 2) {
           e.preventDefault();
           goToSecondScene();
       }
-      // 往上滚回到第一幕
+
       else if (deltaY < 0 && scrollTop > vh / 1.5 && scrollTop < vh * 1.5) {
           e.preventDefault();
           goToFirstScene();
@@ -2604,7 +2558,6 @@ function setupSceneTransitions() {
     container.addEventListener("wheel", wheelHandler, { passive: false });
     currentScrollListener = wheelHandler;
 
-    // 点击滑鼠图标切换场景
     const scrollMouse1 = document.querySelector(".scene-1 .scroll-mouse");
     const scrollMouse2 = document.querySelector(".scene-2 .scroll-mouse");
     
@@ -2618,12 +2571,10 @@ function setupSceneTransitions() {
         currentMouseListeners.push({ element: scrollMouse2, listener: goToFirstScene });
     }
 
-    // 暴露全局函数
     window.goToSecondScene = goToSecondScene;
     window.goToFirstScene = goToFirstScene;
 }
 
-// 错误处理和重试机制
 function retryCalculation() {
     const loadingScreen = document.querySelector('.loading-screen');
     loadingScreen.classList.remove('hidden');
@@ -2641,7 +2592,6 @@ function retryCalculation() {
     });
 }
 
-// 数据导出功能
 function exportCarbonData() {
     const exportData = {
         timestamp: new Date().toISOString(),
@@ -2671,7 +2621,6 @@ function exportCarbonData() {
     URL.revokeObjectURL(url);
 }
 
-// 暴露测试和工具函数到全局
 window.retryCalculation = retryCalculation;
 window.exportCarbonData = exportCarbonData;
     </script>
