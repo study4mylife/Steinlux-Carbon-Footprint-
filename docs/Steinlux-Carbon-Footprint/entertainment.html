@@ -42,7 +42,7 @@
       .scene-1 .entertain-card .label {
         font-family: "GenSenRounded2TW-R", sans-serif;
         font-size: 1.2rem;
-        color: #6d808f;
+        color: #5d6c78;
         text-align: center;
         white-space: nowrap;
         letter-spacing: 6px;
@@ -254,6 +254,17 @@
       }
 
       @media (min-width: 600px) and (max-width: 900px) {
+        .scene {
+          min-height: unset;
+        }
+
+        .scene-1 .entertain-grid img {
+          width: 100px;
+          height: 100px;
+        }
+      }
+
+      @media (min-width: 600px) and (max-width: 900px) and (orientation: portrait) {
         .scene-1 .entertain-grid {
           grid-template-columns: repeat(2, minmax(120px, 1fr));
           grid-template-rows: repeat(3, auto);
@@ -497,7 +508,7 @@
     <section id="scene-entertain-2-4" class="scene scene-2 hotel">
       <Chapter-Bar></Chapter-Bar>
       <div class="slideContainer">
-        <h1>日常生活中住飯店頻率？</h1>
+        <h1>日常生活中入住飯店頻率？</h1>
         <div class="page-indicator">
           <div class="bar-container dynamic-bar-container"></div>
         </div>
