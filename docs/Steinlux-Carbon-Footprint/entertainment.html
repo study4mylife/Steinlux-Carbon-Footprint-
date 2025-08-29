@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="css/all.css" />
     <link rel="stylesheet" href="css/story.css" />
     <style>
-      /* 第一頁 */
       .scene-1 .entertain-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(120px, 1fr));
@@ -67,8 +66,6 @@
       inset 1.75px 7px 1px -6.75px rgb(255, 255, 255),
       2px 2px 8px 0px rgba(110, 110, 110, 0.275);
       }
-
-      /* 第二頁 */
 
       .custom-number-input {
         flex-wrap: wrap;
@@ -164,7 +161,6 @@
         margin-top: 8px;
       }
 
-      /* 單位切換排列 */
       .toggle-row {
         display: flex;
         justify-content: center;
@@ -172,7 +168,6 @@
         gap: 0.6rem;
       }
 
-      /* 單位文字避免斷行 */
       .nowrap-text {
         color: #6c808f;
         white-space: nowrap;
@@ -244,7 +239,6 @@
         z-index: 1000;
       }
 
-      /* Modal 內容排版 */
       .modal-body {
         font-size: 0.75rem;
         flex: 1;
@@ -728,7 +722,6 @@ async function calculate() {
   try {
     console.log("開始呼叫 Cloud Function...");
     
-    // 創建 callable function 實例
     const calculateFunction = httpsCallable(functions, "calculateCarbonPage");
     
     const requestData = {
@@ -740,19 +733,14 @@ async function calculate() {
     console.log("requestData 型別:", typeof requestData);
     console.log("JSON.stringify(requestData):", JSON.stringify(requestData));
     
-    // 呼叫 Cloud Function
     const result = await calculateFunction(requestData);
     
     console.log("Cloud Function 回應:", result);
     console.log("result.data:", result.data);
     
-    // 顯示結果
     if (result.data && result.data.total !== undefined) {
       const total = result.data.total;
-      const message = `計算成功！\n碳排放量: ${total.toFixed(2)} kg CO2e\n頁面: ${result.data.pageName}`;
-      alert(message);
       
-      // 你也可以把結果顯示在頁面上
       const resultElement = document.getElementById("calculation-result");
       if (resultElement) {
         resultElement.innerHTML = `
@@ -839,23 +827,19 @@ document.querySelectorAll(".chapter-button").forEach(btn => {
 
   <script>
 
-    /* 切換頁面 */
 
     let currentScene = "scene-entertain-1";
 
     function goToNextScene() {
-      // 取得目前場景在使用者選取活動中的位置
       const currentIndex = selectedActivities.findIndex(
         (activity) => activityScenes[activity] === currentScene
       );
 
-      // 是最後一個場景 → 導向結果頁
       if (currentIndex === selectedActivities.length - 1) {
         window.location.href = "analysis.html";
         return;
       }
 
-      // 還有下一頁 → 取得下一個活動的 sceneId，跳轉
       const nextActivity = selectedActivities[currentIndex + 1];
       const nextSceneId = activityScenes[nextActivity];
       if (nextSceneId) {
@@ -868,13 +852,11 @@ document.querySelectorAll(".chapter-button").forEach(btn => {
         (activity) => activityScenes[activity] === currentScene
       );
 
-      // 是第一個選擇的活動 → 回到 scene-entertain-1
       if (currentIndex === 0) {
         goToScene("scene-entertain-1");
         return;
       }
 
-      // 還有上一頁 → 跳到上一個活動頁面
       const prevActivity = selectedActivities[currentIndex - 1];
       const prevSceneId = activityScenes[prevActivity];
       if (prevSceneId) {
@@ -882,7 +864,6 @@ document.querySelectorAll(".chapter-button").forEach(btn => {
       }
     }
 
-    // 資訊按鈕 
 
     const infoBtn = document.getElementById("info-btn");
     const modal = document.getElementById("modal");
@@ -894,8 +875,6 @@ document.querySelectorAll(".chapter-button").forEach(btn => {
         modal.style.display = "flex";
       }
     });
-
-    // 單位切換
 
     document.querySelectorAll(".entertain-card").forEach((card) => {
       const toggle = card.querySelector(
@@ -965,7 +944,6 @@ document.querySelectorAll(".chapter-button").forEach(btn => {
     // 選擇娛樂活動
 
     function handleFirstSceneNext() {
-      // 固定順序
       const fullOrder = [
         "KTV",
         "電影",
@@ -975,12 +953,10 @@ document.querySelectorAll(".chapter-button").forEach(btn => {
         "宗教信仰",
       ];
 
-      // 過濾選取的項目並依照固定順序排序
       const sortedActivities = fullOrder.filter((activity) =>
         selectedActivities.includes(activity)
       );
 
-      // 更新陣列
       selectedActivities.length = 0;
       selectedActivities.push(...sortedActivities);
 
@@ -993,7 +969,7 @@ document.querySelectorAll(".chapter-button").forEach(btn => {
       goToScene(firstScene);
     }
 
-    const selectedActivities = []; // 儲存選取的項目
+    const selectedActivities = [];
     const activityScenes = {
       KTV: "scene-entertain-2-1",
       電影: "scene-entertain-2-2",
@@ -1034,14 +1010,12 @@ document.querySelectorAll(".chapter-button").forEach(btn => {
     if (!container) return;
     container.innerHTML = "";
 
-    // 👉 1. 先加上「選擇頁」的 bar（永遠是第一個）
     const selectHitArea = document.createElement("div");
     selectHitArea.classList.add("bar-hit-area");
 
     const selectBar = document.createElement("span");
     selectBar.classList.add("bar");
 
-    // 如果現在頁面是 scene-entertain-1，設定 active 狀態
     if (currentScene === "scene-entertain-1") {
       selectBar.classList.add("active");
     }
@@ -1049,11 +1023,10 @@ document.querySelectorAll(".chapter-button").forEach(btn => {
     selectHitArea.appendChild(selectBar);
     selectHitArea.onclick = () => {
       goToScene("scene-entertain-1");
-      updateBarActive(0); // 第一個 bar 是 index 0
+      updateBarActive(0);
     };
     container.appendChild(selectHitArea);
 
-    // 👉 2. 依據選到的 activity 加上對應 bar
     selectedActivities.forEach((activity, idx) => {
       const sceneId = activityScenes[activity];
       if (!sceneId) return;
@@ -1064,7 +1037,6 @@ document.querySelectorAll(".chapter-button").forEach(btn => {
       const bar = document.createElement("span");
       bar.classList.add("bar");
 
-      // 注意：因為第一個 bar 是選擇頁，這邊是 idx+1
       if (currentScene === sceneId) {
         bar.classList.add("active");
       }
@@ -1084,16 +1056,13 @@ document.querySelectorAll(".chapter-button").forEach(btn => {
   function updateNavButtonsVisibility() {
     const sceneEl = document.getElementById(currentScene);
 
-    // 取得按鈕（用 querySelector 找當前 scene 裡的按鈕）
     const prevBtn = sceneEl.querySelector(".prev-btn");
     const nextBtn = sceneEl.querySelector(".next-btn");
 
-    // 全部先隱藏
     document.querySelectorAll(".prev-btn, .next-btn").forEach(btn => {
       btn.style.display = "none";
     });
 
-    // 這個 scene 有的才顯示
     if (prevBtn) prevBtn.style.display = "block";
     if (nextBtn) nextBtn.style.display = "block";
   }
@@ -1116,8 +1085,8 @@ document.querySelectorAll(".chapter-button").forEach(btn => {
 
   document.addEventListener("DOMContentLoaded", () => {
     currentScene = "scene-entertain-1";
-    updatePageIndicators();   // ← 加上這個
-    updateNavButtonsVisibility(); // ← 如果需要按鈕也加上
+    updatePageIndicators();
+    updateNavButtonsVisibility();
   });
 
   </script>

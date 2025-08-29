@@ -7,7 +7,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
     <style>
-    /*—— 自訂字體 ——*/
     @font-face {
       font-family: "GenSenRounded2TW-R";
       src: url("./font/GenSenRounded2TW-R.otf") format("opentype");
@@ -60,7 +59,6 @@
       z-index: 1;
     }
 
-    /*—— 場景容器 ——*/
     .scene {
       position: relative;
       width: 100vw;
@@ -86,7 +84,6 @@
       transition: transform 0.5s linear;
     }
 
-    /*—— 動畫定義 ——*/
 
     @keyframes growWidth {
       /*—— 文字框展開動畫 ——*/
@@ -123,20 +120,19 @@
 
     @keyframes breath {
       0% {
-        transform: scale(1.05); /* 初始大小 */
+        transform: scale(1.05);
         box-shadow: 0 0 20px #F2AA84;
       }
       50% {
-        transform: scale(1); /* 中间大小 */
+        transform: scale(1);
         box-shadow: 0 0 0px #F2AA84;
       }
       100% {
-        transform: scale(1.05); /* 结束大小 */
+        transform: scale(1.05);
         box-shadow: 0 0 20px #F2AA84;
       }
     }
 
-    /*——雲朵容器 ——*/
     .cloud-container {
       position: absolute;
       left: -30px;
@@ -151,7 +147,6 @@
       opacity: 0.5;
     }
 
-    /* —— 月球容器 —— */
     .moon-container {
       position: fixed;
       top: -10%;
@@ -179,7 +174,6 @@
       pointer-events: none;
     }
 
-    /*—— 標題 ——*/
     .floating-title {
       display: inline-flex;
       gap: 10px;
@@ -198,7 +192,6 @@
       letter-spacing: 2px;
     }
 
-      /*第一幕*/
       .scene-1 .text-container {
         display: flex;
         flex-direction: column;
@@ -295,8 +288,6 @@
         height: max-content
       }
 
-      /*第二幕*/
-
       .scene-2 .cat-container {
         position: absolute;
         left: -30%;
@@ -381,7 +372,6 @@
         animation: breath 1.6s infinite linear;
       }
 
-     /* 提示滑鼠 */
     .scene-1 .scroll-mouse {
       position: fixed;
       bottom: 5%;
@@ -405,7 +395,6 @@
       cursor: pointer;
     }
 
-    /* 動畫邊框 */
     .border-anim {
       stroke-dasharray: 90;
       stroke-dashoffset: 90;
@@ -454,9 +443,6 @@
         margin-left: 10px;
       }
     }
-          /*—— 標題 ——*/
-
-      
     </style>
   </head>
   <body>
@@ -483,9 +469,7 @@
 
           <div class="scroll-mouse">
             <svg class="mouse-svg" viewBox="0 0 18 26" xmlns="http://www.w3.org/2000/svg">
-              <!-- 白色底框 -->
               <rect x="1" y="1" width="16" height="24" rx="8" stroke="#cccccc" stroke-width="1" fill="none" />
-              <!-- 動畫邊框 -->
               <rect class="border-anim" x="1" y="1" width="16" height="24" rx="8" stroke="#ffffff" stroke-width="1" fill="none" />
             </svg>
             <div class="mouse-line"></div>
@@ -524,9 +508,7 @@
         </div>
           <div class="scroll-mouse">
             <svg class="mouse-svg" viewBox="0 0 18 26" xmlns="http://www.w3.org/2000/svg">
-              <!-- 白色底框 -->
               <rect x="1" y="1" width="16" height="24" rx="8" stroke="#cccccc" stroke-width="1" fill="none" />
-              <!-- 動畫邊框 -->
               <rect class="border-anim" x="1" y="1" width="16" height="24" rx="8" stroke="#ffffff" stroke-width="1" fill="none" />
             </svg>
             <div class="mouse-line"></div>
@@ -541,7 +523,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function type() {
       if (i < text.length) {
         const char = text[i++];
-        // 判斷是不是中文 (Unicode: \u4e00-\u9fff)
         if (/[\u4e00-\u9fff]/.test(char)) {
           p.innerHTML += char;
         } else if (char === "\n") {
@@ -624,7 +605,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const deltaY = touchEndY - touchStartY;
 
     // 向上滑（往下進入第二幕）
-    if (deltaY < -50) { // 閾值 50px 避免誤觸
+    if (deltaY < -50) { 
       goToSecondScene();
     }
     // 向下滑（往上回第一幕）

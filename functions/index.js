@@ -195,7 +195,6 @@ const entertainmentCoefficients = {
 function calculatePageTotal(pageName, pageData) {
   let total = 0;
   let breakdown = {};
-  console.log(`開始計算 ${pageName} 頁面，資料:`, Object.keys(pageData));
 
 // 日常交通頁面計算
 if (pageName === "traffic-daily") {
@@ -1106,17 +1105,11 @@ if (pageName === "entertainment") {
   }
 }
 
-  console.log(`${pageName} 總計算結果:`, total);
-  console.log(`${pageName} 詳細分解:`, breakdown);
   return { total, breakdown };
 }
 
 exports.calculateCarbonPage = onCall(async (request) => {
   try {
-    console.log("calculateCarbonPage 函數被呼叫");
-    console.log("request.data:", request.data);
-    console.log("request.data 型別:", typeof request.data);
-    
     // 檢查是否有接收到資料
     if (!request.data) {
       console.error("沒有接收到任何資料");
@@ -1124,13 +1117,6 @@ exports.calculateCarbonPage = onCall(async (request) => {
     }
     
     const { userId, pageName } = request.data;
-    
-    console.log("解構後的參數:", { 
-      userId: userId, 
-      userIdType: typeof userId,
-      pageName: pageName, 
-      pageNameType: typeof pageName 
-    });
     
     if (!userId || !pageName) {
       console.error("參數驗證失敗:", { 
@@ -1144,23 +1130,11 @@ exports.calculateCarbonPage = onCall(async (request) => {
 
     const db = getDatabase();
     const dbPath = `responses/${userId}/${pageName}`;
-    console.log("資料庫查詢路徑:", dbPath);
     
     const snap = await db.ref(dbPath).once("value");
     const pageData = snap.val();
     
-    console.log("查詢到的資料:", pageData ? "有資料" : "無資料");
-    if (pageData) {
-      console.log("資料欄位:", Object.keys(pageData));
-    }
-
-    if (!pageData) {
-      console.log("未找到資料，回傳 0");
-      return { pageName, total: 0, breakdown: {}, message: "沒有資料" };
-    }
-
     const result = calculatePageTotal(pageName, pageData);
-    console.log("最終計算結果:", result);
 
     return { 
       pageName, 
@@ -1170,8 +1144,7 @@ exports.calculateCarbonPage = onCall(async (request) => {
     };
     
   } catch (error) {
-    console.error("函數執行錯誤:", error.message);
-    console.error("錯誤堆疊:", error.stack);
+
     
     if (error instanceof HttpsError) {
       throw error;
