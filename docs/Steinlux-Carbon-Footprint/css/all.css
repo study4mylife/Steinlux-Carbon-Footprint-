@@ -492,13 +492,13 @@ h1 {
 
 }
 
-@media (min-width: 1024px) and (max-width: 1200px) and (orientation: landscape) {
+@media (max-height: 600px) and (min-width: 1024px) and (max-width: 1200px) and (orientation: landscape) {
 .story-container, .scene {
   scale: 0.8;
 }
 }
 
-@media (min-width: 600px) and (max-width: 1024px) and (orientation: landscape) {
+@media (max-height: 600px) and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
 body {
   height: 100%;
 }
